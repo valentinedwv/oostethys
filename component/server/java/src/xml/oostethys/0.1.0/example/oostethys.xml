@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../oostethys.xsd">
+    
+        <!-- end point of the service-->
+       <!--this is created automatically -->
+        <endPoint>http://marinemetadata.org:9600/oostethys/sos</endPoint>
+       
+       <contact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider">
+           <url>http://www.marinemetadata.org</url>
+           <nameOrganization>Marine Metadata Interoperability Initiative (MMI)</nameOrganization>
+           <shortNameOrganization>MMI</shortNameOrganization>
+           <individualName/>
+           <individualEmail/>
+       </contact>
+    
+        <system>
+            <longName>MBARI Mooring M2</longName>
+            <shortName>M2</shortName>
+            <uri>urn:mbari.org:ssds:device:m2</uri>
+    
+            <!-- The URI for this system. A look up list is here: -->
+    
+            <type>http://mmisw.org/mmi/20080516/system#MooredBuoy</type>
+    
+            <!-- An instrument usually contains manufacturer name, model name and serial number. Not all plafforms contain this inforamtion -->
+    
+            <manufacturerName/>
+            <modelName/>
+            <serialNumber/>
+    
+            <!--time ISO 8601  -->
+            <!-- This is populated automatically -->
+            <timePeriod>
+                <start>2008-04-11T20:06:20Z</start>
+                <end>2008-05-29T22:06:20Z</end>
+            </timePeriod>
+    
+            <!-- bbox -->
+            <!-- This is populated automatically -->
+            <boundingBox>
+                <envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                    <lowerCorner> 36.7 -122.4 </lowerCorner>
+                    <upperCorner> 36.7 -122.4 </upperCorner>
+                </envelope>
+            </boundingBox>
+    
+            <!-- mandatory is dataProvider wich in this case also meand sevice provider-->
+    
+            <contact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider">
+                <url>http://www.mbari.org</url>
+                <nameOrganization>Monterey Bay Aquarium Research Institute</nameOrganization>
+                <shortNameOrganization>MBARI</shortNameOrganization>
+                <individualName/>
+                <individualEmail/>
+            </contact>
+    
+            <contact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider">
+                <url>http://marinemetadata.org</url>
+                <nameOrganization>Marine Metadata Interoperability Initiative</nameOrganization>
+                <shortNameOrganization>MMI</shortNameOrganization>
+                <individualName>Luis Bermudez</individualName>
+                <individualEmail>bermudez@sura.org</individualEmail>
+            </contact>
+    
+            <system>
+                <longName>MicroCAT C-T (P optional) Recorder SBE 37-SMP</longName>
+                <shortName>CT - 3939 </shortName>
+                <type>http://mmisw.org/mmi/20080529/system.owl#CTD</type>
+                <uri>urn:mbari.org:ssds:device:1359</uri>
+                <manufacturerName>Seabird Electronics</manufacturerName>
+                <modelName>SBE37SMP</modelName>
+                <serialNumber>3937</serialNumber>
+                
+                <!--time ISO 8601  -->
+                <!-- This is populated automatically -->
+                <timePeriod>
+                    <start>2008-04-11T20:06:20Z</start>
+                    <end>2008-05-29T22:06:20Z</end>
+                </timePeriod>
+                
+                <!-- bbox -->
+                <!-- This is populated automatically -->
+                <boundingBox>
+                    <envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                        <lowerCorner> 36.7 -122.4 </lowerCorner>
+                        <upperCorner> 36.7 -122.4 </upperCorner>
+                    </envelope>
+                </boundingBox>
+                
+                <!-- url and isCoordinate, uom and isTime are populated automatically -->
+                
+                <output>
+                    <fromNetCDF>
+                        <fileURL>file:/Users/bermudez/Documents/workspace31/org.oostethys/WebRoot/WEB-INF/classes/ctd0010.nc</fileURL>
+                        <!-- foi ???? -->
+                        <variables>
+                            <variable standardName="Time" uri="http://uri:time" isCoordinate="true" uom="sec" isTime="true" referenceFrame="http://refframe"/>
+                            <variable standardName="depth" uri="urn:ogc:phenomenon:depth" uom="m" isCoordinate="true"/>
+                            <variable standardName="longitude"
+                                uri="urn:ogc:phenomenon:latitude:wgs84" uom="deg" isCoordinate="true"/>
+                            <variable standardName="latitude"
+                                uri="urn:ogc:phenomenon:longitude:wgs84" uom="deg" isCoordinate="true"/>
+                            <variable standardName="salinity" uri="http://uri:salinity"
+                                isCoordinate="false" uom="1" />
+                        </variables>
+                        <values></values>
+                    </fromNetCDF>
+                </output>
+            </system>
+            
+            
+            <system>
+                <longName>MicroCAT C-T (P optional) Recorder SBE 37-SMP</longName>
+                <shortName>CT - 3938 </shortName>
+                <type>http://mmisw.org/mmi/20080529/system.owl#CTD</type>
+                <uri>urn:mbari.org:ssds:device:1358</uri>
+                <manufacturerName>Seabird Electronics</manufacturerName>
+                <modelName>SBE37SMP</modelName>
+                <serialNumber>3937</serialNumber>
+                
+                <!--time ISO 8601  -->
+                <!-- This is populated automatically -->
+                <timePeriod>
+                    <start>2008-04-11T20:06:20Z</start>
+                    <end>2008-05-29T22:06:20Z</end>
+                </timePeriod>
+                
+                <!-- bbox -->
+                <!-- This is populated automatically -->
+                <boundingBox>
+                    <envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                        <lowerCorner> 36.7 -122.4 </lowerCorner>
+                        <upperCorner> 36.7 -122.4 </upperCorner>
+                    </envelope>
+                </boundingBox>
+                
+                <!-- url and isCoordinate, uom and isTime are populated automatically -->
+                
+                <output>
+                    <fromNetCDF>
+                        <fileURL>file:/Users/bermudez/Documents/workspace31/org.oostethys/WebRoot/WEB-INF/classes/ctd0010.nc</fileURL>
+                        <!-- foi ???? -->
+                        <variables>
+                            <variable standardName="Time" uri="http://uri:time" isCoordinate="true" uom="sec" isTime="true" referenceFrame="http://refframe"/>
+                            <variable standardName="depth" uri="urn:ogc:phenomenon:depth" uom="m" isCoordinate="true"/>
+                            <variable standardName="longitude"
+                                uri="urn:ogc:phenomenon:latitude:wgs84" uom="deg" isCoordinate="true"/>
+                            <variable standardName="latitude"
+                                uri="urn:ogc:phenomenon:longitude:wgs84" uom="deg" isCoordinate="true"/>
+                            <variable standardName="salinity" uri="http://uri:salinity"
+                                isCoordinate="false" uom="1" />
+                        </variables>
+                    </fromNetCDF>
+                </output>
+            </system>
+            
+            
+        </system>
+       
+       
+       <system>
+           <longName>MBARI Mooring M2</longName>
+           <shortName>M2</shortName>
+           <uri>urn:mbari.org:ssds:device:m2</uri>
+           
+           <!-- The URI for this system. A look up list is here: -->
+           
+           <type>http://mmisw.org/mmi/20080516/system#MooredBuoy</type>
+           
+           <!-- An instrument usually contains manufacturer name, model name and serial number. Not all plafforms contain this inforamtion -->
+           
+           <manufacturerName/>
+           <modelName/>
+           <serialNumber/>
+           
+           <!--time ISO 8601  -->
+           <!-- This is populated automatically -->
+           <timePeriod>
+               <start>2008-04-11T20:06:20Z</start>
+               <end>2008-05-29T22:06:20Z</end>
+           </timePeriod>
+           
+           <!-- bbox -->
+           <!-- This is populated automatically -->
+           <boundingBox>
+               <envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                   <lowerCorner> 36.7 -122.4 </lowerCorner>
+                   <upperCorner> 36.7 -122.4 </upperCorner>
+               </envelope>
+           </boundingBox>
+           
+           <!-- mandatory is dataProvider wich in this case also meand sevice provider-->
+           
+           <contact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider">
+               <url>http://www.mbari.org</url>
+               <nameOrganization>Monterey Bay Aquarium Research Institute</nameOrganization>
+               <shortNameOrganization>MBARI</shortNameOrganization>
+               <individualName/>
+               <individualEmail/>
+           </contact>
+           
+           <contact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider">
+               <url>http://marinemetadata.org</url>
+               <nameOrganization>Marine Metadata Interoperability Initiative</nameOrganization>
+               <shortNameOrganization>MMI</shortNameOrganization>
+               <individualName>Luis Bermudez</individualName>
+               <individualEmail>bermudez@sura.org</individualEmail>
+           </contact>
+           
+           <system>
+               <longName>MicroCAT C-T (P optional) Recorder SBE 37-SMP</longName>
+               <shortName>CT - 3940 </shortName>
+               <type>http://mmisw.org/mmi/20080529/system.owl#CTD</type>
+               <uri>urn:mbari.org:ssds:device:1340</uri>
+               <manufacturerName>Seabird Electronics</manufacturerName>
+               <modelName>SBE37SMP</modelName>
+               <serialNumber>3940</serialNumber>
+               
+               <!--time ISO 8601  -->
+               <!-- This is populated automatically -->
+               <timePeriod>
+                   <start>2008-04-11T20:06:20Z</start>
+                   <end>2008-05-29T22:06:20Z</end>
+               </timePeriod>
+               
+               <!-- bbox -->
+               <!-- This is populated automatically -->
+               <boundingBox>
+                   <envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                       <lowerCorner> 36.7 -122.4 </lowerCorner>
+                       <upperCorner> 36.7 -122.4 </upperCorner>
+                   </envelope>
+               </boundingBox>
+               
+               <!-- url and isCoordinate, uom and isTime are populated automatically -->
+               
+               <output>
+                   <fromNetCDF>
+                       <fileURL>file:/Users/bermudez/Documents/workspace31/org.oostethys/WebRoot/WEB-INF/classes/ctd0010.nc</fileURL>
+                       <!-- foi ???? -->
+                       <variables>
+                           <variable standardName="Time" uri="http://uri:time" isCoordinate="true" uom="sec" isTime="true" referenceFrame="http://refframe"/>
+                           <variable standardName="depth" uri="urn:ogc:phenomenon:depth" uom="m" isCoordinate="true"/>
+                           <variable standardName="longitude"
+                               uri="urn:ogc:phenomenon:latitude:wgs84" uom="deg" isCoordinate="true"/>
+                           <variable standardName="latitude"
+                               uri="urn:ogc:phenomenon:longitude:wgs84" uom="deg" isCoordinate="true"/>
+                           <variable standardName="salinity" uri="http://uri:salinity"
+                           isCoordinate="false" uom="1" />
+                           <variable standardName="temp" uri="http://uri:temp"
+                           isCoordinate="false" uom="1" />
+                       </variables>
+                   </fromNetCDF>
+               </output>
+           </system>
+       </system>
+    </oostethys>
