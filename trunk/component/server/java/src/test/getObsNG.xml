@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sos:GetObservation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosAll.xsd" xmlns:sos="http://www.opengis.net/sos/1.0"
+    xmlns:om="http://www.opengis.net/om/1.0" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" service="SOS" version="1.0.0">
+    <offering xmlns="http://www.opengis.net/sos/1.0">observationOffering_1455</offering>
+    <sos:eventTime>
+        <ogc:TM_During>
+            <ogc:PropertyName>om:samplingTime</ogc:PropertyName>
+            <gml:TimePeriod>
+                <gml:beginPosition>2008-06-02T13:36:19-04:00</gml:beginPosition>
+                <gml:endPosition>2008-06-09T22:06:21-04:00</gml:endPosition>
+            </gml:TimePeriod>
+        </ogc:TM_During>
+    </sos:eventTime>
+    <observedProperty xmlns="http://www.opengis.net/sos/1.0">http://mmisw.org/cf#Temperature</observedProperty>
+    <responseFormat xmlns="http://www.opengis.net/sos/1.0">text/xml; subtype="om/1.0.0"</responseFormat>
+</sos:GetObservation>
