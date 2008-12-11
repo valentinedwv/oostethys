@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+	Author: Luis Bermudez
+	Email:  bermudez[AT]sura.org
+  -->
+<project name="OOSTethys XML bindings" default="updateJARModelOOSTethys" basedir=".">
+
+	<!-- ==================================================
+	 ==	properties needed for build the XML bindings ==
+     ================================================== -->
+
+	<property environment="env" />
+
+	<property name="xmlbeans.generationfolder" value="${basedir}/.xmlbeans" />
+	<property name="generated-sources" value="${xmlbeans.generationfolder}/sources" />
+	<property name="generated-classes" value="${xmlbeans.generationfolder}/classes" />
+
+	<property name="bindingsfolder" value="${basedir}/bindings" />
+	<property name="xmlbeans-lib-folder" value="${basedir}/lib/xmlbeans230" />
+
+	<!-- locations of oostethys-schema-folders -->
+	<property name="xsd.location.oostethys.basedir" value="/Users/bermudez/Documents/workspace31/oostethys-xml/oostethys" />
+
+	<!-- schema -->
+	<property name="xsd.location.oostethys.010" value="${xsd.location.oostethys.basedir}/0.1.0" />
+
+
+
+
+	<property name="jar.name.oostethys.010" value="oostethys010.jar" />
+
+
+	<!-- ================================
+	 == initialize the environment ==
+     ================================ -->
+	<target name="init">
+
+		<path id="xmlbeans.path">
+			<fileset dir="${bindingsfolder}" includes="*.jar" />
+			<fileset dir="${xmlbeans-lib-folder}" includes="*.jar" />
+		</path>
+		<taskdef name="xmlbean" classname="org.apache.xmlbeans.impl.tool.XMLBean" classpathref="xmlbeans.path" />
+	</target>
+
+
+	<!-- ===============================
+	 	==	Generate allOOStethys bindings ==
+     	=============================== -->
+	<target name="all" depends="init, oostethys.010" />
+
+
+
+
+	<!-- =================================
+		 ==	Generate OOSTethys  bindings ==
+	     ================================= -->
+	<target name="oostethys.010" depends="init">
+
+		<!-- cleanup before generation -->
+		<delete failonerror="false" dir="${xmlbeans.generationfolder}" />
+		<delete failonerror="false" file="${bindingsfolder}/${jar.name.oostethys.010}" />
+
+		<!-- compile schemas -->
+		<xmlbean classgendir="${generated-classes}" srcgendir="${generated-sources}" destfile="${bindingsfolder}/${jar.name.oostethys.010}" memoryMaximumSize="512m" failonerror="true" classpathref="xmlbeans.path" download="true">
+			<fileset dir="${xsd.location.oostethys.010}">
+				<include name="**/*.xsd" />
+
+			</fileset>
+		</xmlbean>
+
+		<!-- cleanup after generation -->
+		<delete failonerror="false" dir="${xmlbeans.generationfolder}" />
+
+	</target>
+	
+	<target name="copySchemas">
+
+		<copy todir="/Users/bermudez/Documents/workspace31/org.oostethys/src/xml/oostethys">
+			<fileset dir="${xsd.location.oostethys.basedir}" includes="**/0.1.0/**" />
+		</copy>
+	</target>
+
+	<target name="updateJARModelOOSTethys" depends="oostethys.010,copySchemas">
+		<!-- copy jar -->
+		<copy file="${bindingsfolder}/${jar.name.oostethys.010}" todir="/Users/bermudez/Documents/workspace31/org.oostethys/lib/oostethys" />
+
+
+
+	</target>
+
+
+
+</project>
