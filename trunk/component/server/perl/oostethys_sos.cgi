@@ -1305,6 +1305,8 @@ sub getDataDB
 
 
 	# Get Latest requires a differnt join table than a query with time parameters
+	# If you don't have such a view you CAN still use your regular readings table by adding a simple ORDER BY 
+	# clause at the end of the SQL.  See below just before the next END LOCAL EDITS line.
 	my $join_table = 'v_most_recent_hourly_readings';
 	if($in_time){
 		$join_table = 'readings';
@@ -1385,6 +1387,11 @@ ESQL
 	}
 
 	$sql_statement .= ')';
+
+	# if no time parameter is input we just want the most recent observation
+	if(not $in_time){
+		$sql_statement .= '  ORDER BY date_time DESC LIMIT 1';
+	}
 
 # END LOCAL EDITS
 
