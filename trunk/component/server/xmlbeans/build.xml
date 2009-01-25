@@ -3,7 +3,7 @@
 	Author: Luis Bermudez
 	Email:  bermudez[AT]sura.org
   -->
-<project name="OOSTethys XML bindings" default="updateJARModelOOSTethys" basedir=".">
+<project name="OOSTethys XML bindings" default="oostethys.010" basedir=".">
 
 	<!-- ==================================================
 	 ==	properties needed for build the XML bindings ==
@@ -18,14 +18,14 @@
 	<property name="bindingsfolder" value="${basedir}/bindings" />
 	<property name="xmlbeans-lib-folder" value="${basedir}/lib/xmlbeans230" />
 
+	<property name="homedir" value=".." />
+	<property name="schemaDir" value="${homedir}/xml"/>
+
 	<!-- locations of oostethys-schema-folders -->
-	<property name="xsd.location.oostethys.basedir" value="/Users/bermudez/Documents/workspace31/oostethys-xml/oostethys" />
+	<property name="xsd.location.oostethys.basedir" value="${schemaDir}/oostethys" />
 
 	<!-- schema -->
 	<property name="xsd.location.oostethys.010" value="${xsd.location.oostethys.basedir}/0.1.0" />
-
-
-
 
 	<property name="jar.name.oostethys.010" value="oostethys010.jar" />
 
@@ -49,8 +49,6 @@
 	<target name="all" depends="init, oostethys.010" />
 
 
-
-
 	<!-- =================================
 		 ==	Generate OOSTethys  bindings ==
 	     ================================= -->
@@ -72,19 +70,23 @@
 		<delete failonerror="false" dir="${xmlbeans.generationfolder}" />
 
 	</target>
-	
+
+
 	<target name="copySchemas">
 
-		<copy todir="/Users/bermudez/Documents/workspace31/org.oostethys/src/xml/oostethys">
+<!--
+ 			<copy todir="/Users/bermudez/Documents/workspace31/org.oostethys/src/xml/oostethys">
 			<fileset dir="${xsd.location.oostethys.basedir}" includes="**/0.1.0/**" />
 		</copy>
+-->
 	</target>
 
 	<target name="updateJARModelOOSTethys" depends="oostethys.010,copySchemas">
 		<!-- copy jar -->
+<!--
 		<copy file="${bindingsfolder}/${jar.name.oostethys.010}" todir="/Users/bermudez/Documents/workspace31/org.oostethys/lib/oostethys" />
 
-
+-->
 
 	</target>
 
