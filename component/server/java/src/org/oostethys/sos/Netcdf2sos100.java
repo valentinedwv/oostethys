@@ -63,8 +63,8 @@ public class Netcdf2sos100 {
 
 	private URL urlOostethys;
 	private OostethysDocument oostDoc;
-	private String tempDir = "oostethys/0.1.0/tmp/";
-	private String xsltDir = "oostethys/0.1.0/xslt/";
+	private String tempDir = "xml/oostethys/0.1.0/tmp/";
+	private String xsltDir = "xml/oostethys/0.1.0/xslt/";
 	private String getCapabilitiesXSLT = "oostethys2getCapabilities.xsl";
 	private String descibeSensorXSLT = "oostethys2describeSensor.xsl";
 	private String getObservationXSLT = "oostethys2getObservation.xsl";
@@ -115,6 +115,8 @@ public class Netcdf2sos100 {
 	private String offeringID = null;
 	private InputStream postInputStream;
 	private String value_OFFERING;
+	private URL xsltUrl;
+	private URL tempUrl;
 	
 	private int numberOfRecordsToProcess = 100;
 
@@ -122,10 +124,11 @@ public class Netcdf2sos100 {
 			.getLogger(Netcdf2sos100.class.getName());
 
 	public Netcdf2sos100() {
-		xsltDir = Thread.currentThread().getContextClassLoader().getResource(
-				"xml/oostethys/0.1.0/xslt").getPath();
-		tempDir = Thread.currentThread().getContextClassLoader().getResource(
-				"xml/oostethys/0.1.0/example").getPath();
+	    xsltUrl = Thread.currentThread().getContextClassLoader().getResource(xsltDir);
+	    tempUrl = Thread.currentThread().getContextClassLoader().getResource(tempDir);
+	    java.lang.System.err.println("URLS: " + xsltUrl + ":"+tempUrl);
+		xsltDir = (xsltUrl != null ? xsltUrl.getPath() : null);
+		tempDir = (tempUrl != null ? tempUrl.getPath() : null);
 		logger.fine("start logging");
 
 	}
@@ -339,15 +342,24 @@ public class Netcdf2sos100 {
 	}
 
 	public String saveOOSTethysTempFile() {
-
-		File file = new File(tempDir);
+	    URL url = Thread.currentThread().getContextClassLoader().getResource("xml");
+        String dName = url.getPath();
+        File file = new File(dName + tempDir);
+		//File file = new File(tempDir);
 		String fileName = "oostethysTemp.xml";
 		File tempFile = new File(file, fileName);
-		try {
+		
+		
+		try 
+		{
+		    tempFile.createNewFile();
 			oostDocTemp.save(tempFile);
 			logger.info("saved file " + tempFile);
+			
 
-		} catch (IOException e) {
+		}
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -578,9 +590,12 @@ public class Netcdf2sos100 {
 	}
 
 	private File getXSLTFile(String xslt) {
-		String file = ResourceLoader.getPath("xml");
+		//String file = ResourceLoader.getPath("xml");
+	    URL url = Thread.currentThread().getContextClassLoader().getResource("xml");
+	    String file = url.getPath();
+	    
 		File xsltF = new File(file + "/oostethys/0.1.0/xslt/", xslt);
-		java.lang.System.out.println(xsltF);
+		java.lang.System.err.println("XSLT FILE: " + file +" ---  "+xsltF);
 		return xsltF;
 
 	}

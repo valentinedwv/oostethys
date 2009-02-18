@@ -113,10 +113,12 @@
       </javac> 
     </target>
 
-    <target name="jar" depends="compile">
-      <jar destfile="${libDir}/${jar.name}"
-           basedir="${classesDir}" 
-           includes="**/*.class"/>
+    <target name="createJar" depends="compile">
+      <jar destfile="${libDir}/${jar.name}">
+          <fileset dir="${classesDir}"
+      	  	           includes="**/*.class" />
+      	    
+      </jar>
 </target>
 
 
@@ -134,10 +136,14 @@
       <delete file="${war}" />
       <mkdir dir="${tempLib}" />
       <copy todir="${tempLib}">
-	<fileset dir="lib" includes="**/*.*" excludes="**/servlet/*.*,**/jdom/*.*,**/jfreechart/*.*" />
-	<mapper type="flatten">
-	</mapper>
-      </copy>
+	    <fileset dir="lib" includes="**/*.*" excludes="**/servlet/*.*,**/jdom/*.*,**/jfreechart/*.*" />
+		<mapper type="flatten"/>
+     </copy>
+	  
+      	<copy todir="${webRoot}/WEB-INF/classes/xml">
+      		<fileset dir="${srcDir}/xml" includes="**" />
+     </copy>
+    	
       <zip destfile="${tempLib}/oostethys-src.zip" basedir="src" />
 
 
