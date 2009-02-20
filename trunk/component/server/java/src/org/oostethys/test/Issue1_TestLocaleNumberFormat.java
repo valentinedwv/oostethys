@@ -29,29 +29,50 @@ public class Issue1_TestLocaleNumberFormat extends TestCase {
 		}
 	}
 	
+	public void testNumberFormatLocale_aparent_wrong_fix(){
+// using the default locale	(test in USA)
+		String valS = "36,23";
+		Locale locale= Locale.getDefault();
+		NumberFormat nf = NumberFormat.getNumberInstance(locale);
+		DecimalFormat df = (DecimalFormat)nf;
+		try {
+			Number val = df.parse(valS);
+
+			NumberFormat myFormatter = NumberFormat.getInstance(locale);
+			
+			myFormatter.setMaximumFractionDigits(6);
+			String output = myFormatter.format(val);
+			assertEquals("3,623", output);
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 
 	
 	public void testNumberFormatLocale_fix(){
-		// ? not sure how to fix it
+	 
 		String valS = "36,23";
-		Locale locale= new Locale("de_DE");
-		Locale.setDefault(locale);
-		
-		NumberFormat nf = NumberFormat.getNumberInstance(locale);
-		DecimalFormat df = (DecimalFormat)nf;
-		String pattern = "###,###.###";
-		df.applyPattern(pattern);
-	
-			double val = Double.parseDouble(valS);
-			StringBuffer myBuffy = new StringBuffer();
-			NumberFormat myFormatter = NumberFormat.getInstance(locale);
+//		Locale locale= new Locale("spa", "ES");
+		Locale locale = Locale.GERMAN;
+	DecimalFormat df = (DecimalFormat)DecimalFormat.getNumberInstance(locale);
+
+		try {
+			Number val = df.parse(valS);
+			double doub = val.doubleValue();
+			df.setMaximumFractionDigits(6);
+			String s = df.format(doub);
 			
-			myFormatter.setMaximumFractionDigits(6);
-			String output = myFormatter.format(val);
-			System.out.println(output);
+			assertEquals("36,23", s);
+			System.out.println(s);
+
+		} catch (ParseException e) {
 		
+			e.printStackTrace();
+		}
 		
 	}
 	
