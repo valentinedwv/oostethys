@@ -1,0 +1,22 @@
+<project name="OOSTethys" basedir="." default="createJar">
+	<!-- not finished -->
+
+	<target name="createJar">
+		<delete dir="dis"></delete>
+		<copy todir="dis/lib">
+					<fileset dir="lib" includes="**/*.*" />
+					<mapper type="flatten" />
+				</copy>
+				<copy todir="dis/src">
+					<fileset dir="src" includes="Example*.*" />
+					
+				</copy>
+		<jar destfile="dis/lib/oost-sos-reader.jar" includes="/bin/**/*.*" excludes="**/test/*.*,**/example*.*">
+
+		</jar>
+		<zip destfile="oost-sos-reader.zip" basedir="dis"></zip>
+
+		
+
+	</target>
+</project>
