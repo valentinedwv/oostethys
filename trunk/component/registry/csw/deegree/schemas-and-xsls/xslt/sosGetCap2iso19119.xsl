@@ -23,7 +23,7 @@
 				</gco:CharacterString>
 			</gmd:fileIdentifier>
 			<gmd:language>
-				<gco:CharacterString>ger/deu</gco:CharacterString>
+				<gco:CharacterString>eng</gco:CharacterString>
 			</gmd:language>
 			<gmd:characterSet>
 				<gmd:MD_CharacterSetCode codeList="MD_CharacterSetCode" codeListValue="utf8"/>
@@ -55,7 +55,6 @@
 			<gmd:metadataStandardVersion>
 				<gco:CharacterString>1.0</gco:CharacterString>
 			</gmd:metadataStandardVersion>
-			<xsl:apply-templates select="Capability/Layer/SRS"/>
 			<xsl:call-template name="identification"/>
 		</gmd:MD_Metadata>
 	</xsl:template>
@@ -387,7 +386,7 @@
 						<gmd:abstract>
 							<gco:CharacterString>
 								<!-- use layer title as default abstract -->
-								<xsl:value-of select="Title"/>
+								<xsl:value-of select="gml:description"/>
 							</gco:CharacterString>
 						</gmd:abstract>
 					</xsl:otherwise>
