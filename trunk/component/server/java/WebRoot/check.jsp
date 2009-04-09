@@ -35,11 +35,11 @@ Netcdf2sos100 ns = new Netcdf2sos100();
 <p>Congratulations your configuration has pass the test !</p>
 <%
 	
-	} catch (Exception e) {
+	} catch (Throwable e) {
 		StringBuffer buffy = new StringBuffer("Problem Report OOSTethys "+version+"%0D%0A"+"%0D%0A" );
 		%>
 		<p>The following problem was detected:<p>
-		<font color="red"><%=e.getMessage()%></font><br>
+		<font color="red"><%=e.getClass().getName()+ ": " +e.getMessage()%></font><br>
 		<%
 		buffy.append(e.getMessage()+"%0D%0A");
 		StackTraceElement[] ele = e.getStackTrace();
