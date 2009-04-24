@@ -68,6 +68,10 @@ public interface Observation extends Resource{
 	public String getDescription();
 	public void setDescription(String description);
 	public String getName();
+	/**
+	 * Opens the source of the data and creates and instantiates all the componenets of this  Observation object
+	 * @throws Exception
+	 */
 	public void process() throws Exception;
 	
 
