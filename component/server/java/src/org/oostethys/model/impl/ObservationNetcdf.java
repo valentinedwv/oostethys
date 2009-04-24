@@ -83,23 +83,14 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	private long timeEnd = Long.MAX_VALUE;
 
 	private boolean parseAllData = false; // if getCapabilites or
-														// DescribeSensor, which
-														// do not requires to
-														// get all the data,
-														// only the extends
+	// DescribeSensor, which
+	// do not requires to
+	// get all the data,
+	// only the extends
 
 	private DecimalFormat decimalFormat = new DecimalFormat("#0");
 
-	public static void main(String[] args) {
-
-		String m = "http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0000.nc";
-		Observation obs = new ObservationNetcdf(m, "urn:this#1",
-				VariablesConfig.createVariblesConfigM2());
-		System.out.println(obs.getLastKnownPositionEPSG());
-		System.out.println(obs.getAsRecords());
-		System.out.println(obs.getVariables());
-
-	}
+	
 
 	public ObservationNetcdf() {
 
@@ -121,8 +112,16 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		return variablesConfig;
 	}
 
-	public ObservationNetcdf(String fileURL, String id, VariablesConfig config) {
-		super(id);
+	/**
+	 * Creates an Observation from a netcdf, opendap link
+	 * 
+	 * @param fileURL : NETCDF of OPENDAP link
+	 * @param identifierOfThisObservation: unique id that identifies this observation
+	 * @param config: variables configuration which contains information about what variables to parse,
+	 *  the units and the mapping to URIs
+	 */
+	public ObservationNetcdf(String fileURL, String identifierOfThisObservation, VariablesConfig config) {
+		super(identifierOfThisObservation);
 		try {
 			this.url = new URL(fileURL);
 		} catch (MalformedURLException e) {
@@ -145,9 +144,11 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			NCdump.print(netcdfdataset, "", System.out, null);
 
 		} catch (IOException e) {
+			e.printStackTrace();
+
 			throw new ParserException(ParserException.NOT_ABLE_TO_OPEN_FILE,
 					this.url.toString());
-
+			
 			// e.printStackTrace();
 		}
 
@@ -318,6 +319,10 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	}
 
+	// TODO - need to change this - the mapping of variables to URIS should be
+	// done manually
+	// A default could exist that guesses all the variables
+
 	public void process() throws Exception {
 		openNetcdfDataSet();
 		setDepthFlag();
@@ -382,9 +387,9 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		logger.info("numberOfFields " + numberOfFields);
 
 		// if no time is given - then send the last record
-//		if (timeStart == Long.MIN_VALUE && timeEnd == Long.MAX_VALUE) {
-//			numberOfRecords = 1;
-//		}
+		// if (timeStart == Long.MIN_VALUE && timeEnd == Long.MAX_VALUE) {
+		// numberOfRecords = 1;
+		// }
 
 		// set up min max lon lat
 		checkBBOX();
@@ -439,15 +444,11 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		StringBuffer temBuffy = new StringBuffer();
 		int j = 0;
-		
-		
-		if (!parseAllData){
-			
-			
-			
+
+		if (!parseAllData) {
+
 		}
-		
-		
+
 		for (int i = start; i < last; i++) {
 			for (Array array : arraysVar) {
 				j = j + 1;
@@ -644,7 +645,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	}
 
 	/**
-	 * Maps the variable names provided in the cofiguration file, with the
+	 * Maps the variable names provided in the configuration file, with the
 	 * internal OOSTethys mappings ( at least lat, lon and time should be
 	 * provided)
 	 * 
@@ -665,7 +666,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			if (att != null) {
 				standardName = att.getStringValue();
 
-				// check first timne
+				// check first time
 				Attribute coordType = var.findAttribute("_CoordinateAxisType");
 				if (coordType != null) {
 					String value = coordType.getStringValue();
@@ -674,6 +675,16 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 						variableQuantity.setURI(uri);
 						logger.info("mapping set: " + label + "  -->  " + uri);
 						return;
+					} else {
+
+						if (value.toLowerCase().contains("height")
+								|| value.toLowerCase().contains("elev")) {
+							uri = Voc.depth;
+							variableQuantity.setURI(uri);
+							logger.info("mapping set:: " + label + "  -->  "
+									+ uri);
+							return;
+						}
 					}
 				}
 				//
@@ -1028,7 +1039,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	}
 
 	/**
-	 * @param parseAllData the parseAllData to set
+	 * @param parseAllData
+	 *            the parseAllData to set
 	 */
 	public void setParseAllData(boolean parseAllData) {
 		this.parseAllData = parseAllData;
