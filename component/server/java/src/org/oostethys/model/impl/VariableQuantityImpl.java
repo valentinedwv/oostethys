@@ -54,7 +54,7 @@ public class VariableQuantityImpl extends ResourceImpl implements VariableQuanti
 	private String referenceFrame;
 	
 	
-	//todo make this creation better - standarname label is default to the label
+	
 
 	public VariableQuantityImpl(String variableLabel, String labelURI, String unitsLabel, String unitsURI, boolean isCoordiante) {
 		super(labelURI);
