@@ -188,48 +188,7 @@ public class VariablesConfig {
 		return null;
 	}
 
-	public static VariablesConfig createVariblesConfigM2() {
-
-		// for m2
-
-		List<VariableQuantity> variablesConfig = new ArrayList<VariableQuantity>();
-
-		variablesConfig.add(new VariableQuantityImpl("staId", "id", null,
-				"uri:id", false));
-
-		variablesConfig.add(new VariableQuantityImpl("time GMT", Voc.time,
-				"seconds since 1970-01-01 00:00:00", Voc.seconds_since_Epoch,
-				true));
-
-		variablesConfig.add(new VariableQuantityImpl("latitude", Voc.latitude,
-				"degrees_north", Voc.degree, true));
-
-		variablesConfig.add(new VariableQuantityImpl("longitude",
-				Voc.longitude, "degrees_east", Voc.degree, true));
-
-		variablesConfig.add(new VariableQuantityImpl("depth", Voc.depth, "m",
-				Voc.meter, false));
-
-		variablesConfig.add(new VariableQuantityImpl("sea_water_temperature",
-				Voc.sea_water_temperature, "deg C", Voc.celsius, false));
-
-		variablesConfig.add(new VariableQuantityImpl("sea_water_salinity",
-				Voc.salinity, "", "1", false));
-
-		variablesConfig.add(new VariableQuantityImpl("conductivity",
-				Voc.conductivity, "S/m", Voc.siemens_per_metre, false));
-
-		VariablesConfig config = new VariablesConfig();
-		config.setVariables(variablesConfig);
-
-		return config;
-
-	}
-
-	public static void main(String[] args) {
-		VariablesConfig config = createVariblesConfigM2();
-		String labelD = config.getLabel(Voc.depth);
-		System.out.println(labelD);
-	}
+	
+	
 
 }
