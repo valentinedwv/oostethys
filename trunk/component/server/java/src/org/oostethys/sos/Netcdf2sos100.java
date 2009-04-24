@@ -398,15 +398,16 @@ public class Netcdf2sos100 {
 					URL url = null;
 					try {
 						url = new URL(fileNCURL);
-
-						// url.openConnection();
+						if (url==null){
+							throw new Exception();
+						}
+						
 
 					} catch (Exception e) {
 						try {
 							// then... try to find the resource locally.. this
 							// is in WEB-INF/classes/
-							url = Thread.currentThread()
-									.getContextClassLoader().getResource(
+							url = ResourceLoader.getUrlResource(
 											fileNCURL);
 							// url.openConnection();
 						} catch (Exception e2) {
