@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ows="http://www.opengis.net/ows" xmlns:ogc="http://www.opengis.net/ogc" xmlns:sos="http://www.opengis.net/sos/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:java="java" xmlns:ows2iso="de.latlon.bkg.OWS2ISO19119" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:xlink="http://www.w3.org/1999/xlink" exclude-result-prefixes="java ows2iso sos ogc ows gml">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:ows="http://www.opengis.net/ows" xmlns:ogc="http://www.opengis.net/ogc" 
+	xmlns:sos="http://www.opengis.net/sos/1.0" xmlns:gml="http://www.opengis.net/gml" 
+	xmlns:java="java" xmlns:ows2iso="de.latlon.bkg.OWS2ISO19119" 
+	xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gmd="http://www.isotc211.org/2005/gmd" 
+	xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	exclude-result-prefixes="java ows2iso sos ogc ows gml">
 	<xsl:output encoding="UTF-8"/>
 	<!-- 
 		start variable definitions
@@ -9,7 +15,7 @@
 		date is required but there is no way to to read its value from a SOS capabilities document; 
 		instead use current timestamp default
 	-->
-		<xsl:value-of select="ows2iso:getCurrentTimestamp()"/>
+		<xsl:value-of select="current-dateTime()"/>
 	</xsl:variable>
 	<xsl:variable name="DEFAULT_ABSTRACT">BB SOS</xsl:variable>
 	<!-- 
