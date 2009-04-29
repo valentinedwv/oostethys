@@ -42,6 +42,7 @@ import org.mmi.util.ResourceLoader;
 import org.oostethys.model.VariableQuantity;
 import org.oostethys.model.VariablesConfig;
 import org.oostethys.model.impl.ObservationNetcdf;
+import org.oostethys.model.impl.VariableQuantityImpl;
 import org.oostethys.netcdf.util.TimeUtil;
 import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.schemas.x010.oostethys.BoundingBoxDocument.BoundingBox;
@@ -117,16 +118,18 @@ public class Netcdf2sos100 {
 	private String value_OFFERING;
 	private URL xsltUrl;
 	private URL tempUrl;
-	
+
 	private int numberOfRecordsToProcess = 100;
 
 	private java.util.logging.Logger logger = java.util.logging.Logger
 			.getLogger(Netcdf2sos100.class.getName());
 
 	public Netcdf2sos100() {
-	    xsltUrl = Thread.currentThread().getContextClassLoader().getResource(xsltDir);
-	    tempUrl = Thread.currentThread().getContextClassLoader().getResource(tempDir);
-	    java.lang.System.err.println("URLS: " + xsltUrl + ":"+tempUrl);
+		xsltUrl = Thread.currentThread().getContextClassLoader().getResource(
+				xsltDir);
+		tempUrl = Thread.currentThread().getContextClassLoader().getResource(
+				tempDir);
+		java.lang.System.err.println("URLS: " + xsltUrl + ":" + tempUrl);
 		xsltDir = (xsltUrl != null ? xsltUrl.getPath() : null);
 		tempDir = (tempUrl != null ? tempUrl.getPath() : null);
 		logger.fine("start logging");
@@ -342,24 +345,20 @@ public class Netcdf2sos100 {
 	}
 
 	public String saveOOSTethysTempFile() {
-	    URL url = Thread.currentThread().getContextClassLoader().getResource("xml");
-        String dName = url.getPath();
-        File file = new File(dName + tempDir);
-		//File file = new File(tempDir);
+		URL url = Thread.currentThread().getContextClassLoader().getResource(
+				"xml");
+		String dName = url.getPath();
+		File file = new File(dName + tempDir);
+		// File file = new File(tempDir);
 		String fileName = "oostethysTemp.xml";
 		File tempFile = new File(file, fileName);
-		
-		
-		try 
-		{
-		    tempFile.createNewFile();
+
+		try {
+			tempFile.createNewFile();
 			oostDocTemp.save(tempFile);
 			logger.info("saved file " + tempFile);
-			
 
-		}
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -380,6 +379,13 @@ public class Netcdf2sos100 {
 
 	}
 
+	/**
+	 * process a netcdf
+	 * 
+	 * @param system
+	 * @param systemTemp
+	 * @throws Exception
+	 */
 	private void processSystem(System system, System systemTemp)
 			throws Exception {
 		systemTemp.setMetadata(system.getMetadata());
@@ -398,17 +404,15 @@ public class Netcdf2sos100 {
 					URL url = null;
 					try {
 						url = new URL(fileNCURL);
-						if (url==null){
+						if (url == null) {
 							throw new Exception();
 						}
-						
 
 					} catch (Exception e) {
 						try {
 							// then... try to find the resource locally.. this
 							// is in WEB-INF/classes/
-							url = ResourceLoader.getUrlResource(
-											fileNCURL);
+							url = ResourceLoader.getUrlResource(fileNCURL);
 							// url.openConnection();
 						} catch (Exception e2) {
 							throw new Exception("Not found netCDF file "
@@ -429,7 +433,8 @@ public class Netcdf2sos100 {
 						obsNC.setValue_TIME(value_EVENT_TIME);
 					}
 
-					// set variables
+					// set variables in a collection of variables config - only
+					// using the short name
 					obsNC.setVariablesConfig(getVariablesConfig(oosn));
 
 					// process
@@ -488,12 +493,13 @@ public class Netcdf2sos100 {
 
 							if (var.isTime()) {
 								varTemp.setIsTime(true);
-								// even if it has a CF standard name - we will converted t ISO 8601
+								// even if it has a CF standard name - we will
+								// converted t ISO 8601
 								varTemp.setUri(Voc.time);
 							}
-							
-							logger.info("units set for "+varTemp.getUri()+" "+varTemp.getUom());
-							
+
+							logger.info("units set for " + varTemp.getUri()
+									+ " " + varTemp.getUom());
 
 							// add to temp sensor
 							variablesList.add(varTemp);
@@ -526,6 +532,7 @@ public class Netcdf2sos100 {
 
 	}
 
+	
 	private VariablesConfig getVariablesConfig(OostethysNetcdf oosnc) {
 
 		org.oostethys.schemas.x010.oostethysNetcdf.VariableDocument.Variable[] variables = oosnc
@@ -533,8 +540,23 @@ public class Netcdf2sos100 {
 		VariablesConfig config = new VariablesConfig();
 
 		for (int i = 0; i < variables.length; i++) {
+			org.oostethys.schemas.x010.oostethysNetcdf.VariableDocument.Variable var = variables[i];
+			String shortName = var.getShortName();
+			String dim = var.getDimension().toString();
+			String uri = var.getUri();
+			VariableQuantity varQ = new VariableQuantityImpl();
+			varQ.setURI(uri);
+			varQ.setLabel(shortName);
+			if (dim.equals("no")) {
+				varQ.setCoordinate(false);
+			} else {
+				varQ.setCoordinate(true);
+				if (dim.equals("time")) {
+					varQ.setIsTime(true);
+				}
+			}
 
-			config.addVariable(variables[i].getShortName());
+			config.addVariable(varQ);
 
 		}
 
@@ -591,12 +613,13 @@ public class Netcdf2sos100 {
 	}
 
 	private File getXSLTFile(String xslt) {
-		//String file = ResourceLoader.getPath("xml");
-	    URL url = Thread.currentThread().getContextClassLoader().getResource("xml");
-	    String file = url.getPath();
-	    
+		// String file = ResourceLoader.getPath("xml");
+		URL url = Thread.currentThread().getContextClassLoader().getResource(
+				"xml");
+		String file = url.getPath();
+
 		File xsltF = new File(file + "/oostethys/0.1.0/xslt/", xslt);
-		java.lang.System.err.println("XSLT FILE: " + file +" ---  "+xsltF);
+		java.lang.System.err.println("XSLT FILE: " + file + " ---  " + xsltF);
 		return xsltF;
 
 	}
@@ -606,7 +629,6 @@ public class Netcdf2sos100 {
 		if (!okDescribeSensorParameters(outputStream)) {
 			return;
 		}
-		
 
 		try {
 			process();
@@ -779,9 +801,9 @@ public class Netcdf2sos100 {
 		}
 
 	}
-	
-	public void getKML(OutputStream outputStream){
-		
+
+	public void getKML(OutputStream outputStream) {
+
 	}
 
 	public void getObservation(OutputStream outputStream) {
@@ -792,6 +814,7 @@ public class Netcdf2sos100 {
 		}
 
 		try {
+			// process the stream !
 			process();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1092,8 +1115,6 @@ public class Netcdf2sos100 {
 					"Need parameter: " + SERVICE + " ", os);
 			return false;
 		}
-		
-	
 
 		// the minimum info required
 		return hasService && hasCorrectVersion && hasSensorID;
@@ -1435,11 +1456,12 @@ public class Netcdf2sos100 {
 	}
 
 	/**
-	 * @param numberOfRecordsToProcess the numberOfRecordsToProcess to set
+	 * @param numberOfRecordsToProcess
+	 *            the numberOfRecordsToProcess to set
 	 */
 	public void setNumberOfRecordsToProcess(int numberOfRecordsToProcess) {
 		this.numberOfRecordsToProcess = numberOfRecordsToProcess;
-		
+
 	}
 
 }
