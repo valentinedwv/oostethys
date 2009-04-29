@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../xml/oostethys/0.1.0/oostethys.xsd">
+    xmlns:nc="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf"
+    
+    
+      xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys 
+    http://oostethys.googlecode.com/svn/trunk/component/server/xml/oostethys/0.1.0/oostethys.xsd
+    http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf
+    http://oostethys.googlecode.com/svn/trunk/component/server/xml/oostethys/0.1.0/oostethys-netcdf.xsd
+    ">
+    
+    <!--  for local testing
+    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys 
+    /Users/bermudez/Documents/workspace31/xml/oostethys/0.1.0/oostethys.xsd
+    http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf
+    /Users/bermudez/Documents/workspace31/xml/oostethys/0.1.0/oostethys-netcdf.xsd
+    ">
+    -->
+   
+    <!--  
+    
+    
+    -->
     
     <!-- 
     
@@ -42,6 +62,7 @@
         <individualName></individualName>
         <individualEmail></individualEmail>
     </serviceContact>
+    
     
     <!--  Components could be observing systems, platforms, sensors , etc... -->
     <components>
@@ -89,29 +110,32 @@
                                 <sourceConfiguration>
                                    <!--  source configuration is the information necessary to parse the NetCdf file  -->
                             
-                                    <oostethys-netcdf
-                                        xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+                                    <nc:oostethys-netcdf
+                                        >
                                         
                                         <!--   URL of the NETCDF file or OPENDAP link. It could also be a relative path to
                                         the WEB_INF/classes folder in the web application -->
                                         
-                                        <fileURL>http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc</fileURL>
+                                        <nc:fileURL>http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc</nc:fileURL>
                                         
 		                                  <!--   ShortName of each variable. At least
 				                             lat, lon and time coordinates should be given 
+				                             
 				                            -->
                                         
-                                        <variables>
-                                            <variable shortName="esecs"/>
-                                            <variable shortName="Longitude"/>
-                                            <variable shortName="Latitude"/>
-                                            <variable shortName="NominalDepth"/>
-                                            <variable shortName="Temperature"/>
-                                            <variable shortName="Conductivity"/>
-                                            <variable shortName="Pressure"/>
-                                            <variable shortName="Salinity"/>
-                                        </variables>
-                                    </oostethys-netcdf>
+                                        <nc:variables>
+                                        
+                                        
+                                            <nc:variable shortName="esecs" uri="urn:ogc:phenomenon:time:iso8601" dimension="time"/>
+                                            <nc:variable shortName="Longitude" uri="urn:ogc:phenomenon:longitude:wgs84" dimension="latitude"/>
+                                            <nc:variable shortName="Latitude" uri="urn:ogc:phenomenon:latitude:wgs84" dimension="longitude"/>
+                                            <nc:variable shortName="NominalDepth" uri="http://mmisw.org/ont/cf/parameter/depth" dimension="depth"/>
+                                            <nc:variable shortName="Temperature" uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" dimension="no"/>
+                                            <nc:variable shortName="Conductivity" uri="http://mmisw.org/ont/cf/parameter/conductivity" dimension="no"/>
+                                            <nc:variable shortName="Pressure" uri="http://mmisw.org/ont/cf/parameter/pressure" dimension="no"/>
+                                            <nc:variable shortName="Salinity" uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" dimension="no"/>
+                                        </nc:variables>
+                                    </nc:oostethys-netcdf>
                                 </sourceConfiguration>
                             </output>
                         </system>
