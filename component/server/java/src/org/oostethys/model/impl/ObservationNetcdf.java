@@ -588,13 +588,72 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		return att != null;
 	}
+	
+	
+	private void processVarConfig() throws Exception {
+
+		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
+		VariableQuantity variableQuantity = null;
+		while (iter.hasNext()) {
+
+			variableQuantity = (VariableQuantity) iter.next();
+			
+			
+			
+			ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
+					.getLabel());
+
+			if (var == null) {
+
+				throw new Exception("The following variable was not found : '"
+						+ variableQuantity + "' in "
+						+ netcdfdataset.getLocation());
+
+			} else {
+				logger.info(" Found nc Variable for: " + variableQuantity
+						+ " --> " + var.getShortName());
+			}
+			
+//			variableQuantity.
+
+//			// set coordinate attribute
+//			if (ncVariableIsCoordinate(var)) {
+//				variableQuantity.setCoordinate(true);
+//			} else {
+//				variableQuantity.setCoordinate(false);
+//			}
+
+			// set URI // mapping
+//			assignURItoVarConfig(variableQuantity);
+
+			String unitsS = var.getUnitsString();
+			Units units = new UnitsImpl();
+
+			if (!variableQuantity.getURI().equals(Voc.time)) {
+				String ucum = UnitsMapper.getUCUM(unitsS);
+				units.setLabel(ucum);
+
+				//				
+			}
+			// leave units as it is form nc var
+			else {
+				units.setLabel(unitsS);
+			}
+			variableQuantity.setUnits(units);
+
+		}
+
+			
+		
+		
+	}
 
 	/**
 	 * It guesses what is lat, long depth and others and those the mappings
 	 * 
 	 * @throws Exception
 	 */
-	private void processVarConfig() throws Exception {
+	private void processVarConfig2() throws Exception {
 
 		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
 		VariableQuantity variableQuantity = null;
@@ -651,7 +710,20 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * 
 	 * @param variableQuantity
 	 */
+	
+	//TODO main problem - !!!!!!!
+	// why don't we assume that the variables are mapped before hand !
+	
+	
 	public void assignURItoVarConfig(VariableQuantity variableQuantity) {
+		
+		
+	
+	}
+	
+	
+	
+	public void assignURItoVarConfig2(VariableQuantity variableQuantity) {
 		String label = variableQuantity.getLabel();
 
 		// find variable by shortname
