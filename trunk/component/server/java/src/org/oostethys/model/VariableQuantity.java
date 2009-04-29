@@ -25,6 +25,8 @@ public interface VariableQuantity extends Variable{
 	public void setReferenceFrame(String referenceFrame);
 	
 	public boolean isTime();
+
+	public void setIsTime(boolean b);
 	
 	
 
