@@ -8,6 +8,8 @@ public interface Voc {
 	public static  String latitude = "urn:ogc:phenomenon:latitude:wgs84";
 	public static  String longitude = "urn:ogc:phenomenon:longitude:wgs84";
 	public static String depth = "http://mmisw.org/ont/cf/parameter/depth";
+	public static String echo_intensity_beam_1 = "http://mmisw.org/ont/mmi/parameter/echo_intensity_beam_1";
+	public static String echo_intensity_beam_2 = "http://mmisw.org/ont/mmi/parameter/echo_intensity_beam_2";
 	public static String sea_surface_height_above_geoid = "http://mmisw.org/ont/cf/parameter/sea_surface_height_above_geoid";
 	
 	public static String salinity = "http://mmisw.org/ont/cf/parameter/sea_water_salinity";
@@ -33,12 +35,14 @@ public interface Voc {
 	public static String meter3_per_second = "http://mmisw.org/ont/cf/parameter/meterCubePerSecond"; //for biolum
 	public static String cm_per_sec = "http://mmisw.org/ont/cf/parameter/cm_per_sec"; //for biolum
 	public static String CF = "http://mmisw.org/ont/cf/parameter/";
+	public static String counts_per_45db = "http://mmisw.org/ont/unit/counts_per_45db";
+	
 	
 	//platform types
 	public static String  mooring = "urn:mmi:org:platform#mooring";
 	
 	//data types
-	public static String netcdf ="urn:mmi:org:filetype*netcdf";
+	public static String netcdf ="urn:mmi:org:filetype:netcdf";
 	
 	
 	
