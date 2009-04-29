@@ -36,28 +36,29 @@ public class TestFreeChart {
 	public static void main(String[] args) {
 //		XYSeries series = new XYSeries("Average Size");
 		
-		TimeSeries closing = new TimeSeries( "Closing Value", Minute.class );
+		TimeSeries ts = new TimeSeries( "TimeSeries", Minute.class );
 	
 //		closing.add( new Day(new Date(1165006500000l), TimeZone.getTimeZone("Z")),29);
 //		closing.add( new Day(new Date(1166006600000l), TimeZone.getTimeZone("Z")),30.3);
-		closing.add( new Minute( 0,1,10, 5, 1971 ), 28.38 );
-		closing.add( new Minute( 5,1,10, 5, 1971 ), 29.38 );
-		closing.add( new Minute( 10,1,11, 5, 1971 ), 30.38 );
+		
+		ts.add( new Minute( 0,1,10, 5, 1971 ), 28.38 );
+		ts.add( new Minute( 5,1,10, 5, 1971 ), 29.38 );
+		ts.add( new Minute( 10,1,11, 5, 1971 ), 30.38 );
 //		closing.add( new Day( 7, 10, 2004 ), 28.17 );
 //		closing.add( new Day( 8, 10, 2004 ), 27.99 );
 		
 		
 			
-		String title ="salinity values";
+		String title ="Salinty at lat lon";
 		String timeAxisLabel ="time";
 		String valueAxisLabel ="salinity(psu)";
-		boolean legend =true;
+		boolean legend =false;
 		
 		boolean tooltips = true;
 		boolean urls = false;
 		
 		TimeSeriesCollection dataset = new TimeSeriesCollection();
-		dataset.addSeries( closing );
+		dataset.addSeries( ts );
 		
 		JFreeChart chart = ChartFactory.createTimeSeriesChart(title, timeAxisLabel, valueAxisLabel, dataset, legend, tooltips, urls);
 		
