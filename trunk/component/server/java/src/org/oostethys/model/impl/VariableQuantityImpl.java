@@ -131,6 +131,13 @@ public class VariableQuantityImpl extends ResourceImpl implements VariableQuanti
 		
 	}
 
+	public void setIsTime(boolean b) {
+		if (b){
+			setURI(Voc.time);
+		}
+		
+	}
+
 
 
 	
