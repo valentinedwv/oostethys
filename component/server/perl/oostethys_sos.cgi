@@ -428,14 +428,14 @@ sub doGetCapabilities
 			$node->appendText($sensor_list->{$sensor}->{lat} . ' ' . $sensor_list->{$sensor}->{lon} . ' ' . $depth );
 		}
 
-		$node = ($offer->findnodes("sos:eventTime/gml:TimePeriod"))[0];
+		$node = ($offer->findnodes("sos:time/gml:TimePeriod"))[0];
 		$node->setAttribute('gml:id', $sensor . '_valid_times');
 
-		$node = ($offer->findnodes("sos:eventTime/gml:TimePeriod/gml:beginPosition"))[0];
+		$node = ($offer->findnodes("sos:time/gml:TimePeriod/gml:beginPosition"))[0];
 		$node->appendText($sensor_list->{$sensor}->{start_time} ) if($sensor_list->{$sensor}->{start_time} ne "");
 		$node->setAttribute('indeterminatePosition', 'unknown') if($sensor_list->{$sensor}->{start_time} eq "");
 
-		$node = ($offer->findnodes("sos:eventTime/gml:TimePeriod/gml:endPosition"))[0];
+		$node = ($offer->findnodes("sos:time/gml:TimePeriod/gml:endPosition"))[0];
 		# empty Time endPostion implies data available up to now.
 		$node->appendText($sensor_list->{$sensor}->{end_time} ) if($sensor_list->{$sensor}->{end_time} ne ""); 
 		$node->setAttribute('indeterminatePosition', 'now') if($sensor_list->{$sensor}->{end_time} eq "");
