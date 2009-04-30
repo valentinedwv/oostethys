@@ -120,13 +120,13 @@
                         <gml:upperCorner></gml:upperCorner>
                     </gml:Envelope>
                 </gml:boundedBy>
-                <sos:eventTime>
+                <sos:time>
                     <gml:TimePeriod gml:id="AVAILABLE_OFFERING_TIME">
                         <gml:beginPosition indeterminatePosition="unknown"/>
                         <gml:endPosition indeterminatePosition="now"/>
                         <gml:timeInterval unit="hour">.5</gml:timeInterval>
                     </gml:TimePeriod>
-                </sos:eventTime>
+                </sos:time>
                 <sos:procedure xlink:href="sensorID:1:URI"/>
                 <sos:observedProperty xlink:href="observedProperty:1:URI"/>
                 <sos:observedProperty xlink:href="observedProperty:2:URI"/>
