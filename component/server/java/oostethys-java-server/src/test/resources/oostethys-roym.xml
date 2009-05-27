@@ -52,7 +52,7 @@
 					<oostethys-netcdf
 						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
 						<fileURL>
-							http://oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/BA/ssta/mday
+							http://localhost:21983/oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/BA/ssta/mday
 						</fileURL>
 						
 						<variables>
@@ -90,7 +90,7 @@
 					
 					<oostethys-netcdf
 						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
-						<fileURL> http://oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/PN/bfp2/8day </fileURL>
+						<fileURL> http://localhost:21983/oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/PN/bfp2/8day </fileURL>
 						
 						<variables>
 							<variable shortName="altitude" />

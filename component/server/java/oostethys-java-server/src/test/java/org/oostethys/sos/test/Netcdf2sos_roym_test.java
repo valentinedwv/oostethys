@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
+import org.oostethys.testutils.LocalResourceServer;
 
 public class Netcdf2sos_roym_test extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
@@ -33,6 +34,8 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
 	
 // 2008-06-05T04:30:00Z,42.20551 -1.01651,  2008-06-05T23:30:00Z,42.20551,-70.72384,1.319742
 
+	private LocalResourceServer server = new LocalResourceServer();
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		ns = new Netcdf2sos100();
@@ -41,8 +44,18 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
 		.getResource("oostethys-roym.xml");
 		ns.setUrlOostethys(url);
 
+		// start test server
+		server.startServer();
 	}
 	
+	/**
+	* @see junit.framework.TestCase#tearDown()
+	*/
+	@Override
+	protected void tearDown() throws Exception {
+	    server.stopServer();
+	    super.tearDown();
+	}
 	
 	public void testGetCapabilities() throws Exception {
 			URL urlService = new URL("http://localhost:8080/oostethys/sos");
@@ -55,7 +68,7 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
 			map.put("VERSION", createArray("1.0.0"));
 			
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ns.process(map,System.out);
+		ns.process(map,baos);
 		
 		final String result = baos.toString();
 		
@@ -95,7 +108,7 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		ns.process(map, null);
-		ns.getObservation(System.out);
+		ns.getObservation(baos);
 
 		final String result = baos.toString();
 		
