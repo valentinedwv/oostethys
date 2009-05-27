@@ -14,6 +14,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,8 @@ import net.opengis.sos.x10.GetObservationDocument;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation.EventTime;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -219,7 +222,7 @@ public class Netcdf2sos100 {
 
 	}
 
-	private void printMap(Map<?,?> map) {
+	private void printMap(Map<String,?> map) {
 	    if( map == null)
 		return;
 		Set<?> set = map.keySet();
@@ -228,7 +231,12 @@ public class Netcdf2sos100 {
 		while (iterator.hasNext()) {
 			Object key = iterator.next();
 
-			java.lang.System.out.println(key + ", " + map.get(key));
+			Object value = map.get(key);
+			if( value instanceof String[] ) {
+			    java.lang.System.out.println(key+", "+Arrays.toString((String[])value));
+			} else {
+			    java.lang.System.out.println(key + ", " + map.get(key));
+			}
 		}
 	}
 
