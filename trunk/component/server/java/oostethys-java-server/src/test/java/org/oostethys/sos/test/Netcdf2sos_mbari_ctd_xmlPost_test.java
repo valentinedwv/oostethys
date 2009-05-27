@@ -32,7 +32,7 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 			System.out.println(doc);
 			String s = outputStream.toString();
 			System.out.println(s);
-			assertContains(s,"<gml:beginPosition>2008-06-10T00:36:19Z</gml:beginPosition>");
+			assertContains(s,"<gml:beginPosition>2008-06-09T09:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");
 			assertContains(s,"</sml:SensorML>");
 
@@ -67,7 +67,6 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 	}
 
 	public void testgetObservation() throws Exception {
-		System.out.println("\r\rtesting get observation");
 		String file = getURL("getObsExample.xml").getFile();
 
 			// mimicking post input stream
@@ -77,16 +76,12 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			ns.process(inputStream, outputStream);
-			System.out.println(ns.getOOSTethysDoc());
 
 			String s = outputStream.toString();
-			System.out.println(s);
-			assertTrue(s.contains("<om:ObservationCollection"));
-			assertTrue(s
-					.contains("2008-06-10T01:06:20Z,36.69623,-122.39965,10,12.3123,3.83887,8.845,33.152874 2008-06-10T01:16:"));
-
-			assertTrue(s
-					.contains(" <om:procedure xlink:href=\"urn:mbari:org:device:1455\"/>"));
+			
+			assertContains(s, "<om:ObservationCollection");
+			assertContains(s, "2008-06-10T01:06:20Z,36.69623,-122.39965,10,1,213,059,980,-122.39965,36.69623,10,12.3123,3.83887,8.845,33.152874 2008-06-10T01:16:");
+			assertContains(s, " <om:procedure xlink:href=\"urn:mbari:org:device:1455\"/>");
 
 	}
 

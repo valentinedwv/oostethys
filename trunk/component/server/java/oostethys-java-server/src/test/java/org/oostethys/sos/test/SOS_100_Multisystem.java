@@ -7,13 +7,18 @@ import java.util.Map;
 
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
+import org.oostethys.testutils.LocalResourceServer;
 
 public class SOS_100_Multisystem extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 
+	LocalResourceServer server = new LocalResourceServer();
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		
+		server.startServer();
+		
 		ns = new Netcdf2sos100();
 		URL file = Thread.currentThread().getContextClassLoader().getResource(
 				"oostethys_multisystem.xml");
@@ -23,7 +28,14 @@ public class SOS_100_Multisystem extends OOSTethysTest {
 
 	}
 
-	
+	/**
+	* @see junit.framework.TestCase#tearDown()
+	*/
+	@Override
+	protected void tearDown() throws Exception {
+		server.stopServer();
+		super.tearDown();
+	}
 
 	
 	public void testGetObservation_noTime() throws Exception {

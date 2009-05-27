@@ -71,7 +71,7 @@
                         <!--   URL of the NETCDF file or OPENDAP link. It could also be a relative path to
                                         the WEB_INF/classes folder in the web application -->
 
-                        <fileURL>http://whewell.marine.unc.edu/data/nccoos/latest_v2.0/nccoos_jpier_met_latest.nc</fileURL>
+                        <fileURL>http://localhost:21983/whewell.marine.unc.edu/data/nccoos/latest_v2.0/nccoos_jpier_met_latest.nc</fileURL>
 
                         <!--   ShortName of each variable. At least
 				                             lat, lon and time coordinates should be given 
