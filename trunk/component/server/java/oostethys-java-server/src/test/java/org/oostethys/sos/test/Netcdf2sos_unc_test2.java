@@ -7,17 +7,31 @@ import java.util.Map;
 
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
+import org.oostethys.testutils.LocalResourceServer;
 
 public class Netcdf2sos_unc_test2 extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
+	
+	LocalResourceServer server = new LocalResourceServer();
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		
+		server.startServer();
 		ns = new Netcdf2sos100();
-		URL url = new URL("file:test/oostethys-unc.xml");
-
+		
+		URL url = Thread.currentThread().getContextClassLoader().getResource(
+		"oostethys-unc.xml");
 		ns.setUrlOostethys(url);
-
+	}
+	
+	/**
+	* @see junit.framework.TestCase#tearDown()
+	*/
+	@Override
+	protected void tearDown() throws Exception {
+	    server.stopServer();
+	    super.tearDown();
 	}
 
 	public void testGetCapabilities() throws Exception {
@@ -32,7 +46,7 @@ public class Netcdf2sos_unc_test2 extends OOSTethysTest {
 			ns.process(map, outputStream);
 
 			String s = outputStream.toString();
-			System.out.println(s);
+			assertDoesNotContain(s, "ExceptionReport");
 
 	}
 
@@ -45,11 +59,8 @@ public class Netcdf2sos_unc_test2 extends OOSTethysTest {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		// ns.process(map, outputStream);
 		ns.process(map, outputStream);
-
-
 		String s = outputStream.toString();
-		System.out.println(s);
-
+		assertDoesNotContain(s, "ExceptionReport");
 	}
 
 	public void atestgetObservation() throws Exception {
@@ -71,7 +82,7 @@ public class Netcdf2sos_unc_test2 extends OOSTethysTest {
 			ns.process(map, outputStream);
 
 			String s = outputStream.toString();
-			System.out.println(s);
+			assertDoesNotContain(s, "ExceptionReport");
 
 			// ns.setValue_BBOX(bbox);
 

@@ -1,5 +1,6 @@
 package org.oostethys.sos.test;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,12 @@ public class Netcdf2sos_capabilitiesparameterIssue extends OOSTethysTest {
 			map.put("SERVICE", createArray("SOS"));
 			// this is a bug ? https://sourceforge.net/tracker/index.php?func=detail&aid=2136348
 			map.put("VERSION", createArray("1.0.0"));
-			ns.process(map, System.out);
+			
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ns.process(map, baos);
+			final String result = baos.toString();
+
+			assertDoesNotContain(result, "ExceptionReport");
 
 	}
 
