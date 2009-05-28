@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.oostethys.model.Observation;
@@ -29,7 +30,7 @@ import ucar.nc2.dataset.NetcdfDataset;
 import ucar.nc2.units.DateUnit;
 
 public class ObservationNetcdf extends ResourceImpl implements Observation {
-
+    
 	private int numberOfRecords = 10000; // max number of records to read
 
 	private VariablesConfig variablesConfig;
@@ -141,7 +142,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 			netcdfdataset = NetcdfDataset.openDataset(this.url.toString());
 
-			NCdump.print(netcdfdataset, "", System.out, null);
+			if( logger.isLoggable(Level.FINEST))
+			    NCdump.print(netcdfdataset, "", System.out, null);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -169,7 +171,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		for (Attribute attribute : atts) {
 			if (attribute.getName().equalsIgnoreCase("missing_value")) {
 				Number n = attribute.getNumericValue();
-				System.out.println(n);
+				logger.fine(n.toString());
 			}
 		}
 		return false;
@@ -186,8 +188,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	public ucar.nc2.Variable findncfVariableByShortName(String shortName) {
 		ucar.nc2.Variable variable = null;
 		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
-		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
-			variable = (ucar.nc2.Variable) iterator.next();
+		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator.hasNext();) {
+			variable =  iterator.next();
 			// Attribute att =
 			// variable.findAttributeIgnoreCase("standard_name");
 			// if (att != null) {
