@@ -84,8 +84,6 @@ public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
 			ns.process(map, outputStream);
 			
 			String s = outputStream.toString();
-			System.out.println(s);
-			
 			
 			ns.processForTest();
 			ns.getCapabilities(System.out);
@@ -109,7 +107,6 @@ public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
 			ns.process(map, outputStream);
 			
 			String s = outputStream.toString();
-			System.out.println(s);
 			
 			assertContains(s,"<gml:beginPosition>2008-06-10T00:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");
@@ -138,8 +135,8 @@ public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
 			ns.process(map, outputStream);
 			
 			String s = outputStream.toString();
-			System.out.println(s);
-
+			
+			assertDoesNotContain(s, "ExceptionReport");
 	}
 
 }

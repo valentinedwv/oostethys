@@ -29,9 +29,7 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 			ns.process(fis, outputStream);
 			ns.setNumberOfRecordsToProcess(10);
 			String doc = ns.getOOSTethysDoc();
-			System.out.println(doc);
 			String s = outputStream.toString();
-			System.out.println(s);
 			assertContains(s,"<gml:beginPosition>2008-06-09T09:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");
 			assertContains(s,"</sml:SensorML>");
@@ -46,7 +44,6 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
-			System.out.println(s);
 
 			assertContains(s,"<ExceptionReport version=\"1.0\"><Exception exceptionCode=\"InvalidParameterValue");
 			assertDoesNotContain(s,"</sml:SensorML>");
@@ -86,7 +83,6 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 	}
 
 	public void testgetObservation2() throws Exception {
-		System.out.println("\r\rtesting get observation");
 		String file = getURL("getObsExample2.xml").getFile();
 
 		// 2008-06-02T17:56:19Z,36.69623,-122.39965,10,12.4353,3.83917,9.376,33.046978
@@ -111,13 +107,11 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
-			System.out.println(s);
 			assertTrue(s.contains("EVENT_TIME"));
 			assertTrue(s.contains("<ExceptionReport "));
 	}
 
 	public void testgetObservationWrongParameters() throws Exception {
-		System.out.println("\r\rtesting get observation");
 		String file = getURL("getObsExample3.xml").getFile();
 
 			// mimicking post input stream
@@ -129,7 +123,6 @@ public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
-			System.out.println(s);
 			assertFalse(s.contains("<om:ObservationCollection"));
 			assertTrue(s
 					.contains("<ExceptionReport version=\"1.0\"><Exception exceptionCode=\"InvalidParameterValue\" locator=\"OFFERING\"><ExceptionText>Not able to find any observation with id: observationOffering_1455asdasdasdasdas"));
