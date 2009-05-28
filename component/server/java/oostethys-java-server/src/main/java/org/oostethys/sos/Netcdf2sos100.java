@@ -354,25 +354,21 @@ public class Netcdf2sos100 {
 
 	}
 
-	public String saveOOSTethysTempFile() {
+	public String saveOOSTethysTempFile() throws IOException {
 		URL url = Thread.currentThread().getContextClassLoader().getResource(
 				"xml");
 		String dName = url.getPath();
 		File file = new File(dName + tempDir);
 		// File file = new File(tempDir);
 		String fileName = "oostethysTemp.xml";
-		File tempFile = new File(file, fileName);
 
-		try {
+		    File tempFile =    File.createTempFile("oostethysTemp", "xml");
+		    
 			tempFile.createNewFile();
 			oostDocTemp.save(tempFile);
 			logger.info("saved file " + tempFile);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return fileName;
+		return tempFile.getAbsolutePath();
 
 	}
 
@@ -603,7 +599,11 @@ public class Netcdf2sos100 {
 			StringReader reader = new StringReader(oostDocTemp.xmlText());
 			File xsltGetCapabilitiesFile = getXSLTFile(getCapabilitiesXSLT);
 			getXML(outputStream, xsltGetCapabilitiesFile, reader);
-			saveOOSTethysTempFile();
+			try {
+			    saveOOSTethysTempFile();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
 		}
 	}
 
@@ -692,7 +692,11 @@ public class Netcdf2sos100 {
 		String xmlText = oostDoc.xmlText();
 
 		if (logger.getLevel() == Level.ALL) {
-			saveOOSTethysTempFile();
+			try {
+			    saveOOSTethysTempFile();
+			} catch (IOException e) {
+			    // just logging
+			}
 		}
 
 		getXML(outputStream, xsltGetCapabilitiesFile, new StringReader(xmlText));
