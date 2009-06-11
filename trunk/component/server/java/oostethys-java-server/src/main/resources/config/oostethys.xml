@@ -95,7 +95,7 @@
                                         <!--   URL of the NETCDF file or OPENDAP link. It could also be a relative path to
                                         the WEB_INF/classes folder in the web application -->
                                         
-                                        <fileURL>http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc</fileURL>
+                                        <fileURL>ctd0010.nc</fileURL>
                                         
 		                                  <!--   ShortName of each variable. At least
 				                             lat, lon and time coordinates should be given 
