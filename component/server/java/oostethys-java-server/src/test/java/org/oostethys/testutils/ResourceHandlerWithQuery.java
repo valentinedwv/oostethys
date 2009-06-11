@@ -39,8 +39,10 @@ import org.mortbay.util.URIUtil;
  * @org.apache.xbean.XBean
  */
 public class ResourceHandlerWithQuery extends AbstractHandler {
-    ContextHandler context;
-    Resource baseResource;
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger
+	    .getLogger(ResourceHandlerWithQuery.class.getName());
+    private ContextHandler context;
+    private Resource baseResource;
 
     public void doStart() throws Exception {
         SContext scontext = ContextHandler.getCurrentContext();
@@ -164,6 +166,8 @@ public class ResourceHandlerWithQuery extends AbstractHandler {
         if ((resource == null) || !resource.exists()) {
             response.setStatus(HttpStatus.ORDINAL_404_Not_Found);
 
+            log.warn("resource not found "+request.getPathInfo()+'?'+request.getQueryString());
+            
             return;
         }
 
