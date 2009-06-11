@@ -55,8 +55,10 @@ public class Netcdf2sos_unc_test extends OOSTethysTest {
     public void testDescribeSensor() throws Exception {
 	Map<String, String[]> map = new HashMap<String, String[]>();
 	map.put("Request", new String[] { "describeSensor" });
-	map.put("sensorid", new String[] { "urn:usgs:gov:model:um1-gom" });
-
+	map.put("procedure", new String[] { "urn:unc:org:jpier" });
+	map.put("service", createArray("SOS"));
+	map.put("version", createArray("1.0.0"));
+	
 	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	
 	ns.process(map, null);
@@ -78,7 +80,11 @@ public class Netcdf2sos_unc_test extends OOSTethysTest {
 	Map<String, String[]> map = new HashMap<String, String[]>();
 	map.put("Request", new String[] { "getObservation" });
 	map.put("bbox", new String[] { bbox });
+	map.put("SERVICE", createArray("SOS"));
+	map.put("VERSION", createArray("1.0.0"));
+	map.put("offering", createArray("observationOffering_jpier"));
 
+	
 	// ns.setValue_BBOX(bbox);
 
 	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
