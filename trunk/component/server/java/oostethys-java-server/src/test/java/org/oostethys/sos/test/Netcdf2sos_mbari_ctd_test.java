@@ -90,7 +90,7 @@ public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
 			String surl = ns.getServletURL();
 			assertEquals(urlService.toString(), surl);
 			assertEquals(urlService.toString(),ns.getOostDocTemp().getOostethys().getWebServerURL().toString());
-
+			assertDoesNotContain(s, "ExceptionReport");
 	}
 
 	public void testDescribeSensor() throws Exception {
@@ -108,7 +108,7 @@ public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
 			
 			String s = outputStream.toString();
 			
-			assertContains(s,"<gml:beginPosition>2008-06-10T00:36:19Z</gml:beginPosition>");
+			assertContains(s,"<gml:beginPosition>2008-06-09T09:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");
 			assertContains(s,"</sml:SensorML>");
 
