@@ -26,7 +26,7 @@ public class TestPost extends OOSTethysTest {
             new MockHttpServletRequest("POST", "/oostethys/sos");
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        PrintStream wr = new PrintStream(new ByteArrayOutputStream());
+        PrintStream wr = new PrintStream(buffer);
         BufferedReader in =
             new BufferedReader(new InputStreamReader(getClass()
                                                          .getResourceAsStream("/getObsExample.xml")));
@@ -36,7 +36,7 @@ public class TestPost extends OOSTethysTest {
             wr.append(line);
         }
 
-        buffer.flush();
+        wr.flush();
         request.setContent(buffer.toByteArray());
 
         MockHttpServletResponse response = new MockHttpServletResponse();
