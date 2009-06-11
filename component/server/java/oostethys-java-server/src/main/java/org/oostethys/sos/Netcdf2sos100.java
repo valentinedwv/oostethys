@@ -36,8 +36,6 @@ import net.opengis.sos.x10.GetObservationDocument;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation.EventTime;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -63,6 +61,9 @@ import org.oostethys.voc.Voc;
 
 public class Netcdf2sos100 {
 
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger
+	    .getLogger(Netcdf2sos100.class.getName());
+    
 	private URL urlOostethys;
 	private OostethysDocument oostDoc;
 	private String tempDir = "xml/oostethys/0.1.0/tmp/";
@@ -179,7 +180,7 @@ public class Netcdf2sos100 {
 	 */
 	public void process(InputStream inputStream, OutputStream os)
 			throws Exception {
-		java.lang.System.out.println("processing");
+		log.debug("processing");
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 				inputStream));
@@ -223,21 +224,23 @@ public class Netcdf2sos100 {
 	}
 
 	private void printMap(Map<String,?> map) {
+	    if( log.isDebugEnabled()) {
 	    if( map == null)
 		return;
 		Set<?> set = map.keySet();
-		java.lang.System.out.println("Parameter map ");
+		log.debug("Parameter map ");
 		Iterator<?> iterator = set.iterator();
 		while (iterator.hasNext()) {
 			Object key = iterator.next();
 
 			Object value = map.get(key);
 			if( value instanceof String[] ) {
-			    java.lang.System.out.println(key+", "+Arrays.toString((String[])value));
+			    log.debug(key+", "+Arrays.toString((String[])value));
 			} else {
-			    java.lang.System.out.println(key + ", " + map.get(key));
+			    log.debug(key + ", " + map.get(key));
 			}
 		}
+	    }
 	}
 
 	/**
@@ -1291,8 +1294,8 @@ public class Netcdf2sos100 {
 
 		Set<String> set = parameterMap.keySet();
 		for (String key : set) {
-			java.lang.System.out.println("key " + key);
-			java.lang.System.out.println("value " + parameterMap.get(key));
+			log.debug("key " + key);
+			log.debug("value " + parameterMap.get(key));
 			value = parameterMap.get(key) + "";
 			if (key.equalsIgnoreCase(SERVICE)) {
 				if (!value.equalsIgnoreCase("SOS")) {
