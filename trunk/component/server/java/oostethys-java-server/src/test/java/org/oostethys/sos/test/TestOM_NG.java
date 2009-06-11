@@ -1,15 +1,9 @@
 package org.oostethys.sos.test;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
@@ -36,7 +30,6 @@ public class TestOM_NG extends OOSTethysTest {
 
 			ns.process(inputStream, outputStream);
 			String s = outputStream.toString();
-			System.out.println(s);
 			
 			assertTrue(s.contains("ObservationCollection"));
 	}

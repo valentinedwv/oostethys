@@ -22,7 +22,7 @@ public class Issue1_TestLocaleNumberFormat extends TestCase {
 		double val = Double.parseDouble(valS);
 		NumberFormat myFormatter = NumberFormat.getInstance(Locale.ENGLISH);
 		myFormatter.setMaximumFractionDigits(6);
-		String output = myFormatter.format(val);
+		myFormatter.format(val);
 		fail();
 		}catch(	java.lang.NumberFormatException e){
 			// ok

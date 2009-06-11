@@ -28,7 +28,6 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			ns.process(fis, outputStream);
 			ns.setNumberOfRecordsToProcess(10);
-			String doc = ns.getOOSTethysDoc();
 			String s = outputStream.toString();
 			assertContains(s,"<gml:beginPosition>2008-06-09T09:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");
