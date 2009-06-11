@@ -1,15 +1,15 @@
 Dataset {
     Float32 altitude[altitude = 1];
-    Float32 lat[lat = 1501];
-    Float32 lon[lon = 3601];
-    Float64 time[time = 136];
+    Float32 lat[lat = 16];
+    Float32 lon[lon = 37];
+    Float64 time[time = 16];
     Grid {
      ARRAY:
-        Float32 PNbfp2[time = 136][altitude = 1][lat = 1501][lon = 3601];
+        Float32 PNbfp2[time = 16][altitude = 1][lat = 16][lon = 37];
      MAPS:
-        Float64 time[time = 136];
+        Float64 time[time = 16];
         Float32 altitude[altitude = 1];
-        Float32 lat[lat = 1501];
-        Float32 lon[lon = 3601];
+        Float32 lat[lat = 16];
+        Float32 lon[lon = 37];
     } PNbfp2;
 } satellite/PN/bfp2/8day;

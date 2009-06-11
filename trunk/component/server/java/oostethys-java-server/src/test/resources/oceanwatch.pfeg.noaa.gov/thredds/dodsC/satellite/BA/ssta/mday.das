@@ -33,7 +33,7 @@ Attributes {
         String axis "X";
     }
     time {
-        Float64 actual_range 1.2372048E9, 1.2372048E9;
+        Float64 actual_range 1.23984E9, 1.23984E9;
         Int32 fraction_digits 0;
         String long_name "Centered Time";
         String units "seconds since 1970-01-01T00:00:00Z";
@@ -43,13 +43,13 @@ Attributes {
     }
     BAssta {
         Float32 _FillValue -9999999.0;
-        Float32 actual_range -2.99, 34.4368;
+        Float32 actual_range -2.99, 33.4718;
         String coordsys "geographic";
         Int32 fraction_digits 1;
         String long_name "SST, Blended, 0.1 degrees, Global, EXPERIMENTAL";
         Float32 missing_value -9999999.0;
-        Int32 numberOfObservations 3500654;
-        Float64 percentCoverage 0.6476574628300192;
+        Int32 numberOfObservations 3456923;
+        Float64 percentCoverage 0.6395667722027766;
         String standard_name "sea_surface_temperature";
         String units "degree_C";
     }
@@ -65,8 +65,8 @@ Attributes {
         String creator_name "NOAA CoastWatch, West Coast Node";
         String creator_url "http://coastwatch.pfel.noaa.gov";
         String cwhdf_version "3.4";
-        String date_created "2009-04-01Z";
-        String date_issued "2009-04-01Z";
+        String date_created "2009-05-01Z";
+        String date_issued "2009-05-01Z";
         Float64 Easternmost_Easting 360.0;
         Float64 et_affine 0.0, 0.1, 0.1, 0.0, 0.0, -75.0;
         Int32 gctp_datum 12;
@@ -86,8 +86,8 @@ Attributes {
         String geospatial_vertical_positive "up";
         String geospatial_vertical_units "m";
         String history "Remote Sensing Systems Inc, JAXA, NASA, OSDPD, CoastWatch
-2009-04-01T22:44:15Z NOAA CoastWatch (West Coast Node) and NOAA SFSC ERD";
-        String id "LBAsstaSmday_20090316120000";
+2009-05-01T22:30:56Z NOAA CoastWatch (West Coast Node) and NOAA SFSC ERD";
+        String id "LBAsstaSmday_20090416000000";
         String institution "NOAA CoastWatch, West Coast Node";
         String keywords "EARTH SCIENCE > Oceans > Ocean Temperature > Sea Surface Temperature";
         String keywords_vocabulary "GCMD Science Keywords";
@@ -95,7 +95,7 @@ Attributes {
         String naming_authority "gov.noaa.pfel.coastwatch";
         Float64 Northernmost_Northing 75.0;
         String origin "Remote Sensing Systems Inc, JAXA, NASA, OSDPD, CoastWatch";
-        Int32 pass_date 14304, 14305, 14306, 14307, 14308, 14309, 14310, 14311, 14312, 14313, 14314, 14315, 14316, 14317, 14318, 14319, 14320, 14321, 14322, 14323, 14324, 14325, 14326, 14327, 14328, 14329, 14330, 14331, 14332, 14333, 14334;
+        Int32 pass_date 14335, 14336, 14337, 14338, 14339, 14340, 14341, 14342, 14343, 14344, 14345, 14346, 14347, 14348, 14349, 14350, 14351, 14352, 14353, 14354, 14355, 14356, 14357, 14358, 14359, 14360, 14361, 14362, 14363, 14364;
         Float64 polygon_latitude -75.0, 75.0, 75.0, -75.0, -75.0;
         Float64 polygon_longitude 0.0, 0.0, 360.0, 360.0, 0.0;
         String processing_level "3";
@@ -109,10 +109,10 @@ Attributes {
         String source "satellite observation: Aqua, GOES, POES, AMSR-E, MODIS, Imager, AVHRR";
         Float64 Southernmost_Northing -75.0;
         String standard_name_vocabulary "CF-1.0";
-        Float64 start_time 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0;
+        Float64 start_time 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0;
         String summary "NOAA OceanWatch provides a blended sea surface temperature (SST) products derived from both microwave and infrared sensors carried on multiple platforms.  The microwave instruments can measure ocean temperatures even in the presence of clouds, though the resolution is a bit coarse when considering features typical of the coastal environment.  These are complemented by the relatively fine measurements of infrared sensors.  The blended data are provided at moderate spatial resolution (0.1 degrees) for the Global Ocean.  Measurements are gathered by Japan's Advanced Microwave Scanning Radiometer (AMSR-E) instrument, a passive radiance sensor carried aboard NASA's Aqua spacecraft, NOAA's Advanced Very High Resolution Radiometer, NOAA GOES Imager, and NASA's Moderate Resolution Imaging Spectrometer (MODIS). THIS IS AN EXPERIMENTAL PRODUCT: intended strictly for scientific evaluation by professional marine scientists.";
-        String time_coverage_end "2009-04-01T00:00:00Z";
-        String time_coverage_start "2009-03-01T00:00:00Z";
+        String time_coverage_end "2009-05-01T00:00:00Z";
+        String time_coverage_start "2009-04-01T00:00:00Z";
         String title "SST, Blended, 0.1 degrees, Global, EXPERIMENTAL";
         Float64 Westernmost_Easting 0.0;
     }
