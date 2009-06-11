@@ -106,7 +106,7 @@
                                             <variable shortName="NominalDepth"/>
                                             <variable shortName="Temperature"/>
                                             <variable shortName="Conductivity"/>
-                                            <variable shortName="Pressure"/>
+                                            <!--variable shortName="Pressure"/-->
                                             <variable shortName="Salinity"/>
                                         </variables>
                                     </oostethys-netcdf>
@@ -213,7 +213,6 @@
                                             <variable shortName="NominalDepth"/>
                                             <variable shortName="Temperature"/>
                                             <variable shortName="Conductivity"/>
-                                            <variable shortName="Pressure"/>
                                             <variable shortName="Salinity"/>
                                         </variables>
                                     </oostethys-netcdf>
