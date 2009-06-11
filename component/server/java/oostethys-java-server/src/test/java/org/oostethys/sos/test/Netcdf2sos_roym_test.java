@@ -80,7 +80,7 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
     public void testDescribeSensor() throws Exception {
 	final Map<String, String[]> map = new HashMap<String, String[]>();
 	map.put("Request", new String[] { "describeSensor" });
-	map.put("sensorid", new String[] { "urn:usgs:gov:model:um1-gom" });
+	map.put("procedure", new String[] { "urn:usgs:gov:model:um1-gom" });
 	map.put("SERVICE", createArray("SOS"));
 	map.put("VERSION", createArray("1.0.0"));
 
@@ -107,7 +107,7 @@ public class Netcdf2sos_roym_test extends OOSTethysTest {
 	map.put("bbox", new String[] { bbox });
 	map.put("SERVICE", createArray("SOS"));
 	map.put("VERSION", createArray("1.0.0"));
-	map.put("offering", createArray("observationOffering_1455"));
+	map.put("offering", createArray("observationOffering_aggregsatBA_sstamday"));
 
 	// ns.setValue_BBOX(bbox);
 
