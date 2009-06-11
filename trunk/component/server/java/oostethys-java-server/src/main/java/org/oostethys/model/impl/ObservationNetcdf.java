@@ -830,7 +830,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	}
 
 	private int getIndex(int index, int varArraySize, int thisArraySize) {
-		double d = index / (varArraySize / thisArraySize);
+		double d = index / ((double)varArraySize / (double)thisArraySize);
 		return (int) d;
 
 	}
