@@ -36,6 +36,7 @@ import net.opengis.sos.x10.GetObservationDocument;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation;
 import net.opengis.sos.x10.GetObservationDocument.GetObservation.EventTime;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -722,7 +723,6 @@ public class Netcdf2sos100 {
 		// /oost:oostethys/oost:components[1]/oost:system[1]/oost:components[1]/oost:system[1]/oost:components[1]/oost:system[1]/oost:metadata[1]/oost:systemShortName[1]
 
 		// create copy oostethys
-		OostethysDocument oostDoc = OostethysDocument.Factory.newInstance();
 		Oostethys oostTemp = (Oostethys) oostDocTemp.getOostethys().copy();
 
 		// get all systems
@@ -735,29 +735,25 @@ public class Netcdf2sos100 {
 		// add systems found to generate the getObsColllection
 		List<System> systemsTodAdd = new ArrayList<System>();
 
-		String offering = parameterMap.get(OFFERING);
+		String requestedOffering = parameterMap.get(OFFERING);
 
 		// find systems to add
-		for (int i = 0; i < systems.length; i++) {
-			String systemShortName = systems[i].getMetadata()
-					.getSystemShortName();
-			StringTokenizer st = new StringTokenizer(offering, "_");
-			if (st.countTokens() == 2) {
-				st.nextToken();
-				String offeringId = st.nextToken();
-				if (offeringId.equals(systemShortName)) {
-					systemsTodAdd.add((System) systems[i].copy());
-				}
-
-			}
-
-		}
+    	for (System system : systems) {
+    	    final String systemShortName = system.getMetadata()
+    		    .getSystemShortName();
+    
+    	    String requestedSystemShort = StringUtils.substringAfter(
+    		    requestedOffering, "_");
+    	    if (StringUtils.equals(requestedSystemShort, systemShortName)) {
+    		systemsTodAdd.add((System) system.copy());
+    	    }
+    	}
 
 		// check if there nothing was found - return exception
 
 		if (systemsTodAdd.size() == 0) {
 			report(ExceptionReporter.InvalidParameterValue, OFFERING,
-					"Not able to find any observation with id: " + offering,
+					"Not able to find any observation with id: " + requestedOffering,
 					outputStream);
 			return null;
 
