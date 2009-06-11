@@ -8,7 +8,7 @@ import java.util.Map;
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
-public class Netcdf2sos_capabilitiesparameterIssue extends OOSTethysTest {
+public class Netcdf2sosCapabilitiesParameterIssueTest extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 	protected void setUp() throws Exception {
 		super.setUp();

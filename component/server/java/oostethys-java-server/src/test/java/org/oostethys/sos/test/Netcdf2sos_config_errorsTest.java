@@ -6,7 +6,7 @@ import java.util.Map;
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
-public class Netcdf2sos_config_test_errors extends OOSTethysTest {
+public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 
 	public void testNotFoundConfigXML() {

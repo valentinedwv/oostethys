@@ -8,7 +8,7 @@ import java.util.Map;
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
-public class Netcdf2sos_mbari_ctd_test extends OOSTethysTest {
+public class Netcdf2sos_mbari_ctd_Test extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 	
 //	netcdf file:/Users/bermudez/Documents/workspace31/org.oostethys/WebRoot/WEB-INF/classes/ctd0010.nc {

@@ -9,7 +9,7 @@ import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 import org.oostethys.testutils.LocalResourceServer;
 
-public class Netcdf2sos_roym_test extends OOSTethysTest {
+public class Netcdf2sos_roym_Test extends OOSTethysTest {
     Netcdf2sos100 ns = null;
 
     //	

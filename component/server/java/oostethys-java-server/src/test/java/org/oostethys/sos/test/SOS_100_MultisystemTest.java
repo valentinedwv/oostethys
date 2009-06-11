@@ -9,7 +9,7 @@ import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 import org.oostethys.testutils.LocalResourceServer;
 
-public class SOS_100_Multisystem extends OOSTethysTest {
+public class SOS_100_MultisystemTest extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 
 	LocalResourceServer server = new LocalResourceServer();
