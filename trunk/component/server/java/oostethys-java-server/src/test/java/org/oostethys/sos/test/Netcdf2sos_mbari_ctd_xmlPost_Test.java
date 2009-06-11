@@ -8,7 +8,7 @@ import java.net.URL;
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
-public class Netcdf2sos_mbari_ctd_xmlPost_test extends OOSTethysTest {
+public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 
 	protected void setUp() throws Exception {
