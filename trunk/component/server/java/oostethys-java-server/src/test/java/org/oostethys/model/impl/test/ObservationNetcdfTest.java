@@ -32,10 +32,7 @@ public class ObservationNetcdfTest extends TestCase {
 		oni.setNumberOfRecords(100);
 	
 		oni.process();
-		
-		
-		System.out.println("records \n"+oni.getAsRecords());
-		
+				
 		assertTrue(oni.getAsRecords().startsWith("2"));
 		assertTrue(oni.getAsRecords().startsWith("2008-06-09T09:36:19Z,36.69623,-122.39965,10,1,213,004,179,-122.39965,36.69623,10,12.1338,3.82432,33.17029,10.052 2008-06-09T09:46:20Z,36.69623,-122.39965,10,1,213,004,780,-122.39965,36.69623,10,12.1324,3.82408,33.169254,9.956 "));
 		
