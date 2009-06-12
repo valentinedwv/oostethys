@@ -8,7 +8,7 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 
-public class Issue1_TestLocaleNumberFormat extends TestCase {
+public class Issue1_LocaleNumberFormatTest extends TestCase {
 	
 	
 	
