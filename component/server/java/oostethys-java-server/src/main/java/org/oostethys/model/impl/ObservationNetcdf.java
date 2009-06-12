@@ -3,14 +3,11 @@ package org.oostethys.model.impl;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.oostethys.model.Observation;
 import org.oostethys.model.Units;
@@ -30,6 +27,9 @@ import ucar.nc2.dataset.NetcdfDataset;
 import ucar.nc2.units.DateUnit;
 
 public class ObservationNetcdf extends ResourceImpl implements Observation {
+    
+    private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
+	    .getLogger(ObservationNetcdf.class.getName());
     
 	private int numberOfRecords = 10000; // max number of records to read
 
@@ -63,8 +63,6 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	private TimeUtil timeUtil;
 
-	private Logger logger = Logger.getLogger(ObservationNetcdf.class.getName());
-
 	private String value_BBOX = null;
 	private double minLonBBOX = Long.MAX_VALUE;
 	private double minLatBBOX = Long.MAX_VALUE;
@@ -89,9 +87,6 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	// get all the data,
 	// only the extends
 
-	private DecimalFormat decimalFormat = new DecimalFormat("#0");
-
-	
 
 	public ObservationNetcdf() {
 
@@ -142,7 +137,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 			netcdfdataset = NetcdfDataset.openDataset(this.url.toString());
 
-			if( logger.isLoggable(Level.FINEST))
+			if( logger.isDebugEnabled())
 			    NCdump.print(netcdfdataset, "", System.out, null);
 
 		} catch (IOException e) {
@@ -167,11 +162,12 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	}
 
 	public boolean isGood(ucar.nc2.Variable var, double value) {
+		@SuppressWarnings("unchecked")
 		List<Attribute> atts = var.getAttributes();
 		for (Attribute attribute : atts) {
 			if (attribute.getName().equalsIgnoreCase("missing_value")) {
 				Number n = attribute.getNumericValue();
-				logger.fine(n.toString());
+				logger.debug(n.toString());
 			}
 		}
 		return false;
@@ -187,6 +183,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 */
 	public ucar.nc2.Variable findncfVariableByShortName(String shortName) {
 		ucar.nc2.Variable variable = null;
+		@SuppressWarnings("unchecked")
 		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
 		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator.hasNext();) {
 			variable =  iterator.next();
@@ -273,14 +270,14 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 					arraysVar.add(varnc.read());
 					logger.info("processed succesfully" + varnc);
 				} catch (IOException e) {
-					logger.warning("problems parsing: " + uriOfVariable);
+					logger.warn("problems parsing: " + uriOfVariable);
 					throw new Exception("not able to parse " + varnc
 							+ " corresponding to " + varLabel, e);
 				}
 
 			} else {
 
-				logger.warning("Variable has no label: " + uriOfVariable);
+				logger.warn("Variable has no label: " + uriOfVariable);
 			}
 		} else {
 			// throw new Exception("not able to find the variable " +
@@ -341,6 +338,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		}
 
+		@SuppressWarnings("unchecked")
 		List<ucar.nc2.Variable> varsNC = netcdfdataset.getVariables();
 
 		// will hold the variables found in the appropriate order
@@ -351,7 +349,6 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		// contains all the Array of data related to a variable
 
 		List<Array> arraysVar = new ArrayList<Array>(varsNC.size());
-		VariableQuantity varConfig = null;
 		// ucar.nc2.Variable varnc = null;
 
 		processVar(varsToProcess, arraysVar, Voc.time);
@@ -382,8 +379,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		int numberOfFields = arraysVar.size();
 
 		if (varsToProcess.size() > numberOfFields) {
-			logger
-					.severe("not all the variables have been processed correctly ! ");
+			logger.error("not all the variables have been processed correctly ! ");
 		}
 
 		logger.info("numberOfFields " + numberOfFields);
@@ -435,9 +431,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		// StringBuffer lastknown = new StringBuffer();
 
-		;
 		long millis = Long.MIN_VALUE;
-		String time = "";
+		//String time = "";
 		String lat = "";
 		String lon = "";
 		// String z = "";
@@ -466,7 +461,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 					minTime = Math.min(millis, minTime);
 					maxTime = Math.max(millis, maxTime);
 
-					time = val = TimeUtil.getISOFromMillisec(millis);
+					val = TimeUtil.getISOFromMillisec(millis);
 
 					break;
 
@@ -561,9 +556,10 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	private void setDepthFlag() {
 		// find if there is a depth coordinate , other than lat lon and time
+		@SuppressWarnings("unchecked")
 		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
-		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
-			ucar.nc2.Variable variable = (ucar.nc2.Variable) iterator.next();
+		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator.hasNext();) {
+			ucar.nc2.Variable variable = iterator.next();
 
 			if (ncVariableIsCoordinate(variable)) {
 
@@ -650,60 +646,60 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		
 	}
 
-	/**
-	 * It guesses what is lat, long depth and others and those the mappings
-	 * 
-	 * @throws Exception
-	 */
-	private void processVarConfig2() throws Exception {
-
-		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
-		VariableQuantity variableQuantity = null;
-		while (iter.hasNext()) {
-
-			variableQuantity = (VariableQuantity) iter.next();
-			ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
-					.getLabel());
-
-			if (var == null) {
-
-				throw new Exception("The following variable was not found : '"
-						+ variableQuantity + "' in "
-						+ netcdfdataset.getLocation());
-
-			} else {
-				logger.info(" Found nc Variable for: " + variableQuantity
-						+ " --> " + var.getShortName());
-			}
-
-			// set coordinate attribute
-			if (ncVariableIsCoordinate(var)) {
-				variableQuantity.setCoordinate(true);
-			} else {
-				variableQuantity.setCoordinate(false);
-			}
-
-			// set URI // mapping
-			assignURItoVarConfig(variableQuantity);
-
-			String unitsS = var.getUnitsString();
-			Units units = new UnitsImpl();
-
-			if (!variableQuantity.getURI().equals(Voc.time)) {
-				String ucum = UnitsMapper.getUCUM(unitsS);
-				units.setLabel(ucum);
-
-				//				
-			}
-			// leave units as it is form nc var
-			else {
-				units.setLabel(unitsS);
-			}
-			variableQuantity.setUnits(units);
-
-		}
-
-	}
+//	/**
+//	 * It guesses what is lat, long depth and others and those the mappings
+//	 * 
+//	 * @throws Exception
+//	 */
+//	private void processVarConfig2() throws Exception {
+//
+//		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
+//		VariableQuantity variableQuantity = null;
+//		while (iter.hasNext()) {
+//
+//			variableQuantity = (VariableQuantity) iter.next();
+//			ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
+//					.getLabel());
+//
+//			if (var == null) {
+//
+//				throw new Exception("The following variable was not found : '"
+//						+ variableQuantity + "' in "
+//						+ netcdfdataset.getLocation());
+//
+//			} else {
+//				logger.info(" Found nc Variable for: " + variableQuantity
+//						+ " --> " + var.getShortName());
+//			}
+//
+//			// set coordinate attribute
+//			if (ncVariableIsCoordinate(var)) {
+//				variableQuantity.setCoordinate(true);
+//			} else {
+//				variableQuantity.setCoordinate(false);
+//			}
+//
+//			// set URI // mapping
+//			assignURItoVarConfig(variableQuantity);
+//
+//			String unitsS = var.getUnitsString();
+//			Units units = new UnitsImpl();
+//
+//			if (!variableQuantity.getURI().equals(Voc.time)) {
+//				String ucum = UnitsMapper.getUCUM(unitsS);
+//				units.setLabel(ucum);
+//
+//				//				
+//			}
+//			// leave units as it is form nc var
+//			else {
+//				units.setLabel(unitsS);
+//			}
+//			variableQuantity.setUnits(units);
+//
+//		}
+//
+//	}
 
 	/**
 	 * Maps the variable names provided in the configuration file, with the
@@ -732,7 +728,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		ucar.nc2.Variable var = findncfVariableByShortName(label);
 		String standardName = null;
 		String uri = null;
-		boolean isTime = false;
+		//boolean isTime = false;
 
 		if (var != null) {
 			Attribute att = var.findAttribute("standard_name");
@@ -822,12 +818,12 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	}
 
-	private double getDoubleValue(int varArraySize, Array ma, int index) {
-		Index ima = ma.getIndex();
-		int ind = getIndex(index, varArraySize, ma.getShape()[0]);
-		double obj = ma.getDouble(ima.set(ind));
-		return obj;
-	}
+//	private double getDoubleValue(int varArraySize, Array ma, int index) {
+//		Index ima = ma.getIndex();
+//		int ind = getIndex(index, varArraySize, ma.getShape()[0]);
+//		double obj = ma.getDouble(ima.set(ind));
+//		return obj;
+//	}
 
 	private int getIndex(int index, int varArraySize, int thisArraySize) {
 		double d = index / ((double)varArraySize / (double)thisArraySize);
