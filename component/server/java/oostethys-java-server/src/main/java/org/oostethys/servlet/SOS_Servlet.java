@@ -2,12 +2,10 @@ package org.oostethys.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +20,8 @@ public class SOS_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
-
-	public Logger logger = Logger.getLogger(SOS_Servlet.class.getName());
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
+		.getLogger(SOS_Servlet.class.getName());
 
 	public void destroy() {
 		super.destroy();
@@ -49,23 +47,22 @@ public class SOS_Servlet extends HttpServlet {
 	
 
 	private void printParameters(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response)  {
 
-	
-		Map map = request.getParameterMap();
-		Set set = map.keySet();
-		logger.info("Parameter map: ");
-		Iterator iterator = set.iterator();
+		Map<?,?> map = request.getParameterMap();
+		Set<?> set = map.keySet();
+		logger.debug("Parameter map: ");
+		Iterator<?> iterator = set.iterator();
 		while (iterator.hasNext()) {
-			Object key = (Object) iterator.next();
+			Object key =  iterator.next();
 			map.get(key);
-			java.lang.System.out.println(key + " ");
+			logger.debug(key + " ");
 			Object value = map.get(key);
-			logger.info("type: " + value.getClass());
+			logger.debug("type: " + value.getClass());
 
 			String[] list = (String[]) map.get(key);
 			for (int i = 0; i < list.length; i++) {
-				logger.info("value: " + list[i]);
+				logger.debug("value: " + list[i]);
 			}
 
 		}
@@ -87,7 +84,15 @@ public class SOS_Servlet extends HttpServlet {
 		ns.setServletURL(request.getRequestURL().toString());
 
 		try {
-			ns.process(request.getParameterMap(), response.getOutputStream());
+			@SuppressWarnings("unchecked")
+			Map<String,String[]> parameterMap = request.getParameterMap();
+			/* as a reminder that the types are correct: 
+			 * from the Javadoc of ServletRequest: 
+			 *  "The keys in the parameter map are of type String. 
+			 *   The values in the parameter map are of type String array."
+			 */
+			
+			ns.process(parameterMap, response.getOutputStream());
 		} catch (Exception e) {
 			e.printStackTrace();
 			// response.sendRedirect("check.jsp");
@@ -96,25 +101,25 @@ public class SOS_Servlet extends HttpServlet {
 
 	}
 
-	private void throwError_(Exception e, OutputStream outputStream) {
-		StringBuffer buffy = new StringBuffer(100);
-		buffy.append("<html>");
-		buffy.append("<h2>");
-		buffy.append("<p><b>Errors found: </b></p>");
-		StackTraceElement[] ele = e.getStackTrace();
-		for (int i = 0; i < ele.length; i++) {
-			buffy.append(ele.toString() + "<br>");
-		}
-		buffy.append("<\\html>");
-		try {
-			outputStream.write(buffy.toString().getBytes());
-			outputStream.close();
-		} catch (IOException e1) {
-		
-			e1.printStackTrace();
-		}
-
-	}
+//	private void throwError_(Exception e, OutputStream outputStream) {
+//		StringBuffer buffy = new StringBuffer(100);
+//		buffy.append("<html>");
+//		buffy.append("<h2>");
+//		buffy.append("<p><b>Errors found: </b></p>");
+//		StackTraceElement[] ele = e.getStackTrace();
+//		for (int i = 0; i < ele.length; i++) {
+//			buffy.append(ele.toString() + "<br>");
+//		}
+//		buffy.append("<\\html>");
+//		try {
+//			outputStream.write(buffy.toString().getBytes());
+//			outputStream.close();
+//		} catch (IOException e1) {
+//		
+//			e1.printStackTrace();
+//		}
+//
+//	}
 
 	private URL getOOSTethysConfigFile() {
 		return Thread.currentThread().getContextClassLoader().getResource(
@@ -124,11 +129,13 @@ public class SOS_Servlet extends HttpServlet {
 	
 	
 
+	
 	public String getValueCaseInsensitive(HttpServletRequest request,
 			String parameter) {
-		java.util.Enumeration e = request.getParameterNames();
+	    @SuppressWarnings("unchecked")
+		java.util.Enumeration<String> e = request.getParameterNames();
 		while (e.hasMoreElements()) {
-			String key = (String) e.nextElement();
+			String key =  e.nextElement();
 			if (key.equalsIgnoreCase(parameter)) {
 				return request.getParameter(key);
 			}
