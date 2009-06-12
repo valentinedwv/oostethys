@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -124,18 +123,16 @@ public class Netcdf2sos100 {
 
 	private int numberOfRecordsToProcess = 100;
 
-	private java.util.logging.Logger logger = java.util.logging.Logger
-			.getLogger(Netcdf2sos100.class.getName());
 
 	public Netcdf2sos100() {
 		xsltUrl = Thread.currentThread().getContextClassLoader().getResource(
 				xsltDir);
 		tempUrl = Thread.currentThread().getContextClassLoader().getResource(
 				tempDir);
-		java.lang.System.err.println("URLS: " + xsltUrl + ":" + tempUrl);
+		log.debug("URLS: " + xsltUrl + ":" + tempUrl);
 		xsltDir = (xsltUrl != null ? xsltUrl.getPath() : null);
 		tempDir = (tempUrl != null ? tempUrl.getPath() : null);
-		logger.fine("start logging");
+		log.debug("start logging");
 
 	}
 
@@ -370,7 +367,7 @@ public class Netcdf2sos100 {
 		    
 			tempFile.createNewFile();
 			oostDocTemp.save(tempFile);
-			logger.info("saved file " + tempFile);
+			log.info("saved file " + tempFile);
 
 		return tempFile.getAbsolutePath();
 
@@ -510,7 +507,7 @@ public class Netcdf2sos100 {
 								varTemp.setUri(Voc.time);
 							}
 
-							logger.info("units set for " + varTemp.getUri()
+							log.info("units set for " + varTemp.getUri()
 									+ " " + varTemp.getUom());
 
 							// add to temp sensor
@@ -618,7 +615,7 @@ public class Netcdf2sos100 {
 		String file = url.getPath();
 
 		File xsltF = new File(file + "/oostethys/0.1.0/xslt/", xslt);
-		java.lang.System.err.println("XSLT FILE: " + file + " ---  " + xsltF);
+		log.debug("XSLT FILE: " + file + " ---  " + xsltF);
 		return xsltF;
 
 	}
@@ -695,7 +692,7 @@ public class Netcdf2sos100 {
 
 		String xmlText = oostDoc.xmlText();
 
-		if (logger.getLevel() == Level.ALL) {
+		if (log.isDebugEnabled()) {
 			try {
 			    saveOOSTethysTempFile();
 			} catch (IOException e) {
