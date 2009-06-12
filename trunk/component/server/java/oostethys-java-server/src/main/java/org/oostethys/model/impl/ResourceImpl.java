@@ -58,13 +58,6 @@ public class ResourceImpl implements Resource {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		Resource res = new ResourceImpl("urn:aa:frag");
-
-		System.out.println(res.getFragment());
-
-	}
-
 	public String getLabel() {
 
 		return label;
