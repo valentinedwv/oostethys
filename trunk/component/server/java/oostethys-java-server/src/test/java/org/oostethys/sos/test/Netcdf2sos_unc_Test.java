@@ -22,7 +22,6 @@ public class Netcdf2sos_unc_Test extends OOSTethysTest {
 	
 	URL url = Thread.currentThread().getContextClassLoader().getResource(
 		"oostethys-unc.xml");
-	System.out.println(url);
 	ns.setUrlOostethys(url);
     }
     
