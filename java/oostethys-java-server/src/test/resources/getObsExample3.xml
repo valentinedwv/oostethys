@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetObservation xmlns="http://www.opengis.net/sos/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:om="http://www.opengis.net/om/1.0"
+	xmlns:ogc="http://www.opengis.net/ogc"
+	xmlns:gml="http://www.opengis.net/gml"
+	xsi:schemaLocation="http://www.opengis.net/sos/1.0 file:/Users/bermudez/Documents/workspace31/ows-ogc-schemas/swe/trunk/sos/1.0.0/sosGetObservation.xsd"
+	service="SOS" version="1.0.0">
+	<!-- test wrong parameter value -->
+	<offering>observationOffering_1455asdasdasdasdas</offering>
+	<eventTime>
+        <ogc:TM_During>
+            <ogc:PropertyName>om:samplingTime</ogc:PropertyName>
+            <gml:TimePeriod>
+                <gml:beginPosition>2008-06-02T17:56:18Z</gml:beginPosition>
+                <gml:endPosition>2008-06-02T18:06:22Z</gml:endPosition>
+            </gml:TimePeriod>
+        </ogc:TM_During>
+    </eventTime>
+	
+	<procedure>urn:mbari:org:device:1455</procedure>
+	
+	<observedProperty>http://mmisw.org/cf#conductivity</observedProperty>
+	<observedProperty>http://mmisw.org/cf#sea_water_salinity</observedProperty>
+	<responseFormat>text/xml; subtype=&quot;om/1.0.0&quot;</responseFormat>
+	<resultModel>om:Observation</resultModel>
+	<responseMode>inline</responseMode>
+</GetObservation>
+
+
+<!--  <gml:beginPosition>2008-06-09T22:56:19Z</gml:beginPosition>
+               <gml:endPosition>2008-06-10T02:06:21Z</gml:endPosition>
+            <
+
+ 
+  <eventTime>
+        <ogc:TM_During>
+            <ogc:PropertyName>om:samplingTime</ogc:PropertyName>
+            <gml:TimePeriod>
+                <gml:beginPosition>2008-06-09T22:56:19Z</gml:beginPosition>
+                <gml:endPosition>2008-06-10T02:06:21Z</gml:endPosition>
+            </gml:TimePeriod>
+        </ogc:TM_During>
+    </eventTime>
+    
+     -->

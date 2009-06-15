@@ -1,0 +1,17 @@
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc.html
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m0/200607/hourlyM0_20060731.nc
+
+http://coast-enviro.er.usgs.gov/cgi-bin/nph-dods/models/gom_interop/umassb_scituate.nc
+
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/auvctd/surveys/2006/netcdf/Dorado389_2006_348_01_348_01_decim.nc
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m0/200701/m0_adcp1267_20070130.nc
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0000.nc
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m0/current_netCDFs/ctd0000.nc
+
+http://dods.mbari.org/cgi-bin/nph-nc/data/auvctd/surveys/2006/netcdf/Dorado389_2006_348_01_348_01_decim.nc

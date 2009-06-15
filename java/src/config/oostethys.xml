@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:nc="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf"
+    
+    
+      xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys 
+    http://oostethys.googlecode.com/svn/trunk/component/server/xml/oostethys/0.1.0/oostethys.xsd
+    http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf
+    http://oostethys.googlecode.com/svn/trunk/component/server/xml/oostethys/0.1.0/oostethys-netcdf.xsd
+    ">
+    
+    <!--  for local testing
+    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys 
+    /Users/bermudez/Documents/workspace31/xml/oostethys/0.1.0/oostethys.xsd
+    http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf
+    /Users/bermudez/Documents/workspace31/xml/oostethys/0.1.0/oostethys-netcdf.xsd
+    ">
+    -->
+   
+    <!--  
+    
+    
+    -->
+    
+    <!-- 
+    
+    		This is an example OOSTethys configuration file, which takes a netcdf and makes available an SOS based on OOSTethys conventions. 
+    		
+    		OOSTehtys has components. Components are systems.  Systems could be observing systems, platforms, sensors , etc.
+    		
+    	    A System could contain components or output. 
+    	    
+    	    Output has sourceConfiguration - which in this case is a oostethys-netcdf configuration.
+    	    
+    	    oostethys-netcdf needs a URL of the file and the short name of the variables. The short name of the variable is the
+    	    title of the variable that appears after the type when you see the header of a netcdf file or call the dump function.
+    	    In the following example, the short name =  "Temp". This are unique within a file. 
+    	    
+    	    ...
+    	     variables:
+		   float Temp(esecs=8265, NominalDepth=1, Latitude=1, Longitude=1);
+    		 :long_name = "Water Temperature";
+		     :units = "deg C";
+		     :standard_name = "Temperature";
+		     
+		     ...
+		     
+		     
+    	If you have any problems please send an email to oostethys-support@lists.sourceforge.net
+     -->
+    
+
+<!--  This value is not neccesary. It will be filled by the web application. Leave it in blank -->
+    <webServerURL></webServerURL>
+    
+    <!--  SOS service metadata -->
+    <serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1">
+        <urlOrganization>http://www.marinemetadata.org</urlOrganization>
+        <longNameOrganization>Marine Metadata Interoperability Initiative (MMI)</longNameOrganization>
+        <shortNameOrganization>MMI</shortNameOrganization>
+        <individualName></individualName>
+        <individualEmail></individualEmail>
+    </serviceContact>
+    
+    
+    <!--  Components could be observing systems, platforms, sensors , etc... -->
+    <components>
+        <system>
+            <metadata>
+                <sytemLongName>Monterey Bay Aquarium Research Institute Observing System</sytemLongName>
+                <systemShortName>MBARI</systemShortName>
+                <systemIdentifier>urn:mbari:org</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
+                <systemContacts>
+                    <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+                        <urlOrganization>http://www.mbari.org</urlOrganization>
+                        <longNameOrganization>Monterey Bay Aquarium Research Institute</longNameOrganization>
+                        <shortNameOrganization>MBARI</shortNameOrganization>
+                        <individualName>John G</individualName>
+                        <individualEmail>xxx@yyy.org</individualEmail>
+                    </systemContact>
+                </systemContacts>
+            </metadata>
+            
+            <!--  A System could contain components or output.  -->
+            
+            <components>
+                <system>
+                   <metadata>
+                        <sytemLongName>Mooring M2</sytemLongName>
+                        <systemShortName>m2</systemShortName>
+                        <systemIdentifier>uri:mbari:org:mooring:m2</systemIdentifier>
+                        <systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
+                        <systemContacts/>
+                    </metadata>
+                    <components>
+                        <system>
+                        
+                          <!--  This system has outputs and no components -->
+                          
+                            <metadata>
+                                <sytemLongName>Serial CTD</sytemLongName>
+                                <systemShortName>1455</systemShortName>
+                                <systemIdentifier>urn:mbari:org:device:1455</systemIdentifier>
+                                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                                <systemContacts/>
+                            </metadata>
+                            <output>
+                                <sourceConfiguration>
+                                   <!--  source configuration is the information necessary to parse the NetCdf file  -->
+                            
+                                    <nc:oostethys-netcdf
+                                        >
+                                        
+                                        <!--   URL of the NETCDF file or OPENDAP link. It could also be a relative path to
+                                        the WEB_INF/classes folder in the web application -->
+                                        
+                                        <nc:fileURL>http://dods.mbari.org/cgi-bin/nph-nc/data/ssdsdata/deployments/m2/current_netCDFs/ctd0010.nc</nc:fileURL>
+                                        
+		                                  <!--   ShortName of each variable. At least
+				                             lat, lon and time coordinates should be given 
+				                             
+				                            -->
+                                        
+                                        <nc:variables>
+                                        
+                                        
+                                            <nc:variable shortName="esecs" uri="urn:ogc:phenomenon:time:iso8601" dimension="time"/>
+                                            <nc:variable shortName="Longitude" uri="urn:ogc:phenomenon:longitude:wgs84" dimension="latitude"/>
+                                            <nc:variable shortName="Latitude" uri="urn:ogc:phenomenon:latitude:wgs84" dimension="longitude"/>
+                                            <nc:variable shortName="NominalDepth" uri="http://mmisw.org/ont/cf/parameter/depth" dimension="depth"/>
+                                            <nc:variable shortName="Temperature" uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" dimension="no"/>
+                                            <nc:variable shortName="Conductivity" uri="http://mmisw.org/ont/cf/parameter/conductivity" dimension="no"/>
+                                            <nc:variable shortName="Pressure" uri="http://mmisw.org/ont/cf/parameter/pressure" dimension="no"/>
+                                            <nc:variable shortName="Salinity" uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" dimension="no"/>
+                                        </nc:variables>
+                                    </nc:oostethys-netcdf>
+                                </sourceConfiguration>
+                            </output>
+                        </system>
+                        
+                    </components>
+                </system>
+               
+            </components>
+        </system>
+    </components>
+</oostethys>
