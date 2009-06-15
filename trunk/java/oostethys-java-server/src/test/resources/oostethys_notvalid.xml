@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys http://www.oostethys.org/schemas/0.1.0/oostethys.xsd">
+
+	<webServerURL>http://coast-enviro.er.usgs.gov</webServerURL>
+	<serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1">
+		<urlOrganization>http://www.marinemetadata.org</urlOrganization>
+		<longNameOrganization> Marine Metadata Interoperability Initiative (MMI) </longNameOrganization>
+		<shortNameOrganization>MMI</shortNameOrganization>
+		<individualName/>
+		<individualEmail/>
+	</serviceContact>
+
+	<components>
+		<system>
+			<metadata>
+			<!--  this tag is not correct -->
+			<otherTag></otherTag>
+				<sytemLongName>xxx Model</sytemLongName>
+				<systemShortName>um</systemShortName>
+				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
+				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
+				<systemContacts>
+					<systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+						<urlOrganization> org </urlOrganization>
+						<longNameOrganization> a long name </longNameOrganization>
+						<shortNameOrganization> shortName </shortNameOrganization>
+						<individualName>FirtName lastName</individualName>
+						<individualEmail>xxx@xxx.org</individualEmail>
+					</systemContact>
+				</systemContacts>
+				<metadata></metadata>
+			</metadata>
+
+
+
+			<output>
+
+				<sourceConfiguration>
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL>ctd0010.nc</fileURL>
+
+						<variables>
+							<variable shortName="Latitude"/>
+							<variable shortName="Longitude"/>
+							<variable shortName="esecs"/>
+							<variable shortName="Salinity"/>
+
+						</variables>
+					</oostethys-netcdf>
+
+
+				</sourceConfiguration>
+
+			</output>
+		</system>
+		
+	</components>
+
+</oostethys>

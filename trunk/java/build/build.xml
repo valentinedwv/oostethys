@@ -1,0 +1,187 @@
+<!-- 
+/***************************************************************************** 
+* Source code information 
+*
+* Original author Luis Bermudez, MBARI/MMI 
+* Author email bermudez@mbari.org 
+* Web http://marinemetadata.org/mmitools 
+* Filename $$RCSfile: build.xml,v $$ 
+* Revision $$Revision: 1.4 $$ 
+* 
+* Last modified on $$Date: 2008/06/19 20:32:12 $$ 
+* by $$Author: luisbermudez $$ 
+* 
+* (c) Copyright 2005, 2006 Monterey Bay Aquarium Research Institute 
+* Marine Metadata Interoperability (MMI) Project http://marinemetadata.org 
+* 
+* License Information 
+
+* This program is free software; you can redistribute it and/or modify 
+* it under the terms of the GNU General Public License as published by 
+* the Free Software Foundation; either version 2 of the License, or 
+* (at your option) any later version. 
+* 
+* This program is distributed in the hope that it will be useful, 
+* but WITHOUT ANY WARRANTY; without even the implied warranty of 
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+* GNU General Public License for more details. 
+* 
+* You should have received a copy of the GNU General Public License 
+* along with this program; if not, you can download it from 
+* http://marinementadata.org/gpl or write to the Free Software 
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+*********************************************************************************/
+
+-->
+
+
+<project name="OOSTethys" basedir="../" default="doALL">
+	<property name="version" value="0.3.8_20081122" />
+
+
+	<property file="build/web-service.properties" />
+	<property name="war" value="${war_file_name}.war" />
+	<property name="catalina" value="${tomcat_installation_directory}" />
+
+
+	<property name="src" location="bin" />
+	<property name="src-dest" location="lib/mmi" />
+
+	<property name="tempLib" value="tempDirxx" />
+	<property name="webxml" value="WebRoot/WEB-INF/web.xml" />
+	<property name="webRoot" value="WebRoot" />
+
+	<property name="capabilitiesVersion" value="1.0.0" />
+
+
+	<import file="/Users/bermudez/Documents/workspace31/xmlbeans-oostethys/build.xml">
+
+	</import>
+	
+	<target name ="updatexlts">
+		<copy todir="src/xml/oostethys" overwrite="true" >
+					<fileset dir="/Users/bermudez/Documents/workspace31/oostethys-xml/oostethys" includes="0.1.0/**" />
+				</copy>
+	</target>
+	
+
+	<target name="createWar" depends="createWelcomePage">
+
+		<delete file="${war}" />
+		<mkdir dir="${tempLib}" />
+		<copy todir="${tempLib}">
+			<fileset dir="lib" includes="**/*.*" excludes="**/servlet/*.*,**/jdom/*.*,**/jfreechart/*.*" />
+			<mapper type="flatten">
+			</mapper>
+		</copy>
+		<zip destfile="${tempLib}/oostethys-src.zip" basedir="src" />
+
+
+		<war destfile="${war}" basedir="${webRoot}" webxml="${webxml}" excludes="test/**,**/*test.*,**/etc/*.*">
+			<lib dir="${tempLib}" />
+
+		</war>
+
+		<delete dir="${tempLib}">
+		</delete>
+
+	</target>
+
+	<target name="createWelcomePage">
+
+		<!--
+		<copy file="temp-index.html" tofile="${webRoot}/index.html" overwrite="true">
+			<filterset>
+				<filter token="projectName" value="${war_file_name}" />
+				<filter token="date" value="${version} - ${now}" />
+				<filter token="capabilitiesVersion" value="${capabilitiesVersion}" />
+			</filterset>
+		</copy>
+
+		<copy file="README.html" todir="${webRoot}" />
+-->
+
+	</target>
+
+	<!-- sends the war file to your tomcat server -->
+	<target name="copy-war-to-tomcat">
+		<copy todir="${catalina}/webapps" file="${war}" />
+	</target>
+
+	<target name="createRelease">
+		<copy file="tmphtml/index.html" tofile="${webRoot}/index.html" overwrite="true">
+			<filterset>
+				<filter token="version" value="${version}" />
+			</filterset>
+		</copy>
+
+		<copy file="tmphtml/instructions.html" tofile="${webRoot}/instructions.html" overwrite="true">
+			<filterset>
+				<filter token="version" value="${version}" />
+			</filterset>
+		</copy>
+
+		<copy file="tmphtml/index-for-release.html" tofile="${webRoot}/readme.html" overwrite="true">
+			<filterset>
+				<filter token="version" value="${version}" />
+			</filterset>
+		</copy>
+
+
+		<delete file="oostethys_${version}.zip">
+		</delete>
+		<!-- create war after instruction etc.. have been updated -->
+		<antcall target="createWar"></antcall>
+
+		<zip destfile="oostethys_${version}.zip" update="true" encoding="UTF-8">
+
+			<zipfileset dir="WebRoot" includes="*.html,*.png,img/**" excludes="index.html" prefix="oostethys/instructions">
+
+
+			</zipfileset>
+			
+			<zipfileset dir="." file="oostethys.war" prefix="oostethys/warFile" />
+
+
+		</zip>
+
+
+	</target>
+
+
+
+	<target name="doALL" depends="createWar,copy-war-to-tomcat">
+	</target>
+
+	<target name="updateSchemas" depends="copySchemas" />
+	<target name="jarWithOOSTModel" depends="updateJARModelOOSTethys" />
+	<target name="runTests">
+		<!-- this is not working - hummm- ???? -->
+
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+
+				<pathelement path="${java.class.path}" />
+			</classpath>
+
+			<formatter type="plain" />
+
+			<test name="org.oostethys.Tests" haltonfailure="no" outfile="result">
+				<formatter type="xml" />
+			</test>
+
+
+			<batchtest fork="yes" todir="${reports.tests}">
+				<fileset dir="../src">
+					<include name="org.oostethys.test.AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+	</target>
+
+	<target name="sendJSP">
+		<copy todir="${catalina}/webapps/oostethys/" file="WebRoot/check.jsp" />
+	</target>
+
+</project>
