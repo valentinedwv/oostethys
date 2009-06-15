@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys
+	http://www.oostethys.org/schemas/0.1.0/oostethys.xsd">
+	
+	<webServerURL>http://localhost:8080</webServerURL>
+	<serviceContact
+		type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider"
+		id="a1">
+		<urlOrganization>http://www.pfel.noaa.gov</urlOrganization>
+		<longNameOrganization>
+			NOAA/NMFS/SWFSC Environmental Research Division
+		</longNameOrganization>
+		<shortNameOrganization>ERD</shortNameOrganization>
+		<individualName />
+		<individualEmail />
+	</serviceContact>
+	
+	<components>
+		<system>
+			<metadata>
+				<sytemLongName>Coastwatch Monthly SST Blended, Global, Experimental</sytemLongName>
+				<systemShortName>aggregsatBA_sstamday</systemShortName>
+				<systemIdentifier>urn:usgs:gov:model:um1-gom</systemIdentifier>
+				<systemType>
+					http://mmisw.org/mmi/platform#Satellite
+				</systemType>
+				<systemContacts>
+					<systemContact
+						type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider"
+						id="c1">
+						<urlOrganization>
+							org
+						</urlOrganization>
+						<longNameOrganization>
+							a long name
+						</longNameOrganization>
+						<shortNameOrganization>
+							shortName
+						</shortNameOrganization>
+						<individualName>FirstName lastName</individualName>
+						<individualEmail>xxx@xxx.org</individualEmail>
+					</systemContact>
+				</systemContacts>
+			</metadata>
+			
+			
+			<output>
+				
+				<sourceConfiguration>
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL>
+							http://localhost:21983/oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/BA/ssta/mday
+						</fileURL>
+						
+						<variables>
+							<variable shortName="altitude" />
+							<variable shortName="lat" />
+							<variable shortName="lon" />
+							<variable shortName="time" />
+							<variable shortName="BAssta" />
+							
+						</variables>
+					</oostethys-netcdf>
+					
+					
+				</sourceConfiguration>
+				
+			</output>
+		</system>
+		<system>
+			<metadata>
+				<sytemLongName> Coastwatch 8day Primary Productivity Experimental</sytemLongName>
+				<systemShortName>aggregsatPN_bfp28day</systemShortName>
+				<systemIdentifier>urn:usgs:gov:model:fvcom-gom</systemIdentifier>
+				<systemType>http://mmisw.org/mmi/platform#Satellite </systemType>
+				<systemContacts>
+					<referencedContact ref="a1"/>
+					
+				</systemContacts>
+			</metadata>
+			
+			
+			
+			<output>
+				
+				<sourceConfiguration>
+					
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL> http://localhost:21983/oceanwatch.pfeg.noaa.gov/thredds/dodsC/satellite/PN/bfp2/8day </fileURL>
+						
+						<variables>
+							<variable shortName="altitude" />
+							<variable shortName="lat" />
+							<variable shortName="lon" />
+							<variable shortName="time" />
+							<variable shortName="PNbfp2" />
+							
+						</variables>
+					</oostethys-netcdf>
+					
+				</sourceConfiguration>
+				
+			</output>
+		</system>
+		
+	</components>
+	
+</oostethys>
+
+ 	  	 

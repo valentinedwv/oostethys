@@ -1,0 +1,42 @@
+Dataset {
+    Float64 esecs[esecs = 33514];
+    Float32 NominalDepth[NominalDepth = 1];
+    Float64 Longitude[Longitude = 1];
+    Float64 Latitude[Latitude = 1];
+    Grid {
+     ARRAY:
+        Float32 Temperature[esecs = 33514][NominalDepth = 1][Latitude = 1][Longitude = 1];
+     MAPS:
+        Float64 esecs[esecs = 33514];
+        Float32 NominalDepth[NominalDepth = 1];
+        Float64 Latitude[Latitude = 1];
+        Float64 Longitude[Longitude = 1];
+    } Temperature;
+    Grid {
+     ARRAY:
+        Float32 Conductivity[esecs = 33514][NominalDepth = 1][Latitude = 1][Longitude = 1];
+     MAPS:
+        Float64 esecs[esecs = 33514];
+        Float32 NominalDepth[NominalDepth = 1];
+        Float64 Latitude[Latitude = 1];
+        Float64 Longitude[Longitude = 1];
+    } Conductivity;
+    Grid {
+     ARRAY:
+        Float32 Pressure[esecs = 33514][NominalDepth = 1][Latitude = 1][Longitude = 1];
+     MAPS:
+        Float64 esecs[esecs = 33514];
+        Float32 NominalDepth[NominalDepth = 1];
+        Float64 Latitude[Latitude = 1];
+        Float64 Longitude[Longitude = 1];
+    } Pressure;
+    Grid {
+     ARRAY:
+        Float32 Salinity[esecs = 33514][NominalDepth = 1][Latitude = 1][Longitude = 1];
+     MAPS:
+        Float64 esecs[esecs = 33514];
+        Float32 NominalDepth[NominalDepth = 1];
+        Float64 Latitude[Latitude = 1];
+        Float64 Longitude[Longitude = 1];
+    } Salinity;
+} ctd0010;
