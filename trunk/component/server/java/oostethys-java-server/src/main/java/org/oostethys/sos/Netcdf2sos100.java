@@ -269,6 +269,36 @@ public class Netcdf2sos100 {
 		}
 		// guess which operation its being called
 
+		// validate request parameters
+	if (parameterMap.get("ACCEPTVERSIONS") != null
+		&& !StringUtils.equals(VERSION_NUMBER_SOS, parameterMap
+			.get("ACCEPTVERSIONS"))) {
+	    report("VersionNegotiationFailed", "AcceptVersions",
+		    "The parameter 'AcceptVersions' does not contain the version of this SOS: '"
+			    + VERSION_NUMBER_SOS + "'", os);
+	    return;
+	}
+
+	
+	if( StringUtils.isEmpty(parameterMap.get(SERVICE))) {
+	    report(
+		    ExceptionReporter.MissingParameterValue,
+		    SERVICE,
+		    "The mandatory parameter value 'service' was not found in the request.",
+		    os);
+	    return;
+	}
+	
+	if (!StringUtils.equals("SOS", parameterMap.get(SERVICE))) {
+	    report(
+		    ExceptionReporter.InvalidParameterValue,
+		    SERVICE,
+		    "The value of the mandatory parameter 'service' must be 'SOS'. Delivered value was: "+parameterMap.get(SERVICE),
+		    os);
+	    return;
+	}
+	
+		
 		String operation = parameterMap.get(REQUEST);
 
 		if (operation == null) {
@@ -355,23 +385,17 @@ public class Netcdf2sos100 {
 
 	}
 
-	public String saveOOSTethysTempFile() throws IOException {
-		URL url = Thread.currentThread().getContextClassLoader().getResource(
-				"xml");
-		String dName = url.getPath();
-		File file = new File(dName + tempDir);
-		// File file = new File(tempDir);
-		String fileName = "oostethysTemp.xml";
+    public String saveOOSTethysTempFile() throws IOException {
+	File tempFile = File.createTempFile("oostethysTemp", ".xml");
 
-		    File tempFile =    File.createTempFile("oostethysTemp", "xml");
-		    
-			tempFile.createNewFile();
-			oostDocTemp.save(tempFile);
-			log.info("saved file " + tempFile);
+	tempFile.createNewFile();
+	oostDocTemp.save(tempFile);
+	log.info("saved file " + tempFile);
+	tempFile.deleteOnExit();
 
-		return tempFile.getAbsolutePath();
+	return tempFile.getAbsolutePath();
 
-	}
+    }
 
 	public String getOOSTethysDoc() {
 

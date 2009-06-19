@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
+import net.opengis.ows.x11.ExceptionReportDocument;
+import net.opengis.ows.x11.ExceptionReportDocument.ExceptionReport;
+
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
@@ -44,9 +47,11 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 
 			String s = outputStream.toString();
 
-			assertContains(s,"<ExceptionReport version=\"1.0\"><Exception exceptionCode=\"InvalidParameterValue");
-			assertDoesNotContain(s,"</sml:SensorML>");
-
+			 ExceptionReport er =
+			            ExceptionReportDocument.Factory.parse(s).getExceptionReport();
+			 
+			 assertEquals("correct exception code", "InvalidParameterValue",
+			            er.getExceptionArray(0).getExceptionCode());
 	}
 
 	public void testDescribeSensorPostErrorBadVersion() throws Exception {
@@ -56,10 +61,11 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
-
-			assertContains(s,"<ExceptionReport version=\"1.0\"><Exception exceptionCode=\"InvalidParameterValue");
-
-			assertDoesNotContain(s,"</sml:SensorML>");
+			 ExceptionReport er =
+			            ExceptionReportDocument.Factory.parse(s).getExceptionReport();
+			 
+			 assertEquals("correct exception code", "InvalidParameterValue",
+			            er.getExceptionArray(0).getExceptionCode());
 	}
 
 	public void testgetObservation() throws Exception {
@@ -106,8 +112,11 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
+
+			ExceptionReportDocument.Factory.parse(s).getExceptionReport();
+
 			assertTrue(s.contains("EVENT_TIME"));
-			assertTrue(s.contains("<ExceptionReport "));
+			 
 	}
 
 	public void testgetObservationWrongParameters() throws Exception {
@@ -122,9 +131,14 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
-			assertFalse(s.contains("<om:ObservationCollection"));
-			assertTrue(s
-					.contains("<ExceptionReport version=\"1.0\"><Exception exceptionCode=\"InvalidParameterValue\" locator=\"OFFERING\"><ExceptionText>Not able to find any observation with id: observationOffering_1455asdasdasdasdas"));
+			
+			 ExceptionReport er =
+			            ExceptionReportDocument.Factory.parse(s).getExceptionReport();
+			 
+			 assertEquals("correct exception code", "InvalidParameterValue",
+			            er.getExceptionArray(0).getExceptionCode());
+			 assertEquals("correct error message", er.getExceptionArray(0).getExceptionTextArray(0), "Not able to find any observation with id: observationOffering_1455asdasdasdasdas");
+			 
 	}
 
 }
