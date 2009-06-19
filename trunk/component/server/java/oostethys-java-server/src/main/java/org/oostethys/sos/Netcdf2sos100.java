@@ -270,35 +270,7 @@ public class Netcdf2sos100 {
 		// guess which operation its being called
 
 		// validate request parameters
-	if (parameterMap.get("ACCEPTVERSIONS") != null
-		&& !StringUtils.equals(VERSION_NUMBER_SOS, parameterMap
-			.get("ACCEPTVERSIONS"))) {
-	    report("VersionNegotiationFailed", "AcceptVersions",
-		    "The parameter 'AcceptVersions' does not contain the version of this SOS: '"
-			    + VERSION_NUMBER_SOS + "'", os);
-	    return;
-	}
-
 	
-	if( StringUtils.isEmpty(parameterMap.get(SERVICE))) {
-	    report(
-		    ExceptionReporter.MissingParameterValue,
-		    SERVICE,
-		    "The mandatory parameter value 'service' was not found in the request.",
-		    os);
-	    return;
-	}
-	
-	if (!StringUtils.equals("SOS", parameterMap.get(SERVICE))) {
-	    report(
-		    ExceptionReporter.InvalidParameterValue,
-		    SERVICE,
-		    "The value of the mandatory parameter 'service' must be 'SOS'. Delivered value was: "+parameterMap.get(SERVICE),
-		    os);
-	    return;
-	}
-	
-		
 		String operation = parameterMap.get(REQUEST);
 
 		if (operation == null) {
@@ -313,7 +285,7 @@ public class Netcdf2sos100 {
 				getDescribeSensor(os);
 			} else {
 				report(
-						ExceptionReporter.OperationNotSupported,
+						"InvalidParameterValue",
 						REQUEST,
 						"Not able to understand the operation. This service supports the following operations: "
 								+ GETCAPABILITIES
@@ -1044,18 +1016,65 @@ public class Netcdf2sos100 {
 		return isOK;
 
 	}
+	
+    private boolean checkCommonParameters(OutputStream os) {
+	final String service = parameterMap.get(SERVICE);
+	final String version = parameterMap.get(VERSION);
+
+	if (version == null) {
+	    report(ExceptionReporter.MissingParameterValue, VERSION,
+		    "Need parameter: " + VERSION + " ", os);
+	    return false;
+	} else {
+	    if (!StringUtils.equalsIgnoreCase(version, VERSION_NUMBER_SOS)) {
+		report(ExceptionReporter.InvalidParameterValue, VERSION,
+			"The version: " + version
+				+ " is not supported. Service should be "
+				+ VERSION_NUMBER_SOS, os);
+		return false;
+	    }
+	}
+
+	if (service == null) {
+	    report(ExceptionReporter.MissingParameterValue, SERVICE,
+		    "Need parameter: " + SERVICE + " ", os);
+	    return false;
+	} else {
+	    if (!StringUtils.equalsIgnoreCase(service, "SOS")) {
+
+		report(
+			ExceptionReporter.InvalidParameterValue,
+			SERVICE,
+			"The service: " + service
+				+ " is not supported. Service should be 'SOS'.",
+			os);
+		return false;
+	    }
+	}
+
+	if (parameterMap.get("ACCEPTVERSIONS") != null
+		&& !StringUtils.equals(VERSION_NUMBER_SOS, parameterMap
+			.get("ACCEPTVERSIONS"))) {
+	    report("VersionNegotiationFailed", "AcceptVersions",
+		    "The parameter 'AcceptVersions' does not contain the version of this SOS: '"
+			    + VERSION_NUMBER_SOS + "'", os);
+	    return false;
+	}
+
+	return true;
+    }
 
 	private boolean okDescribeSensorParameters(OutputStream os) {
 		boolean hasService = false;
 		boolean hasCorrectVersion = false;
 		boolean hasSensorID = false;
-		boolean hasOutPutFormat = false;
 
 		if (!hasParameters(os)) {
 			return false;
 		}
-
-		ExceptionReporter reporter = new ExceptionReporter();
+		
+		if( !checkCommonParameters(os))
+		    return false;
 
 		Set<String> set = parameterMap.keySet();
 		for (String key : set) {
@@ -1100,7 +1119,6 @@ public class Netcdf2sos100 {
 					return false;
 
 				}
-				hasOutPutFormat = true;
 			} else if (key.equalsIgnoreCase(PROCEDURE)) {
 
 				hasSensorID = true;
@@ -1139,126 +1157,88 @@ public class Netcdf2sos100 {
 		return hasService && hasCorrectVersion && hasSensorID;
 	}
 
-	private boolean processIsContained() {
-		// only for http post
-		return false;
-	}
-
 	private boolean okGetObservationParameters(OutputStream os) {
-		boolean hasService = false;
-		boolean hasObservedProperty = false; // not mandatory in oostethys
-		boolean hasSrsName = false;
-		boolean hasProcedure = false;
-		boolean hasEventTime = false;
-		boolean hasVersion = false;
-		boolean hasOffering = false;
-		boolean hasResponseFormat = false;
 
-		String responseFormat = "text/xml; subtype=\"om/1.0.0\"";
+	    if( !checkCommonParameters(os))
+		    return false;
 
-		Set<String> set = parameterMap.keySet();
-		for (String key : set) {
-			String value = parameterMap.get(key);
-			if (key.equalsIgnoreCase(SERVICE)) {
+	boolean hasOffering = false;
 
-				if (!value.equalsIgnoreCase("SOS")) {
-					report(
-							ExceptionReporter.InvalidParameterValue,
-							SERVICE,
-							"The service: "
-									+ value
-									+ " is not supported. Service should be 'SOS'.",
-							os);
-					return false;
+	String supportedResponseFormat = "text/xml; subtype=\"om/1.0.0\"";
 
-				}
+	final String offering = parameterMap.get(OFFERING);
+	final String procedure = parameterMap.get(PROCEDURE);
+	final String responesFormat = parameterMap.get(RESPONSEFORMAT);
+	final String eventType = parameterMap.get(EVENT_TIME);
+	final String boundingBox = parameterMap.get(BBOX);
+	final String observedProperty = parameterMap.get(OBSERVED_PROPERTY);
 
-				hasService = true;
-			} else if (key.equalsIgnoreCase(VERSION)) {
+	if (responesFormat != null) {
+	    if (!StringUtils.equalsIgnoreCase(responesFormat,
+		    supportedResponseFormat)) {
+		report(ExceptionReporter.InvalidParameterValue, RESPONSEFORMAT,
+			"The responseFormat: " + responesFormat
+				+ " is not supported. It should be "
+				+ responseFormat, os);
+		return false;
+	    }
 
-				if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
-
-					report(ExceptionReporter.InvalidParameterValue, VERSION,
-							"The version: " + value
-									+ " is not supported. Service should be "
-									+ VERSION_NUMBER_SOS, os);
-					return false;
-
-				}
-				hasVersion = true;
-
-			} else if (key.equalsIgnoreCase(OFFERING)) {
-				hasOffering = true;
-				offeringID = parameterMap.get(key);
-			} else if (key.equalsIgnoreCase(PROCEDURE)) {
-				// optional
-				requestSensorID = parameterMap.get(key);
-			} else if (key.equalsIgnoreCase(RESPONSEFORMAT)) {
-
-				if (!parameterMap.get(key).equalsIgnoreCase(responseFormat)) {
-					report(ExceptionReporter.InvalidParameterValue,
-							RESPONSEFORMAT, "The responseFormat: " + value
-									+ " is not supported. It should be "
-									+ responseFormat, os);
-					return false;
-				}
-				hasResponseFormat = true;
-			} else if (key.equalsIgnoreCase(EVENT_TIME)) {
-				setValue_EventTime(parameterMap.get(key));
-
-				String[] values = value_EVENT_TIME.split("/");
-
-				try {
-					long start = TimeUtil.getMillisec(values[0]);
-
-					long end = TimeUtil.getMillisec(values[1]);
-				} catch (Exception e) {
-					report(
-							ExceptionReporter.InvalidParameterValue,
-							EVENT_TIME,
-							"time should be giving following this format: \"yyyy-MM-dd'T'HH:mm:ss'Z'\" ",
-							os);
-					e.printStackTrace();
-					return false;
-				}
-
-			} else if (key.equalsIgnoreCase(BBOX)) {
-				setValue_BBOX(parameterMap.get(key));
-			} else if (key.equalsIgnoreCase(OBSERVED_PROPERTY)) {
-				setValue_OBSERVED_PROPERTY(parameterMap.get(key));
-			}
-		}
-
-		if (!hasService) {
-			report(ExceptionReporter.MissingParameterValue, SERVICE,
-					"Need parameter: " + SERVICE + " ", os);
-			return false;
-		}
-
-		if (!hasVersion) {
-			report(ExceptionReporter.MissingParameterValue, VERSION,
-					"Need parameter: " + VERSION + " ", os);
-			return false;
-		}
-
-		if (!hasOffering) {
-			report(ExceptionReporter.MissingParameterValue, OFFERING,
-					"Need parameter: " + OFFERING + " ", os);
-			return false;
-		}
-		// relax this condition - not sure if it is used in oostethys - default
-		// is swe common
-
-		// if (!hasResponseFormat){
-		// report(ExceptionReporter.MissingParameterValue,
-		// RESPONSEFORMAT, "Need parameter: "+RESPONSEFORMAT
-		// +" "
-		// , os);
-		// return false;
-		// }
-
-		return true;
 	}
+
+	if (offering != null) {
+	    hasOffering = true;
+	    offeringID = offering;
+	}
+	if (procedure != null) {
+	    requestSensorID = procedure;
+	}
+
+	if (eventType != null) {
+	    setValue_EventTime(eventType);
+	    String[] values = value_EVENT_TIME.split("/");
+
+	    try {
+		// long start =
+		TimeUtil.getMillisec(values[0]);
+
+		// long end =
+		TimeUtil.getMillisec(values[1]);
+	    } catch (Exception e) {
+		report(
+			ExceptionReporter.InvalidParameterValue,
+			EVENT_TIME,
+			"time should be giving following this format: \"yyyy-MM-dd'T'HH:mm:ss'Z'\" ",
+			os);
+		e.printStackTrace();
+		return false;
+	    }
+
+	}
+
+	if (boundingBox != null)
+	    setValue_BBOX(boundingBox);
+	if (observedProperty != null)
+	    setValue_OBSERVED_PROPERTY(observedProperty);
+
+
+	if (!hasOffering) {
+	    report(ExceptionReporter.MissingParameterValue, OFFERING,
+		    "Need parameter: " + OFFERING + " ", os);
+	    return false;
+	}
+	// relax this condition - not sure if it is used in oostethys - default
+	// is swe common
+
+	// if (!hasResponseFormat){
+	// report(ExceptionReporter.MissingParameterValue,
+	// RESPONSEFORMAT, "Need parameter: "+RESPONSEFORMAT
+	// +" "
+	// , os);
+	// return false;
+	// }
+
+	return true;
+    }
 
 	private void setValue_EventTime(String eventTime) {
 		value_EVENT_TIME = eventTime;
@@ -1300,51 +1280,60 @@ public class Netcdf2sos100 {
 
 	}
 
-	private boolean okGetCapabilitiesParameters(OutputStream os) {
-		boolean hasService = false;
-		boolean hasCorrectVersion = false;
+    private boolean okGetCapabilitiesParameters(OutputStream os) {
+	boolean hasService = false;
 
-		String value = null;
-		// if (!hasParameters(os)) {
-		// return false;
-		// }
+	String value = null;
+	// if (!hasParameters(os)) {
+	// return false;
+	// }
+	if( !checkCommonParameters(os))
+	    return false;
 
-		Set<String> set = parameterMap.keySet();
-		for (String key : set) {
-			log.debug("key " + key);
-			log.debug("value " + parameterMap.get(key));
-			value = parameterMap.get(key) + "";
-			if (key.equalsIgnoreCase(SERVICE)) {
-				if (!value.equalsIgnoreCase("SOS")) {
-					report(
-							ExceptionReporter.InvalidParameterValue,
-							SERVICE,
-							"The service: "
-									+ value
-									+ " is not supported. Service should be 'SOS'.",
-							os);
-					return false;
-
-				}
-
-			} else if (key.equalsIgnoreCase(VERSION)) {
-
-				if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
-					report(ExceptionReporter.InvalidParameterValue, VERSION,
-							"The version: " + value
-									+ " is not supported. Service should be "
-									+ VERSION_NUMBER_SOS, os);
-					return false;
-
-				}
-
-			}
+	Set<String> set = parameterMap.keySet();
+	for (String key : set) {
+	    log.debug("key " + key);
+	    log.debug("value " + parameterMap.get(key));
+	    value = parameterMap.get(key) + "";
+	    if (key.equalsIgnoreCase(SERVICE)) {
+		if (!value.equalsIgnoreCase("SOS")) {
+		    report(
+			    ExceptionReporter.InvalidParameterValue,
+			    SERVICE,
+			    "The service: "
+				    + value
+				    + " is not supported. Service should be 'SOS'.",
+			    os);
+		    return false;
 
 		}
+		hasService = true;
+	    } else if (key.equalsIgnoreCase(VERSION)) {
 
-		return true;
+		if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
+		    report(ExceptionReporter.InvalidParameterValue, VERSION,
+			    "The version: " + value
+				    + " is not supported. Service should be "
+				    + VERSION_NUMBER_SOS, os);
+		    return false;
 
+		}
+	    }
 	}
+
+	if( !hasService) {
+	    report(
+		    ExceptionReporter.MissingParameterValue,
+		    SERVICE,
+		    "The mandatory parameter value 'service' was not found in the request.",
+		    os);
+	    return false;
+	}
+
+	
+	return true;
+
+    }
 
 	/**
 	 * Sets the webservice of the servlet rendering this service.
