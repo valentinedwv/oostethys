@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.opengis.sensorML.x101.SensorMLDocument;
+
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 import org.oostethys.testutils.LocalResourceServer;
@@ -56,11 +58,14 @@ public class Netcdf2sos_unc_2Test extends OOSTethysTest {
 		map.put("procedure", createArray("urn:unc:org:jpier"));
 		map.put("SERVICE", createArray("SOS"));
 		map.put("VERSION", createArray("1.0.0"));
+		map.put("outputformat",createArray( "text/xml;subtype=\"sensorML/1.0.1\""));
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		// ns.process(map, outputStream);
 		ns.process(map, outputStream);
 		String s = outputStream.toString();
-		assertDoesNotContain(s, "ExceptionReport");
+
+		// make sure that the result is a SensorML document
+		SensorMLDocument.Factory.parse(s);
 	}
 
 	public void atestgetObservation() throws Exception {

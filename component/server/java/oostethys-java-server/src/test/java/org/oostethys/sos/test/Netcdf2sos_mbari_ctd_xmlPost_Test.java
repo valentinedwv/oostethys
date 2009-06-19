@@ -61,6 +61,9 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			ns.process(inputStream, outputStream);
 
 			String s = outputStream.toString();
+			
+			System.out.println(s);
+			
 			 ExceptionReport er =
 			            ExceptionReportDocument.Factory.parse(s).getExceptionReport();
 			 
