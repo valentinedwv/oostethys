@@ -210,7 +210,7 @@ public class Netcdf2sos100 {
 			getCapabilities(os);
 		} else {
 			report(
-					ExceptionReporter.OperationNotSupported,
+					"InvalidRequest",
 					null,
 					"Not able to understand the operation. This service supports the following operations: "
 							+ GETCAPABILITIES

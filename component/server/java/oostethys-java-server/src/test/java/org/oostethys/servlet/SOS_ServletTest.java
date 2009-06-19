@@ -3,6 +3,11 @@
  */
 package org.oostethys.servlet;
 
+import net.opengis.ows.x11.ExceptionReportDocument;
+import net.opengis.ows.x11.ExceptionReportDocument.ExceptionReport;
+
+import net.opengis.sos.x10.CapabilitiesDocument;
+
 import org.oostethys.test.OOSTethysTest;
 
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -46,8 +51,8 @@ public class SOS_ServletTest extends OOSTethysTest {
 
         assertEquals("response type is text/xml", "text/xml",
             response.getContentType());
-        assertContains("response is a Capabilities document", responseString,
-            "Capabilities");
+
+        CapabilitiesDocument.Factory.parse(responseString);
     }
 
     /**
@@ -68,9 +73,12 @@ public class SOS_ServletTest extends OOSTethysTest {
         // get the response
         String responseString = response.getContentAsString();
 
-        assertContains("response is an ExceptionReport", responseString,
-            "ExceptionReport");
-        assertContains(responseString, "MissingParameterValue");
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "MissingParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
     }
 
     /**
@@ -92,10 +100,12 @@ public class SOS_ServletTest extends OOSTethysTest {
         // get the response
         String responseString = response.getContentAsString();
 
-        System.out.println(responseString);
-        assertContains("response is an ExceptionReport", responseString,
-            "ExceptionReport");
-        assertContains(responseString, "InvalidParameterValue");
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "InvalidParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
     }
 
     /**
@@ -117,9 +127,12 @@ public class SOS_ServletTest extends OOSTethysTest {
         // get the response
         String responseString = response.getContentAsString();
 
-        assertContains("response is an ExceptionReport", responseString,
-            "ExceptionReport");
-        assertContains(responseString, "VersionNegotiationFailed");
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "VersionNegotiationFailed",
+            er.getExceptionArray(0).getExceptionCode());
     }
 
     /**
@@ -139,8 +152,37 @@ public class SOS_ServletTest extends OOSTethysTest {
         // get the response
         String responseString = response.getContentAsString();
 
-        assertContains("response is an ExceptionReport", responseString,
-            "ExceptionReport");
-        assertContains(responseString, "MissingParameterValue");
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "MissingParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
+    }
+
+    /**
+     * Sending a request that is non-conformant to a schema associated with an SOS operation
+     * causes the server to return a valid error report message with an exceptionCode value
+     * of InvalidRequest.
+     */
+    public void testGeneral_InvalidRequest_1() throws Exception {
+        MockHttpServletRequest request =
+            new MockHttpServletRequest("POST", "/oostethys/sos");
+        request.setContent("foobar".getBytes());
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // invoke servlet
+        servlet.doPost(request, response);
+
+        // get the response
+        String responseString = response.getContentAsString();
+
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "InvalidRequest",
+            er.getExceptionArray(0).getExceptionCode());
     }
 }
