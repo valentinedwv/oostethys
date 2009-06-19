@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.opengis.sensorML.x101.SensorMLDocument;
+
 import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 
@@ -99,14 +101,15 @@ public class Netcdf2sos_mbari_ctd_Test extends OOSTethysTest {
 			map.put("procedure", createArray("urn:mbari:org:device:1455"));
 			map.put("service", createArray("SOS"));
 			map.put("version", createArray("1.0.0"));
-			map.put("outputformat", createArray(Netcdf2sos100.responseFormat));
-			
-			
+			map.put("outputformat",createArray( "text/xml;subtype=\"sensorML/1.0.1\""));
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			ns.process(map, outputStream);
 			
 			String s = outputStream.toString();
+			
+			// make sure that the result is a SensorML document
+			SensorMLDocument.Factory.parse(s);
 			
 			assertContains(s,"<gml:beginPosition>2008-06-09T09:36:19Z</gml:beginPosition>");
 			assertContains(s,"<swe:field name=\"Salinity\">");

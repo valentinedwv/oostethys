@@ -176,50 +176,67 @@ public class Netcdf2sos100 {
 	 * @param inputStream
 	 * @throws Exception
 	 */
-	public void process(InputStream inputStream, OutputStream os)
-			throws Exception {
-		log.debug("processing");
+    public void process(InputStream inputStream, OutputStream os)
+	    throws Exception {
+	log.debug("processing");
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-				inputStream));
-		StringBuffer buffer = new StringBuffer();
-		String line = null;
-		while ((line = in.readLine()) != null) {
-			buffer.append(line);
-		}
-
-		String stream = buffer.toString();
-
-		if (stream.contains("GetObservation")) {
-
-			GetObservationDocument getObs = GetObservationDocument.Factory
-					.parse(new StringReader(stream));
-
-			processParametersGetObservation(getObs);
-			getObservation(os);
-		} else if (stream.contains("DescribeSensor")) {
-
-			DescribeSensorDocument describeSensor = DescribeSensorDocument.Factory
-					.parse(new StringReader(stream));
-			processParametersDescribeSensor(describeSensor);
-			getDescribeSensor(os);
-		} else if (stream.contains("GetCapabilities")) {
-			GetCapabilitiesDocument getCap = GetCapabilitiesDocument.Factory
-					.parse(new StringReader(stream));
-
-			getCapabilities(os);
-		} else {
-			report(
-					"InvalidRequest",
-					null,
-					"Not able to understand the operation. This service supports the following operations: "
-							+ GETCAPABILITIES
-							+ ", "
-							+ DESCRIBESENSOR
-							+ " and, " + GETOBSERVATION, os);
-		}
-
+	BufferedReader in = new BufferedReader(new InputStreamReader(
+		inputStream));
+	StringBuffer buffer = new StringBuffer();
+	String line = null;
+	while ((line = in.readLine()) != null) {
+	    buffer.append(line);
 	}
+
+	String stream = buffer.toString();
+
+	boolean requestProcessed = false;
+
+	try {
+	    GetCapabilitiesDocument getCap = GetCapabilitiesDocument.Factory
+		    .parse(new StringReader(stream));
+
+	    getCapabilities(os);
+	    requestProcessed = true;
+	} catch (XmlException e) {
+	    // this is not a GetObservation request
+	}
+
+	if (!requestProcessed) {
+	    try {
+		GetObservationDocument getObs = GetObservationDocument.Factory
+			.parse(stream);
+
+		processParametersGetObservation(getObs);
+		getObservation(os);
+
+		requestProcessed = true;
+	    } catch (XmlException e) {
+		// this is not a GetObservation request
+	    }
+	}
+	if (!requestProcessed) {
+	    try {
+		DescribeSensorDocument describeSensor = DescribeSensorDocument.Factory
+			.parse(new StringReader(stream));
+		processParametersDescribeSensor(describeSensor);
+		getDescribeSensor(os);
+		requestProcessed = true;
+	    } catch (XmlException e) {
+		// this is not a GetObservation request
+	    }
+	}
+	if (!requestProcessed)
+	    report(
+		    "InvalidRequest",
+		    null,
+		    "Not able to understand the operation. This service supports the following operations: "
+			    + GETCAPABILITIES
+			    + ", "
+			    + DESCRIBESENSOR
+			    + " and, " + GETOBSERVATION, os);
+
+    }
 
 	private void printMap(Map<String,?> map) {
 	    if( log.isDebugEnabled()) {
@@ -1021,11 +1038,11 @@ public class Netcdf2sos100 {
 	final String service = parameterMap.get(SERVICE);
 	final String version = parameterMap.get(VERSION);
 
-	if (version == null) {
-	    report(ExceptionReporter.MissingParameterValue, VERSION,
-		    "Need parameter: " + VERSION + " ", os);
-	    return false;
-	} else {
+	if (version != null) {
+//	    report(ExceptionReporter.MissingParameterValue, VERSION,
+//		    "Need parameter: " + VERSION + " ", os);
+//	    return false;
+//	} else {
 	    if (!StringUtils.equalsIgnoreCase(version, VERSION_NUMBER_SOS)) {
 		report(ExceptionReporter.InvalidParameterValue, VERSION,
 			"The version: " + version
@@ -1064,98 +1081,38 @@ public class Netcdf2sos100 {
 	return true;
     }
 
-	private boolean okDescribeSensorParameters(OutputStream os) {
-		boolean hasService = false;
-		boolean hasCorrectVersion = false;
-		boolean hasSensorID = false;
-
-		if (!hasParameters(os)) {
-			return false;
-		}
-		
-		if( !checkCommonParameters(os))
-		    return false;
-
-		Set<String> set = parameterMap.keySet();
-		for (String key : set) {
-			String value = parameterMap.get(key).trim();
-			if (key.equalsIgnoreCase(SERVICE)) {
-
-				if (!value.equalsIgnoreCase("SOS")) {
-					report(
-							ExceptionReporter.InvalidParameterValue,
-							SERVICE,
-							"The service: "
-									+ value
-									+ " is not supported. Service should be 'SOS'.",
-							os);
-					return false;
-
-				}
-
-				hasService = true;
-			} else if (key.equalsIgnoreCase(VERSION)) {
-
-				if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
-
-					report(ExceptionReporter.InvalidParameterValue, VERSION,
-							"The version: " + value
-									+ " is not supported. Service should be "
-									+ VERSION_NUMBER_SOS, os);
-					return false;
-
-				}
-				hasCorrectVersion = true;
-			}
-
-			else if (key.equalsIgnoreCase(OUTPUTFORMAT)) {
-				String format = responseFormat;
-				format.compareTo(value);
-				if (!value.equalsIgnoreCase(format)) {
-					report(ExceptionReporter.InvalidParameterValue,
-							OUTPUTFORMAT, "The output format supported is: "
-									+ format + " And you are asking for:"
-									+ value, os);
-					return false;
-
-				}
-			} else if (key.equalsIgnoreCase(PROCEDURE)) {
-
-				hasSensorID = true;
-
-			}
-
-		}
-
-		if (!hasSensorID) {
-			report(ExceptionReporter.MissingParameterValue, PROCEDURE,
-					"Need parameter: " + PROCEDURE + " ", os);
-			return false;
-		}
-
-		if (!hasCorrectVersion) {
-			report(ExceptionReporter.MissingParameterValue, VERSION,
-					"Need parameter: " + VERSION + " ", os);
-			return false;
-		}
-		// remove this condition
-
-		// if (!hasOutPutFormat){
-		// report(ExceptionReporter.MissingParameterValue,
-		// OUTPUTFORMAT, "Need parameter: "+OUTPUTFORMAT+" "
-		// , os);
-		// return false;
-		// }
-
-		if (!hasService) {
-			report(ExceptionReporter.MissingParameterValue, SERVICE,
-					"Need parameter: " + SERVICE + " ", os);
-			return false;
-		}
-
-		// the minimum info required
-		return hasService && hasCorrectVersion && hasSensorID;
+    private boolean okDescribeSensorParameters(OutputStream os) {
+	if (!hasParameters(os)) {
+	    return false;
 	}
+
+	if (!checkCommonParameters(os))
+	    return false;
+
+	String outputFormat = parameterMap.get(OUTPUTFORMAT);
+	String sensorId = parameterMap.get(PROCEDURE);
+
+	if (outputFormat == null) {
+	    report(ExceptionReporter.MissingParameterValue,  "outputFormat",
+		    "Need parameter: " + OUTPUTFORMAT + " ", os);
+	    return false;
+	} else {
+	    if (!StringUtils.equalsIgnoreCase(responseFormat, outputFormat)) {
+		report(ExceptionReporter.InvalidParameterValue, "outputFormat",
+			"The output format supported is: " + responseFormat
+				+ " And you are asking for:" + outputFormat, os);
+		return false;
+	    }
+	}
+
+	if (sensorId == null) {
+	    report(ExceptionReporter.MissingParameterValue, PROCEDURE,
+		    "Need parameter: " + PROCEDURE + " ", os);
+	    return false;
+	}
+
+	return true;
+    }
 
 	private boolean okGetObservationParameters(OutputStream os) {
 
