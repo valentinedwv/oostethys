@@ -13,8 +13,9 @@ public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 
 		Netcdf2sos100 ns = new Netcdf2sos100();
 		try {
-			
-			
+			ns.getParameterMap().put("version", "1.0.0");
+			ns.getParameterMap().put("service", "SOS");
+			ns.getParameterMap().put("request", "GetCapabilities");
 			ns.setUrlOostethys(new URL("file:/ddhdhdhd"));
 			ns.process((Map<String,String[]>)null, null);
 			fail();
@@ -28,7 +29,9 @@ public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 
 		Netcdf2sos100 ns = new Netcdf2sos100();
 		try {
-			
+			ns.getParameterMap().put("version", "1.0.0");
+			ns.getParameterMap().put("service", "SOS");
+			ns.getParameterMap().put("request", "GetCapabilities");
 			ns.setUrlOostethys(getURL("oostethys_wrongurlnc.xml"));
 			ns.process((Map<String,String[]>)null, null);
 			fail();
@@ -41,7 +44,9 @@ public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 
 		Netcdf2sos100 ns = new Netcdf2sos100();
 		try {
-			
+			ns.getParameterMap().put("version", "1.0.0");
+			ns.getParameterMap().put("service", "SOS");
+			ns.getParameterMap().put("request", "GetCapabilities");
 			ns.setUrlOostethys(new URL("file:test/oostethys_malformed.xml"));
 			ns.process((Map<String,String[]>)null, null);
 			fail();
@@ -55,6 +60,9 @@ public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 // todo - need to check for validation !!
 		Netcdf2sos100 ns = new Netcdf2sos100();
 		try {
+			ns.getParameterMap().put("version", "1.0.0");
+			ns.getParameterMap().put("service", "SOS");
+			ns.getParameterMap().put("request", "GetCapabilities");
 			ns.setUrlOostethys(new URL("file:test/oostethys_notvalid.xml"));
 			ns.process((Map<String,String[]>)null, null);
 			fail();
@@ -66,6 +74,9 @@ public class Netcdf2sos_config_errorsTest extends OOSTethysTest {
 	public void testNotFoundVariable(){
 		Netcdf2sos100 ns = new Netcdf2sos100();
 		try {
+			ns.getParameterMap().put("version", "1.0.0");
+			ns.getParameterMap().put("service", "SOS");
+			ns.getParameterMap().put("request", "GetCapabilities");
 			ns.setUrlOostethys(new URL("file:test/oostethys_notfoundvars.xml"));
 			ns.process((Map<String,String[]>)null, null);
 			fail();
