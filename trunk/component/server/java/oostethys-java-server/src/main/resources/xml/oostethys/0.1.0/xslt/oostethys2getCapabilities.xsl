@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:gml="http://www.opengis.net/gml" xmlns:swe="http://www.opengis.net/swe/1.0"
+    xmlns:gml="http://www.opengis.net/gml" xmlns:swe="http://www.opengis.net/swe/1.0.1"
     xmlns:sos="http://www.opengis.net/sos/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys">
     <xsl:output method="xml" indent="yes"/>
@@ -120,6 +120,23 @@
                           
                         </ows:HTTP>
                     </ows:DCP>
+		    
+<ows:Parameter name="version">
+  <ows:AllowedValues>
+    <ows:Value>1.0.0</ows:Value>
+  </ows:AllowedValues>
+</ows:Parameter>
+<ows:Parameter name="service">
+  <ows:AllowedValues>
+    <ows:Value>SOS</ows:Value>
+  </ows:AllowedValues>
+</ows:Parameter>
+<ows:Parameter name="outputFormat">
+  <ows:AllowedValues>
+    <ows:Value>text/xml;subtype="sensorML/1.0.1"</ows:Value>
+  </ows:AllowedValues>
+</ows:Parameter>
+		    
                     <ows:Parameter name="procedure">
                        
                         <ows:AllowedValues>
