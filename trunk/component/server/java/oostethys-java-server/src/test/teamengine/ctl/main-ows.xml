@@ -1,0 +1,41 @@
+<ctl:package xmlns:sosFunctions="https://cite.opengeospatial.org/sos-1.0.0/src/ctl/functions.xml"
+xmlns:getCapabilities="https://cite.opengeospatial.org/sos-1.0.0/src/ctl/GetCapabilities.xml"
+xmlns:describeSensor="https://cite.opengeospatial.org/sos-1.0.0/src/ctl/DescribeSensor.xml"
+xmlns:getObservation="https://cite.opengeospatial.org/sos-1.0.0/src/ctl/GetObservation.xml"
+xmlns:owsTests="https://www.cite.opengeospatial.org/ows-1.0/tests" xmlns:ctl="http://www.occamlab.com/ctl"
+xmlns:html="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/"
+xmlns:tep="http://teamengine.sourceforge.net/parsers" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:sos="http://www.opengis.net/sos/1.0"
+xmlns:ogc="http://www.opengis.net/ogc" xmlns:om="http://www.opengis.net/om/1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ctl:test name="sos:ows-main">
+    <ctl:param name="serviceURL" />
+    <ctl:param name="exceptionReportSchema" />
+    <ctl:param name="sosSchemaRoot" />
+    <ctl:param name="sosVersion" />
+    <ctl:assertion>All assertions for "ows" conformance are satisfied.</ctl:assertion>
+    <ctl:comment>
+      <![CDATA[Test driver for the ows module.]]>
+</ctl:comment>
+    <ctl:link title="1. OWS">docs/sos/1.0/SOS 1.0 ATS.html#ows</ctl:link>
+    <ctl:code>
+      <ctl:message>***************************</ctl:message>
+      <ctl:message>Running OWS Common Tests...</ctl:message>
+      <ctl:message>***************************</ctl:message>
+      <ctl:call-test name="owsTests:ows-main">
+        <ctl:with-param name="serviceURL" select="$serviceURL" />
+        <ctl:with-param name="serviceType" select="string('SOS')" />
+        <ctl:with-param name="serviceVersion" select="$sosVersion" />
+        <ctl:with-param name="capabilitiesRootElementName" select="string('Capabilities')" />
+        <ctl:with-param name="capabilitiesResponseSchemaLocation"
+        select="sosFunctions:schemaPath($sosSchemaRoot, $sosVersion,'sos', 'sosGetCapabilities.xsd')" />
+        <ctl:with-param name="capabilitiesResponseSchemaType" select="string('file')" />
+        <ctl:with-param name="capabilitiesResponseContentType" select="string('text/xml')" />
+        <ctl:with-param name="exceptionReportSchemaLocation" select="$exceptionReportSchema" />
+        <ctl:with-param name="exceptionReportSchemaType" select="string('file')" />
+      </ctl:call-test>
+    </ctl:code>
+  </ctl:test>
+</ctl:package>
