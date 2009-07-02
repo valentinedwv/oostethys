@@ -220,6 +220,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <layout>default</layout>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jze's repository</id>
+      <url>http://www.comsys.informatik.uni-kiel.de/~jze/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
   <reporting>
     <plugins>
       <plugin>
