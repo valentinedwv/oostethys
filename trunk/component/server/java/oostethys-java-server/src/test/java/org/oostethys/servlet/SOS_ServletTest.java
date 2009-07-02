@@ -209,42 +209,192 @@ public class SOS_ServletTest extends OOSTethysTest {
             er.getExceptionArray(0).getExceptionCode());
     }
 
-    //    /**
-    //     * Making GetObservation request with a "procedure" parameter value that is not advertised
-    //     * in the capabilities document: urn:ogc:object:procedure:CITE:WeatherService:ThisIsInvalid ...
-    //
-    //     * @throws Exception
-    //     */
-    //    public void testGetObservation_RequestInvalidProcedure_1()
-    //        throws Exception {
-    //        MockHttpServletRequest request =
-    //            new MockHttpServletRequest("POST", "/oostethys/sos");
-    //        request.setContent(("<GetObservation xmlns='http://www.opengis.net/sos/1.0' service='SOS' version='1.0.0'>" +
-    //            " <offering>observationOffering_1455</offering>" +
-    //            "  <procedure>urn:ogc:object:procedure:CITE:WeatherService:ThisIsInvalid</procedure>" +
-    //            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
-    //            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
-    //            "</GetObservation>").getBytes());
-    //
-    //        MockHttpServletResponse response = new MockHttpServletResponse();
-    //
-    //        // invoke servlet
-    //        servlet.doPost(request, response);
-    //
-    //        // get the response
-    //        String responseString = response.getContentAsString();
-    //
-    //        System.out.println(responseString);
-    //        
-    //        ExceptionReport er =
-    //            ExceptionReportDocument.Factory.parse(responseString)
-    //                                           .getExceptionReport();
-    //
-    //        assertEquals("correct exception code", "InvalidParameterValue",
-    //            er.getExceptionArray(0).getExceptionCode());
-    //        assertEquals("correct locator", "procedure",
-    //            er.getExceptionArray(0).getLocator());
-    //    }
+    /**
+     * Making GetObservation request with a "procedure" parameter value that is not advertised
+     * in the capabilities document: urn:ogc:object:procedure:CITE:WeatherService:ThisIsInvalid ...
+
+     * @throws Exception
+     * TODO fix the bug that make this test fail
+     */
+//    public void testGetObservation_RequestInvalidProcedure_1()
+//        throws Exception {
+//        MockHttpServletRequest request =
+//            new MockHttpServletRequest("POST", "/oostethys/sos");
+//        request.setContent(("<GetObservation xmlns='http://www.opengis.net/sos/1.0' service='SOS' version='1.0.0'>" +
+//            " <offering>observationOffering_1455</offering>" +
+//            "  <procedure>urn:ogc:object:procedure:CITE:WeatherService:ThisIsInvalid</procedure>" +
+//            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
+//            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+//            "</GetObservation>").getBytes());
+//
+//        MockHttpServletResponse response = new MockHttpServletResponse();
+//
+//        // invoke servlet
+//        servlet.doPost(request, response);
+//
+//        // get the response
+//        String responseString = response.getContentAsString();
+//
+//        ExceptionReport er =
+//            ExceptionReportDocument.Factory.parse(responseString)
+//                                           .getExceptionReport();
+//
+//        assertEquals("correct exception code", "InvalidParameterValue",
+//            er.getExceptionArray(0).getExceptionCode());
+//        assertEquals("correct locator", "procedure",
+//            er.getExceptionArray(0).getLocator());
+//    }
+
+    public void testGetObservation_RequestInvalidSRSName_1()
+        throws Exception {
+        MockHttpServletRequest request =
+            new MockHttpServletRequest("POST", "/oostethys/sos");
+        request.setContent(("<GetObservation xmlns=\"http://www.opengis.net/sos/1.0\" service=\"SOS\" srsName=\"urn:ogc:def:crs:EPSG:9999\" version=\"1.0.0\">" +
+            "  <offering>observationOffering_1455</offering>" +
+            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
+            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+            "</GetObservation>").getBytes());
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // invoke servlet
+        servlet.doPost(request, response);
+
+        // get the response
+        String responseString = response.getContentAsString();
+
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "InvalidParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
+        assertEquals("correct locator", "srsName",
+            er.getExceptionArray(0).getLocator());
+    }
+
+    /*
+    * TODO fix the bug that make this test fail
+    */
+//    public void testGetObservation_RequestInvalidFeatureOfInterest_1()
+//        throws Exception {
+//        MockHttpServletRequest request =
+//            new MockHttpServletRequest("POST", "/oostethys/sos");
+//        request.setContent(("<GetObservation xmlns=\"http://www.opengis.net/sos/1.0\" service=\"SOS\" version=\"1.0.0\">" +
+//            "  <offering>observationOffering_1455</offering>" +
+//            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
+//            "  <featureOfInterest>" +
+//            "    <ObjectID>urn:ogc:def:object:feature:TheInvalidFeature</ObjectID>" +
+//            "  </featureOfInterest>" +
+//            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+//            "</GetObservation>").getBytes());
+//
+//        MockHttpServletResponse response = new MockHttpServletResponse();
+//
+//        // invoke servlet
+//        servlet.doPost(request, response);
+//
+//        // get the response
+//        String responseString = response.getContentAsString();
+//
+//        System.out.println(responseString);
+//        
+//        ExceptionReport er =
+//            ExceptionReportDocument.Factory.parse(responseString)
+//                                           .getExceptionReport();
+//
+//        assertEquals("correct exception code", "InvalidParameterValue",
+//            er.getExceptionArray(0).getExceptionCode());
+//        assertEquals("correct locator", "FeatureOfInterest",
+//            er.getExceptionArray(0).getLocator());
+//    }
+
+    /*
+     * TODO fix the bug that make this test fail
+     */
+//    public void testGetObservation_RequestInvalidObservedProperty_1()
+//        throws Exception {
+//        MockHttpServletRequest request =
+//            new MockHttpServletRequest("POST", "/oostethys/sos");
+//        request.setContent(("<GetObservation xmlns=\"http://www.opengis.net/sos/1.0\" service=\"SOS\" version=\"1.0.0\">" +
+//            "  <offering>observationOffering_1455</offering>" +
+//            "  <observedProperty>urn:ogc:def:phenomenon:OGC:TheInvalidObservedProperty</observedProperty>" +
+//            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+//            "</GetObservation>").getBytes());
+//
+//        MockHttpServletResponse response = new MockHttpServletResponse();
+//
+//        // invoke servlet
+//        servlet.doPost(request, response);
+//
+//        // get the response
+//        String responseString = response.getContentAsString();
+//
+//        ExceptionReport er =
+//            ExceptionReportDocument.Factory.parse(responseString)
+//                                           .getExceptionReport();
+//
+//        assertEquals("correct exception code", "InvalidParameterValue",
+//            er.getExceptionArray(0).getExceptionCode());
+//        assertEquals("correct locator", "observedProperty",
+//            er.getExceptionArray(0).getLocator());
+//    }
+
+    public void testGetObservation_RequestInvalidResultModel_1()
+        throws Exception {
+        MockHttpServletRequest request =
+            new MockHttpServletRequest("POST", "/oostethys/sos");
+        request.setContent(("<GetObservation xmlns=\"http://www.opengis.net/sos/1.0\" service=\"SOS\" version=\"1.0.0\">" +
+            "  <offering>observationOffering_1455</offering>" +
+            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
+            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+            "  <resultModel>TheBogusOne</resultModel>" + "</GetObservation>").getBytes());
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // invoke servlet
+        servlet.doPost(request, response);
+
+        // get the response
+        String responseString = response.getContentAsString();
+
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "InvalidParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
+        assertEquals("correct locator", "resultModel",
+            er.getExceptionArray(0).getLocator());
+    }
+
+    public void testGetObservation_RequestInvalidResponseMode_1()
+        throws Exception {
+        MockHttpServletRequest request =
+            new MockHttpServletRequest("POST", "/oostethys/sos");
+        request.setContent(("<GetObservation xmlns=\"http://www.opengis.net/sos/1.0\" service=\"SOS\" version=\"1.0.0\">" +
+            "  <offering>observationOffering_1455</offering>" +
+            "  <observedProperty>urn:ogc:phenomenon:time:iso8601</observedProperty>" +
+            "  <responseFormat>text/xml; subtype=\"om/1.0.0\"</responseFormat>" +
+            "  <responseMode>NotValid</responseMode>" + "</GetObservation>").getBytes());
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // invoke servlet
+        servlet.doPost(request, response);
+
+        // get the response
+        String responseString = response.getContentAsString();
+
+        ExceptionReport er =
+            ExceptionReportDocument.Factory.parse(responseString)
+                                           .getExceptionReport();
+
+        assertEquals("correct exception code", "InvalidParameterValue",
+            er.getExceptionArray(0).getExceptionCode());
+        assertEquals("correct locator", "responseMode",
+            er.getExceptionArray(0).getLocator());
+    }
 
     /**
      *  Making DescribeSensor request with no "outputFormat" parameter...

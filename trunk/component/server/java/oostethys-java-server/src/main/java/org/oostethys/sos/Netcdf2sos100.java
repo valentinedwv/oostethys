@@ -39,6 +39,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
+import org.apache.xmlbeans.impl.values.XmlValueOutOfRangeException;
 import org.oostethys.model.VariableQuantity;
 import org.oostethys.model.VariablesConfig;
 import org.oostethys.model.impl.ObservationNetcdf;
@@ -80,23 +81,18 @@ public class Netcdf2sos100 {
 	private final static String PROCEDURE = "PROCEDURE";
 	private final static String SERVICE = "SERVICE";
 	private final static String REQUEST = "REQUEST";
-	private final static String SRSNAME = "SRSNAME";
-	private final static String RESPONSEMODE = "RESPONSEMODE";
+	private final static String SRS_NAME = "SRSNAME";
+	private final static String RESPONSE_MODE = "RESPONSEMODE";
 
-	private final static String GETCAPABILITIES = "GetCapabilities";
-	private final static String DESCRIBESENSOR = "DescribeSensor";
-	private final static String GETOBSERVATION = "GetObservation";
+	private final static String GET_CAPABILITIES = "GetCapabilities";
+	private final static String DESCRIBE_SENSOR = "DescribeSensor";
+	private final static String GET_OBSERVATION = "GetObservation";
 	private final static String VERSION = "VERSION";
-	private final static String VERSION_NUMBER_SENSORML = "1.0.1";
 	private final static String VERSION_NUMBER_SOS = "1.0.0";
-	private final static String RESPONSEFORMAT = "RESPONSEFORMAT";
-	private static final String SENSORID = "SENSORID";
-	private static final String OUTPUTFORMAT = "OUTPUTFORMAT";
+	private final static String RESPONSE_FORMAT = "RESPONSEFORMAT";
+	private static final String OUTPUT_FORMAT = "OUTPUTFORMAT";
 
 	private static final String OFFERING = "OFFERING";
-	private static final String HTTP_GET = "GET";
-	private static final String HTTP_POST = "POST";
-	private String httpType = HTTP_GET;
 
 	private String value_PROCEDURE = null;
 	private String value_OBSERVED_PROPERTY = null;
@@ -110,6 +106,8 @@ public class Netcdf2sos100 {
 	public final static String resultModel = "om:Observation";
 	public final static String responseMode = "inline";
 
+	private static final String RESULT_MODEL = "RESULTMODEL";
+
 	private Map<String, String> parameterMap = null;
 
 	private OostethysDocument oostDocTemp = null;
@@ -117,7 +115,6 @@ public class Netcdf2sos100 {
 	private String requestSensorID = null;
 	private String offeringID = null;
 	private InputStream postInputStream;
-	private String value_OFFERING;
 	private URL xsltUrl;
 	private URL tempUrl;
 
@@ -193,8 +190,7 @@ public class Netcdf2sos100 {
 	boolean requestProcessed = false;
 
 	try {
-	    GetCapabilitiesDocument getCap = GetCapabilitiesDocument.Factory
-		    .parse(new StringReader(stream));
+	    GetCapabilitiesDocument.Factory.parse(new StringReader(stream));
 
 	    getCapabilities(os);
 	    requestProcessed = true;
@@ -207,7 +203,9 @@ public class Netcdf2sos100 {
 		GetObservationDocument getObs = GetObservationDocument.Factory
 			.parse(stream);
 
-		processParametersGetObservation(getObs);
+		if( !processParametersGetObservation(getObs, os) ) {
+		    return;
+		}
 		getObservation(os);
 
 		requestProcessed = true;
@@ -231,10 +229,10 @@ public class Netcdf2sos100 {
 		    "InvalidRequest",
 		    null,
 		    "Not able to understand the operation. This service supports the following operations: "
-			    + GETCAPABILITIES
+			    + GET_CAPABILITIES
 			    + ", "
-			    + DESCRIBESENSOR
-			    + " and, " + GETOBSERVATION, os);
+			    + DESCRIBE_SENSOR
+			    + " and, " + GET_OBSERVATION, os);
 
     }
 
@@ -263,7 +261,6 @@ public class Netcdf2sos100 {
 	 * 
 	 * @param map
 	 * @param outputStream
-	 *            TODO
 	 * @throws Exception
 	 */
 	public void process(Map<String,String[]> map, OutputStream os) throws Exception {
@@ -294,21 +291,21 @@ public class Netcdf2sos100 {
 			getCapabilities(os);
 		} else {
 
-			if (operation.equalsIgnoreCase(GETCAPABILITIES)) {
+			if (operation.equalsIgnoreCase(GET_CAPABILITIES)) {
 				getCapabilities(os);
-			} else if (operation.equalsIgnoreCase(GETOBSERVATION)) {
+			} else if (operation.equalsIgnoreCase(GET_OBSERVATION)) {
 				getObservation(os);
-			} else if (operation.equals(DESCRIBESENSOR)) {
+			} else if (operation.equals(DESCRIBE_SENSOR)) {
 				getDescribeSensor(os);
 			} else {
 				report(
 						"InvalidParameterValue",
 						REQUEST,
 						"Not able to understand the operation. This service supports the following operations: "
-								+ GETCAPABILITIES
+								+ GET_CAPABILITIES
 								+ ", "
-								+ DESCRIBESENSOR
-								+ " and, " + GETOBSERVATION, os);
+								+ DESCRIBE_SENSOR
+								+ " and, " + GET_OBSERVATION, os);
 			}
 		}
 
@@ -339,11 +336,11 @@ public class Netcdf2sos100 {
 
 			// now validated !
 			XmlOptions validationOptions = new XmlOptions();
-			ArrayList validationErrors = new ArrayList();
+			ArrayList<?> validationErrors = new ArrayList<Object>();
 			validationOptions.setErrorListener(validationErrors);
 			boolean isValid = oostDoc.validate(validationOptions);
 			if (!isValid) {
-				Iterator iter = validationErrors.iterator();
+				Iterator<?> iter = validationErrors.iterator();
 				StringBuffer buffy = new StringBuffer();
 				buffy.append("XML Instance is not valid:");
 				while (iter.hasNext()) {
@@ -831,6 +828,9 @@ public class Netcdf2sos100 {
 			return;
 		}
 
+		// check result model
+		
+		
 		Oostethys oost = getOOSTethysObservationFilter(outputStream);
 		if (oost != null) {
 
@@ -885,46 +885,46 @@ public class Netcdf2sos100 {
 
 	}
 
-	private void getXML(OutputStream outputStream, File xsltFile, File xmlFile) {
-		java.lang.System.setProperty("javax.xml.transform.TransformerFactory",
-				"net.sf.saxon.TransformerFactoryImpl");
-
-		TransformerFactory tfactory = TransformerFactory.newInstance();
-		InputStream xslIS;
-		try {
-			xslIS = new BufferedInputStream(new FileInputStream(xsltFile));
-
-			StreamSource xslSource = new StreamSource(xslIS);
-
-			// The following line would be necessary if the stylesheet contained
-			// an xsl:include or xsl:import with a relative URL
-			// xslSource.setSystemId(xslID);
-
-			// Create a transformer for the stylesheet.
-			Transformer transformer = tfactory.newTransformer(xslSource);
-			InputStream xmlIS = new BufferedInputStream(new FileInputStream(
-					xmlFile));
-			StreamSource xmlSource = new StreamSource(xmlIS);
-
-			// The following line would be necessary if the source document
-			// contained
-			// a call on the document() function using a relative URL
-			// xmlSource.setSystemId(sourceID);
-
-			// Transform the source XML to System.out.
-			transformer.transform(xmlSource, new StreamResult(outputStream));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	private void getXML(OutputStream outputStream, File xsltFile, File xmlFile) {
+//		java.lang.System.setProperty("javax.xml.transform.TransformerFactory",
+//				"net.sf.saxon.TransformerFactoryImpl");
+//
+//		TransformerFactory tfactory = TransformerFactory.newInstance();
+//		InputStream xslIS;
+//		try {
+//			xslIS = new BufferedInputStream(new FileInputStream(xsltFile));
+//
+//			StreamSource xslSource = new StreamSource(xslIS);
+//
+//			// The following line would be necessary if the stylesheet contained
+//			// an xsl:include or xsl:import with a relative URL
+//			// xslSource.setSystemId(xslID);
+//
+//			// Create a transformer for the stylesheet.
+//			Transformer transformer = tfactory.newTransformer(xslSource);
+//			InputStream xmlIS = new BufferedInputStream(new FileInputStream(
+//					xmlFile));
+//			StreamSource xmlSource = new StreamSource(xmlIS);
+//
+//			// The following line would be necessary if the source document
+//			// contained
+//			// a call on the document() function using a relative URL
+//			// xmlSource.setSystemId(sourceID);
+//
+//			// Transform the source XML to System.out.
+//			transformer.transform(xmlSource, new StreamResult(outputStream));
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (TransformerConfigurationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (TransformerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	/**
 	 * @return the urlOostethys
@@ -1089,12 +1089,12 @@ public class Netcdf2sos100 {
 	if (!checkCommonParameters(os))
 	    return false;
 
-	String outputFormat = parameterMap.get(OUTPUTFORMAT);
+	String outputFormat = parameterMap.get(OUTPUT_FORMAT);
 	String sensorId = parameterMap.get(PROCEDURE);
 
 	if (outputFormat == null) {
 	    report(ExceptionReporter.MissingParameterValue,  "outputFormat",
-		    "Need parameter: " + OUTPUTFORMAT + " ", os);
+		    "Need parameter: " + OUTPUT_FORMAT + " ", os);
 	    return false;
 	} else {
 	    if (!StringUtils.equalsIgnoreCase(responseFormat, outputFormat)) {
@@ -1125,7 +1125,7 @@ public class Netcdf2sos100 {
 
 	final String offering = parameterMap.get(OFFERING);
 	final String procedure = parameterMap.get(PROCEDURE);
-	final String responesFormat = parameterMap.get(RESPONSEFORMAT);
+	final String responesFormat = parameterMap.get(RESPONSE_FORMAT);
 	final String eventType = parameterMap.get(EVENT_TIME);
 	final String boundingBox = parameterMap.get(BBOX);
 	final String observedProperty = parameterMap.get(OBSERVED_PROPERTY);
@@ -1133,7 +1133,7 @@ public class Netcdf2sos100 {
 	if (responesFormat != null) {
 	    if (!StringUtils.equalsIgnoreCase(responesFormat,
 		    supportedResponseFormat)) {
-		report(ExceptionReporter.InvalidParameterValue, RESPONSEFORMAT,
+		report(ExceptionReporter.InvalidParameterValue, RESPONSE_FORMAT,
 			"The responseFormat: " + responesFormat
 				+ " is not supported. It should be "
 				+ responseFormat, os);
@@ -1193,6 +1193,25 @@ public class Netcdf2sos100 {
 	// , os);
 	// return false;
 	// }
+	
+	if( parameterMap.containsKey(RESULT_MODEL)) {
+	    final String resultModel = parameterMap.get(RESULT_MODEL);
+	    if( !("{http://www.opengis.net/om/1.0}Observation".equals(resultModel) ||
+		    "{http://www.opengis.net/om/1.0}Measurement".equals(resultModel) ||
+		    "{http://www.opengis.net/om/1.0}CategoryObservation".equals(resultModel) )) {
+		report(ExceptionReporter.InvalidParameterValue, "resultModel",
+			    "The value ("+resultModel+") of the parameter 'resultModel' is invalid! It could be 'Observation' or 'Measurement' for numerical observations or 'CategoryObservation' for categorical observations.", os);
+		    return false;
+	    }
+	}
+	
+	if( parameterMap.containsKey(SRS_NAME)) {
+	    if(!StringUtils.startsWith(parameterMap.get(SRS_NAME),"urn:ogc:crs:epsg:")) {
+		report(ExceptionReporter.InvalidParameterValue, "srsName",
+			    "The parameter 'srsName' has to match pattern 'urn:ogc:crs:epsg:' with appended EPSG code number.", os);
+		    return false;
+	    }
+	}
 
 	return true;
     }
@@ -1337,21 +1356,12 @@ public class Netcdf2sos100 {
 		if (procedure != null)
 			parameterMap.put(PROCEDURE, procedure);
 		if (format != null)
-			parameterMap.put(OUTPUTFORMAT, format);
+			parameterMap.put(OUTPUT_FORMAT, format);
 
 	}
 
-	private void processParametersGetObservation(
-			GetObservationDocument getObsDocument) {
-
-		boolean hasService = false;
-		boolean hasObservedProperty = false; // not mandatory in oostethys
-		boolean hasSrsName = false;
-		boolean hasProcedure = false;
-		boolean hasEventTime = false;
-		boolean hasVersion = false;
-		boolean hasOffering = false;
-		boolean hasResponseFormat = false;
+	private boolean processParametersGetObservation(
+			GetObservationDocument getObsDocument, OutputStream os) {
 
 		parameterMap = new HashMap<String, String>();
 		GetObservation getObservation = getObsDocument.getGetObservation();
@@ -1372,13 +1382,20 @@ public class Netcdf2sos100 {
 							.getObservedPropertyArray()));
 
 		if (getObservation.getSrsName() != null)
-			parameterMap.put(SRSNAME, getObservation.getSrsName());
+			parameterMap.put(SRS_NAME, getObservation.getSrsName());
 		if (getObservation.getResponseFormat() != null)
 			parameterMap
-					.put(RESPONSEFORMAT, getObservation.getResponseFormat());
+					.put(RESPONSE_FORMAT, getObservation.getResponseFormat());
+		
+		try {
 		if (getObservation.getResponseMode() != null)
-			parameterMap.put(RESPONSEMODE, getObservation.getResponseMode()
+			parameterMap.put(RESPONSE_MODE, getObservation.getResponseMode()
 					.toString());
+		} catch( XmlValueOutOfRangeException e) {
+		    report(ExceptionReporter.InvalidParameterValue, "responseMode",
+			    "XML validation error: "+e.getMessage(), os);
+		    return false;
+		}
 
 		if (getObservation.getEventTimeArray().length > 0) {
 			try {
@@ -1403,6 +1420,15 @@ public class Netcdf2sos100 {
 			}
 		}
 
+		if( getObservation.getResultModel() != null) {
+		    parameterMap.put(RESULT_MODEL, getObservation.getResultModel().toString());
+		}
+		
+		if( getObservation.getSrsName() != null) {
+		    parameterMap.put(SRS_NAME, getObservation.getSrsName());
+		}
+				
+		return true;
 	}
 
 	/**
