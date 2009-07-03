@@ -1,4 +1,4 @@
-package org.oostethys.model.impl.test;
+package org.oostethys.model.impl;
 
 import java.net.URL;
 import java.text.DecimalFormat;
