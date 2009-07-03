@@ -1,4 +1,4 @@
-package org.oostethys.netcdf.util.test;
+package org.oostethys.netcdf.util;
 
 import junit.framework.TestCase;
 

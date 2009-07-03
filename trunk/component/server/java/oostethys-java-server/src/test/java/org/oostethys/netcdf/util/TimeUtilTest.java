@@ -1,4 +1,4 @@
-package org.oostethys.netcdf.util.test;
+package org.oostethys.netcdf.util;
 
 import java.util.Calendar;
 import java.util.TimeZone;
