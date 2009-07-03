@@ -43,19 +43,17 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	private boolean depthIsGiven = true;
 
-	long minTime;
+	private long minTime;
 
-	long maxTime;
+	private long maxTime;
 
-	double minZ;
+	private double minZ;
 
-	double maxZ;
+	private double maxZ;
 
-	String lastKnownPosition;
+	private String lastKnownPosition;
 
-	String typeOfSource;
-
-	String data;
+	private String data;
 
 	private String tokenSeparator = ",";
 
