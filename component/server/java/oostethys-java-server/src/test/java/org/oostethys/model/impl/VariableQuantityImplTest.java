@@ -1,4 +1,4 @@
-package org.oostethys.model.impl.test;
+package org.oostethys.model.impl;
 
 import org.oostethys.model.VariableQuantity;
 import org.oostethys.model.impl.VariableQuantityImpl;
