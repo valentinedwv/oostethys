@@ -79,11 +79,10 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	private long timeStart = Long.MIN_VALUE;
 	private long timeEnd = Long.MAX_VALUE;
 
-	private boolean parseAllData = false; // if getCapabilites or
-	// DescribeSensor, which
-	// do not requires to
-	// get all the data,
-	// only the extends
+	/**
+	 * if getCapabilites or  DescribeSensor, which do not requires to get all the data, only the extends
+	 */
+	private boolean parseAllData = false; 
 
 
 	public ObservationNetcdf() {
@@ -149,8 +148,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
 	 * @see org.oostethys.model.impl.Observation#getAsRecords(java.lang.String,
 	 *      java.lang.String)
@@ -159,7 +157,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		return data.trim();
 	}
 
-	public boolean isGood(ucar.nc2.Variable var, double value) {
+	private boolean isGood(ucar.nc2.Variable var, double value) {
 		@SuppressWarnings("unchecked")
 		List<Attribute> atts = var.getAttributes();
 		for (Attribute attribute : atts) {
@@ -179,36 +177,20 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * @param standardName
 	 * @return
 	 */
-	public ucar.nc2.Variable findncfVariableByShortName(String shortName) {
-		ucar.nc2.Variable variable = null;
-		@SuppressWarnings("unchecked")
-		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
-		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator.hasNext();) {
-			variable =  iterator.next();
-			// Attribute att =
-			// variable.findAttributeIgnoreCase("standard_name");
-			// if (att != null) {
-			// if (standardName.equalsIgnoreCase(att.getStringValue())) {
-			// return variable;
-			// }
-			// }
-			// att = variable.findAttributeIgnoreCase("long_name");
-			// if (att != null) {
-			// if (standardName.equalsIgnoreCase(att.getStringValue())) {
-			// return variable;
-			// }
-			// }
-			if (variable.getShortName().equalsIgnoreCase(shortName)) {
-				return variable;
-			}
+	private ucar.nc2.Variable findncfVariableByShortName(String shortName) {
+	    @SuppressWarnings("unchecked")
+	    List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
 
+	    for (ucar.nc2.Variable variable : vars) {
+		if (variable.getShortName().equalsIgnoreCase(shortName)) {
+		    return variable;
 		}
+	    }
 
-		return null;
-
+	    return null;
 	}
 
-	public VariableQuantity getVarQ(ucar.nc2.Variable var) {
+	private VariableQuantity getVarQ(ucar.nc2.Variable var) {
 
 		Attribute att = null;
 		String label = null;
@@ -248,7 +230,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * @param arraysVar
 	 * @param uriOfVariable
 	 */
-	public void processVar(List<VariableQuantity> varsToProcess,
+	private void processVar(List<VariableQuantity> varsToProcess,
 			List<Array> arraysVar, String uriOfVariable) throws Exception {
 		logger.info("Processing " + uriOfVariable);
 		VariableQuantity varQuantity = variablesConfig
@@ -620,7 +602,9 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 //			}
 
 			// set URI // mapping
+			if( variableQuantity.getURI() == null) {
 			assignURItoVarConfig2(variableQuantity);
+			}
 
 			String unitsS = var.getUnitsString();
 			Units units = new UnitsImpl();
@@ -719,7 +703,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	
 	
 	
-	public void assignURItoVarConfig2(VariableQuantity variableQuantity) {
+	private void assignURItoVarConfig2(VariableQuantity variableQuantity) {
 		String label = variableQuantity.getLabel();
 
 		// find variable by shortname
