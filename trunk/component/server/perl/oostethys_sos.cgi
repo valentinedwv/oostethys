@@ -834,8 +834,8 @@ sub getInputParams
 	# They must be modifed for local platforms and observedProperites
 	#my $q = new CGI('request=GetCapabilities');
 	#my $q = new CGI('request=DescribeSensor&procedure=urn:gomoos.org:platform#B01');
-	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=sea_water_salinity,sea_water_temperature&eventTime=2008-04-10T10:00:00Z/2008-04-10T14:00:00Z');
-	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=sea_water_salinity,sea_water_temperature&bbox=-71.50,39.0,-63.0,40.0&eventTime=2008-04-10T10:00:00Z/2008-04-10T14:00:00Z');
+	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=sea_water_salinity,sea_water_temperature&Time=2008-04-10T10:00:00Z/2008-04-10T14:00:00Z');
+	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=sea_water_salinity,sea_water_temperature&bbox=-71.50,39.0,-63.0,40.0&Time=2008-04-10T10:00:00Z/2008-04-10T14:00:00Z');
 
 	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=significant_height_of_wind_and_swell_waves,sea_water_temperature');
 	#my $q = new CGI('request=GetObservation&offering=A01&observedProperty=SEA_WATER_SALINITY');
