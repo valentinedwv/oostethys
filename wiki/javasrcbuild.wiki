@@ -5,7 +5,7 @@
 == Building with Eclipse ==
 
 To build the source of the  OOSTethys JAVA toolkit you need the following:
-
+  * You will need a Java runtime environment ([http://www.eclipse.org/downloads/moreinfo/jre.php JRE]) to use Eclipse (Java 5 JRE recommended). 
   * Have Eclipse installed. Downloads [http://www.eclipse.org/downloads/ here]. The Eclipse IDE for Java Developers will work.
   * Install the [http://maven.apache.org/eclipse-plugin.html Maven Plugin] for Eclipse
 
