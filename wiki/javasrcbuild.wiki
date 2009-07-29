@@ -9,7 +9,16 @@ To build the source of the  OOSTethys JAVA toolkit you need the following:
   * Have Eclipse installed. Downloads [http://www.eclipse.org/downloads/ here]. The Eclipse IDE for Java Developers will work.
   * Install the [http://maven.apache.org/eclipse-plugin.html Maven Plugin] for Eclipse. We recommend installing [http://code.google.com/p/q4e/wiki/Installation Eclipse IAM]. 
     * Go to Help / Install New Software..
-    *
+    * Select Add.. and type Eclipse IAM and http://q4e.googlecode.com/svn/trunk/updatesite-iam/.
+    * Follow the rest of the steps to install the plugin
+
+
+Download the code from the SVN repository
+
+  * In the menu select: Window / Show View / Other.. / SVN / SVN Repositories
+  * Right click on the window and select 'new' / Repository location
+
+
 
 
 = Details =
