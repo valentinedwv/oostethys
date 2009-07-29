@@ -23,5 +23,21 @@ Download the code from the SVN repository
 
 
 
+== Building from the command line ==
+
+(this section from Jesper's 2009-06-20 email)
+
+Here are step-by-step instructions for the command line (you can skipthe first two steps if you already have Maven installed on your system):
+  # Download Maven from http://maven.apache.org/download.html
+  # extract the archive file: tar xvfj apache-maven-2.1.0-bin.tar.bz2
+  # check out the source code from the Subversion repository:
+{{{
+    svn co https://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server
+}}}
+  # change into project's directory  cd oostethys-java-server
+  # build the project: ../apache-maven-2.1.0/bin/mvn compile
+
+Instead of "mvn compile" you can use "mvn jetty:run" to start a test server of "mvn test" to run the unit tests, etc.
+
 
 = Details =
