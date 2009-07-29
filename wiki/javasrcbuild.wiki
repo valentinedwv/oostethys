@@ -11,12 +11,15 @@ To build the source of the  OOSTethys JAVA toolkit you need the following:
     * Go to Help / Install New Software..
     * Select Add.. and type Eclipse IAM and http://q4e.googlecode.com/svn/trunk/updatesite-iam/.
     * Follow the rest of the steps to install the plugin
+    * Depending on you Eclipe version you will need [http://subclipse.tigris.org/wiki/JavaHL JavaHL]. For MAC OS go [http://www.open.collab.net/downloads/apple/?_=d here]
 
 
 Download the code from the SVN repository
 
   * In the menu select: Window / Show View / Other.. / SVN / SVN Repositories
   * Right click on the window and select 'new' / Repository location
+  * Go to the google code page and get the URL for the SVN. If you have permissions you will see your login and paasword information
+  * For example: URL:  http://code.google.com/p/oostethys/source/checkout
 
 
 
