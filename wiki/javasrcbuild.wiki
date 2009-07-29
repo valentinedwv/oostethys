@@ -2,6 +2,12 @@
 
 = JAVA  Toolkit  Source Building =
 
+== Building with Eclipse ==
+
+To build the source of the  OOSTethys JAVA toolkit you need the following:
+
+  * Have Eclipse installed. Downloads [http://www.eclipse.org/downloads/ here]. The Eclipse IDE for Java Developers will work.
+  * Install the [http://maven.apache.org/eclipse-plugin.html Maven Plugin] for Eclipse
 
 
 = Details =
