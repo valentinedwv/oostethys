@@ -40,4 +40,10 @@ Here are step-by-step instructions for the command line (you can skipthe first t
 Instead of "mvn compile" you can use "mvn jetty:run" to start a test server of "mvn test" to run the unit tests, etc.
 
 
+=== Importing the project into eclipse ===
+(CR)
+With the [http://code.google.com/p/q4e/wiki/Installation Eclipse IAM] plugin for maven, I imported the "oostethys-java-server" directory by using the Maven 2 Project import option. It took a couple of mins (no progress bar or something) but it worked. (SVN feature was not activated, though.)
+
+
+
 = Details =
