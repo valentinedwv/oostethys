@@ -596,7 +596,7 @@ sub doGetObservation
 {
 	my ($sensorID, $in_params, $sensor_list) = @_;
 
-	my $in_time = $in_params->{TIME};
+	my $in_time = $in_params->{EVENTTIME};
 	# $OBSERVEDPROPERTY can be a comma separated list.
 	my @params = split(',', $in_params->{OBSERVEDPROPERTY});
 	# get rid of the uri portion
@@ -858,7 +858,7 @@ sub getInputParams
 		$request =~ s/.+://;
 		$param_ref->{REQUEST} = $request;
 		if($request eq 'GetObservation'){
-			$param_ref->{TIME} = '';
+			$param_ref->{EVENTTIME} = '';
 			$param_ref->{BBOX} = '';
 			my $val =  $xc->find('//sos:GetObservation/sos:offering')->string_value;
 			$param_ref->{OFFERING} = $val;
@@ -882,7 +882,7 @@ sub getInputParams
 					$time .= '/';
 					$time .= $xc->find("gml:endPosition", $node)->string_value;
 				}
-				$param_ref->{TIME} = $time;
+				$param_ref->{EVENTTIME} = $time;
 			}
 			my @nodes = $xc->findnodes("/sos:GetObservation/sos:featureOfInterest/ogc:BBOX/gml:Envelope/*");
 			if(@nodes){
