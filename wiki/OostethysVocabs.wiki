@@ -1,5 +1,12 @@
-#summary Vocabularies in the OOSTethys tool
+#summary Vocabularies in the OOSTethys toolkit
 
 Reviewing java code for vocabulary-related elements ..
 
-`org.oostethys.voc.Voc`
+Starting from [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/voc/Voc.java Voc] (which is a list of URIs currently with OGC URNs and MMI URLs), I find references in several classes including:
+
+  * [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/sos/Netcdf2sos100.java Netcdf2sos1001] (called from [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/servlet/SOS_Servlet.java SOS_Servlet]).
+
+  * [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/model/impl/ObservationNetcdf.java ObservationNetcdf] (implements [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/model/Observation.java Observation])
+
+
+  * [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/netcdf/util/VariableMapper.java VariableMapper]
