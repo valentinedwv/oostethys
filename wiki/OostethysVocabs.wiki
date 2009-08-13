@@ -10,3 +10,9 @@ Starting from [http://code.google.com/p/oostethys/source/browse/trunk/component/
 
 
   * [http://code.google.com/p/oostethys/source/browse/trunk/component/server/java/oostethys-java-server/src/main/java/org/oostethys/netcdf/util/VariableMapper.java VariableMapper]
+
+
+== some comments ==
+
+  # Need to determine what need to be hard-coded (depending on the internal mechanisms in oostethys) and what not ..
+  #
