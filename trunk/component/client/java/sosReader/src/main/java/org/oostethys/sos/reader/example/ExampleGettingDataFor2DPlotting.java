@@ -14,7 +14,7 @@ public class ExampleGettingDataFor2DPlotting {
 					"http://mmisw.org/oostethys/sos?VERSION=1.0.0&SERVICE=SOS&REQUEST=GetObservation&offering=observationOffering_1455");
 			SOSObservationSweCommonReader reader = new SOSObservationSweCommonReader();
 			reader.setURLGetObservation(urlGetObservation);
-			String varURI = "http://mmisw.org/cf#pressure";
+			String varURI = "http://mmisw.org/ont/cf/parameter/pressure";
 			reader.process(varURI);
 			PlotData plotData = reader.getPlotData();
 			String title = plotData.getTitle();
@@ -33,7 +33,7 @@ public class ExampleGettingDataFor2DPlotting {
 			
 
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -49,7 +49,7 @@ public class ExampleGettingDataFor2DPlotting {
 					"http://mmisw.org/oostethys/sos?VERSION=1.0.0&SERVICE=SOS&REQUEST=GetObservation&offering=observationOffering_1455");
 			SOSObservationSweCommonReader reader = new SOSObservationSweCommonReader();
 			reader.setURLGetObservation(urlGetObservation);
-			String varURI = "http://mmisw.org/cf#pressure";
+			String varURI = "http://mmisw.org/ont/cf/parameter/pressure";
 			reader.process(varURI);
 			PlotData plotData = reader.getPlotData();
 			String title = plotData.getTitle();
