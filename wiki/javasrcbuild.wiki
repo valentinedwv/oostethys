@@ -1,4 +1,4 @@
-#summary Documentation about how build the JAVA source code in Eclipse
+#summary Documentation about how build the JAVA source code with MAVEN using Eclipse and command line
 
 = JAVA  Toolkit Source Building =
 
@@ -23,10 +23,23 @@ To build the source of the  OOSTethys JAVA toolkit you need the following:
   [http://content.screencast.com/users/lbermudez/folders/Default/media/237dbc9a-0431-4996-8750-99e424352afa/2009-09-11_1326_opeeration_waiting.png]
   * You should be able to something like this:
   [http://content.screencast.com/users/lbermudez/folders/Default/media/a6b31dac-bb3e-4339-b666-b06bf84d645a/2009-09-11_1330_run_test.png]
-  * run the test : Right click on the project (oostethys-java-server) and run as Maven test
+ 
+===  Running , Testing etc... === 
 
 
+To run the test: 
+   * Right click on the project (oostethys-java-server)
+   * Select *Run As* 
+   * Select *Maven test*
 
+To create a war file: 
+   * Right click on the project (oostethys-java-server) 
+   * Select Run as *Maven build...* 
+   * In Goals 
+     * type *war* to file all the tasks that have war
+     * select *war* from *org.apache.maven.plugins:maven-war-plugin*
+
+     [http://content.screencast.com/users/lbermudez/folders/Jing/media/2e997508-0890-4d0f-96e8-e4e6065d7c16/00000013.png]
 
 
 
