@@ -2,7 +2,7 @@
 
 = JAVA  Toolkit Source Building =
 
-== Building with Eclipse ==
+=== Importing the project into eclipse using M2Eclipse ===
 
 To build the source of the  OOSTethys JAVA toolkit you need the following:
   * You will need a Java runtime environment ([http://www.eclipse.org/downloads/moreinfo/jre.php JRE]) to use Eclipse (Java 5 JRE recommended). 
@@ -48,10 +48,6 @@ Here are step-by-step instructions for the command line (you can skipthe first t
 Instead of "mvn compile" you can use "mvn jetty:run" to start a test server of "mvn test" to run the unit tests, etc.
 
 
-=== Importing the project into eclipse ===
+=== Importing the project into eclipse using IAM ===
 (CR)
 With the [http://code.google.com/p/q4e/wiki/Installation Eclipse IAM] plugin for maven, I imported the "oostethys-java-server" directory by using the Maven 2 Project import option. It took a couple of mins (no progress bar or something) but it worked. (SVN feature was not activated, though.)
-
-
-
-= Details =
