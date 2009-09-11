@@ -1,4 +1,4 @@
-#Explains how to build the JAVA source code
+#summary Documentation about how build the JAVA source code in Eclipse
 
 = JAVA  Toolkit Source Building =
 
