@@ -1,25 +1,26 @@
 #Explains how to build the JAVA source code
 
-= JAVA  Toolkit  Source Building =
+= JAVA  Toolkit Source Building =
 
 == Building with Eclipse ==
 
 To build the source of the  OOSTethys JAVA toolkit you need the following:
   * You will need a Java runtime environment ([http://www.eclipse.org/downloads/moreinfo/jre.php JRE]) to use Eclipse (Java 5 JRE recommended). 
-  * Have Eclipse installed. Downloads [http://www.eclipse.org/downloads/ here]. The Eclipse IDE for Java Developers will work.
-  * Install the [http://maven.apache.org/eclipse-plugin.html Maven Plugin] for Eclipse. We recommend installing [http://code.google.com/p/q4e/wiki/Installation Eclipse IAM]. 
-    * Go to Help / Install New Software..
-    * Select Add.. and type Eclipse IAM and http://q4e.googlecode.com/svn/trunk/updatesite-iam/.
-    * Follow the rest of the steps to install the plugin
-    * Depending on you Eclipe version you will need [http://subclipse.tigris.org/wiki/JavaHL JavaHL]. For MAC OS go [http://www.open.collab.net/downloads/apple/?_=d here]
+  * Have Eclipse installed. Downloads [http://www.eclipse.org/downloads/ here]. The Eclipse IDE for Java Developers will work. This instructions were tested with 3.4 Ganimede
+  * Install the Maven Integration for Eclipse
+    * update site: [http://m2eclipse.sonatype.org/update/]
+    * instructions: [http://m2eclipse.sonatype.org/]
+  * Checkout SVN project
+    * Go to: File > New > Other > Maven >  Checkout Maven projects from SCM
+    * SCM URL -> Select SVN and type the URL : [http://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server]
+    * click on finish
+  * wait
+  * run the test
+  * compile
+  * build the distribution file 
 
 
-Download the code from the SVN repository
 
-  * In the menu select: Window / Show View / Other.. / SVN / SVN Repositories
-  * Right click on the window and select 'new' / Repository location
-  * Go to the google code page and get the URL for the SVN. If you have permissions you will see your login and paasword information
-  * For example: URL:  http://code.google.com/p/oostethys/source/checkout
 
 
 
