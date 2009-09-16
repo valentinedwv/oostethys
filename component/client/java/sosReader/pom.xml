@@ -1,86 +1,103 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>oostethys</groupId>
-  <artifactId>java-reader</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>OOSTethys SOS client</name>
-  <url>http://code.google.com/p/oostethys/</url>
-  <scm>
-    <connection>scm:svn:http://oostethys.googlecode.com/svn/trunk/component/client/java/sosReader/</connection>
-    <url>http://oostethys.googlecode.com/svn/trunk/component/client/java/sosReader/</url>
-  </scm>
-  <licenses>
-    <license>
-      <name>The GNU General Public License, Version 2</name>
-      <url>http://www.gnu.org/licenses/gpl.txt</url>
-    </license>
-  </licenses>
-  <developers>
-    <developer>
-      <id>bermud</id>
-      <name>Luis Bermudez</name>
-      <email>bermudez@sura.org</email>
-      <organization>SURA</organization>
-      <organizationUrl>http://www.sura.org</organizationUrl>
-    </developer>
-    <developer>
-      <id>rick.bl</id>
-      <name>Rick</name>
-      <email>rick.bl...@boeing.com</email>
-      <organization>Boeing</organization>
-    </developer>
-    <developer>
-      <id>carueda</id>
-      <name>Carlos Rueda</name>
-    </developer>
-    <developer>
-      <id>jzedlitz</id>
-      <name>Jesper Zedlitz</name>
-      <email>jze@informatik.uni-kiel.de</email>
-      <organization>CAU Kiel</organization>
-      <organizationUrl>http://www.informatik.uni-kiel.de/comsys/</organizationUrl>
-    </developer>
-  </developers>
-  <mailingLists>
-    <mailingList>
-      <name>User List</name>
-      <post>oostethys-users@googlegroups.com</post>
-      <archive>http://groups.google.com/group/oostethys-users/topics</archive>
-    </mailingList>
-    <mailingList>
-      <name>User List</name>
-      <post>oostethys_dev@googlegroups.com</post>
-      <archive>http://groups.google.com/group/oostethys_dev/topics</archive>
-    </mailingList>
-  </mailingLists>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>jdom</groupId>
-      <artifactId>jdom</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>1.6</version>
-    </dependency>
-  </dependencies>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>oostethys</groupId>
+	<artifactId>java-reader</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>OOSTethys SOS client</name>
+	<url>http://code.google.com/p/oostethys/</url>
+	<scm>
+		<connection>scm:svn:http://oostethys.googlecode.com/svn/trunk/component/client/java/sosReader/</connection>
+		<url>http://oostethys.googlecode.com/svn/trunk/component/client/java/sosReader/</url>
+	</scm>
+	<licenses>
+		<license>
+			<name>The GNU General Public License, Version 2</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>bermud</id>
+			<name>Luis Bermudez</name>
+			<email>bermudez@sura.org</email>
+			<organization>SURA</organization>
+			<organizationUrl>http://www.sura.org</organizationUrl>
+		</developer>
+		<developer>
+			<id>rick.bl</id>
+			<name>Rick</name>
+			<email>rick.bl...@boeing.com</email>
+			<organization>Boeing</organization>
+		</developer>
+		<developer>
+			<id>carueda</id>
+			<name>Carlos Rueda</name>
+		</developer>
+		<developer>
+			<id>jzedlitz</id>
+			<name>Jesper Zedlitz</name>
+			<email>jze@informatik.uni-kiel.de</email>
+			<organization>CAU Kiel</organization>
+			<organizationUrl>http://www.informatik.uni-kiel.de/comsys/</organizationUrl>
+		</developer>
+	</developers>
+	<mailingLists>
+		<mailingList>
+			<name>User List</name>
+			<post>oostethys-users@googlegroups.com</post>
+			<archive>http://groups.google.com/group/oostethys-users/topics</archive>
+		</mailingList>
+		<mailingList>
+			<name>User List</name>
+			<post>oostethys_dev@googlegroups.com</post>
+			<archive>http://groups.google.com/group/oostethys_dev/topics</archive>
+		</mailingList>
+	</mailingLists>
+	<build>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-4</version>
+				<configuration>
+				<descriptors>
+           			 <descriptor>src/main/assembly/src.xml</descriptor>
+          		</descriptors>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+	</dependencies>
 </project>
