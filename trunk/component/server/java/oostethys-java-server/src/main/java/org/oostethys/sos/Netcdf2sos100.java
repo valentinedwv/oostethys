@@ -220,6 +220,7 @@ public class Netcdf2sos100 {
 		processParametersDescribeSensor(describeSensor);
 		getDescribeSensor(os);
 		requestProcessed = true;
+		
 	    } catch (XmlException e) {
 		// this is not a GetObservation request
 	    }
