@@ -1,26 +1,41 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
-    targetNamespace="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf" 
-    xmlns:oostnc="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
-    <xs:element name="oostethys-netcdf">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="oostnc:fileURL"/>
-                <xs:element ref="oostnc:variables"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="fileURL" type="xs:anyURI"/>
-    <xs:element name="variables">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="oostnc:variable"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
-    <xs:element name="variable">
-        <xs:complexType>
-            <xs:attribute name="shortName" use="required" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    </xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf"
+	xmlns:oostnc="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+	<xs:element name="oostethys-netcdf">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="oostnc:fileURL" />
+				<xs:element ref="oostnc:variables" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fileURL" type="xs:anyURI" />
+	<xs:element name="variables">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="oostnc:variable" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="variable">
+		<xs:complexType>
+			<xs:attribute name="shortName" use="required"
+				type="xs:string" />
+			<xs:attribute name="uri" use="required" type="xs:anyURI" />
+			<xs:attribute name="dimension" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="latitude" />
+						<xs:enumeration value="longitude" />
+						<xs:enumeration value="depth" />
+						<xs:enumeration value="pressure" />
+						<xs:enumeration value="time" />
+						<xs:enumeration value="no" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
