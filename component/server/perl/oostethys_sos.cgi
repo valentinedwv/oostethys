@@ -94,9 +94,9 @@ our $parser = XML::LibXML->new();
 our $etemplate = <<EOT;
 <?xml version="1.0" ?>
 <ExceptionReport
-    xmlns="http://www.opengis.net/ows"
+    xmlns="http://schemas.opengis.net/ows"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/ows owsExceptionReport.xsd"
+    xsi:schemaLocation="http://schemas.opengis.net/ows owsExceptionReport.xsd"
 	version="1.0.0" language="en">
 <Exception locator="service"></Exception>
 </ExceptionReport>
@@ -118,7 +118,7 @@ sub exception_error
 
 	my $exception = $parser->parse_string($etemplate);
 	my $xc = XML::LibXML::XPathContext->new($exception);
-	$xc->registerNs('ows' => 'http://www.opengis.net/ows');
+	$xc->registerNs('ows' => 'http://schemas.opengis.net/ows');
 	my $node = ($xc->findnodes("/ows:ExceptionReport/ows:Exception"))[0];
 	my $ecode = $exception_codes[$code];
 	warn "Exception: $ecode $msg";
@@ -493,7 +493,7 @@ sub doDescribeSensor
 	# we need to use XPathContext to register the namespace. This allows XPath queries
 	# using sml: The XPath Spec makes no provisions for default namespaces for some reason.
 	my $xc = XML::LibXML::XPathContext->new($sos);
-	$xc->registerNs('sml' => 'http://www.opengis.net/sensorML/1.0.1'); 
+	registerNameSpaces($sos, $xc);
 
 	my $node = ($xc->findnodes("//sml:SensorML/sml:member/sml:System"))[0];
 	$node->setAttribute('gml:id', $sensorID);
@@ -632,23 +632,26 @@ sub doGetObservation
 	exception_error(5, "Could not open SOS template: sosGetObservation.xml") if not $sos;
 
 	my $xc = XML::LibXML::XPathContext->new($sos);
-	$xc->registerNs('om' => 'http://www.opengis.net/om/1.0');
-	$xc->registerNs('swe' => 'http://www.opengis.net/swe/1.0.1');
-	$xc->registerNs( 'gml' => 'http://www.opengis.net/gml');
+	registerNameSpaces($sos, $xc);
 
 	my $node;
+	# Get the blockSeparator and tokenSeparator from the xml template to ensure they match.
+	# This allows users to define their own blockSeparator, e.g. blockSeparator="&10;" if you want to use newlines.
+	my $node =  ($xc->findnodes('//swe:encoding/swe:TextBlock'))[0];
+	my $blockSep = $node->getAttribute('blockSeparator');
+	my $tokenSep = $node->getAttribute('tokenSeparator');
 
-	my @output_data = getData($sensorID, $in_time, $bbox, \@params, $sensor_list);
+	my @output_data = getData($sensorID, $in_time, $bbox, \@params, $sensor_list, $tokenSep);
 
 	my $stime = '';
 	my $etime = '';
 	if(@output_data){
 		# use the first record time for the beginPosition time
-		my @vals = split(/,/, $output_data[0]);
+		my @vals = split(/$tokenSep/, $output_data[0]);
 		$stime = $vals[1];
 		$stime .= 'Z' if $stime !~ /Z/;
 		# use the last record's time for the TimeInstant element.
-		@vals = split(/,/, $output_data[$#output_data]);
+		@vals = split(/$tokenSep/, $output_data[$#output_data]);
 		$etime = $vals[1];
 		$etime .= 'Z' if $stime !~ /Z/;
 	}
@@ -735,7 +738,7 @@ sub doGetObservation
 	my $results = '';
 	foreach (@output_data){
 		chomp;
-		$results .= $_ . ' ';
+		$results .= $_ . $blockSep;
 	}
 	$results =~ s/ $//;
 	$node = ($xc->findnodes("//om:Observation/om:result/swe:DataArray/swe:values"))[0];
@@ -1040,6 +1043,23 @@ ESQL
 }
 
 ###############################################
+# a generic name space registration routine for LibXML and XPathContext. It register all namespace attributes, xmlns, found in the root element.
+sub registerNameSpaces
+{
+	my ($doc, $context) = @_;
+	my $root = $doc->documentElement();
+	my @attributes = $root->attributes();
+	foreach my $a (@attributes){
+		next unless $a->getName =~ /xmlns/; ;
+		# xmlns:sos e.g.
+		my @tmp = split( ":", $a->getName);
+		my $url = $a->getData;
+		# this maps the xmlns prefix to the value which should be a URL
+		$context->registerNs( $tmp[1] => $url);
+	}
+}
+
+###############################################
 sub get_start_time
 {
 	my ($dbh, $platform) = @_;
@@ -1109,17 +1129,17 @@ sub getMetaConfig
 ###############################################
 sub getData
 {
-	my ($sensorID, $in_time, $bbox, $params, $sensor_list) = @_;
+	my ($sensorID, $in_time, $bbox, $params, $sensor_list, $tokenSep) = @_;
 
 	# Use the first param in the sensor_list to see if it's DB or File based observations.
 	# We assume you cannot mix DB and File observations in a list of parameters.
 	my $param = @{$params}[0];
 
 	if( $sensor_list->{$sensorID}->{obsproplist}->{$param}->{obs_file} eq 'DataBase') {
-		return getDataDB($sensorID, $in_time, $bbox, $params, $sensor_list);
+		return getDataDB($sensorID, $in_time, $bbox, $params, $sensor_list, $tokenSep);
 	} else {
 		# not Bounding Box queries for File base observations
-		return getDataFile($sensorID, $in_time, $params, $sensor_list);
+		return getDataFile($sensorID, $in_time, $params, $sensor_list, $tokenSep);
 	}
 
 }
@@ -1132,7 +1152,7 @@ sub getData
 ###############################################
 sub getDataFile
 {
-	my ($sensorID, $in_time, $params, $sensor_list) = @_;
+	my ($sensorID, $in_time, $params, $sensor_list, $tokenSep) = @_;
 
 
 	my ($time1, $time2) = ('','');;
@@ -1177,7 +1197,7 @@ foreach my $sensor (@sensors){
 		}
 		foreach my $line (@output_data){
 			chomp($line);
-			my @vals = split(',', $line);
+			my @vals = split(/$tokenSep/, $line);
 			# Note:  time is now second field
 			my $t = $vals[1];
 			my $sse = time2sse($t);
@@ -1191,9 +1211,9 @@ foreach my $sensor (@sensors){
 				next if ( $sse1 != $sse  );
 			}
 
-			#$data_by_time{$sensor}{$t}{$depth} = "$sensor," . join(',', @vals[0..$#vals]);
+			#$data_by_time{$sensor}{$t}{$depth} = "$sensor," . join($tokenSep, @vals[0..$#vals]);
 			# Note: not the value, everything up to the value
-			$data_by_time{$sensor}{$t}{$depth} = join(',', @vals[0..$#vals-1]);
+			$data_by_time{$sensor}{$t}{$depth} = join($tokenSep, @vals[0..$#vals-1]);
 		}
 	} # end first foreach $param
 
@@ -1219,7 +1239,7 @@ foreach my $sensor (@sensors){
 
 		foreach my $line (@output_data){
 			chomp($line);
-			my @vals = split(',', $line);
+			my @vals = split($tokenSep, $line);
 			# time is now second field
 			my $t = $vals[1];
 			my $sse = time2sse($t);
@@ -1293,7 +1313,7 @@ sub time2sse
 #######################################
 sub getDataDB
 {
-	my ($sensorID, $in_time, $bbox, $params, $sensor_list) = @_;
+	my ($sensorID, $in_time, $bbox, $params, $sensor_list,$tokenSep) = @_;
 
 	my @params = @{$params};
 

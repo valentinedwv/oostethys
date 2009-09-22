@@ -1,9 +1,9 @@
 <om:ObservationCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.opengis.net/om/1.0 http://schemas.opengis.net/om/1.0.0/observation.xsd"
+ xsi:schemaLocation="http://schemas.opengis.net/om/1.0 http://schemas.opengis.net/om/1.0.0/observation.xsd"
  xmlns:xlink="http://www.w3.org/1999/xlink"
- xmlns:om="http://www.opengis.net/om/1.0"
- xmlns:gml="http://www.opengis.net/gml"
- xmlns:swe="http://www.opengis.net/swe/1.0.1"
+ xmlns:om="http://schemas.opengis.net/om/1.0"
+ xmlns:gml="http://schemas.opengis.net/gml"
+ xmlns:swe="http://schemas.opengis.net/swe/1.0.1"
  gml:id="OFFERING_DATA">
 
   <gml:description></gml:description>
@@ -66,7 +66,7 @@
                                 </swe:Quantity>
                             </swe:field>
                             <swe:field name="depth">
-            					<swe:Quantity definition="http://mmisw.org/cf#depth" referenceFrame="urn:ogc:def:crs:EPSG:6.15:5113">
+                                <swe:Quantity definition="http://mmisw.org/cf#depth" referenceFrame="urn:ogc:def:crs:EPSG:6.15:5113">
                                      <swe:uom code="m"/>
                                  </swe:Quantity>
                             </swe:field>
@@ -79,6 +79,8 @@
                          </swe:DataRecord>
                      </swe:elementType>
                      <swe:encoding>
+                         <!-- newline as block separator -->
+                         <!-- swe:TextBlock blockSeparator="&#10;"  decimalSeparator="." tokenSeparator=","/ -->
                          <swe:TextBlock blockSeparator=" "  decimalSeparator="." tokenSeparator=","/>
                      </swe:encoding>
                      <swe:values></swe:values>
