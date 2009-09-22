@@ -43,6 +43,7 @@ import org.apache.xmlbeans.impl.values.XmlValueOutOfRangeException;
 import org.oostethys.model.VariableQuantity;
 import org.oostethys.model.VariablesConfig;
 import org.oostethys.model.impl.ObservationNetcdf;
+import org.oostethys.model.impl.VariableQuantityImpl;
 import org.oostethys.netcdf.util.TimeUtil;
 import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.schemas.x010.oostethys.BoundingBoxDocument.BoundingBox;
@@ -62,9 +63,9 @@ import org.oostethys.voc.Voc;
 
 public class Netcdf2sos100 {
 
-    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger
-	    .getLogger(Netcdf2sos100.class.getName());
-    
+	private static final org.apache.log4j.Logger log = org.apache.log4j.Logger
+			.getLogger(Netcdf2sos100.class.getName());
+
 	private URL urlOostethys;
 	private OostethysDocument oostDoc;
 	private String tempDir = "xml/oostethys/0.1.0/tmp/";
@@ -120,7 +121,11 @@ public class Netcdf2sos100 {
 
 	private int numberOfRecordsToProcess = 100;
 
-
+	/**
+	 * Constructor. Instantiates the logger, and xslt path and temporary
+	 * directories.
+	 * 
+	 */
 	public Netcdf2sos100() {
 		xsltUrl = Thread.currentThread().getContextClassLoader().getResource(
 				xsltDir);
@@ -133,449 +138,78 @@ public class Netcdf2sos100 {
 
 	}
 
-	// public void resetValues() {
-	// value_PROCEDURE = value_OBSERVED_PROPERTY = null;
-	// }
-
-	public boolean checkConditionSystem(String uri) {
-		return true;
-		// return value_PROCEDURE == null ? true : value_PROCEDURE.equals(uri);
-	}
-
-	public boolean checkConditionVariable(String uri) {
-		return true;
-	}
-
-	public void doComponents(Components components, Components componentsTemp)
-			throws Exception {
-		if (components != null) {
-			System[] systems = components.getSystemArray();
-
-			for (int i = 0; i < systems.length; i++) {
-				if (checkConditionSystem(systems[i].getMetadata()
-						.getSystemIdentifier())) {
-
-					System sys = componentsTemp.addNewSystem();
-					processSystem(systems[i], sys);
-					doComponents(systems[i].getComponents(), sys
-							.addNewComponents());
-
-				}
-			}
-
-		}
-
-	}
-
 	/**
-	 * Processes request post xml
+	 * Processes request post xml. Gets a stream that encapsulates an XML
+	 * request. It guesses which type of SOS operation it is and call the
+	 * appropriate method. The methods are all passing an output stream where he
+	 * respond will be streamed. It gets the error if any and throws it. Errors
+	 * for example if a parameter is missing
 	 * 
 	 * @param inputStream
 	 * @throws Exception
 	 */
-    public void process(InputStream inputStream, OutputStream os)
-	    throws Exception {
-	log.debug("processing");
-
-	BufferedReader in = new BufferedReader(new InputStreamReader(
-		inputStream));
-	StringBuffer buffer = new StringBuffer();
-	String line = null;
-	while ((line = in.readLine()) != null) {
-	    buffer.append(line);
-	}
-
-	String stream = buffer.toString();
-
-	boolean requestProcessed = false;
-
-	try {
-	    GetCapabilitiesDocument.Factory.parse(new StringReader(stream));
-
-	    getCapabilities(os);
-	    requestProcessed = true;
-	} catch (XmlException e) {
-	    // this is not a GetObservation request
-	}
-
-	if (!requestProcessed) {
-	    try {
-		GetObservationDocument getObs = GetObservationDocument.Factory
-			.parse(stream);
-
-		if( !processParametersGetObservation(getObs, os) ) {
-		    return;
-		}
-		getObservation(os);
-
-		requestProcessed = true;
-	    } catch (XmlException e) {
-		// this is not a GetObservation request
-	    }
-	}
-	if (!requestProcessed) {
-	    try {
-		DescribeSensorDocument describeSensor = DescribeSensorDocument.Factory
-			.parse(new StringReader(stream));
-		processParametersDescribeSensor(describeSensor);
-		getDescribeSensor(os);
-		requestProcessed = true;
-		
-	    } catch (XmlException e) {
-		// this is not a GetObservation request
-	    }
-	}
-	if (!requestProcessed)
-	    report(
-		    "InvalidRequest",
-		    null,
-		    "Not able to understand the operation. This service supports the following operations: "
-			    + GET_CAPABILITIES
-			    + ", "
-			    + DESCRIBE_SENSOR
-			    + " and, " + GET_OBSERVATION, os);
-
-    }
-
-	private void printMap(Map<String,?> map) {
-	    if( log.isDebugEnabled()) {
-	    if( map == null)
-		return;
-		Set<?> set = map.keySet();
-		log.debug("Parameter map ");
-		Iterator<?> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			Object key = iterator.next();
-
-			Object value = map.get(key);
-			if( value instanceof String[] ) {
-			    log.debug(key+", "+Arrays.toString((String[])value));
-			} else {
-			    log.debug(key + ", " + map.get(key));
-			}
-		}
-	    }
-	}
-
-	/**
-	 * process requests http get
-	 * 
-	 * @param map
-	 * @param outputStream
-	 * @throws Exception
-	 */
-	public void process(Map<String,String[]> map, OutputStream os) throws Exception {
-		printMap(map);
-		// assign parameters
-		parameterMap = new HashMap<String, String>();
-
-		// change all the value to be upper case since parameter names are case
-		// insensitive
-		if( map != null) {
-		Set<String> keys = map.keySet();
-		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
-			String key = iterator.next();
-			String[] values =  map.get(key);
-			if (values.length > 0) {
-				String value =  map.get(key)[0];
-				parameterMap.put(key.toUpperCase(), value);
-			}
-		}
-		}
-		// guess which operation its being called
-
-		// validate request parameters
-	
-		String operation = parameterMap.get(REQUEST);
-
-		if (operation == null) {
-			getCapabilities(os);
-		} else {
-
-			if (operation.equalsIgnoreCase(GET_CAPABILITIES)) {
-				getCapabilities(os);
-			} else if (operation.equalsIgnoreCase(GET_OBSERVATION)) {
-				getObservation(os);
-			} else if (operation.equals(DESCRIBE_SENSOR)) {
-				getDescribeSensor(os);
-			} else {
-				report(
-						"InvalidParameterValue",
-						REQUEST,
-						"Not able to understand the operation. This service supports the following operations: "
-								+ GET_CAPABILITIES
-								+ ", "
-								+ DESCRIBE_SENSOR
-								+ " and, " + GET_OBSERVATION, os);
-			}
-		}
-
-	}
-
-	/**
-	 * This is only for testing purpose
-	 * 
-	 * @throws Exception
-	 * @throws Exception
-	 */
-
-	public void processForTest() throws Exception {
-		process();
-	}
-
-	private void process() throws Exception {
-
-		if (urlOostethys == null) {
-			throw new Exception("Need URL of OOSTethys config file");
-		}
-
-		// temporary object to store the results
-		oostDocTemp = OostethysDocument.Factory.newInstance();
-
-		try {
-			oostDoc = OostethysDocument.Factory.parse(urlOostethys);
-
-			// now validated !
-			XmlOptions validationOptions = new XmlOptions();
-			ArrayList<?> validationErrors = new ArrayList<Object>();
-			validationOptions.setErrorListener(validationErrors);
-			boolean isValid = oostDoc.validate(validationOptions);
-			if (!isValid) {
-				Iterator<?> iter = validationErrors.iterator();
-				StringBuffer buffy = new StringBuffer();
-				buffy.append("XML Instance is not valid:");
-				while (iter.hasNext()) {
-					buffy.append(iter.next().toString() + ".\n");
-				}
-				throw new Exception(buffy.toString());
-			}
-
-			Oostethys oost = oostDoc.getOostethys();
-
-			// copy general metadata in new document
-			Oostethys oostTemp = oostDocTemp.addNewOostethys();
-			oostTemp.setWebServerURL(getServletURL());
-
-			oostTemp.setServiceContact(oost.getServiceContact());
-
-			doComponents(oost.getComponents(), oostTemp.addNewComponents());
-
-		} catch (XmlException e) {
-			throw new Exception("Not able to read the oostethys config file: "
-					+ urlOostethys, e);
-		} catch (IOException e) {
-			throw new Exception("Not able to open the oostethys config file: "
-					+ urlOostethys, e);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
-    public String saveOOSTethysTempFile() throws IOException {
-	File tempFile = File.createTempFile("oostethysTemp", ".xml");
-
-	tempFile.createNewFile();
-	oostDocTemp.save(tempFile);
-	log.info("saved file " + tempFile);
-	tempFile.deleteOnExit();
-
-	return tempFile.getAbsolutePath();
-
-    }
-
-	public String getOOSTethysDoc() {
-
-		StringWriter sw = new StringWriter();
-		try {
-			oostDocTemp.save(sw);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return sw.toString();
-
-	}
-
-	/**
-	 * process a netcdf
-	 * 
-	 * @param system
-	 * @param systemTemp
-	 * @throws Exception
-	 */
-	private void processSystem(System system, System systemTemp)
+	public void process(InputStream inputStream, OutputStream os)
 			throws Exception {
-		systemTemp.setMetadata(system.getMetadata());
+		log.debug("processing");
 
-		// check if the system meets the requirements
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				inputStream));
+		StringBuffer buffer = new StringBuffer();
+		String line = null;
+		while ((line = in.readLine()) != null) {
+			buffer.append(line);
+		}
 
-		Output output = system.getOutput();
-		if (output != null) {
-			SourceConfiguration sourceConfiguration = output
-					.getSourceConfiguration();
-			if (sourceConfiguration != null) {
-				OostethysNetcdf oosn = sourceConfiguration.getOostethysNetcdf();
-				if (oosn != null) {
+		String stream = buffer.toString();
 
-					String fileNCURL = oosn.getFileURL();
-					URL url = null;
-					try {
-						url = new URL(fileNCURL);
-						if (url == null) {
-							throw new Exception();
-						}
+		boolean requestProcessed = false;
 
-					} catch (Exception e) {
-						try {
-							// then... try to find the resource locally.. this
-							// is in WEB-INF/classes/
-							url = Thread.currentThread()
-									.getContextClassLoader().getResource(
-											fileNCURL);
-							// url.openConnection();
-						} catch (Exception e2) {
-							throw new Exception("Not found netCDF file "
-									+ fileNCURL, e2);
-						}
+		try {
+			GetCapabilitiesDocument.Factory.parse(new StringReader(stream));
 
-					}
+			getCapabilities(os);
+			requestProcessed = true;
+		} catch (XmlException e) {
+			// this is not a GetObservation request
+		}
 
-					ObservationNetcdf obsNC = new ObservationNetcdf();
-					// set the dataset
-					obsNC.setURL(url);
-					obsNC.setNumberOfRecords(numberOfRecordsToProcess);
+		if (!requestProcessed) {
+			try {
+				GetObservationDocument getObs = GetObservationDocument.Factory
+						.parse(stream);
 
-					if (value_BBOX != null) {
-						obsNC.setValue_BBOX(value_BBOX);
-					}
-					if (value_EVENT_TIME != null) {
-						obsNC.setValue_TIME(value_EVENT_TIME);
-					}
-
-					// set variables in a collection of variables config - only
-					// using the short name
-					obsNC.setVariablesConfig(getVariablesConfig(oosn));
-
-					// process
-					obsNC.process();
-					// update the modelXML
-
-					// updateTime
-					TimePeriod tp = TimePeriod.Factory.newInstance();
-					tp
-							.setStart(TimeUtil.getISOFromMillisec(obsNC
-									.getMinTime()));
-					tp.setEnd(TimeUtil.getISOFromMillisec(obsNC.getMaxTime()));
-					Extend extend = systemTemp.addNewExtend();
-					extend.setTimePeriod(tp);
-
-					// update BBOX
-					BoundingBox bbox = BoundingBox.Factory.newInstance();
-					Envelope env = bbox.addNewEnvelope();
-					env.setLowerCorner(obsNC.getLowerCornerEPSG());
-					env.setUpperCorner(obsNC.getUpperCornerEPSG());
-					extend.setBoundingBox(bbox);
-
-					// adds latest known position -true for in-situ sensors
-					LastKnownLocation loc = LastKnownLocation.Factory
-							.newInstance();
-					loc.addNewSrsName().setStringValue(default2dsrsName);
-					loc.setStringValue(obsNC.getLastKnownPositionEPSG());
-					systemTemp.getMetadata().setLastKnownLocation(loc);
-
-					// update Variables
-
-					List<Variable> variablesList = new ArrayList<Variable>();
-
-					List<VariableQuantity> vars = obsNC.getVariables();
-
-					for (VariableQuantity var : vars) {
-						if (checkConditionVariable(var.getURI())) {
-							// create new variable
-							Variable varTemp = Variable.Factory.newInstance();
-							varTemp.setUri(var.getURI());
-							varTemp.setName(var.getStandardName());
-
-							// some variables in a nc file may not have units..
-							if (var.getUnits().getLabel() != null
-									&& !var.getUnits().getLabel().trim()
-											.equals("")) {
-								varTemp.setUom(var.getUnits().getLabel());
-							} else {
-							}
-							varTemp.setIsCoordinate(var.isCoordinate());
-
-							if (var.getReferenceFrame() != null) {
-								varTemp.setReferenceFrame(var
-										.getReferenceFrame());
-							}
-
-							if (var.isTime()) {
-								varTemp.setIsTime(true);
-								// even if it has a CF standard name - we will
-								// converted t ISO 8601
-								varTemp.setUri(Voc.time);
-							}
-
-							log.info("units set for " + varTemp.getUri()
-									+ " " + varTemp.getUom());
-
-							// add to temp sensor
-							variablesList.add(varTemp);
-						}
-
-					}
-
-					Variable[] varArray = new Variable[variablesList.size()];
-					int i = 0;
-					for (Iterator<Variable> iterator = variablesList.iterator(); iterator
-							.hasNext();) {
-						varArray[i] = iterator.next();
-						i = i + 1;
-					}
-
-					Variables variablesTemp = Variables.Factory.newInstance();
-					variablesTemp.setVariableArray(varArray);
-
-					Output outputTemp = Output.Factory.newInstance();
-					outputTemp.setVariables(variablesTemp);
-					outputTemp.setValues(obsNC.getAsRecords());
-					systemTemp.setOutput(outputTemp);
-
+				if (!processParametersGetObservation(getObs, os)) {
+					return;
 				}
+				getObservation(os);
+
+				requestProcessed = true;
+			} catch (XmlException e) {
+				// this is not a GetObservation request
 			}
-
 		}
+		if (!requestProcessed) {
+			try {
+				DescribeSensorDocument describeSensor = DescribeSensorDocument.Factory
+						.parse(new StringReader(stream));
+				processParametersDescribeSensor(describeSensor);
+				getDescribeSensor(os);
+				requestProcessed = true;
 
-		// return systemTemp;
-
-	}
-
-	
-	private VariablesConfig getVariablesConfig(OostethysNetcdf oosnc) {
-
-		org.oostethys.schemas.x010.oostethysNetcdf.VariableDocument.Variable[] variables = oosnc
-				.getVariables().getVariableArray();
-		VariablesConfig config = new VariablesConfig();
-
-		for (int i = 0; i < variables.length; i++) {
-			config.addVariable(variables[i].getShortName());
+			} catch (XmlException e) {
+				// this is not a GetObservation request
+			}
 		}
+		if (!requestProcessed)
+			report(
+					"InvalidRequest",
+					null,
+					"Not able to understand the operation. This service supports the following operations: "
+							+ GET_CAPABILITIES
+							+ ", "
+							+ DESCRIBE_SENSOR
+							+ " and, " + GET_OBSERVATION, os);
 
-		return config;
-	}
-
-	/**
-	 * @return the oostDoc
-	 */
-	public OostethysDocument getOostDoc() {
-		return oostDoc;
-	}
-
-	public void updateURLServices() {
-
-		oostDocTemp.getOostethys().setWebServerURL(this.requestURL);
 	}
 
 	public void getCapabilities(OutputStream outputStream) {
@@ -588,7 +222,8 @@ public class Netcdf2sos100 {
 
 		if (requestURL == null) {
 
-			String report = reporter.create(ExceptionReporter.NoApplicableCode, SERVICE,
+			String report = reporter.create(ExceptionReporter.NoApplicableCode,
+					SERVICE,
 					"Missing request URL in the OOSTethys configuration file.");
 
 			try {
@@ -612,23 +247,11 @@ public class Netcdf2sos100 {
 			File xsltGetCapabilitiesFile = getXSLTFile(getCapabilitiesXSLT);
 			getXML(outputStream, xsltGetCapabilitiesFile, reader);
 			try {
-			    saveOOSTethysTempFile();
+				saveOOSTethysTempFile();
 			} catch (IOException e) {
-			    e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
-	}
-
-	private File getXSLTFile(String xslt) {
-		// String file = ResourceLoader.getPath("xml");
-		URL url = Thread.currentThread().getContextClassLoader().getResource(
-				"xml");
-		String file = url.getPath();
-
-		File xsltF = new File(file + "/oostethys/0.1.0/xslt/", xslt);
-		log.debug("XSLT FILE: " + file + " ---  " + xsltF);
-		return xsltF;
-
 	}
 
 	public void getDescribeSensor(OutputStream outputStream) {
@@ -688,7 +311,8 @@ public class Netcdf2sos100 {
 
 		System[] sysArray = new System[systemsTodAdd.size()];
 		int i = 0;
-		for (Iterator<System> iterator = systemsTodAdd.iterator(); iterator.hasNext();) {
+		for (Iterator<System> iterator = systemsTodAdd.iterator(); iterator
+				.hasNext();) {
 			System system = iterator.next();
 			sysArray[i] = system;
 			i = i + 1;
@@ -705,13 +329,468 @@ public class Netcdf2sos100 {
 
 		if (log.isDebugEnabled()) {
 			try {
-			    saveOOSTethysTempFile();
+				saveOOSTethysTempFile();
 			} catch (IOException e) {
-			    // just logging
+				// just logging
 			}
 		}
 
 		getXML(outputStream, xsltGetCapabilitiesFile, new StringReader(xmlText));
+	}
+
+	public void getObservation(OutputStream outputStream) {
+
+		if (!okGetObservationParameters(outputStream)) {
+			printMap(parameterMap);
+			return;
+		}
+
+		try {
+			// process the stream !
+			process();
+		} catch (Exception e) {
+			e.printStackTrace();
+			report(ExceptionReporter.NoApplicableCode, null, e.toString(),
+					outputStream);
+			return;
+		}
+
+		// check result model
+
+		Oostethys oost = getOOSTethysObservationFilter(outputStream);
+		if (oost != null) {
+
+			File xsltGetCapabilitiesFile = getXSLTFile(getObservationXSLT);
+			getXML(outputStream, xsltGetCapabilitiesFile, new StringReader(
+					oostDocTemp.xmlText()));
+		}
+
+	}
+
+	/**
+	 * Processes OOSTethys config file.
+	 * 
+	 * @throws Exception
+	 */
+	private void process() throws Exception {
+
+		if (urlOostethys == null) {
+			throw new Exception("Need URL of OOSTethys config file");
+		}
+
+		// temporary object to store the results
+		oostDocTemp = OostethysDocument.Factory.newInstance();
+
+		try {
+			oostDoc = OostethysDocument.Factory.parse(urlOostethys);
+
+			// now validated !
+		XmlOptions validationOptions = new XmlOptions();
+			ArrayList<?> validationErrors = new ArrayList<Object>();
+			validationOptions.setErrorListener(validationErrors);
+			boolean isValid = oostDoc.validate(validationOptions);
+			if (!isValid) {
+				Iterator<?> iter = validationErrors.iterator();
+				StringBuffer buffy = new StringBuffer();
+				buffy.append("XML Instance is not valid:");
+				while (iter.hasNext()) {
+					buffy.append(iter.next().toString() + ".\n");
+				}
+			throw new Exception(buffy.toString());
+			}
+
+			Oostethys oost = oostDoc.getOostethys();
+
+			// copy general metadata in new document
+			Oostethys oostTemp = oostDocTemp.addNewOostethys();
+			oostTemp.setWebServerURL(getServletURL());
+
+			oostTemp.setServiceContact(oost.getServiceContact());
+
+			// process componenets // variables etc..
+
+			doComponents(oost.getComponents(), oostTemp.addNewComponents());
+
+		} catch (XmlException e) {
+			throw new Exception("Not able to read the oostethys config file: "
+					+ urlOostethys, e);
+		} catch (IOException e) {
+			throw new Exception("Not able to open the oostethys config file: "
+					+ urlOostethys, e);
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
+	/**
+	 * Process the components of system by copying in a temp Component all the
+	 * components of the original config file
+	 * 
+	 * @param components
+	 * @param componentsTemp
+	 * @throws Exception
+	 */
+	public void doComponents(Components components, Components componentsTemp)
+			throws Exception {
+		if (components != null) {
+			System[] systems = components.getSystemArray();
+
+			for (int i = 0; i < systems.length; i++) {
+				if (checkConditionSystem(systems[i].getMetadata()
+						.getSystemIdentifier())) {
+
+					System sys = componentsTemp.addNewSystem();
+					processSystem(systems[i], sys);
+
+					// now process sub components
+					doComponents(systems[i].getComponents(), sys
+							.addNewComponents());
+
+				}
+			}
+
+		}
+
+	}
+
+	// public void resetValues() {
+	// value_PROCEDURE = value_OBSERVED_PROPERTY = null;
+	// }
+
+	/**
+	 * process a netcdf
+	 * 
+	 * @param system
+	 * @param systemTemp
+	 * @throws Exception
+	 */
+	private void processSystem(System system, System systemTemp)
+			throws Exception {
+		systemTemp.setMetadata(system.getMetadata());
+	
+		// check if the system meets the requirements
+	
+		Output output = system.getOutput();
+		if (output != null) {
+			SourceConfiguration sourceConfiguration = output
+					.getSourceConfiguration();
+			if (sourceConfiguration != null) {
+				OostethysNetcdf oosn = sourceConfiguration.getOostethysNetcdf();
+				if (oosn != null) {
+	
+					String fileNCURL = oosn.getFileURL();
+					if (fileNCURL.length()==0){
+						throw new Exception("NetCDF URL was not provided");
+					}
+					 
+					URL url = null;
+					try {
+						url = new URL(fileNCURL);
+						if (url == null) {
+							throw new Exception();
+						}
+	
+					} catch (Exception e) {
+						try {
+							// then... try to find the resource locally.. this
+							// is in WEB-INF/classes/
+							url = Thread.currentThread()
+									.getContextClassLoader().getResource(
+											fileNCURL);
+							// url.openConnection();
+						} catch (Exception e2) {
+							throw new Exception("Not found netCDF file "
+									+ fileNCURL, e2);
+						}
+	
+					}
+	
+					ObservationNetcdf obsNC = new ObservationNetcdf();
+					// set the dataset
+					obsNC.setURL(url);
+					obsNC.setNumberOfRecords(numberOfRecordsToProcess);
+	
+					if (value_BBOX != null) {
+						obsNC.setValue_BBOX(value_BBOX);
+					}
+					if (value_EVENT_TIME != null) {
+						obsNC.setValue_TIME(value_EVENT_TIME);
+					}
+	
+					// set variables in a collection of variables config - only
+					// using the short name
+					obsNC.setVariablesConfig(getVariablesConfig(oosn));
+	
+					// process
+					obsNC.process();
+					// update the modelXML
+	
+					// updateTime
+					TimePeriod tp = TimePeriod.Factory.newInstance();
+					tp
+							.setStart(TimeUtil.getISOFromMillisec(obsNC
+									.getMinTime()));
+					tp.setEnd(TimeUtil.getISOFromMillisec(obsNC.getMaxTime()));
+					Extend extend = systemTemp.addNewExtend();
+					extend.setTimePeriod(tp);
+	
+					// update BBOX
+					BoundingBox bbox = BoundingBox.Factory.newInstance();
+					Envelope env = bbox.addNewEnvelope();
+					env.setLowerCorner(obsNC.getLowerCornerEPSG());
+					env.setUpperCorner(obsNC.getUpperCornerEPSG());
+					extend.setBoundingBox(bbox);
+	
+					// adds latest known position -true for in-situ sensors
+					LastKnownLocation loc = LastKnownLocation.Factory
+							.newInstance();
+					loc.addNewSrsName().setStringValue(default2dsrsName);
+					loc.setStringValue(obsNC.getLastKnownPositionEPSG());
+					systemTemp.getMetadata().setLastKnownLocation(loc);
+	
+					// update Variables
+	
+					List<Variable> variablesList = new ArrayList<Variable>();
+	
+					List<VariableQuantity> vars = obsNC.getVariables();
+	
+					for (VariableQuantity var : vars) {
+						if (checkConditionVariable(var.getURI())) {
+							// create new variable
+							Variable varTemp = Variable.Factory.newInstance();
+							varTemp.setUri(var.getURI());
+							varTemp.setName(var.getStandardName());
+	
+							// some variables in a nc file may not have units..
+							if (var.getUnits().getLabel() != null
+									&& !var.getUnits().getLabel().trim()
+											.equals("")) {
+								varTemp.setUom(var.getUnits().getLabel());
+							} else {
+							}
+							varTemp.setIsCoordinate(var.isCoordinate());
+	
+							if (var.getReferenceFrame() != null) {
+								varTemp.setReferenceFrame(var
+										.getReferenceFrame());
+							}
+	
+							if (var.isTime()) {
+								varTemp.setIsTime(true);
+								// even if it has a CF standard name - we will
+								// converted t ISO 8601
+								varTemp.setUri(Voc.time);
+							}
+	
+							log.info("units set for " + varTemp.getUri() + " "
+									+ varTemp.getUom());
+	
+							// add to temp sensor
+							variablesList.add(varTemp);
+						}
+	
+					}
+	
+					Variable[] varArray = new Variable[variablesList.size()];
+					int i = 0;
+					for (Iterator<Variable> iterator = variablesList.iterator(); iterator
+							.hasNext();) {
+						varArray[i] = iterator.next();
+						i = i + 1;
+					}
+	
+					Variables variablesTemp = Variables.Factory.newInstance();
+					variablesTemp.setVariableArray(varArray);
+	
+					Output outputTemp = Output.Factory.newInstance();
+					outputTemp.setVariables(variablesTemp);
+					outputTemp.setValues(obsNC.getAsRecords());
+					systemTemp.setOutput(outputTemp);
+	
+				}
+			}
+	
+		}
+	
+		// return systemTemp;
+	
+	}
+
+	public boolean checkConditionSystem(String uri) {
+		return true;
+		// return value_PROCEDURE == null ? true : value_PROCEDURE.equals(uri);
+	}
+
+	public boolean checkConditionVariable(String uri) {
+		return true;
+	}
+
+	private void printMap(Map<String, ?> map) {
+		if (log.isDebugEnabled()) {
+			if (map == null)
+				return;
+			Set<?> set = map.keySet();
+			log.debug("Parameter map ");
+			Iterator<?> iterator = set.iterator();
+			while (iterator.hasNext()) {
+				Object key = iterator.next();
+
+				Object value = map.get(key);
+				if (value instanceof String[]) {
+					log.debug(key + ", " + Arrays.toString((String[]) value));
+				} else {
+					log.debug(key + ", " + map.get(key));
+				}
+			}
+		}
+	}
+
+	/**
+	 * process requests http get
+	 * 
+	 * @param map
+	 * @param outputStream
+	 * @throws Exception
+	 */
+	public void process(Map<String, String[]> map, OutputStream os)
+			throws Exception {
+		printMap(map);
+		// assign parameters
+		parameterMap = new HashMap<String, String>();
+
+		// change all the value to be upper case since parameter names are case
+		// insensitive
+		if (map != null) {
+			Set<String> keys = map.keySet();
+			for (Iterator<String> iterator = keys.iterator(); iterator
+					.hasNext();) {
+				String key = iterator.next();
+				String[] values = map.get(key);
+				if (values.length > 0) {
+					String value = map.get(key)[0];
+					parameterMap.put(key.toUpperCase(), value);
+				}
+			}
+		}
+		// guess which operation its being called
+
+		// validate request parameters
+
+		String operation = parameterMap.get(REQUEST);
+
+		if (operation == null) {
+			getCapabilities(os);
+		} else {
+
+			if (operation.equalsIgnoreCase(GET_CAPABILITIES)) {
+				getCapabilities(os);
+			} else if (operation.equalsIgnoreCase(GET_OBSERVATION)) {
+				getObservation(os);
+			} else if (operation.equals(DESCRIBE_SENSOR)) {
+				getDescribeSensor(os);
+			} else {
+				report(
+						"InvalidParameterValue",
+						REQUEST,
+						"Not able to understand the operation. This service supports the following operations: "
+								+ GET_CAPABILITIES
+								+ ", "
+								+ DESCRIBE_SENSOR
+								+ " and, " + GET_OBSERVATION, os);
+			}
+		}
+
+	}
+
+	/**
+	 * This is only for testing purpose
+	 * 
+	 * @throws Exception
+	 * @throws Exception
+	 */
+
+	public void processForTest() throws Exception {
+		process();
+	}
+
+	public String saveOOSTethysTempFile() throws IOException {
+		File tempFile = File.createTempFile("oostethysTemp", ".xml");
+
+		tempFile.createNewFile();
+		oostDocTemp.save(tempFile);
+		log.info("saved file " + tempFile);
+		tempFile.deleteOnExit();
+
+		return tempFile.getAbsolutePath();
+
+	}
+
+	public String getOOSTethysDoc() {
+
+		StringWriter sw = new StringWriter();
+		try {
+			oostDocTemp.save(sw);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sw.toString();
+
+	}
+
+	private VariablesConfig getVariablesConfig(OostethysNetcdf oosnc) {
+
+		org.oostethys.schemas.x010.oostethysNetcdf.VariableDocument.Variable[] variables = oosnc
+				.getVariables().getVariableArray();
+		VariablesConfig config = new VariablesConfig();
+
+		for (int i = 0; i < variables.length; i++) {
+			org.oostethys.schemas.x010.oostethysNetcdf.VariableDocument.Variable var = variables[i];
+			String shortName = var.getShortName();
+			String dim = var.getDimension().toString();
+			String uri = var.getUri();
+			VariableQuantity varQ = new VariableQuantityImpl();
+			varQ.setURI(uri);
+			varQ.setLabel(shortName);
+			if (dim.equals("no")) {
+				varQ.setCoordinate(false);
+			} else {
+				varQ.setCoordinate(true);
+				if (dim.equals("time")) {
+					varQ.setIsTime(true);
+				}
+			}
+
+			config.addVariable(varQ);
+			
+		}
+
+		return config;
+	}
+
+	/**
+	 * @return the oostDoc
+	 */
+	public OostethysDocument getOostDoc() {
+		return oostDoc;
+	}
+
+	public void updateURLServices() {
+
+		oostDocTemp.getOostethys().setWebServerURL(this.requestURL);
+	}
+
+	private File getXSLTFile(String xslt) {
+		// String file = ResourceLoader.getPath("xml");
+		URL url = Thread.currentThread().getContextClassLoader().getResource(
+				"xml");
+		String file = url.getPath();
+
+		File xsltF = new File(file + "/oostethys/0.1.0/xslt/", xslt);
+		log.debug("XSLT FILE: " + file + " ---  " + xsltF);
+		return xsltF;
+
 	}
 
 	/**
@@ -746,23 +825,23 @@ public class Netcdf2sos100 {
 		String requestedOffering = parameterMap.get(OFFERING);
 
 		// find systems to add
-    	for (System system : systems) {
-    	    final String systemShortName = system.getMetadata()
-    		    .getSystemShortName();
-    
-    	    String requestedSystemShort = StringUtils.substringAfter(
-    		    requestedOffering, "_");
-    	    if (StringUtils.equals(requestedSystemShort, systemShortName)) {
-    		systemsTodAdd.add((System) system.copy());
-    	    }
-    	}
+		for (System system : systems) {
+			final String systemShortName = system.getMetadata()
+					.getSystemShortName();
+
+			String requestedSystemShort = StringUtils.substringAfter(
+					requestedOffering, "_");
+			if (StringUtils.equals(requestedSystemShort, systemShortName)) {
+				systemsTodAdd.add((System) system.copy());
+			}
+		}
 
 		// check if there nothing was found - return exception
 
 		if (systemsTodAdd.size() == 0) {
 			report(ExceptionReporter.InvalidParameterValue, OFFERING,
-					"Not able to find any observation with id: " + requestedOffering,
-					outputStream);
+					"Not able to find any observation with id: "
+							+ requestedOffering, outputStream);
 			return null;
 
 		}
@@ -773,7 +852,8 @@ public class Netcdf2sos100 {
 
 		System[] sysArray = new System[systemsTodAdd.size()];
 		int i = 0;
-		for (Iterator<System> iterator = systemsTodAdd.iterator(); iterator.hasNext();) {
+		for (Iterator<System> iterator = systemsTodAdd.iterator(); iterator
+				.hasNext();) {
 			System system = iterator.next();
 			sysArray[i] = system;
 			i = i + 1;
@@ -809,36 +889,6 @@ public class Netcdf2sos100 {
 	}
 
 	public void getKML(OutputStream outputStream) {
-
-	}
-
-	public void getObservation(OutputStream outputStream) {
-
-		if (!okGetObservationParameters(outputStream)) {
-			printMap(parameterMap);
-			return;
-		}
-
-		try {
-			// process the stream !
-			process();
-		} catch (Exception e) {
-			e.printStackTrace();
-			report(ExceptionReporter.NoApplicableCode, null, e.toString(),
-					outputStream);
-			return;
-		}
-
-		// check result model
-		
-		
-		Oostethys oost = getOOSTethysObservationFilter(outputStream);
-		if (oost != null) {
-
-			File xsltGetCapabilitiesFile = getXSLTFile(getObservationXSLT);
-			getXML(outputStream, xsltGetCapabilitiesFile, new StringReader(
-					oostDocTemp.xmlText()));
-		}
 
 	}
 
@@ -886,46 +936,47 @@ public class Netcdf2sos100 {
 
 	}
 
-//	private void getXML(OutputStream outputStream, File xsltFile, File xmlFile) {
-//		java.lang.System.setProperty("javax.xml.transform.TransformerFactory",
-//				"net.sf.saxon.TransformerFactoryImpl");
-//
-//		TransformerFactory tfactory = TransformerFactory.newInstance();
-//		InputStream xslIS;
-//		try {
-//			xslIS = new BufferedInputStream(new FileInputStream(xsltFile));
-//
-//			StreamSource xslSource = new StreamSource(xslIS);
-//
-//			// The following line would be necessary if the stylesheet contained
-//			// an xsl:include or xsl:import with a relative URL
-//			// xslSource.setSystemId(xslID);
-//
-//			// Create a transformer for the stylesheet.
-//			Transformer transformer = tfactory.newTransformer(xslSource);
-//			InputStream xmlIS = new BufferedInputStream(new FileInputStream(
-//					xmlFile));
-//			StreamSource xmlSource = new StreamSource(xmlIS);
-//
-//			// The following line would be necessary if the source document
-//			// contained
-//			// a call on the document() function using a relative URL
-//			// xmlSource.setSystemId(sourceID);
-//
-//			// Transform the source XML to System.out.
-//			transformer.transform(xmlSource, new StreamResult(outputStream));
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (TransformerConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (TransformerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
+	// private void getXML(OutputStream outputStream, File xsltFile, File
+	// xmlFile) {
+	// java.lang.System.setProperty("javax.xml.transform.TransformerFactory",
+	// "net.sf.saxon.TransformerFactoryImpl");
+	//
+	// TransformerFactory tfactory = TransformerFactory.newInstance();
+	// InputStream xslIS;
+	// try {
+	// xslIS = new BufferedInputStream(new FileInputStream(xsltFile));
+	//
+	// StreamSource xslSource = new StreamSource(xslIS);
+	//
+	// // The following line would be necessary if the stylesheet contained
+	// // an xsl:include or xsl:import with a relative URL
+	// // xslSource.setSystemId(xslID);
+	//
+	// // Create a transformer for the stylesheet.
+	// Transformer transformer = tfactory.newTransformer(xslSource);
+	// InputStream xmlIS = new BufferedInputStream(new FileInputStream(
+	// xmlFile));
+	// StreamSource xmlSource = new StreamSource(xmlIS);
+	//
+	// // The following line would be necessary if the source document
+	// // contained
+	// // a call on the document() function using a relative URL
+	// // xmlSource.setSystemId(sourceID);
+	//
+	// // Transform the source XML to System.out.
+	// transformer.transform(xmlSource, new StreamResult(outputStream));
+	// } catch (FileNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (TransformerConfigurationException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (TransformerException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// }
 
 	/**
 	 * @return the urlOostethys
@@ -1034,188 +1085,199 @@ public class Netcdf2sos100 {
 		return isOK;
 
 	}
-	
-    private boolean checkCommonParameters(OutputStream os) {
-	final String service = parameterMap.get(SERVICE);
-	final String version = parameterMap.get(VERSION);
 
-	if (version != null) {
-//	    report(ExceptionReporter.MissingParameterValue, VERSION,
-//		    "Need parameter: " + VERSION + " ", os);
-//	    return false;
-//	} else {
-	    if (!StringUtils.equalsIgnoreCase(version, VERSION_NUMBER_SOS)) {
-		report(ExceptionReporter.InvalidParameterValue, VERSION,
-			"The version: " + version
-				+ " is not supported. Service should be "
-				+ VERSION_NUMBER_SOS, os);
-		return false;
-	    }
+	private boolean checkCommonParameters(OutputStream os) {
+		final String service = parameterMap.get(SERVICE);
+		final String version = parameterMap.get(VERSION);
+
+		if (version != null) {
+			// report(ExceptionReporter.MissingParameterValue, VERSION,
+			// "Need parameter: " + VERSION + " ", os);
+			// return false;
+			// } else {
+			if (!StringUtils.equalsIgnoreCase(version, VERSION_NUMBER_SOS)) {
+				report(ExceptionReporter.InvalidParameterValue, VERSION,
+						"The version: " + version
+								+ " is not supported. Service should be "
+								+ VERSION_NUMBER_SOS, os);
+				return false;
+			}
+		}
+
+		if (service == null) {
+			report(ExceptionReporter.MissingParameterValue, SERVICE,
+					"Need parameter: " + SERVICE + " ", os);
+			return false;
+		} else {
+			if (!StringUtils.equalsIgnoreCase(service, "SOS")) {
+
+				report(
+						ExceptionReporter.InvalidParameterValue,
+						SERVICE,
+						"The service: " + service
+								+ " is not supported. Service should be 'SOS'.",
+						os);
+				return false;
+			}
+		}
+
+		if (parameterMap.get("ACCEPTVERSIONS") != null
+				&& !StringUtils.equals(VERSION_NUMBER_SOS, parameterMap
+						.get("ACCEPTVERSIONS"))) {
+			report("VersionNegotiationFailed", "AcceptVersions",
+					"The parameter 'AcceptVersions' does not contain the version of this SOS: '"
+							+ VERSION_NUMBER_SOS + "'", os);
+			return false;
+		}
+
+		return true;
 	}
 
-	if (service == null) {
-	    report(ExceptionReporter.MissingParameterValue, SERVICE,
-		    "Need parameter: " + SERVICE + " ", os);
-	    return false;
-	} else {
-	    if (!StringUtils.equalsIgnoreCase(service, "SOS")) {
+	private boolean okDescribeSensorParameters(OutputStream os) {
+		if (!hasParameters(os)) {
+			return false;
+		}
 
-		report(
-			ExceptionReporter.InvalidParameterValue,
-			SERVICE,
-			"The service: " + service
-				+ " is not supported. Service should be 'SOS'.",
-			os);
-		return false;
-	    }
+		if (!checkCommonParameters(os))
+			return false;
+
+		String outputFormat = parameterMap.get(OUTPUT_FORMAT);
+		String sensorId = parameterMap.get(PROCEDURE);
+
+		if (outputFormat == null) {
+			report(ExceptionReporter.MissingParameterValue, "outputFormat",
+					"Need parameter: " + OUTPUT_FORMAT + " ", os);
+			return false;
+		} else {
+			if (!StringUtils.equalsIgnoreCase(responseFormat, outputFormat)) {
+				report(ExceptionReporter.InvalidParameterValue, "outputFormat",
+						"The output format supported is: " + responseFormat
+								+ " And you are asking for:" + outputFormat, os);
+				return false;
+			}
+		}
+
+		if (sensorId == null) {
+			report(ExceptionReporter.MissingParameterValue, PROCEDURE,
+					"Need parameter: " + PROCEDURE + " ", os);
+			return false;
+		}
+
+		return true;
 	}
-
-	if (parameterMap.get("ACCEPTVERSIONS") != null
-		&& !StringUtils.equals(VERSION_NUMBER_SOS, parameterMap
-			.get("ACCEPTVERSIONS"))) {
-	    report("VersionNegotiationFailed", "AcceptVersions",
-		    "The parameter 'AcceptVersions' does not contain the version of this SOS: '"
-			    + VERSION_NUMBER_SOS + "'", os);
-	    return false;
-	}
-
-	return true;
-    }
-
-    private boolean okDescribeSensorParameters(OutputStream os) {
-	if (!hasParameters(os)) {
-	    return false;
-	}
-
-	if (!checkCommonParameters(os))
-	    return false;
-
-	String outputFormat = parameterMap.get(OUTPUT_FORMAT);
-	String sensorId = parameterMap.get(PROCEDURE);
-
-	if (outputFormat == null) {
-	    report(ExceptionReporter.MissingParameterValue,  "outputFormat",
-		    "Need parameter: " + OUTPUT_FORMAT + " ", os);
-	    return false;
-	} else {
-	    if (!StringUtils.equalsIgnoreCase(responseFormat, outputFormat)) {
-		report(ExceptionReporter.InvalidParameterValue, "outputFormat",
-			"The output format supported is: " + responseFormat
-				+ " And you are asking for:" + outputFormat, os);
-		return false;
-	    }
-	}
-
-	if (sensorId == null) {
-	    report(ExceptionReporter.MissingParameterValue, PROCEDURE,
-		    "Need parameter: " + PROCEDURE + " ", os);
-	    return false;
-	}
-
-	return true;
-    }
 
 	private boolean okGetObservationParameters(OutputStream os) {
 
-	    if( !checkCommonParameters(os))
-		    return false;
+		if (!checkCommonParameters(os))
+			return false;
 
-	boolean hasOffering = false;
+		boolean hasOffering = false;
 
-	String supportedResponseFormat = "text/xml; subtype=\"om/1.0.0\"";
+		String supportedResponseFormat = "text/xml; subtype=\"om/1.0.0\"";
 
-	final String offering = parameterMap.get(OFFERING);
-	final String procedure = parameterMap.get(PROCEDURE);
-	final String responesFormat = parameterMap.get(RESPONSE_FORMAT);
-	final String eventType = parameterMap.get(EVENT_TIME);
-	final String boundingBox = parameterMap.get(BBOX);
-	final String observedProperty = parameterMap.get(OBSERVED_PROPERTY);
+		final String offering = parameterMap.get(OFFERING);
+		final String procedure = parameterMap.get(PROCEDURE);
+		final String responesFormat = parameterMap.get(RESPONSE_FORMAT);
+		final String eventType = parameterMap.get(EVENT_TIME);
+		final String boundingBox = parameterMap.get(BBOX);
+		final String observedProperty = parameterMap.get(OBSERVED_PROPERTY);
 
-	if (responesFormat != null) {
-	    if (!StringUtils.equalsIgnoreCase(responesFormat,
-		    supportedResponseFormat)) {
-		report(ExceptionReporter.InvalidParameterValue, RESPONSE_FORMAT,
-			"The responseFormat: " + responesFormat
-				+ " is not supported. It should be "
-				+ responseFormat, os);
-		return false;
-	    }
+		if (responesFormat != null) {
+			if (!StringUtils.equalsIgnoreCase(responesFormat,
+					supportedResponseFormat)) {
+				report(ExceptionReporter.InvalidParameterValue,
+						RESPONSE_FORMAT, "The responseFormat: "
+								+ responesFormat
+								+ " is not supported. It should be "
+								+ responseFormat, os);
+				return false;
+			}
 
+		}
+
+		if (offering != null) {
+			hasOffering = true;
+			offeringID = offering;
+		}
+		if (procedure != null) {
+			requestSensorID = procedure;
+		}
+
+		if (eventType != null) {
+			setValue_EventTime(eventType);
+			String[] values = value_EVENT_TIME.split("/");
+
+			try {
+				// long start =
+				TimeUtil.getMillisec(values[0]);
+
+				// long end =
+				TimeUtil.getMillisec(values[1]);
+			} catch (Exception e) {
+				report(
+						ExceptionReporter.InvalidParameterValue,
+						EVENT_TIME,
+						"time should be giving following this format: \"yyyy-MM-dd'T'HH:mm:ss'Z'\" ",
+						os);
+				e.printStackTrace();
+				return false;
+			}
+
+		}
+
+		if (boundingBox != null)
+			setValue_BBOX(boundingBox);
+		if (observedProperty != null)
+			setValue_OBSERVED_PROPERTY(observedProperty);
+
+		if (!hasOffering) {
+			report(ExceptionReporter.MissingParameterValue, OFFERING,
+					"Need parameter: " + OFFERING + " ", os);
+			return false;
+		}
+		// relax this condition - not sure if it is used in oostethys - default
+		// is swe common
+
+		// if (!hasResponseFormat){
+		// report(ExceptionReporter.MissingParameterValue,
+		// RESPONSEFORMAT, "Need parameter: "+RESPONSEFORMAT
+		// +" "
+		// , os);
+		// return false;
+		// }
+
+		if (parameterMap.containsKey(RESULT_MODEL)) {
+			final String resultModel = parameterMap.get(RESULT_MODEL);
+			if (!("{http://www.opengis.net/om/1.0}Observation"
+					.equals(resultModel)
+					|| "{http://www.opengis.net/om/1.0}Measurement"
+							.equals(resultModel) || "{http://www.opengis.net/om/1.0}CategoryObservation"
+					.equals(resultModel))) {
+				report(
+						ExceptionReporter.InvalidParameterValue,
+						"resultModel",
+						"The value ("
+								+ resultModel
+								+ ") of the parameter 'resultModel' is invalid! It could be 'Observation' or 'Measurement' for numerical observations or 'CategoryObservation' for categorical observations.",
+						os);
+				return false;
+			}
+		}
+
+		if (parameterMap.containsKey(SRS_NAME)) {
+			if (!StringUtils.startsWith(parameterMap.get(SRS_NAME),
+					"urn:ogc:crs:epsg:")) {
+				report(
+						ExceptionReporter.InvalidParameterValue,
+						"srsName",
+						"The parameter 'srsName' has to match pattern 'urn:ogc:crs:epsg:' with appended EPSG code number.",
+						os);
+				return false;
+			}
+		}
+
+		return true;
 	}
-
-	if (offering != null) {
-	    hasOffering = true;
-	    offeringID = offering;
-	}
-	if (procedure != null) {
-	    requestSensorID = procedure;
-	}
-
-	if (eventType != null) {
-	    setValue_EventTime(eventType);
-	    String[] values = value_EVENT_TIME.split("/");
-
-	    try {
-		// long start =
-		TimeUtil.getMillisec(values[0]);
-
-		// long end =
-		TimeUtil.getMillisec(values[1]);
-	    } catch (Exception e) {
-		report(
-			ExceptionReporter.InvalidParameterValue,
-			EVENT_TIME,
-			"time should be giving following this format: \"yyyy-MM-dd'T'HH:mm:ss'Z'\" ",
-			os);
-		e.printStackTrace();
-		return false;
-	    }
-
-	}
-
-	if (boundingBox != null)
-	    setValue_BBOX(boundingBox);
-	if (observedProperty != null)
-	    setValue_OBSERVED_PROPERTY(observedProperty);
-
-
-	if (!hasOffering) {
-	    report(ExceptionReporter.MissingParameterValue, OFFERING,
-		    "Need parameter: " + OFFERING + " ", os);
-	    return false;
-	}
-	// relax this condition - not sure if it is used in oostethys - default
-	// is swe common
-
-	// if (!hasResponseFormat){
-	// report(ExceptionReporter.MissingParameterValue,
-	// RESPONSEFORMAT, "Need parameter: "+RESPONSEFORMAT
-	// +" "
-	// , os);
-	// return false;
-	// }
-	
-	if( parameterMap.containsKey(RESULT_MODEL)) {
-	    final String resultModel = parameterMap.get(RESULT_MODEL);
-	    if( !("{http://www.opengis.net/om/1.0}Observation".equals(resultModel) ||
-		    "{http://www.opengis.net/om/1.0}Measurement".equals(resultModel) ||
-		    "{http://www.opengis.net/om/1.0}CategoryObservation".equals(resultModel) )) {
-		report(ExceptionReporter.InvalidParameterValue, "resultModel",
-			    "The value ("+resultModel+") of the parameter 'resultModel' is invalid! It could be 'Observation' or 'Measurement' for numerical observations or 'CategoryObservation' for categorical observations.", os);
-		    return false;
-	    }
-	}
-	
-	if( parameterMap.containsKey(SRS_NAME)) {
-	    if(!StringUtils.startsWith(parameterMap.get(SRS_NAME),"urn:ogc:crs:epsg:")) {
-		report(ExceptionReporter.InvalidParameterValue, "srsName",
-			    "The parameter 'srsName' has to match pattern 'urn:ogc:crs:epsg:' with appended EPSG code number.", os);
-		    return false;
-	    }
-	}
-
-	return true;
-    }
 
 	private void setValue_EventTime(String eventTime) {
 		value_EVENT_TIME = eventTime;
@@ -1225,8 +1287,8 @@ public class Netcdf2sos100 {
 	private boolean hasParameters(OutputStream os) {
 		ExceptionReporter reporter = new ExceptionReporter();
 		if (parameterMap == null) {
-			String report = reporter.create(ExceptionReporter.MissingParameterValue,
-					null,
+			String report = reporter.create(
+					ExceptionReporter.MissingParameterValue, null,
 					"The service: should have service and request parameters");
 
 			try {
@@ -1242,9 +1304,9 @@ public class Netcdf2sos100 {
 
 	private void report(String code, String locator, String text,
 			OutputStream os) {
-	    if( os == null)
-		return;
-	    
+		if (os == null)
+			return;
+
 		ExceptionReporter reporter = new ExceptionReporter();
 
 		String report = reporter.create(code, locator, text);
@@ -1257,60 +1319,59 @@ public class Netcdf2sos100 {
 
 	}
 
-    private boolean okGetCapabilitiesParameters(OutputStream os) {
-	boolean hasService = false;
+	private boolean okGetCapabilitiesParameters(OutputStream os) {
+		boolean hasService = false;
 
-	String value = null;
-	// if (!hasParameters(os)) {
-	// return false;
-	// }
-	if( !checkCommonParameters(os))
-	    return false;
+		String value = null;
+		// if (!hasParameters(os)) {
+		// return false;
+		// }
+		if (!checkCommonParameters(os))
+			return false;
 
-	Set<String> set = parameterMap.keySet();
-	for (String key : set) {
-	    log.debug("key " + key);
-	    log.debug("value " + parameterMap.get(key));
-	    value = parameterMap.get(key) + "";
-	    if (key.equalsIgnoreCase(SERVICE)) {
-		if (!value.equalsIgnoreCase("SOS")) {
-		    report(
-			    ExceptionReporter.InvalidParameterValue,
-			    SERVICE,
-			    "The service: "
-				    + value
-				    + " is not supported. Service should be 'SOS'.",
-			    os);
-		    return false;
+		Set<String> set = parameterMap.keySet();
+		for (String key : set) {
+			log.debug("key " + key);
+			log.debug("value " + parameterMap.get(key));
+			value = parameterMap.get(key) + "";
+			if (key.equalsIgnoreCase(SERVICE)) {
+				if (!value.equalsIgnoreCase("SOS")) {
+					report(
+							ExceptionReporter.InvalidParameterValue,
+							SERVICE,
+							"The service: "
+									+ value
+									+ " is not supported. Service should be 'SOS'.",
+							os);
+					return false;
 
+				}
+				hasService = true;
+			} else if (key.equalsIgnoreCase(VERSION)) {
+
+				if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
+					report(ExceptionReporter.InvalidParameterValue, VERSION,
+							"The version: " + value
+									+ " is not supported. Service should be "
+									+ VERSION_NUMBER_SOS, os);
+					return false;
+
+				}
+			}
 		}
-		hasService = true;
-	    } else if (key.equalsIgnoreCase(VERSION)) {
 
-		if (!value.equalsIgnoreCase(VERSION_NUMBER_SOS)) {
-		    report(ExceptionReporter.InvalidParameterValue, VERSION,
-			    "The version: " + value
-				    + " is not supported. Service should be "
-				    + VERSION_NUMBER_SOS, os);
-		    return false;
-
+		if (!hasService) {
+			report(
+					ExceptionReporter.MissingParameterValue,
+					SERVICE,
+					"The mandatory parameter value 'service' was not found in the request.",
+					os);
+			return false;
 		}
-	    }
+
+		return true;
+
 	}
-
-	if( !hasService) {
-	    report(
-		    ExceptionReporter.MissingParameterValue,
-		    SERVICE,
-		    "The mandatory parameter value 'service' was not found in the request.",
-		    os);
-	    return false;
-	}
-
-	
-	return true;
-
-    }
 
 	/**
 	 * Sets the webservice of the servlet rendering this service.
@@ -1385,17 +1446,17 @@ public class Netcdf2sos100 {
 		if (getObservation.getSrsName() != null)
 			parameterMap.put(SRS_NAME, getObservation.getSrsName());
 		if (getObservation.getResponseFormat() != null)
-			parameterMap
-					.put(RESPONSE_FORMAT, getObservation.getResponseFormat());
-		
+			parameterMap.put(RESPONSE_FORMAT, getObservation
+					.getResponseFormat());
+
 		try {
-		if (getObservation.getResponseMode() != null)
-			parameterMap.put(RESPONSE_MODE, getObservation.getResponseMode()
-					.toString());
-		} catch( XmlValueOutOfRangeException e) {
-		    report(ExceptionReporter.InvalidParameterValue, "responseMode",
-			    "XML validation error: "+e.getMessage(), os);
-		    return false;
+			if (getObservation.getResponseMode() != null)
+				parameterMap.put(RESPONSE_MODE, getObservation
+						.getResponseMode().toString());
+		} catch (XmlValueOutOfRangeException e) {
+			report(ExceptionReporter.InvalidParameterValue, "responseMode",
+					"XML validation error: " + e.getMessage(), os);
+			return false;
 		}
 
 		if (getObservation.getEventTimeArray().length > 0) {
@@ -1421,14 +1482,15 @@ public class Netcdf2sos100 {
 			}
 		}
 
-		if( getObservation.getResultModel() != null) {
-		    parameterMap.put(RESULT_MODEL, getObservation.getResultModel().toString());
+		if (getObservation.getResultModel() != null) {
+			parameterMap.put(RESULT_MODEL, getObservation.getResultModel()
+					.toString());
 		}
-		
-		if( getObservation.getSrsName() != null) {
-		    parameterMap.put(SRS_NAME, getObservation.getSrsName());
+
+		if (getObservation.getSrsName() != null) {
+			parameterMap.put(SRS_NAME, getObservation.getSrsName());
 		}
-				
+
 		return true;
 	}
 
