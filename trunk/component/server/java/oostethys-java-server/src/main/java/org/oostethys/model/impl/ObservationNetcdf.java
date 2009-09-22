@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.log4j.Level;
 import org.oostethys.model.Observation;
 import org.oostethys.model.Units;
 import org.oostethys.model.VariableQuantity;
@@ -88,6 +89,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	public ObservationNetcdf() {
 
 		super("id");
+		//logger.setLevel(Level.DEBUG);
+		
 	}
 
 	/**
@@ -602,9 +605,10 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 //			}
 
 			// set URI // mapping
-			if( variableQuantity.getURI() == null) {
-			assignURItoVarConfig2(variableQuantity);
-			}
+//			no in new version - of netcdf configuration - URIS are provided in the config file
+//			if( variableQuantity.getURI() == null) {
+//			assignURItoVarConfig2(variableQuantity);
+//			}
 
 			String unitsS = var.getUnitsString();
 			Units units = new UnitsImpl();
