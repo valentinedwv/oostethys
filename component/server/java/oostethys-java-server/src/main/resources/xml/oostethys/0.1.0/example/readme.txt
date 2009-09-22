@@ -1,0 +1,1 @@
+Examples in thei folder are used by OOSTethys toolkit
