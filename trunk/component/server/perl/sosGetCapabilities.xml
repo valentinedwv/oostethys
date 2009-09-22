@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sos:Capabilities xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:ows="http://www.opengis.net/ows/1.1"
+                  xmlns:ows="http://schemas.opengis.net/ows/1.1"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xmlns:gml="http://www.opengis.net/gml"
-                  xmlns:swe="http://www.opengis.net/swe/1.0"
-                  xmlns:sos="http://www.opengis.net/sos/1.0"
-                  xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosGetCapabilities.xsd"
+                  xmlns:gml="http://schemas.opengis.net/gml"
+                  xmlns:swe="http://schemas.opengis.net/swe/1.0"
+                  xmlns:sos="http://schemas.opengis.net/sos/1.0"
+                  xsi:schemaLocation="http://schemas.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosGetCapabilities.xsd"
                   version="1.0.0">
     <!--~~~~~~~~~~~~~~~~~~~~~~~~-->
     <!-- Service Identification -->
