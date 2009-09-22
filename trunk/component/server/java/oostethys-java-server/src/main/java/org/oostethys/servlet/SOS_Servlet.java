@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.oostethys.sos.Netcdf2sos100;
 
 public class SOS_Servlet extends HttpServlet {
-	public String oostethysURL = "file:/Users/bermudez/Documents/workspace31/oostethys-xml-luis/oostethys/0.1.0/example/SimpleOostethys.xml";
-
+	public String oostethysURL = null;
 	private static final long serialVersionUID = 1L;
 
 
