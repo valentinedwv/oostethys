@@ -1,0 +1,31 @@
+Eric Bridger eric@gomoos.org  eric.bridger@gmail.com
+Gulf of Maine Ocean Observing System / North East Regional Association of Coastal Ocean Observing Systems.
+File List
+    * oostethys_sos.cgi  -  the CGI script
+    * sos_config.xml - empty configuration file.
+    * example_sos_config.xml -  An example config file using values from GoMOOS
+    * sosGetCapabilities.xml - 1.0 template
+    * sosGetObservation.xml - 1.0 template
+    * sosDescribeSystem.xml - 1.0 template
+	* README - This file
+	* INSTALL - Basic install instructions
+	* INSTALL_ASCII - Setting up to serve observations stored in ASCII text files
+	* INSTALL_RDBMS - Setting up to serve observations stored in a relational database via DBI
+	* INSTALL_MODULES - How to install some required PERL modules
+
+OOSTethys Project code repository: http://code.google.com/p/oostethys/
+
+More about the OOSTethys Project: http://www.oostethys.org/
+
+PERL documents via HTML: http://www.oostethys.org/downloads/sos-cookbook-perl
+   (Note: code should not be downloaded from www.oostethys.org, use code.google.com)
+
+The PERL SOS toolkit serves observation data from either ASCII text files or a relational database through the SOS interface, and is written entirely in PERL.
+
+see The OOSTethys project page or  INSTALL, INSTALL_ASCII or INSTALL_RDBMS for further instructions.
+
+Changes:
+* Fixed namespaces in xml templates
+* namespaces for XPath are gotten from template root namespaces
+* blockSeparator and tokenSeparator are not retrieved from templates
+* time input parameter is now eventTime (case insensitive)
