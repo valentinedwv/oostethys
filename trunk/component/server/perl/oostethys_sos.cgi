@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+######################
+# Author: Eric Bridger eric@gomoos.org eric.bridger@gmail.com
+######################
 use strict; 
 # Some required libraries.
 use Time::Local;
