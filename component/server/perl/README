@@ -23,3 +23,9 @@ PERL documents via HTML: http://www.oostethys.org/downloads/sos-cookbook-perl
 The PERL SOS toolkit serves observation data from either ASCII text files or a relational database through the SOS interface, and is written entirely in PERL.
 
 see The OOSTethys project page or  INSTALL, INSTALL_ASCII or INSTALL_RDBMS for further instructions.
+
+Changes:
+* Fixed namespaces in xml templates
+* namespaces for XPath are gotten from template root namespaces
+* blockSeparator and tokenSeparator are not retrieved from templates
+* time input parameter is now eventTime (case insensitive)
