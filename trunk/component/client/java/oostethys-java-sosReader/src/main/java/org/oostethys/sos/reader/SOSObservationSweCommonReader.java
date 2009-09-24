@@ -76,7 +76,14 @@ public class SOSObservationSweCommonReader {
 			String varShortName = ((Attribute) xpath.selectNodes(doc).get(0))
 					.getValue();
 			xpath = XPath.newInstance(uomPath);
-			String uom = ((Attribute) xpath.selectNodes(doc).get(0)).getValue();
+			String uom ="";
+			try{
+			 uom = ((Attribute) xpath.selectNodes(doc).get(0)).getValue();
+			}catch (Exception e){
+			
+			}
+		
+			
 			name = varShortName + "(" + uom + ")";
 			plotData.setTitle(name);
 			plotData.setUnitsShort(uom);

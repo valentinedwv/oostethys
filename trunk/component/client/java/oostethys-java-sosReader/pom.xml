@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>oostethys</groupId>
-	<artifactId>oostethys-sos-reader</artifactId>
+	<artifactId>oostethys-java-sosReader</artifactId>
 	<version>0.2.0</version>
 	<name>OOSTethys SOS client</name>
 	<url>http://code.google.com/p/oostethys/</url>
