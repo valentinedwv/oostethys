@@ -855,9 +855,9 @@ sub getInputParams
 		# Parameter xml has a default namespace of sos
 		my $xc = XML::LibXML::XPathContext->new($xml_in);
 		# sos prefix may be the default namespace
-		$xc->registerNs( 'sos' => 'http://www.opengis.net/sos/1.0');
-		$xc->registerNs( 'ogc' => 'http://www.opengis.net/ogc');
-		$xc->registerNs( 'gml' => 'http://www.opengis.net/gml');
+		$xc->registerNs( 'sos' => 'http://schemas.opengis.net/sos/1.0');
+		$xc->registerNs( 'ogc' => 'http://schemas.opengis.net/ogc');
+		$xc->registerNs( 'gml' => 'http://schemas.opengis.net/gml');
 		# get the name of the root element
 		my $request = $xml_in->documentElement()->nodeName;
 		#  Root element name may or may not have a prefix. So remove it
@@ -1242,7 +1242,7 @@ foreach my $sensor (@sensors){
 
 		foreach my $line (@output_data){
 			chomp($line);
-			my @vals = split($tokenSep, $line);
+			my @vals = split(/$tokenSep/, $line);
 			# time is now second field
 			my $t = $vals[1];
 			my $sse = time2sse($t);
