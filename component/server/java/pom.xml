@@ -31,13 +31,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </developer>
     <developer>
       <id>rick.bl</id>
-      <name>Rick</name>
-      <email>rick.bl...@boeing.com</email>
+      <name>Rick Blair</name>
+      <email>rick.blair@boeing.com</email>
       <organization>Boeing</organization>
     </developer>
     <developer>
       <id>carueda</id>
       <name>Carlos Rueda</name>
+      <email>carueda@mbari.com</email>
+      <organization>MBARI</organization>
     </developer>
     <developer>
       <id>jzedlitz</id>
@@ -79,6 +81,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <module>oostethys-xmlbeans</module>
     <module>oostethys-java-sosReader</module>
     <module>oostethys-ogc-xmlbeans</module>
+      <module>oostethys-java-hello</module>
   </modules>
   
 </project>
