@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>oostethys</groupId>
 		<artifactId>oostethys-java</artifactId>
-		<version>0.3.8</version>
+		<version>0.3.9</version>
 	</parent>
 	<artifactId>oostethys-java-server</artifactId>
 	<packaging>war</packaging>
@@ -232,7 +232,7 @@
 		<dependency>
 			<groupId>oostethys</groupId>
 			<artifactId>oostethys-xmlbeans</artifactId>
-			<version>0.3.8</version>
+			<version>0.3.9</version>
 		</dependency>
 		<dependency>
 			<groupId>oostethys</groupId>

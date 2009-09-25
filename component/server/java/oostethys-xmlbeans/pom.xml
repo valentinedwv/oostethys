@@ -4,7 +4,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <parent>
     <groupId>oostethys</groupId>
     <artifactId>oostethys-java</artifactId>
-    <version>0.3.8</version>
+    <version>0.3.9</version>
   </parent>
   <artifactId>oostethys-xmlbeans</artifactId>
   <packaging>jar</packaging>

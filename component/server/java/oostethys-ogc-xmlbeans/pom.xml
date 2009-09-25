@@ -4,7 +4,7 @@
   <parent>
     <groupId>oostethys</groupId>
     <artifactId>oostethys-java</artifactId>
-    <version>0.3.8</version>
+    <version>0.3.9</version>
   </parent>
  
   <artifactId>oostethys-ogc-xmlbeans</artifactId>
