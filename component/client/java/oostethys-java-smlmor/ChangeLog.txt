@@ -1,0 +1,9 @@
+org.oostethys.smlmor
+Carlos Rueda   MMI / MBARI
+Sept 2009
+$Id$
+
+ChangeLog
+
+2009-09-25  0.0.1pre
+	Preliminary set-up of this project
