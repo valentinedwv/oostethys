@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>oostethys</groupId>
+    <artifactId>oostethys-java</artifactId>
+    <version>0.3.9</version>
+  </parent>
+ 
+  <artifactId>oostethys-ogc-xmlbeans</artifactId>
+  <packaging>jar</packaging>
+  
+  
+   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <version>2.3.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>xmlbeans</goal>
+            </goals>
+          </execution>
+        </executions>
+        <inherited>true</inherited>
+        <configuration>
+         <schemaDirectory>src/main/xsd</schemaDirectory>
+        <outputJar>oostethys.ogc.xmlbeans.1.x.x.jar</outputJar>
+         <memoryInitialSize>128m</memoryInitialSize>
+          <memoryMaximumSize>256m</memoryMaximumSize>
+        </configuration>
+       
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+    	<groupId>org.apache.xmlbeans</groupId>
+    	<artifactId>xmlbeans</artifactId>
+    	<version>2.4.0</version>
+    
+    </dependency>
+  </dependencies>
+  
+</project>
