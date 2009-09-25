@@ -88,11 +88,15 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
   				<artifactId>jetty-maven-plugin</artifactId>
+  				
 
 				
 				<configuration>
+				<webAppConfig>
+				<contextPath>/oostethys</contextPath>
+				</webAppConfig>
 				
-					<contextPath>/oostethys</contextPath>
+					
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>
