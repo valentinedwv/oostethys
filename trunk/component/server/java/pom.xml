@@ -47,6 +47,21 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <organizationUrl>http://www.informatik.uni-kiel.de/comsys/</organizationUrl>
     </developer>
   </developers>
+  <build>
+  <plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>2.0.2</version>
+    <configuration>
+        <source>1.5</source>
+        <target>1.5</target>
+    </configuration>
+</plugin>
+  
+  </plugins>
+  </build>
+  
   <mailingLists>
     <mailingList>
       <name>User List</name>
@@ -65,4 +80,5 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <module>oostethys-java-sosReader</module>
     <module>oostethys-ogc-xmlbeans</module>
   </modules>
+  
 </project>
