@@ -34,6 +34,9 @@ by build.xml to update some dependent resources.
 Adjust the build path for gwt-user.jar so it points to the actual library in your system.
 This should resolve any pending symbols for a successful compilation.
 
-Running SmlMor from within Eclipse:  Right-click smlmor.launch and select Run As -> smlmor
-Similar procedure to debug.
+Running SmlMor from within Eclipse:
+  Edit smlmor.launch to adjust any GWT related library so it points to the correct location
+  in your system. (Search for gwt-*.jar to quickly determine which parts require adjusment)
+  Then right-click smlmor.launch and select Run As -> smlmor
+  Select Debug As -> smlmor for debugginSimilar procedure to debug.
 
