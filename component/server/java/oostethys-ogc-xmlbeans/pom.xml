@@ -34,13 +34,11 @@
         <inherited>true</inherited>
         <configuration>
          <schemaDirectory>src/main/xsd</schemaDirectory>
-        
-        
-         <outputJar>oostethys.ogc.xmlbeans.1.x.x.jar</outputJar>
-        
-          <memoryInitialSize>128m</memoryInitialSize>
+        <outputJar>oostethys.ogc.xmlbeans.1.x.x.jar</outputJar>
+         <memoryInitialSize>128m</memoryInitialSize>
           <memoryMaximumSize>256m</memoryMaximumSize>
         </configuration>
+       
       </plugin>
     </plugins>
   </build>
