@@ -25,14 +25,7 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    <dependency>
-    	<groupId>oostethys</groupId>
-    	<artifactId>oostethys-ogc-xmlbeans</artifactId>
-    	<version>0.3.8</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    	
-    </dependency>
+   
     <dependency>
     	<groupId>oostethys</groupId>
     	<artifactId>oostethys-xmlbeans</artifactId>
