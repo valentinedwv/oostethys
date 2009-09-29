@@ -29,3 +29,10 @@ Changes:
 * namespaces for XPath are gotten from template root namespaces
 * blockSeparator and tokenSeparator are not retrieved from templates
 * time input parameter is now eventTime (case insensitive)
+
+Thu Sep 24 12:23:03 EDT 2009
+* split $tokenSep => split/$tokenSep/
+* www.opengis.net to schemas.opengis.net
+
+Tue Sep 29 10:06:58 EDT 2009
+* fixed sml: namespace prefix in sosDescribeSensor.xml which was making DescribeSensor requests fail
