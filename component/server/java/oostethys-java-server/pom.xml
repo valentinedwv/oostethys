@@ -167,7 +167,7 @@
 		<dependency>
 			<groupId>ucar.nc2</groupId>
 			<artifactId>netcdf</artifactId>
-			<version>2.2.20</version>
+			<version>4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -230,7 +230,7 @@
 		<dependency>
 			<groupId>oostethys</groupId>
 			<artifactId>oostethys-ogc-xmlbeans</artifactId>
-			<version>0.3.8</version>
+			<version>0.3.9</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -251,11 +251,12 @@
 				<updatePolicy>always</updatePolicy>
 				<checksumPolicy>warn</checksumPolicy>
 			</releases>
-			<id>jzeRepository</id>
-			<name>jze's repository</name>
-			<url>http://www.comsys.informatik.uni-kiel.de/~jze/maven2</url>
+			<id>oostethys repository</id>
+			<name>oostethys repository</name>
+			<url>https://oostethys.googlecode.com/svn/trunk/maven-repository</url>
 			<layout>default</layout>
 		</repository>
+		
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
