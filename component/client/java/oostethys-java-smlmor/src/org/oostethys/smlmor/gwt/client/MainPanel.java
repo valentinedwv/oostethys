@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -55,7 +57,7 @@ public class MainPanel {
 	
 	private final PushButton generateButton = new PushButton("Generate", new ClickListener() {
 		public void onClick(Widget sender) {
-			createUpdate();
+			generate();
 		}
 	});
 
@@ -196,29 +198,21 @@ public class MainPanel {
 	}
 
 	
-	private Map<String,String> checkFields() {
+	private Map<String,String> getValues(boolean check) {
 		Map<String,String> values = new HashMap<String,String>();
 		for (  String name : tbs.keySet() ) {
 			Entry entry = tbs.get(name);
 			TextBox tb = entry.tb;
 			String value = tb.getText().trim();
-			values.put(name, value);
 			
-			if ( value.length() == 0 ) {
+			if ( value.length() > 0 ) {
+				values.put(name, value);
+			}
+			else if ( check) {
 				statusError("Missing value for field: " +entry.label);
 				tb.setFocus(true);
 				tb.selectAll();
 				return null;
-			}
-			else if ( name.equals("email") ) {
-				// basic check:  something@something:
-				String[] toks = value.split("@");
-				if ( toks.length != 2 ) {
-					statusError("Malformed email address. Expected name and domain");
-					tb.setFocus(true);
-					tb.selectAll();
-					return null;
-				}
 			}
 		}
 
@@ -227,22 +221,36 @@ public class MainPanel {
 	
 	
 	private void justCheck() {
-		
-		checkFields();
+		getValues(true);
 	}
 	
-	private void createUpdate() {
-		
-		Map<String, String> values = checkFields();
+	private void generate() {
+		// false: while initial tests
+		Map<String, String> values = getValues(false);
 		
 		if ( values != null ) {
-			doCreateUpdate(values);
+			doGenerate(values);
 		}
 	}
 	
 	
-	private void doCreateUpdate(Map<String,String> values) {
+	private void doGenerate(Map<String,String> values) {
 
+		AsyncCallback<String> callback = new  AsyncCallback<String>() {
+
+			public void onFailure(Throwable caught) {
+				String error = caught.getMessage();
+				statusError(error);
+				Window.alert("ERROR: " +error);
+			}
+
+			public void onSuccess(String result) {
+				statusMessage("OK");
+				Window.alert(result);
+			}
+			
+		};
+		Main.smlmorService.getSensorML(values, callback);
 	}
 
 	
