@@ -1,5 +1,7 @@
 package org.oostethys.smlmor.gwt.client.rpc;
 
+import java.util.Map;
+
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,5 +21,7 @@ public interface SmlMorService extends RemoteService {
 	
 	
 	// TODO actual operations ...
+	
+	String getSensorML(Map<String,String> values);
 
 }

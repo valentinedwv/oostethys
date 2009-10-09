@@ -1,5 +1,10 @@
 package org.oostethys.smlmor.gwt.server;
 
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 
 import org.apache.commons.logging.Log;
@@ -7,7 +12,9 @@ import org.apache.commons.logging.LogFactory;
 import org.mmisw.iserver.core.IServer;
 import org.mmisw.iserver.core.Server;
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
+import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
+import org.oostethys.smlmor.gwt.server.test.OostToSos;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -26,7 +33,7 @@ public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorSer
 	private final AppInfo appInfo = new AppInfo("smlmor");
 	private final Log log = LogFactory.getLog(SmlMorServiceImpl.class);
 	
-	
+	// TODO use it ;)
 	private IServer iserver;
 	
 	
@@ -66,6 +73,27 @@ public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorSer
 	
 	public AppInfo getAppInfo() {
 		return appInfo;
+	}
+
+	public String getSensorML(Map<String, String> values) {
+		
+		// very quick test based on OostToSos
+		
+		InputStream xslIS = Thread.currentThread().getContextClassLoader().getResourceAsStream("oostethys2describeSensor.xsl");
+		
+		
+		OostToSos app = new OostToSos();
+
+		// create an oostethys document
+		OostethysDocument doc = app.getoostethysDocument();
+		
+		// create the stream to send the xml file
+		Writer os = new StringWriter();
+		
+		// transform to SensorML
+		app.getSensorML(doc, os, xslIS);
+		
+		return os.toString();
 	}
 	
 }

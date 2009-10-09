@@ -5,5 +5,13 @@ $Id$
 
 ChangeLog
 
+2009-10-08  0.0.1pre2
+	- now includes basic generation of SML using oostethys-xmlbeans-0.3.9.jar
+	- MainPanel: the fields here are just dummy; click generate to generated a
+	  fixed SensorML.
+	  
+	Tried to enable maven for this project but no much success, so for now continuing
+	a la Ant ;)
+	
 2009-09-25  0.0.1pre
 	Preliminary set-up of this project
