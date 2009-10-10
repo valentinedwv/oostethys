@@ -1,9 +1,7 @@
 package org.oostethys.smlmor.gwt.server;
 
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -14,7 +12,12 @@ import org.mmisw.iserver.core.Server;
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
 import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
-import org.oostethys.smlmor.gwt.server.test.OostToSos;
+import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.AttributeModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.MetadataModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
+import org.oostethys.smlmor.gwt.client.rpc.model.SystemModel;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -29,12 +32,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorService {
 	private static final long serialVersionUID = 1L;
 	
+	private final Log log = LogFactory.getLog(SmlMorServiceImpl.class);
 	
 	private final AppInfo appInfo = new AppInfo("smlmor");
-	private final Log log = LogFactory.getLog(SmlMorServiceImpl.class);
 	
 	// TODO use it ;)
 	private IServer iserver;
+	
+	
+	private OostethysModel oostethysModel;
 	
 	
 	public void init() throws ServletException {
@@ -75,25 +81,68 @@ public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorSer
 		return appInfo;
 	}
 
-	public String getSensorML(Map<String, String> values) {
+	
+	public OostethysModel getOostethysModel() {
+		if ( oostethysModel == null ) {
+			createOostethysModel();
+		}
+		return oostethysModel;
+	}
+	
+	
+	private void createOostethysModel() {
 		
-		// very quick test based on OostToSos
+		oostethysModel = new OostethysModel();
 		
-		InputStream xslIS = Thread.currentThread().getContextClassLoader().getResourceAsStream("oostethys2describeSensor.xsl");
+		oostethysModel.setServiceContact(createContact("Service contact", "Service contact"));
 		
-		
-		OostToSos app = new OostToSos();
+		SystemModel systemModel = new SystemModel();
+		MetadataModel metadata = new MetadataModel();
+		metadata.setSystemContact(createContact("System contact", "System contact"));
+		metadata.setSystemMetadata(createSystemMetadata("Metadata", "system md"));
+		systemModel.setMetadataModel(metadata);
+		oostethysModel.setSystemModel(systemModel);
+	}
+	
+	
+	private AttrGroupModel createContact(String name, String htmlInfo) {
+		AttrGroupModel contact = new AttrGroupModel(name, htmlInfo);
+		contact.addAttributes(
+				new AttributeModel("urlOrganization", "Organization URL", "ooooooooooo"),
+				new AttributeModel("longNameOrganization", "Organization long name", "llllllllllllll"),
+				new AttributeModel("shortNameOrganization", "Organization short name", "ssssssssssss"),
+				new AttributeModel("individualName", "Individual name", "nnnnnnnnnnnnn"),
+				new AttributeModel("individualEmail", "Individual email", "eeeeeeeeee")
+		);
+		return contact;
+	}
 
-		// create an oostethys document
-		OostethysDocument doc = app.getoostethysDocument();
-		
-		// create the stream to send the xml file
+	private AttrGroupModel createSystemMetadata(String name, String htmlInfo) {
+		AttrGroupModel contact = new AttrGroupModel(name, htmlInfo);
+		contact.addAttributes(
+				new AttributeModel("systemType", "type", "ooooooooooo"),
+				new AttributeModel("systemShortName", "Short name", "llllllllllllll"),
+				new AttributeModel("systemLongName", "Long name", "ssssssssssss"),
+				new AttributeModel("systemIdentifier", "Identifier", "nnnnnnnnnnnnn")
+		);
+		return contact;
+	}
+
+	
+	public String getSensorML(OostethysValues soostValues) {
+		OostethysDocument doc = SOostethys2Doc.getoostethysDocument(
+				oostethysModel, soostValues
+		);
 		Writer os = new StringWriter();
-		
-		// transform to SensorML
-		app.getSensorML(doc, os, xslIS);
+		try {
+			Doc2Sml.getSensorML(doc, os);
+		}
+		catch (Exception e) {
+			return "Error: " +e.getMessage();
+		}
 		
 		return os.toString();
 	}
+
 	
 }

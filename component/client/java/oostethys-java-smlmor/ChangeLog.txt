@@ -5,6 +5,9 @@ $Id$
 
 ChangeLog
 
+2009-10-09  0.0.1pre3
+	- Initial scheme to create interface and generate SML.
+	
 2009-10-08  0.0.1pre2
 	- now includes basic generation of SML using oostethys-xmlbeans-0.3.9.jar
 	- MainPanel: the fields here are just dummy; click generate to generated a
