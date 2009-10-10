@@ -56,6 +56,8 @@ public class OostToSos {
 		OostethysDocument doc = OostethysDocument.Factory.newInstance();
 		Oostethys oostethys = doc.addNewOostethys();
 
+		oostethys.setWebServerURL("http://zzzz");
+		
 		// create service contact metadata
 
 		ServiceContact serviceContact = oostethys.addNewServiceContact();
@@ -65,7 +67,6 @@ public class OostToSos {
 		serviceContact.setShortNameOrganization("SURA");
 		serviceContact.setUrlOrganization("http://sura.org");
 
-		oostethys.setWebServerURL("http://zzzz");
 
 		Components components = oostethys.addNewComponents();
 

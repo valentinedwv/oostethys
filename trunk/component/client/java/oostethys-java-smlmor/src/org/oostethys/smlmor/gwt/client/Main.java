@@ -10,6 +10,7 @@ import org.mmisw.iserver.gwt.client.rpc.RegisteredOntologyInfo;
 import org.oostethys.smlmor.gwt.client.img.SmlMorImageBundle;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorServiceAsync;
+import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
 import org.oostethys.smlmor.gwt.client.util.Util;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -45,10 +46,12 @@ public class Main implements EntryPoint {
 
 	private static AppInfo appInfo;
 	
+	public static OostethysModel oostethysModel;
+	
 	private static boolean includeLog;
 	
 	
-	static SmlMorServiceAsync smlmorService;
+	public static SmlMorServiceAsync smlmorService;
 	
 	// cached list of all ontologies
 	private static List<RegisteredOntologyInfo> allUris = new ArrayList<RegisteredOntologyInfo>();
@@ -167,15 +170,37 @@ public class Main implements EntryPoint {
 			}
 
 			public void onSuccess(AppInfo aInfo) {
-				removeLoadingMessage();
 				appInfo = aInfo;
 				footer = appInfo.toString();
-				startGui(params);
+				getOostethysModel(params);
 			}
 		};
 
 		log("Getting application info ...");
 		smlmorService.getAppInfo(callback);
+	}
+
+  
+	private void getOostethysModel(final Map<String, String> params) {
+		AsyncCallback<OostethysModel> callback = new AsyncCallback<OostethysModel>() {
+			public void onFailure(Throwable thr) {
+				removeLoadingMessage();
+				String error = thr.toString();
+				while ( ( thr = thr.getCause()) != null ) {
+					error += "\n" + thr.toString();
+				}
+				RootPanel.get().add(new Label(error));
+			}
+
+			public void onSuccess(OostethysModel oost) {
+				removeLoadingMessage();
+				oostethysModel = oost;
+				startGui(params);
+			}
+		};
+
+		log("Getting oostethys model ...");
+		smlmorService.getOostethysModel(callback);
 	}
 
   

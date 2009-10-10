@@ -1,13 +1,13 @@
 package org.oostethys.smlmor.gwt.client.rpc;
 
-import java.util.Map;
-
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
+import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 
 /**
- * Interface to get info from the server.
+ * Interface with the server.
  * 
  * @author Carlos Rueda
  * @version $Id$
@@ -20,8 +20,8 @@ public interface SmlMorService extends RemoteService {
 	AppInfo getAppInfo();
 	
 	
-	// TODO actual operations ...
+	OostethysModel getOostethysModel();
 	
-	String getSensorML(Map<String,String> values);
-
+	String getSensorML(OostethysValues soostValues);
+	
 }
