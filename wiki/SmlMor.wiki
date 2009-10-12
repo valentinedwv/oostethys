@@ -1,0 +1,27 @@
+#summary development of the ORR-enabled SensorML/TEDS generator
+
+Test: http://mmisw.org/smlmor/  (for current status, see below)
+
+= Introduction =
+
+This page documents the specification, requirements, and development of the ORR-enabled SensorML/TEDS generator. For lack of a better name, the tool is currently codenamed 'sml-mor' (a combination of SensorML and MMI Ontology Registry and repository).
+
+
+= Goal =
+
+The overall goal of this tool is to facilitate the creation of formal documents (SensorML or TEDS, in principle) describing an observing system (system type, variables, ..) out from a set of definitions provided by the user in a web-based graphical user interface.
+
+= Description =
+
+The initial version (0.0.1, see below) captures the specification of systems and variables (with unbounded nesting of systems) and generates the corresponding SensorML document based on an intermediate OOSTethys model instantiation of the spec given by the user.
+
+The integration with ORR --to help in the specification of system types and variables-- is not yet addressed but here is a possible general approach:
+
+  * In the corresponding GUI section (for example, to define an output variable), include an option to walk the user through some kind of sequence involving the look-up of terms and relationships in the MMI ORR so the user can fill in the required information.. Details TBD
+
+
+= Summary of tool status =
+
+2009-10-12 first version, 0.0.1
+  * generates SensorML (see [http://code.google.com/p/oostethys/source/browse/trunk/component/client/java/oostethys-java-smlmor/ChangeLog.txt ChangeLog]).
+  * No yet integration with ORR
