@@ -111,17 +111,26 @@
 											coordinates should be given
 										-->
 
+
+
 										<nc:variables>
 
 											<nc:variable shortName="esecs" dimension="time"
-												uri="urn:ogc:phenomenon:time:iso8601" />
-											<nc:variable shortName="Longitude" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/>
-											<nc:variable shortName="Latitude" dimension="latitude" uri="urn:ogc:phenomenon:latitude:wgs84" />
-											<nc:variable shortName="NominalDepth"  dimension="depth" uri="urnx:xxx:NominalDepth" />
-											<nc:variable shortName="Temperature" dimension="no" uri="urnx:xxx:Temperature"/>
-											<nc:variable shortName="Conductivity" dimension="no" uri="urnx:xxx:Conductivity"/>
+												uri="http://mmisw.org/ont/cf/parameter/iso_19118_time" />
+											<nc:variable shortName="Longitude" dimension="longitude"
+												uri="urn:ogc:phenomenon:longitude:wgs84" />
+											<nc:variable shortName="Latitude" dimension="latitude"
+												uri="urn:ogc:phenomenon:latitude:wgs84" />
+											<nc:variable shortName="NominalDepth" dimension="depth"
+												uri="http://mmisw.org/ont/cf/parameter/depth" />
+											<nc:variable shortName="Temperature" dimension="no"
+												uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" />
+											<nc:variable shortName="Conductivity" dimension="no"
+												uri="http://mmisw.org/ont/cf/parameter/conductivity" />
 											
-											<nc:variable shortName="Salinity" dimension="no" uri="urnx:xxx:Salinity"/>
+											<nc:variable shortName="Salinity" dimension="no"
+												uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" />
+
 										</nc:variables>
 									</nc:oostethys-netcdf>
 								</sourceConfiguration>
