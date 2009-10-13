@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../../main/resources/xml/oostethys/0.1.0/xsd/oostethys.xsd">
+
+	<webServerURL>http://coast-enviro.er.usgs.gov</webServerURL>
+	<serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1">
+		<urlOrganization>http://www.marinemetadata.org</urlOrganization>
+		<longNameOrganization> Marine Metadata Interoperability Initiative (MMI) </longNameOrganization>
+		<shortNameOrganization>MMI</shortNameOrganization>
+		<individualName/>
+		<individualEmail/>
+	</serviceContact>
+
+	<components>
+		<system>
+			<metadata>
+				<sytemLongName>xxx Model</sytemLongName>
+				<systemShortName>um</systemShortName>
+				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
+				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
+				<systemContacts>
+					<systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+						<urlOrganization> org </urlOrganization>
+						<longNameOrganization> a long name </longNameOrganization>
+						<shortNameOrganization> shortName </shortNameOrganization>
+						<individualName>FirtName lastName</individualName>
+						<individualEmail>xxx@xxx.org</individualEmail>
+					</systemContact>
+				</systemContacts>
+			</metadata>
+
+
+
+			<output>
+
+				<sourceConfiguration>
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL>
+							http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.ascii?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]
+						</fileURL>
+						<variables>
+							<variable shortName="lat" dimension="latitude" uri="urn:ogc:phenomenon:latitude:wgs84"/>
+							<variable shortName="lon" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/>
+							<variable shortName="time" dimension="time" uri="urn:ogc:phenomenon:time:iso8601"/>
+							<variable shortName="zeta" dimension="no" uri="urn:x:d"/>
+
+						</variables>
+					</oostethys-netcdf>
+
+
+				</sourceConfiguration>
+
+			</output>
+		</system>
+		
+	</components>
+
+</oostethys>

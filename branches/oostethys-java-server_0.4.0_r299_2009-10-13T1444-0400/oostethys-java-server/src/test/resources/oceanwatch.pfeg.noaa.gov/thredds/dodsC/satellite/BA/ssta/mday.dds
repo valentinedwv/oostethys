@@ -1,0 +1,15 @@
+Dataset {
+    Float64 altitude[altitude = 1];
+    Float64 lat[lat = 16];
+    Float64 lon[lon = 37];
+    Float64 time[time = 9];
+    Grid {
+     ARRAY:
+        Float32 BAssta[time = 9][altitude = 1][lat = 16][lon = 37];
+     MAPS:
+        Float64 time[time = 9];
+        Float64 altitude[altitude = 1];
+        Float64 lat[lat = 16];
+        Float64 lon[lon = 37];
+    } BAssta;
+} satellite/BA/ssta/mday;
