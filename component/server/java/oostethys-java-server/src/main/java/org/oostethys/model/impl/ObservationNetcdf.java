@@ -1,6 +1,7 @@
 package org.oostethys.model.impl;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -22,16 +23,19 @@ import org.oostethys.voc.Voc;
 
 import ucar.ma2.Array;
 import ucar.ma2.Index;
+import ucar.ma2.InvalidRangeException;
+import ucar.ma2.Section;
 import ucar.nc2.Attribute;
 import ucar.nc2.NCdump;
+import ucar.nc2.NCdumpW;
 import ucar.nc2.dataset.NetcdfDataset;
 import ucar.nc2.units.DateUnit;
 
 public class ObservationNetcdf extends ResourceImpl implements Observation {
-    
-    private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
-	    .getLogger(ObservationNetcdf.class.getName());
-    
+
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
+			.getLogger(ObservationNetcdf.class.getName());
+
 	private int numberOfRecords = 10000; // max number of records to read
 
 	private VariablesConfig variablesConfig;
@@ -40,7 +44,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	private List<VariableQuantity> varsToProcess;
 
-	private URL url;
+	private String url;
 
 	private boolean depthIsGiven = true;
 
@@ -81,16 +85,20 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	private long timeEnd = Long.MAX_VALUE;
 
 	/**
-	 * if getCapabilites or  DescribeSensor, which do not requires to get all the data, only the extends
+	 * if getCapabilites or DescribeSensor, which do not requires to get all the
+	 * data, only the extends
 	 */
-	private boolean parseAllData = false; 
+	private boolean parseAllData = false;
 
+	private boolean isOpendapQuery;
+
+	private String query;
 
 	public ObservationNetcdf() {
 
 		super("id");
-		//logger.setLevel(Level.DEBUG);
-		
+		// logger.setLevel(Level.DEBUG);
+
 	}
 
 	/**
@@ -98,7 +106,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * 
 	 * @param url
 	 */
-	public void setURL(URL url) {
+	public void setURL(String url) {
 		this.url = url;
 
 	}
@@ -111,42 +119,68 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	/**
 	 * Creates an Observation from a netcdf, opendap link
 	 * 
-	 * @param fileURL : NETCDF of OPENDAP link
-	 * @param identifierOfThisObservation: unique id that identifies this observation
-	 * @param config: variables configuration which contains information about what variables to parse,
-	 *  the units and the mapping to URIs
+	 * @param fileURL
+	 *            : NETCDF of OPENDAP link
+	 * @param identifierOfThisObservation
+	 *            : unique id that identifies this observation
+	 * @param config
+	 *            : variables configuration which contains information about
+	 *            what variables to parse, the units and the mapping to URIs
 	 */
-	public ObservationNetcdf(String fileURL, String identifierOfThisObservation, VariablesConfig config) {
+	public ObservationNetcdf(String fileURL,
+			String identifierOfThisObservation, VariablesConfig config) {
 		super(identifierOfThisObservation);
-		try {
-			this.url = new URL(fileURL);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+
+		this.url = fileURL;
+
 		this.variablesConfig = config;
 
 	}
 
+	/**
+	 * Opens an opendap or netcdf URL. Tries to open a URL if it is an opendap
+	 * query it strips the query part and flags this netcdf as isOpendapQuery.
+	 * The query part s store in a field.
+	 * 
+	 * @throws ParserException
+	 */
 	private void openNetcdfDataSet() throws ParserException {
 		netcdfdataset = null;
 		if (this.url == null) {
 			throw new ParserException(ParserException.NOT_ABLE_TO_OPEN_FILE,
-					null);
+					this.url.toString());
 		}
 		try {
+			int index = url.indexOf("?");
+			if (index > 0) {
+				String query = url.substring(url.indexOf("?"));
+			}else{
+				query = null;
+			}
+			String surl = url.toString();
+			if (query != null) {
+				surl = surl.substring(0, surl.indexOf("?"));
+				// remove the 'dods'
+				surl = surl.replace("nc.dods", "nc");
+				surl = surl.replace("nc.ascii", "nc");
 
-			netcdfdataset = NetcdfDataset.openDataset(this.url.toString());
+				isOpendapQuery = true;
+				this.query = query;
 
-			if( logger.isDebugEnabled())
-			    NCdump.print(netcdfdataset, "", System.out, null);
+			}
+
+			netcdfdataset = NetcdfDataset.openDataset(surl);
+
+			if (logger.isDebugEnabled())
+
+				logger.info(netcdfdataset.toString());
 
 		} catch (IOException e) {
 			e.printStackTrace();
 
 			throw new ParserException(ParserException.NOT_ABLE_TO_OPEN_FILE,
 					this.url.toString());
-			
-			// e.printStackTrace();
+
 		}
 
 	}
@@ -181,16 +215,16 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * @return
 	 */
 	private ucar.nc2.Variable findncfVariableByShortName(String shortName) {
-	    @SuppressWarnings("unchecked")
-	    List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
+		@SuppressWarnings("unchecked")
+		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
 
-	    for (ucar.nc2.Variable variable : vars) {
-		if (variable.getShortName().equalsIgnoreCase(shortName)) {
-		    return variable;
+		for (ucar.nc2.Variable variable : vars) {
+			if (variable.getShortName().equalsIgnoreCase(shortName)) {
+				return variable;
+			}
 		}
-	    }
 
-	    return null;
+		return null;
 	}
 
 	private VariableQuantity getVarQ(ucar.nc2.Variable var) {
@@ -226,14 +260,14 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	/**
 	 * Processes the variables in the vasrsToProcess. It reads the nc array and
-	 * adds the array read to the list of arrays
-	 * 
+	 * adds the array read to the list of arrays. It checks if it is an opendap
+	 * query and reads the variable using sections.
 	 * 
 	 * @param varsToProcess
 	 * @param arraysVar
 	 * @param uriOfVariable
 	 */
-	private void processVar(List<VariableQuantity> varsToProcess,
+	private void processReadVar(List<VariableQuantity> varsToProcess,
 			List<Array> arraysVar, String uriOfVariable) throws Exception {
 		logger.info("Processing " + uriOfVariable);
 		VariableQuantity varQuantity = variablesConfig
@@ -250,7 +284,15 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 				try {
 					varsToProcess.add(varQuantity);
-					arraysVar.add(varnc.read());
+
+					if (isOpendapQuery) {
+						Section section = getSection(varLabel);
+						arraysVar.add(varnc.read(section));
+
+					} else {
+						arraysVar.add(varnc.read());
+					}
+
 					logger.info("processed succesfully" + varnc);
 				} catch (IOException e) {
 					logger.warn("problems parsing: " + uriOfVariable);
@@ -266,6 +308,51 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			// throw new Exception("not able to find the variable " +
 			// varQuantity);
 		}
+	}
+
+	private Section getSection(String varLabel) {
+		int indexVarFrom = query.indexOf(varLabel + "[");
+		int indexVarTo = query.indexOf(",", indexVarFrom);
+		if (indexVarTo == -1) {
+			indexVarTo = query.length();
+		}
+		String sel = query.substring(indexVarFrom, indexVarTo);
+		Section sec = new Section();
+
+		int ind = sel.indexOf("[");
+		String subsel = sel;
+		try {
+			while (ind > -1) {
+				subsel = subsel.substring(ind);
+				int indexColon = subsel.indexOf(":");
+				int indexofClosingParan = subsel.indexOf("]");
+				int lower = -1;
+				int upper = -1;
+				if (indexColon > -1) {
+					if (indexColon < indexofClosingParan) {
+						lower = Integer.parseInt(subsel
+								.substring(1, indexColon));
+						upper = Integer.parseInt(subsel.substring(
+								indexColon + 1, indexofClosingParan));
+					}
+				} else {
+					lower = Integer.parseInt(subsel.substring(1,
+							indexofClosingParan));
+					upper = lower;
+				}
+
+				sec.appendRange(lower, upper);
+				ind = subsel.indexOf("[", 1);
+
+			}
+
+		} catch (InvalidRangeException e1) {
+
+			e1.printStackTrace();
+
+		}
+
+		return sec;
 	}
 
 	/*
@@ -309,7 +396,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		openNetcdfDataSet();
 		setDepthFlag();
 
-		// process the config file
+		// process the variables in the configuration file
 		processVarConfig();
 		if (url == null) {
 			throw new Exception("Need URL to process NETCDF ");
@@ -334,14 +421,14 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		List<Array> arraysVar = new ArrayList<Array>(varsNC.size());
 		// ucar.nc2.Variable varnc = null;
 
-		processVar(varsToProcess, arraysVar, Voc.time);
-		processVar(varsToProcess, arraysVar, Voc.latitude);
-		processVar(varsToProcess, arraysVar, Voc.longitude);
+		processReadVar(varsToProcess, arraysVar, Voc.time);
+		processReadVar(varsToProcess, arraysVar, Voc.latitude);
+		processReadVar(varsToProcess, arraysVar, Voc.longitude);
 
 		VariableQuantity timeVar = variablesConfig.getVariableByURI(Voc.time);
 
 		if (checkHasDepth()) {
-			processVar(varsToProcess, arraysVar, Voc.depth);
+			processReadVar(varsToProcess, arraysVar, Voc.depth);
 		}
 
 		logger.info("Processing variables ---");
@@ -349,7 +436,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		List<VariableQuantity> vars = variablesConfig.getVariables();
 		for (VariableQuantity varQ : vars) {
 			if (!varQ.isCoordinate()) {
-				processVar(varsToProcess, arraysVar, varQ.getURI());
+				processReadVar(varsToProcess, arraysVar, varQ.getURI());
 			}
 		}
 
@@ -362,7 +449,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		int numberOfFields = arraysVar.size();
 
 		if (varsToProcess.size() > numberOfFields) {
-			logger.error("not all the variables have been processed correctly ! ");
+			logger
+					.error("not all the variables have been processed correctly ! ");
 		}
 
 		logger.info("numberOfFields " + numberOfFields);
@@ -415,7 +503,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		// StringBuffer lastknown = new StringBuffer();
 
 		long millis = Long.MIN_VALUE;
-		//String time = "";
+		// String time = "";
 		String lat = "";
 		String lon = "";
 		// String z = "";
@@ -424,10 +512,6 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		StringBuffer temBuffy = new StringBuffer();
 		int j = 0;
-
-		if (!parseAllData) {
-
-		}
 
 		for (int i = start; i < last; i++) {
 			for (Array array : arraysVar) {
@@ -541,7 +625,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		// find if there is a depth coordinate , other than lat lon and time
 		@SuppressWarnings("unchecked")
 		List<ucar.nc2.Variable> vars = netcdfdataset.getVariables();
-		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator.hasNext();) {
+		for (Iterator<ucar.nc2.Variable> iterator = vars.iterator(); iterator
+				.hasNext();) {
 			ucar.nc2.Variable variable = iterator.next();
 
 			if (ncVariableIsCoordinate(variable)) {
@@ -569,8 +654,15 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		return att != null;
 	}
-	
-	
+
+	/**
+	 * Process the variables in the configuration file. For every variable it
+	 * checks in the netcdfdataset and extracts the metadata related to that
+	 * variable, e.g. units, short name etc. It doesn't read the variables data.
+	 * Only update the variable metadata for each variable in the configuration.
+	 * 
+	 * @throws Exception
+	 */
 	private void processVarConfig() throws Exception {
 
 		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
@@ -578,9 +670,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		while (iter.hasNext()) {
 
 			variableQuantity = iter.next();
-			
-			
-			
+
 			ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
 					.getLabel());
 
@@ -594,21 +684,22 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 				logger.info(" Found nc Variable for: " + variableQuantity
 						+ " --> " + var.getShortName());
 			}
-			
-//			variableQuantity.
 
-//			// set coordinate attribute
-//			if (ncVariableIsCoordinate(var)) {
-//				variableQuantity.setCoordinate(true);
-//			} else {
-//				variableQuantity.setCoordinate(false);
-//			}
+			// variableQuantity.
+
+			// // set coordinate attribute
+			// if (ncVariableIsCoordinate(var)) {
+			// variableQuantity.setCoordinate(true);
+			// } else {
+			// variableQuantity.setCoordinate(false);
+			// }
 
 			// set URI // mapping
-//			no in new version - of netcdf configuration - URIS are provided in the config file
-//			if( variableQuantity.getURI() == null) {
-//			assignURItoVarConfig2(variableQuantity);
-//			}
+			// no in new version - of netcdf configuration - URIS are provided
+			// in the config file
+			// if( variableQuantity.getURI() == null) {
+			// assignURItoVarConfig2(variableQuantity);
+			// }
 
 			String unitsS = var.getUnitsString();
 			Units units = new UnitsImpl();
@@ -627,65 +718,62 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 		}
 
-			
-		
-		
 	}
 
-//	/**
-//	 * It guesses what is lat, long depth and others and those the mappings
-//	 * 
-//	 * @throws Exception
-//	 */
-//	private void processVarConfig2() throws Exception {
-//
-//		Iterator<VariableQuantity> iter = variablesConfig.getIterator();
-//		VariableQuantity variableQuantity = null;
-//		while (iter.hasNext()) {
-//
-//			variableQuantity = (VariableQuantity) iter.next();
-//			ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
-//					.getLabel());
-//
-//			if (var == null) {
-//
-//				throw new Exception("The following variable was not found : '"
-//						+ variableQuantity + "' in "
-//						+ netcdfdataset.getLocation());
-//
-//			} else {
-//				logger.info(" Found nc Variable for: " + variableQuantity
-//						+ " --> " + var.getShortName());
-//			}
-//
-//			// set coordinate attribute
-//			if (ncVariableIsCoordinate(var)) {
-//				variableQuantity.setCoordinate(true);
-//			} else {
-//				variableQuantity.setCoordinate(false);
-//			}
-//
-//			// set URI // mapping
-//			assignURItoVarConfig(variableQuantity);
-//
-//			String unitsS = var.getUnitsString();
-//			Units units = new UnitsImpl();
-//
-//			if (!variableQuantity.getURI().equals(Voc.time)) {
-//				String ucum = UnitsMapper.getUCUM(unitsS);
-//				units.setLabel(ucum);
-//
-//				//				
-//			}
-//			// leave units as it is form nc var
-//			else {
-//				units.setLabel(unitsS);
-//			}
-//			variableQuantity.setUnits(units);
-//
-//		}
-//
-//	}
+	// /**
+	// * It guesses what is lat, long depth and others and those the mappings
+	// *
+	// * @throws Exception
+	// */
+	// private void processVarConfig2() throws Exception {
+	//
+	// Iterator<VariableQuantity> iter = variablesConfig.getIterator();
+	// VariableQuantity variableQuantity = null;
+	// while (iter.hasNext()) {
+	//
+	// variableQuantity = (VariableQuantity) iter.next();
+	// ucar.nc2.Variable var = findncfVariableByShortName(variableQuantity
+	// .getLabel());
+	//
+	// if (var == null) {
+	//
+	// throw new Exception("The following variable was not found : '"
+	// + variableQuantity + "' in "
+	// + netcdfdataset.getLocation());
+	//
+	// } else {
+	// logger.info(" Found nc Variable for: " + variableQuantity
+	// + " --> " + var.getShortName());
+	// }
+	//
+	// // set coordinate attribute
+	// if (ncVariableIsCoordinate(var)) {
+	// variableQuantity.setCoordinate(true);
+	// } else {
+	// variableQuantity.setCoordinate(false);
+	// }
+	//
+	// // set URI // mapping
+	// assignURItoVarConfig(variableQuantity);
+	//
+	// String unitsS = var.getUnitsString();
+	// Units units = new UnitsImpl();
+	//
+	// if (!variableQuantity.getURI().equals(Voc.time)) {
+	// String ucum = UnitsMapper.getUCUM(unitsS);
+	// units.setLabel(ucum);
+	//
+	// //
+	// }
+	// // leave units as it is form nc var
+	// else {
+	// units.setLabel(unitsS);
+	// }
+	// variableQuantity.setUnits(units);
+	//
+	// }
+	//
+	// }
 
 	/**
 	 * Maps the variable names provided in the configuration file, with the
@@ -694,19 +782,14 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 * 
 	 * @param variableQuantity
 	 */
-	
-	//TODO main problem - !!!!!!!
+
+	// TODO main problem - !!!!!!!
 	// why don't we assume that the variables are mapped before hand !
-	
-	
+
 	public void assignURItoVarConfig(VariableQuantity variableQuantity) {
-		
-		
-	
+
 	}
-	
-	
-	
+
 	private void assignURItoVarConfig2(VariableQuantity variableQuantity) {
 		String label = variableQuantity.getLabel();
 
@@ -714,7 +797,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		ucar.nc2.Variable var = findncfVariableByShortName(label);
 		String standardName = null;
 		String uri = null;
-		//boolean isTime = false;
+		// boolean isTime = false;
 
 		if (var != null) {
 			Attribute att = var.findAttribute("standard_name");
@@ -804,15 +887,15 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 	}
 
-//	private double getDoubleValue(int varArraySize, Array ma, int index) {
-//		Index ima = ma.getIndex();
-//		int ind = getIndex(index, varArraySize, ma.getShape()[0]);
-//		double obj = ma.getDouble(ima.set(ind));
-//		return obj;
-//	}
+	// private double getDoubleValue(int varArraySize, Array ma, int index) {
+	// Index ima = ma.getIndex();
+	// int ind = getIndex(index, varArraySize, ma.getShape()[0]);
+	// double obj = ma.getDouble(ima.set(ind));
+	// return obj;
+	// }
 
 	private int getIndex(int index, int varArraySize, int thisArraySize) {
-		double d = index / ((double)varArraySize / (double)thisArraySize);
+		double d = index / ((double) varArraySize / (double) thisArraySize);
 		return (int) d;
 
 	}
@@ -994,7 +1077,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	/**
 	 * @return the URL use to get the dataset of thei NetCDF observation
 	 */
-	public URL getURL() {
+	public String getURL() {
 		return url;
 	}
 

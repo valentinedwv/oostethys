@@ -382,6 +382,7 @@ public class Netcdf2sos100 {
 		oostDocTemp = OostethysDocument.Factory.newInstance();
 
 		try {
+			// oostethys config file
 			oostDoc = OostethysDocument.Factory.parse(urlOostethys);
 
 			// now validated !
@@ -457,6 +458,149 @@ public class Netcdf2sos100 {
 	// public void resetValues() {
 	// value_PROCEDURE = value_OBSERVED_PROPERTY = null;
 	// }
+	
+	
+	/**
+	 * Processes a system declared in the OOST model based on a netcdf configuration 
+	 * @param oosn
+	 * @param systemTemp
+	 * @throws Exception
+	 */
+	private void processSystemsNetCDFConfiguration(OostethysNetcdf oosn, System systemTemp) throws Exception{
+		
+		
+		String fileNCURL = oosn.getFileURL();
+		if (fileNCURL.length()==0){
+			throw new Exception("NetCDF URL was not provided");
+		}
+		 
+		URL url = null;
+		try {
+			url = new URL(fileNCURL);
+			if (url == null) {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			try {
+				// then... try to find the resource locally.. this
+				// is in WEB-INF/classes/
+				url = Thread.currentThread()
+						.getContextClassLoader().getResource(
+								fileNCURL);
+				// url.openConnection();
+			} catch (Exception e2) {
+				throw new Exception("Not found netCDF file "
+						+ fileNCURL, e2);
+			}
+
+		}
+
+		ObservationNetcdf obsNC = new ObservationNetcdf();
+		// set the dataset
+		obsNC.setURL(url.toString());
+		obsNC.setNumberOfRecords(numberOfRecordsToProcess);
+
+		if (value_BBOX != null) {
+			obsNC.setValue_BBOX(value_BBOX);
+		}
+		if (value_EVENT_TIME != null) {
+			obsNC.setValue_TIME(value_EVENT_TIME);
+		}
+
+		// set variables in a collection of variables config - only
+		// using the short name
+		obsNC.setVariablesConfig(getVariablesConfig(oosn));
+
+		// process
+		obsNC.process();
+		// update the modelXML
+
+		// updateTime
+		TimePeriod tp = TimePeriod.Factory.newInstance();
+		tp
+				.setStart(TimeUtil.getISOFromMillisec(obsNC
+						.getMinTime()));
+		tp.setEnd(TimeUtil.getISOFromMillisec(obsNC.getMaxTime()));
+		Extend extend = systemTemp.addNewExtend();
+		extend.setTimePeriod(tp);
+
+		// update BBOX
+		BoundingBox bbox = BoundingBox.Factory.newInstance();
+		Envelope env = bbox.addNewEnvelope();
+		env.setLowerCorner(obsNC.getLowerCornerEPSG());
+		env.setUpperCorner(obsNC.getUpperCornerEPSG());
+		extend.setBoundingBox(bbox);
+
+		// adds latest known position -true for in-situ sensors
+		LastKnownLocation loc = LastKnownLocation.Factory
+				.newInstance();
+		loc.addNewSrsName().setStringValue(default2dsrsName);
+		loc.setStringValue(obsNC.getLastKnownPositionEPSG());
+		systemTemp.getMetadata().setLastKnownLocation(loc);
+
+		// update Variables
+
+		List<Variable> variablesList = new ArrayList<Variable>();
+
+		List<VariableQuantity> vars = obsNC.getVariables();
+
+		for (VariableQuantity var : vars) {
+			if (checkConditionVariable(var.getURI())) {
+				// create new variable
+				Variable varTemp = Variable.Factory.newInstance();
+				varTemp.setUri(var.getURI());
+				varTemp.setName(var.getStandardName());
+
+				// some variables in a nc file may not have units..
+				if (var.getUnits().getLabel() != null
+						&& !var.getUnits().getLabel().trim()
+								.equals("")) {
+					varTemp.setUom(var.getUnits().getLabel());
+				} else {
+				}
+				varTemp.setIsCoordinate(var.isCoordinate());
+
+				if (var.getReferenceFrame() != null) {
+					varTemp.setReferenceFrame(var
+							.getReferenceFrame());
+				}
+
+				if (var.isTime()) {
+					varTemp.setIsTime(true);
+					// even if it has a CF standard name - we will
+					// converted t ISO 8601
+					varTemp.setUri(Voc.time);
+				}
+
+				log.info("units set for " + varTemp.getUri() + " "
+						+ varTemp.getUom());
+
+				// add to temp sensor
+				variablesList.add(varTemp);
+			}
+
+		}
+
+		Variable[] varArray = new Variable[variablesList.size()];
+		int i = 0;
+		for (Iterator<Variable> iterator = variablesList.iterator(); iterator
+				.hasNext();) {
+			varArray[i] = iterator.next();
+			i = i + 1;
+		}
+
+		Variables variablesTemp = Variables.Factory.newInstance();
+		variablesTemp.setVariableArray(varArray);
+
+		Output outputTemp = Output.Factory.newInstance();
+		outputTemp.setVariables(variablesTemp);
+		outputTemp.setValues(obsNC.getAsRecords());
+		systemTemp.setOutput(outputTemp);
+
+	
+		
+	}
 
 	/**
 	 * process a netcdf
@@ -476,139 +620,16 @@ public class Netcdf2sos100 {
 			SourceConfiguration sourceConfiguration = output
 					.getSourceConfiguration();
 			if (sourceConfiguration != null) {
+				
 				OostethysNetcdf oosn = sourceConfiguration.getOostethysNetcdf();
 				if (oosn != null) {
-	
-					String fileNCURL = oosn.getFileURL();
-					if (fileNCURL.length()==0){
-						throw new Exception("NetCDF URL was not provided");
-					}
-					 
-					URL url = null;
-					try {
-						url = new URL(fileNCURL);
-						if (url == null) {
-							throw new Exception();
-						}
-	
-					} catch (Exception e) {
-						try {
-							// then... try to find the resource locally.. this
-							// is in WEB-INF/classes/
-							url = Thread.currentThread()
-									.getContextClassLoader().getResource(
-											fileNCURL);
-							// url.openConnection();
-						} catch (Exception e2) {
-							throw new Exception("Not found netCDF file "
-									+ fileNCURL, e2);
-						}
-	
-					}
-	
-					ObservationNetcdf obsNC = new ObservationNetcdf();
-					// set the dataset
-					obsNC.setURL(url);
-					obsNC.setNumberOfRecords(numberOfRecordsToProcess);
-	
-					if (value_BBOX != null) {
-						obsNC.setValue_BBOX(value_BBOX);
-					}
-					if (value_EVENT_TIME != null) {
-						obsNC.setValue_TIME(value_EVENT_TIME);
-					}
-	
-					// set variables in a collection of variables config - only
-					// using the short name
-					obsNC.setVariablesConfig(getVariablesConfig(oosn));
-	
-					// process
-					obsNC.process();
-					// update the modelXML
-	
-					// updateTime
-					TimePeriod tp = TimePeriod.Factory.newInstance();
-					tp
-							.setStart(TimeUtil.getISOFromMillisec(obsNC
-									.getMinTime()));
-					tp.setEnd(TimeUtil.getISOFromMillisec(obsNC.getMaxTime()));
-					Extend extend = systemTemp.addNewExtend();
-					extend.setTimePeriod(tp);
-	
-					// update BBOX
-					BoundingBox bbox = BoundingBox.Factory.newInstance();
-					Envelope env = bbox.addNewEnvelope();
-					env.setLowerCorner(obsNC.getLowerCornerEPSG());
-					env.setUpperCorner(obsNC.getUpperCornerEPSG());
-					extend.setBoundingBox(bbox);
-	
-					// adds latest known position -true for in-situ sensors
-					LastKnownLocation loc = LastKnownLocation.Factory
-							.newInstance();
-					loc.addNewSrsName().setStringValue(default2dsrsName);
-					loc.setStringValue(obsNC.getLastKnownPositionEPSG());
-					systemTemp.getMetadata().setLastKnownLocation(loc);
-	
-					// update Variables
-	
-					List<Variable> variablesList = new ArrayList<Variable>();
-	
-					List<VariableQuantity> vars = obsNC.getVariables();
-	
-					for (VariableQuantity var : vars) {
-						if (checkConditionVariable(var.getURI())) {
-							// create new variable
-							Variable varTemp = Variable.Factory.newInstance();
-							varTemp.setUri(var.getURI());
-							varTemp.setName(var.getStandardName());
-	
-							// some variables in a nc file may not have units..
-							if (var.getUnits().getLabel() != null
-									&& !var.getUnits().getLabel().trim()
-											.equals("")) {
-								varTemp.setUom(var.getUnits().getLabel());
-							} else {
-							}
-							varTemp.setIsCoordinate(var.isCoordinate());
-	
-							if (var.getReferenceFrame() != null) {
-								varTemp.setReferenceFrame(var
-										.getReferenceFrame());
-							}
-	
-							if (var.isTime()) {
-								varTemp.setIsTime(true);
-								// even if it has a CF standard name - we will
-								// converted t ISO 8601
-								varTemp.setUri(Voc.time);
-							}
-	
-							log.info("units set for " + varTemp.getUri() + " "
-									+ varTemp.getUom());
-	
-							// add to temp sensor
-							variablesList.add(varTemp);
-						}
-	
-					}
-	
-					Variable[] varArray = new Variable[variablesList.size()];
-					int i = 0;
-					for (Iterator<Variable> iterator = variablesList.iterator(); iterator
-							.hasNext();) {
-						varArray[i] = iterator.next();
-						i = i + 1;
-					}
-	
-					Variables variablesTemp = Variables.Factory.newInstance();
-					variablesTemp.setVariableArray(varArray);
-	
-					Output outputTemp = Output.Factory.newInstance();
-					outputTemp.setVariables(variablesTemp);
-					outputTemp.setValues(obsNC.getAsRecords());
-					systemTemp.setOutput(outputTemp);
-	
+					// configuration is netcdf file
+					processSystemsNetCDFConfiguration(oosn ,systemTemp);
+				}else{
+					// txt configuration
+					//processSystemsCSVConfiguration(null ,systemTemp);
 				}
+					
 			}
 	
 		}
