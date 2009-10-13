@@ -1,5 +1,5 @@
 <project name="OOSTethys-build-release" basedir="../" default="createRelease">
-	<property name="version" value="0.3.10_20090917" />
+	<property name="version" value="0.3.11_20091007" />
 	<property file="util/web-service.properties" />
 	<property name="war" value="target/oostethys.war" />
 	<property name="catalina" value="/Applications/apache-tomcat-6.0.18" />
@@ -22,6 +22,7 @@
 	</target>
 
 	<target name="createRelease">
+		
 		<copy file="${temp_html_folder}/index.html" tofile="${webRoot}/index.html" overwrite="true">
 			<filterset>
 				<filter token="version" value="${version}" />
