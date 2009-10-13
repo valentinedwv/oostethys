@@ -100,25 +100,7 @@ public class SOS_Servlet extends HttpServlet {
 
 	}
 
-//	private void throwError_(Exception e, OutputStream outputStream) {
-//		StringBuffer buffy = new StringBuffer(100);
-//		buffy.append("<html>");
-//		buffy.append("<h2>");
-//		buffy.append("<p><b>Errors found: </b></p>");
-//		StackTraceElement[] ele = e.getStackTrace();
-//		for (int i = 0; i < ele.length; i++) {
-//			buffy.append(ele.toString() + "<br>");
-//		}
-//		buffy.append("<\\html>");
-//		try {
-//			outputStream.write(buffy.toString().getBytes());
-//			outputStream.close();
-//		} catch (IOException e1) {
-//		
-//			e1.printStackTrace();
-//		}
-//
-//	}
+
 
 	private URL getOOSTethysConfigFile() {
 		return Thread.currentThread().getContextClassLoader().getResource(
