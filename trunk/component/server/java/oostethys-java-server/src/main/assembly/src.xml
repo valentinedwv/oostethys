@@ -1,0 +1,48 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1 hhttp://maven.apache.org/xsd/assembly-1.1.1.xsd">
+
+	<id>${project.artifactId}-${project.version}-r${buildNumber}</id>
+	
+
+
+	<formats>
+		<format>zip</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<directory>target/oostethys/img/</directory>
+			
+			<outputDirectory>img</outputDirectory>
+			
+			<excludes/>
+			<fileMode/>
+			<directoryMode/>
+		</fileSet>
+	</fileSets>
+	
+	<files>
+		<file>
+			<source>src/main/webapp/instructions.html</source>
+			<outputDirectory>/</outputDirectory>
+			
+			<filtered>
+				true
+			</filtered>
+
+		</file>
+		<file>
+			<source>target/oostethys.war</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		
+
+	</files>
+
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+	
+
+
+
+
+</assembly>
