@@ -7,7 +7,33 @@
 
 
 <body>
-<h1>New</h1>
+<h1>New and Noteworthy</h1>
+
+<h2>${project.version}</h2>
+<br>${project.artifactId}_${project.version}_r${buildNumber}_${timestamp}<br>
+<li>Added support to provide OpenDAP queries in the configuration file. For example the following URL can be provided in the configuration file <b>http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.dods?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]</b></li>
+<li>In the configuration file the URI of each variable should be provided. The toolkit could not do good guesses all the times since not all the netCDF and OpenDAP servers are CF compliant.  </li>
+<li>All the code is now available as MAVEN modules.</li>
+<li>NETCDF JAVA library was updated to 4.1.</li>
+<li>Check page provides random view of the data.</li>
+<li>Team Engine checks was added to the build. This means that the SOS services created by the toolkit is being tested with OGC test code.</li>
+
+<h2>0.3.11_20091007</h2>
+<ul>
+	<li>Added check functionality to test the configuration where errors are displayed in a web page. </li>
+</ul>
+
+<h2>0.3.10_20090529</h2>
+<ul>
+	<li>Minor bugs fixex</li>
+</ul>
+
+<h2>0.3.9_20090428</h2>
+<ul>
+	<li>Minor bugs fixex</li>
+</ul>
+
+
 
 <h2>0.3.8_20081122</h2>
 <ul>

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sos:Capabilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosGetCapabilities.xsd"
-    xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:gml="http://www.opengis.net/gml" xmlns:swe="http://www.opengis.net/swe/1.0"
-    xmlns:sos="http://www.opengis.net/sos/1.0" version="1.0.0">
+<sos:Capabilities xmlns:sos="http://www.opengis.net/sos/1.0"
+                  xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:ows="http://www.opengis.net/ows/1.1"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:gml="http://www.opengis.net/gml"
+                  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+                  xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosGetCapabilities.xsd"
+                  version="1.0.0">
+
     <!--~~~~~~~~~~~~~~~~~~~~~~~~-->
     <!-- Service Identification -->
     <!--~~~~~~~~~~~~~~~~~~~~~~~~-->
     <ows:ServiceIdentification>
         <ows:Title>Sensor Observation Service (SOS) for MBARI </ows:Title>
-        <ows:Abstract>This is a Sensor Observation Observice (SOS) for MBARI Platform Mooring M2 </ows:Abstract>
+        <ows:Abstract>This is a Sensor Observation Service (SOS) for MBARI Platform Mooring M2 </ows:Abstract>
         <ows:ServiceType codeSpace="http://opengeospatial.net">OGC:SOS</ows:ServiceType>
         <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+        
 
     </ows:ServiceIdentification>
     <!--~~~~~~~~~~~~~~~~~~~~~~-->

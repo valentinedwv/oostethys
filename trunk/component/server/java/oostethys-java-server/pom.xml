@@ -10,6 +10,7 @@
 	
 	<packaging>war</packaging>
 	<name>OOSTethys server</name>
+	<version>0.4.0</version>
 	
 	<description>OOSTethys is a community of software developers and marine scientists who develop open source tools to integrate
   observing systems. We are developing applications that support the OGC Sensor Web Enablement. Currently we have reference
@@ -17,9 +18,7 @@
   server.</description>
 	<url>http://code.google.com/p/oostethys/</url>
 	<scm>
-		<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/oostethys-java-server/
-	
-	</developerConnection>
+		<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/oostethys-java-server/</developerConnection>
 		<url>http://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server/</url>
 
 	</scm>
@@ -70,6 +69,12 @@
 	<build>
 		<finalName>oostethys</finalName>
 		
+		<!--<filters>
+			<filter>src/main/filter/filter.properties</filter>
+		</filters>
+		
+		-->
+		
 		<plugins>
 			<plugin>
 				
@@ -80,22 +85,40 @@
 
 
 				<configuration>
+					<!-- In version 2.1-alpha-1, this was incorrectly named warSourceExcludes -->
+					<packagingExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
+					</packagingExcludes>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+						</manifestEntries>
+						
+					</archive>
 					
+					
+					<!--
 					<filters>
 						<filter>src/main/filter/filter.properties</filter>
 					</filters>
+					
+					-->
 					<webResources>
 						<resource>
 							<directory>src/main/webapp</directory>
 							<filtering>true</filtering>
 							
 						</resource>
+						
 					</webResources>
 					
-					
 					<finalName>oostethys</finalName>
-					<warSourceExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
-					</warSourceExcludes>
+					<!--<warSourceExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
+					</warSourceExcludes>-->
 					<filtering>true</filtering>
 			</configuration>
 				
@@ -186,11 +209,23 @@
 					</execution>
 				</executions>
 				<configuration>
-					<doCheck>false</doCheck>
+					<!--
+						if using this will not work !
+						<buildNumberPropertyName>sources.version</buildNumberPropertyName>
+					
+					-->
+					<timestampPropertyName>timestamp</timestampPropertyName>
+					<timestampFormat>{0,date,yyyy-MM-dd'T'HHmmZ}</timestampFormat>
+					
+					<doCheck>${buildnumber.doCheck}</doCheck>
+					
 					<doUpdate>false</doUpdate>
+					
 					<providerImplementations>
 						<svn>javasvn</svn>
 					</providerImplementations>
+					
+					
 					
 				</configuration>
 			</plugin>
@@ -217,6 +252,7 @@
 				
 				
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -231,14 +267,17 @@
 								
 								<tstamp>
 									<format property="last.updated"
-										pattern="yyyy-MM-dd hh:mm:ss Z"/>
+										pattern="yyyyMMddhhmmssZ"/>
 								</tstamp>
+								
 								<echo file="src/main/filter/filter.properties" message="build.time=${last.updated}"/>
 							</tasks>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+			
+			-->
 			
 		</plugins>
 	</build>
@@ -374,7 +413,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<properties>
-		
-	</properties>
+	
 </project>
