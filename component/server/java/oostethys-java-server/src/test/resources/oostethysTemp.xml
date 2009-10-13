@@ -1,40 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<oos:oostethys xmlns:oos="http://www.oostethys.org/schemas/0.1.0/oostethys"><oos:serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <oos:urlOrganization>http://www.marinemetadata.org</oos:urlOrganization>
-        <oos:longNameOrganization>Marine Metadata Interoperability Initiative (MMI)</oos:longNameOrganization>
-        <oos:shortNameOrganization>MMI</oos:shortNameOrganization>
-        <oos:individualName/>
-        <oos:individualEmail/>
-    </oos:serviceContact><oos:components><oos:system><oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <oos:sytemLongName>Monterey Bay Aquarium Research Institute Observing System</oos:sytemLongName>
-                <oos:systemShortName>MBARI</oos:systemShortName>
-                <oos:systemIdentifier>urn:mbari:org</oos:systemIdentifier>
-                <oos:systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</oos:systemType>
-                <oos:systemContacts>
-                    <oos:systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
-                        <oos:urlOrganization>http://www.mbari.org</oos:urlOrganization>
-                        <oos:longNameOrganization>Monterey Bay Aquarium Research Institute</oos:longNameOrganization>
-                        <oos:shortNameOrganization>MBARI</oos:shortNameOrganization>
-                        <oos:individualName>John Graybeal</oos:individualName>
-                        <oos:individualEmail>graybeal@mbari.org</oos:individualEmail>
-                    </oos:systemContact>
-                </oos:systemContacts>
-            </oos:metadata><oos:components><oos:system><oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                        <oos:sytemLongName>Mooring M2</oos:sytemLongName>
-                        <oos:systemShortName>m2</oos:systemShortName>
-                        <oos:systemIdentifier>uri:mbari:org:mooring:m2</oos:systemIdentifier>
-                        <oos:systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</oos:systemType>
-                        <oos:systemContacts/>
-                    </oos:metadata><oos:components><oos:system><oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                                <oos:sytemLongName>Serial CTD</oos:sytemLongName>
-                                <oos:systemShortName>1455</oos:systemShortName>
-                                <oos:systemIdentifier>urn:mbari:org:device:1455</oos:systemIdentifier>
-                                <oos:systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</oos:systemType>
-                                <oos:systemContacts/>
-                            </oos:metadata><oos:extend><oos:timePeriod><oos:start>2008-06-16T19:57:22Z</oos:start><oos:end>2008-06-16T23:06:21Z</oos:end></oos:timePeriod><oos:boundingBox><oos:envelope><oos:lowerCorner>36.69623 -122.39965</oos:lowerCorner><oos:upperCorner>36.69623 -122.39965</oos:upperCorner></oos:envelope></oos:boundingBox></oos:extend><oos:components/><oos:output><oos:variables><oos:variable uri="urn:ogc:phenomenon:time:iso8601" name="time GMT" uom="seconds since 1970-01-01 00:00:00" isCoordinate="true" isTime="true"/><oos:variable uri="urn:ogc:phenomenon:latitude:wgs84" name="latitude" uom="degrees_north" isCoordinate="true"/><oos:variable uri="urn:ogc:phenomenon:longitude:wgs84" name="longitude" uom="degrees_east" isCoordinate="true"/><oos:variable uri="http://marinemetadata.org/cf#Temperature" name="Temperature" uom="deg C" isCoordinate="false"/><oos:variable uri="http://marinemetadata.org/cf#Conductivity" name="Conductivity" uom="S/m" isCoordinate="false"/><oos:variable uri="http://marinemetadata.org/cf#Pressure" name="Pressure" uom="decibars" isCoordinate="false"/></oos:variables><oos:values> 2008-06-16T19:57:22Z,36.69623,-122.39965,11.7318,3.81848,9.979 2008-06-16T20:06:18Z,36.69623,-122.39965,11.7575,3.82036,10.021 2008-06-16T20:16:19Z,36.69623,-122.39965,11.7541,3.82019,10.39 2008-06-16T20:26:19Z,36.69623,-122.39965,11.7436,3.81922,10.446 2008-06-16T20:36:19Z,36.69623,-122.39965,11.7368,3.81917,9.65 2008-06-16T20:46:20Z,36.69623,-122.39965,11.7271,3.81879,9.719 2008-06-16T20:56:19Z,36.69623,-122.39965,11.743,3.81969,10.555 2008-06-16T21:06:21Z,36.69623,-122.39965,11.7169,3.81801,10.395 2008-06-16T21:16:19Z,36.69623,-122.39965,11.7195,3.81823,10.193 2008-06-16T21:26:19Z,36.69623,-122.39965,11.757,3.82094,9.076 2008-06-16T21:36:19Z,36.69623,-122.39965,11.7375,3.81949,9.924 2008-06-16T21:46:18Z,36.69623,-122.39965,11.7588,3.82114,9.78 2008-06-16T21:56:18Z,36.69623,-122.39965,11.7665,3.82174,9.628 2008-06-16T22:06:21Z,36.69623,-122.39965,11.7323,3.81882,9.372 2008-06-16T22:16:19Z,36.69623,-122.39965,11.7282,3.81908,10.065 2008-06-16T22:26:19Z,36.69623,-122.39965,11.7421,3.81941,10.304 2008-06-16T22:36:19Z,36.69623,-122.39965,11.7386,3.8198,9.557 2008-06-16T22:46:20Z,36.69623,-122.39965,11.716,3.81841,9.987 2008-06-16T22:56:19Z,36.69623,-122.39965,11.7312,3.81975,9.365 2008-06-16T23:06:21Z,36.69623,-122.39965,11.7193,3.81931,9.154</oos:values></oos:output></oos:system><oos:system><oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                                <oos:sytemLongName>Aanderaa Oxygen Optode (aanderaaoxy) </oos:sytemLongName>
-                                <oos:systemShortName>1595</oos:systemShortName>
-                                <oos:systemIdentifier>urn:mbari:org:device:1595</oos:systemIdentifier>
-                                <oos:systemType>http://mmisw.org/mmi/20080529/sensor.owl#OxygenSensor</oos:systemType>
-                                <oos:systemContacts/>
-                            </oos:metadata><oos:extend><oos:timePeriod><oos:start>2008-06-16T19:56:41Z</oos:start><oos:end>2008-06-16T23:05:30Z</oos:end></oos:timePeriod><oos:boundingBox><oos:envelope><oos:lowerCorner>36.69623 -122.39965</oos:lowerCorner><oos:upperCorner>36.69623 -122.39965</oos:upperCorner></oos:envelope></oos:boundingBox></oos:extend><oos:components/><oos:output><oos:variables><oos:variable uri="urn:ogc:phenomenon:time:iso8601" name="time GMT" uom="seconds since 1970-01-01 00:00:00" isCoordinate="true" isTime="true"/><oos:variable uri="urn:ogc:phenomenon:latitude:wgs84" name="latitude" uom="degrees_north" isCoordinate="true"/><oos:variable uri="urn:ogc:phenomenon:longitude:wgs84" name="longitude" uom="degrees_east" isCoordinate="true"/><oos:variable uri="http://marinemetadata.org/cf#checkString" name="checkString" uom="string" isCoordinate="false"/><oos:variable uri="http://marinemetadata.org/cf#Oxygen" name="Oxygen" uom="mmol/l" isCoordinate="false"/><oos:variable uri="http://marinemetadata.org/cf#OxygenAirSaturation" name="OxygenAirSaturation" uom="percent" isCoordinate="false"/><oos:variable uri="http://marinemetadata.org/cf#temperature" name="temperature" uom="deg C" isCoordinate="false"/></oos:variables><oos:values> 2008-06-16T19:56:41Z,36.69623,-122.39965,390,340.02,100.5,11.73 2008-06-16T20:05:29Z,36.69623,-122.39965,390,339.51,100.36,11.73 2008-06-16T20:16:43Z,36.69623,-122.39965,390,339.83,100.42,11.72 2008-06-16T20:25:29Z,36.69623,-122.39965,390,339.44,100.33,11.73 2008-06-16T20:36:41Z,36.69623,-122.39965,390,339.7,100.43,11.74 2008-06-16T20:45:29Z,36.69623,-122.39965,390,339.5,100.35,11.73 2008-06-16T20:56:41Z,36.69623,-122.39965,390,339.82,100.44,11.73 2008-06-16T21:05:30Z,36.69623,-122.39965,390,339.54,100.35,11.73 2008-06-16T21:16:41Z,36.69623,-122.39965,390,339.98,100.52,11.74 2008-06-16T21:25:29Z,36.69623,-122.39965,390,339.8,100.42,11.72 2008-06-16T21:36:42Z,36.69623,-122.39965,390,340.96,100.78,11.73 2008-06-16T21:45:29Z,36.69623,-122.39965,390,339.46,100.36,11.74 2008-06-16T21:56:41Z,36.69623,-122.39965,390,339.62,100.42,11.75 2008-06-16T22:05:30Z,36.69623,-122.39965,390,340.53,100.68,11.74 2008-06-16T22:16:42Z,36.69623,-122.39965,390,340.21,100.57,11.73 2008-06-16T22:25:29Z,36.69623,-122.39965,390,339.53,100.36,11.73 2008-06-16T22:36:42Z,36.69623,-122.39965,390,339.73,100.39,11.72 2008-06-16T22:45:29Z,36.69623,-122.39965,390,339.72,100.38,11.72 2008-06-16T22:56:41Z,36.69623,-122.39965,390,341.08,100.79,11.72 2008-06-16T23:05:30Z,36.69623,-122.39965,390,339.65,100.33,11.7</oos:values></oos:output></oos:system></oos:components></oos:system></oos:components></oos:system></oos:components></oos:oostethys>
+<oos:oostethys xmlns:oos="http://www.oostethys.org/schemas/0.1.0/oostethys">
+	<oos:serviceContact
+		type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<oos:urlOrganization>http://www.marinemetadata.org
+		</oos:urlOrganization>
+		<oos:longNameOrganization>Marine Metadata Interoperability Initiative
+			(MMI)</oos:longNameOrganization>
+		<oos:shortNameOrganization>MMI</oos:shortNameOrganization>
+		<oos:individualName />
+		<oos:individualEmail />
+	</oos:serviceContact>
+	<oos:components>
+		<oos:system>
+			<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<oos:sytemLongName>Monterey Bay Aquarium Research Institute
+					Observing System</oos:sytemLongName>
+				<oos:systemShortName>MBARI</oos:systemShortName>
+				<oos:systemIdentifier>urn:mbari:org</oos:systemIdentifier>
+				<oos:systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem
+				</oos:systemType>
+				<oos:systemContacts>
+					<oos:systemContact
+						type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+						<oos:urlOrganization>http://www.mbari.org</oos:urlOrganization>
+						<oos:longNameOrganization>Monterey Bay Aquarium Research Institute
+						</oos:longNameOrganization>
+						<oos:shortNameOrganization>MBARI</oos:shortNameOrganization>
+						<oos:individualName>John Graybeal</oos:individualName>
+						<oos:individualEmail>graybeal@mbari.org</oos:individualEmail>
+					</oos:systemContact>
+				</oos:systemContacts>
+			</oos:metadata>
+			<oos:components>
+				<oos:system>
+					<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<oos:sytemLongName>Mooring M2</oos:sytemLongName>
+						<oos:systemShortName>m2</oos:systemShortName>
+						<oos:systemIdentifier>uri:mbari:org:mooring:m2
+						</oos:systemIdentifier>
+						<oos:systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy
+						</oos:systemType>
+						<oos:systemContacts />
+					</oos:metadata>
+					<oos:components>
+						<oos:system>
+							<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								<oos:sytemLongName>Serial CTD</oos:sytemLongName>
+								<oos:systemShortName>1455</oos:systemShortName>
+								<oos:systemIdentifier>urn:mbari:org:device:1455
+								</oos:systemIdentifier>
+								<oos:systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD
+								</oos:systemType>
+								<oos:systemContacts />
+							</oos:metadata>
+							<oos:extend>
+								<oos:timePeriod>
+									<oos:start>2008-06-16T19:57:22Z</oos:start>
+									<oos:end>2008-06-16T23:06:21Z</oos:end>
+								</oos:timePeriod>
+								<oos:boundingBox>
+									<oos:envelope>
+										<oos:lowerCorner>36.69623 -122.39965</oos:lowerCorner>
+										<oos:upperCorner>36.69623 -122.39965</oos:upperCorner>
+									</oos:envelope>
+								</oos:boundingBox>
+							</oos:extend>
+							<oos:components />
+							<oos:output>
+								<oos:variables>
+									<oos:variable uri="urn:ogc:phenomenon:time:iso8601"
+										name="time GMT" uom="seconds since 1970-01-01 00:00:00"
+										isCoordinate="true" isTime="true" />
+									<oos:variable uri="urn:ogc:phenomenon:latitude:wgs84"
+										name="latitude" uom="degrees_north" isCoordinate="true" />
+									<oos:variable uri="urn:ogc:phenomenon:longitude:wgs84"
+										name="longitude" uom="degrees_east" isCoordinate="true" />
+									<oos:variable uri="http://marinemetadata.org/cf#Temperature"
+										name="Temperature" uom="deg C" isCoordinate="false" />
+									<oos:variable uri="http://marinemetadata.org/cf#Conductivity"
+										name="Conductivity" uom="S/m" isCoordinate="false" />
+									<oos:variable uri="http://marinemetadata.org/cf#Pressure"
+										name="Pressure" uom="decibars" isCoordinate="false" />
+								</oos:variables>
+								<oos:values>
+									2008-06-16T19:57:22Z,36.69623,-122.39965,11.7318,3.81848,9.979
+									2008-06-16T20:06:18Z,36.69623,-122.39965,11.7575,3.82036,10.021
+									2008-06-16T20:16:19Z,36.69623,-122.39965,11.7541,3.82019,10.39
+									2008-06-16T20:26:19Z,36.69623,-122.39965,11.7436,3.81922,10.446
+									2008-06-16T20:36:19Z,36.69623,-122.39965,11.7368,3.81917,9.65
+									2008-06-16T20:46:20Z,36.69623,-122.39965,11.7271,3.81879,9.719
+									2008-06-16T20:56:19Z,36.69623,-122.39965,11.743,3.81969,10.555
+									2008-06-16T21:06:21Z,36.69623,-122.39965,11.7169,3.81801,10.395
+									2008-06-16T21:16:19Z,36.69623,-122.39965,11.7195,3.81823,10.193
+									2008-06-16T21:26:19Z,36.69623,-122.39965,11.757,3.82094,9.076
+									2008-06-16T21:36:19Z,36.69623,-122.39965,11.7375,3.81949,9.924
+									2008-06-16T21:46:18Z,36.69623,-122.39965,11.7588,3.82114,9.78
+									2008-06-16T21:56:18Z,36.69623,-122.39965,11.7665,3.82174,9.628
+									2008-06-16T22:06:21Z,36.69623,-122.39965,11.7323,3.81882,9.372
+									2008-06-16T22:16:19Z,36.69623,-122.39965,11.7282,3.81908,10.065
+									2008-06-16T22:26:19Z,36.69623,-122.39965,11.7421,3.81941,10.304
+									2008-06-16T22:36:19Z,36.69623,-122.39965,11.7386,3.8198,9.557
+									2008-06-16T22:46:20Z,36.69623,-122.39965,11.716,3.81841,9.987
+									2008-06-16T22:56:19Z,36.69623,-122.39965,11.7312,3.81975,9.365
+									2008-06-16T23:06:21Z,36.69623,-122.39965,11.7193,3.81931,9.154
+								</oos:values>
+							</oos:output>
+						</oos:system>
+						<oos:system>
+							<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+								<oos:sytemLongName>Aanderaa Oxygen Optode (aanderaaoxy)
+								</oos:sytemLongName>
+								<oos:systemShortName>1595</oos:systemShortName>
+								<oos:systemIdentifier>urn:mbari:org:device:1595
+								</oos:systemIdentifier>
+								<oos:systemType>http://mmisw.org/mmi/20080529/sensor.owl#OxygenSensor
+								</oos:systemType>
+								<oos:systemContacts />
+							</oos:metadata>
+							<oos:extend>
+								<oos:timePeriod>
+									<oos:start>2008-06-16T19:56:41Z</oos:start>
+									<oos:end>2008-06-16T23:05:30Z</oos:end>
+								</oos:timePeriod>
+								<oos:boundingBox>
+									<oos:envelope>
+										<oos:lowerCorner>36.69623 -122.39965</oos:lowerCorner>
+										<oos:upperCorner>36.69623 -122.39965</oos:upperCorner>
+									</oos:envelope>
+								</oos:boundingBox>
+							</oos:extend>
+							<oos:components />
+							<oos:output>
+								<oos:variables>
+									<oos:variable uri="urn:ogc:phenomenon:time:iso8601"
+										name="time GMT" uom="seconds since 1970-01-01 00:00:00"
+										isCoordinate="true" isTime="true" />
+									<oos:variable uri="urn:ogc:phenomenon:latitude:wgs84"
+										name="latitude" uom="degrees_north" isCoordinate="true" />
+									<oos:variable uri="urn:ogc:phenomenon:longitude:wgs84"
+										name="longitude" uom="degrees_east" isCoordinate="true" />
+									<oos:variable uri="http://marinemetadata.org/cf#checkString"
+										name="checkString" uom="string" isCoordinate="false" />
+									<oos:variable uri="http://marinemetadata.org/cf#Oxygen"
+										name="Oxygen" uom="mmol/l" isCoordinate="false" />
+									<oos:variable
+										uri="http://marinemetadata.org/cf#OxygenAirSaturation" name="OxygenAirSaturation"
+										uom="percent" isCoordinate="false" />
+									<oos:variable uri="http://marinemetadata.org/cf#temperature"
+										name="temperature" uom="deg C" isCoordinate="false" />
+								</oos:variables>
+								<oos:values>
+									2008-06-16T19:56:41Z,36.69623,-122.39965,390,340.02,100.5,11.73
+									2008-06-16T20:05:29Z,36.69623,-122.39965,390,339.51,100.36,11.73
+									2008-06-16T20:16:43Z,36.69623,-122.39965,390,339.83,100.42,11.72
+									2008-06-16T20:25:29Z,36.69623,-122.39965,390,339.44,100.33,11.73
+									2008-06-16T20:36:41Z,36.69623,-122.39965,390,339.7,100.43,11.74
+									2008-06-16T20:45:29Z,36.69623,-122.39965,390,339.5,100.35,11.73
+									2008-06-16T20:56:41Z,36.69623,-122.39965,390,339.82,100.44,11.73
+									2008-06-16T21:05:30Z,36.69623,-122.39965,390,339.54,100.35,11.73
+									2008-06-16T21:16:41Z,36.69623,-122.39965,390,339.98,100.52,11.74
+									2008-06-16T21:25:29Z,36.69623,-122.39965,390,339.8,100.42,11.72
+									2008-06-16T21:36:42Z,36.69623,-122.39965,390,340.96,100.78,11.73
+									2008-06-16T21:45:29Z,36.69623,-122.39965,390,339.46,100.36,11.74
+									2008-06-16T21:56:41Z,36.69623,-122.39965,390,339.62,100.42,11.75
+									2008-06-16T22:05:30Z,36.69623,-122.39965,390,340.53,100.68,11.74
+									2008-06-16T22:16:42Z,36.69623,-122.39965,390,340.21,100.57,11.73
+									2008-06-16T22:25:29Z,36.69623,-122.39965,390,339.53,100.36,11.73
+									2008-06-16T22:36:42Z,36.69623,-122.39965,390,339.73,100.39,11.72
+									2008-06-16T22:45:29Z,36.69623,-122.39965,390,339.72,100.38,11.72
+									2008-06-16T22:56:41Z,36.69623,-122.39965,390,341.08,100.79,11.72
+									2008-06-16T23:05:30Z,36.69623,-122.39965,390,339.65,100.33,11.7
+								</oos:values>
+							</oos:output>
+						</oos:system>
+					</oos:components>
+				</oos:system>
+			</oos:components>
+		</oos:system>
+	</oos:components>
+</oos:oostethys>

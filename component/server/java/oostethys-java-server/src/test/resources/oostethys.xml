@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../xml/oostethys/0.1.0/oostethys.xsd">
+    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../../main/resources/xml/oostethys/0.1.0/xsd/oostethys.xsd">
     
     <!-- 
     
@@ -101,15 +101,17 @@
 				                             lat, lon and time coordinates should be given 
 				                            -->
                                         
-                                        <variables>
-                                            <variable shortName="esecs"/>
-                                            <variable shortName="Longitude"/>
-                                            <variable shortName="Latitude"/>
-                                            <variable shortName="NominalDepth"/>
-                                            <variable shortName="Temperature"/>
-                                            <variable shortName="Conductivity"/>
-                                            <variable shortName="Pressure"/>
-                                            <variable shortName="Salinity"/>
+                                       
+                                        
+                                          <variables>
+                                            <variable shortName="esecs" dimension="time" uri="http://mmisw.org/ont/cf/parameter/iso_19118_time"/>
+                                            <variable shortName="Longitude" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/>
+                                            <variable shortName="Latitude" dimension="latitude" uri="urn:ogc:phenomenon:latitude:wgs84"/>
+                                            <variable shortName="NominalDepth" dimension="depth" uri="http://mmisw.org/ont/cf/parameter/depth"/>
+                                            <variable shortName="Temperature" dimension="no" uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature"/>
+                                            <variable shortName="Conductivity" dimension="no" uri="http://mmisw.org/ont/cf/parameter/conductivity"/>
+                                            <variable shortName="Pressure" dimension="no" uri="http://mmisw.org/ont/cf/parameter/pressure"/>
+                                            <variable shortName="Salinity" dimension="no" uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity"/>
                                         </variables>
                                     </oostethys-netcdf>
                                 </sourceConfiguration>
