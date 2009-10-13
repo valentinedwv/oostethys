@@ -21,8 +21,7 @@ public class TestOM_NG extends OOSTethysTest {
 		ns.setUrlOostethys(file);
 		ns.setServletURL("http://localhost:8080/sss");
 
-		// ns.setValue_BBOX(bbox);
-
+		
 		String fileRequest = getURL("getObsNG.xml").getFile();
 		InputStream inputStream;
 			inputStream = new FileInputStream(fileRequest);

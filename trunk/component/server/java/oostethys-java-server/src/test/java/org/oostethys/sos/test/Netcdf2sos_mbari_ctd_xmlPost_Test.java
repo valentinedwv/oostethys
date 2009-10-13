@@ -85,7 +85,7 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 			String s = outputStream.toString();
 			
 			assertContains(s, "<om:ObservationCollection");
-			assertContains(s, "2008-06-10T01:06:20Z,36.69623,-122.39965,10,1,213,059,980,-122.39965,36.69623,10,12.3123,3.83887,8.845,33.152874 2008-06-10T01:16:");
+			assertContains(s, "2008-06-10T01:06:20Z,36.69623,-122.39965,10,12.3123,3.83887,8.845,33.152874 2008-06-10T01:16:19Z,36.69623,-122.39965,10,12.3239,3.83938,9.38");
 			assertContains(s, " <om:procedure xlink:href=\"urn:mbari:org:device:1455\"/>");
 
 	}

@@ -16,5 +16,6 @@ public class Netcdf2sos_example_model_outputTest extends OOSTethysTest {
 
         ns.setUrlOostethys(url);
         ns.processForTest();
+//        System.out.println(ns.getOostDocTemp().toString());
     }
 }
