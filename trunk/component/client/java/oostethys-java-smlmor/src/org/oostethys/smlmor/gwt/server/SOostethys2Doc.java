@@ -14,14 +14,12 @@ import org.oostethys.schemas.x010.oostethys.SystemContactDocument.SystemContact;
 import org.oostethys.schemas.x010.oostethys.SystemContactsDocument.SystemContacts;
 import org.oostethys.schemas.x010.oostethys.VariableDocument.Variable;
 import org.oostethys.schemas.x010.oostethys.VariablesDocument.Variables;
+import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupModel;
 import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupValues;
 import org.oostethys.smlmor.gwt.client.rpc.model.AttributeModel;
-import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupModel;
-import org.oostethys.smlmor.gwt.client.rpc.model.MetadataModel;
 import org.oostethys.smlmor.gwt.client.rpc.model.MetadataValues;
-import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
-import org.oostethys.smlmor.gwt.client.rpc.model.SystemModel;
 import org.oostethys.smlmor.gwt.client.rpc.model.SystemValues;
 
 /**
@@ -31,17 +29,17 @@ import org.oostethys.smlmor.gwt.client.rpc.model.SystemValues;
 public class SOostethys2Doc {
 
 	static OostethysDocument getoostethysDocument(
-			OostethysModel oostModel,
+			BasicModels basicModels,
 			OostethysValues oostValues
 	) {
 		OostethysDocument oostethysDocument = OostethysDocument.Factory.newInstance();
 		Oostethys oostethys = oostethysDocument.addNewOostethys();
 
 		oostethys.setWebServerURL(oostValues.getWebServerUrl());
-		setOostethysValues(oostModel.getServiceContact(), 
+		setOostethysValues(basicModels.getServiceContact(), 
 				oostValues.getServiceContactValues(), oostethys);
 		
-		AttrGroupModel sserviceContact = oostModel.getServiceContact();
+		AttrGroupModel sserviceContact = basicModels.getServiceContact();
 		AttrGroupValues serviceContactValues = oostValues.getServiceContactValues();
 		if ( serviceContactValues != null ) {
 			ServiceContact serviceContact = oostethys.addNewServiceContact();
@@ -49,8 +47,8 @@ public class SOostethys2Doc {
 		}
 		
 		
-		SystemModel systemModel = oostModel.getSystemModel();
-		MetadataModel metadataModel = systemModel.getMetadataModel();
+//		SystemModel systemModel = models.getSystemModel();
+//		MetadataModel metadataModel = systemModel.getMetadataModel();
 		
 		List<SystemValues> systemValuesList = oostValues.getSystemValuesList();
 		
@@ -71,22 +69,37 @@ public class SOostethys2Doc {
 					
 					AttrGroupValues systemContactValues = metadataValues.getSystemContactValues();
 					if ( systemContactValues != null ) {
-						setContactValues(metadataModel.getSystemContact(), systemContactValues, systemContact);
+						setContactValues(basicModels.getSystemContact(), systemContactValues, systemContact);
 					}
 					
 					AttrGroupValues systemMetadataValues = metadataValues.getSystemMetadataValues();
 					if ( systemMetadataValues != null ) {
-						setSystemMetadataValues(metadataModel.getSystemMetadata(), systemMetadataValues, metadata);
+						setSystemMetadataValues(basicModels.getSystemMetadata(), systemMetadataValues, metadata);
 					}
 				}
 	
-	
-				Output output = system.addNewOutput();
-				Variables vars = output.addNewVariables();
-				Variable temp = vars.addNewVariable();
-				temp.setName("Temperature");
-				temp.setUom("F");
-				temp.setUri("urn:xyz:temp");
+				// choice: variables or components:
+				List<AttrGroupValues> outputValuesList = systemValues.getOutputValuesList();
+				List<SystemValues> subsystemValuesList = systemValues.getSystemValuesList();
+				
+				if ( outputValuesList != null && outputValuesList.size() > 0 ) {
+					// variables (ie, output) 
+					
+					Output output = system.addNewOutput();
+					Variables vars = output.addNewVariables();
+					
+					for ( AttrGroupValues attrGroupValues : outputValuesList ) {
+					
+						Variable variable = vars.addNewVariable();
+						setVariableValues(basicModels.getOutput(), attrGroupValues, variable);
+					}
+		
+				}
+				else if ( subsystemValuesList != null && subsystemValuesList.size() > 0 ) {
+					// components (ie, systems)
+					
+//					TODO components
+				}
 	
 			}
 		}
@@ -170,6 +183,42 @@ public class SOostethys2Doc {
 				}
 				else if ( beanAttributeName.equals("systemIdentfier") ) {
 					metadata.setSystemIdentifier(value);
+				}
+			}
+		}
+	}
+
+	
+	
+	private static void setVariableValues(AttrGroupModel attrGroup, AttrGroupValues attrGroupValues, Variable variable) {
+		
+		List<AttributeModel> attributeModels = attrGroup.getAttributes();
+		Map<String, String> values = attrGroupValues.getValues();
+
+		for ( AttributeModel attributeModel : attributeModels ) {
+			String beanAttributeName = attributeModel.getBeanAttributeName();
+			String value = values.get(beanAttributeName);
+			if ( value != null && value.trim().length() > 0 ) {
+				
+				// TODO some reflection can simplify the following, but this is a quick test
+				
+				if ( beanAttributeName.equals("name") ) {
+					variable.setName(value);
+				}
+				else if ( beanAttributeName.equals("uom") ) {
+					variable.setUom(value);
+				}
+				else if ( beanAttributeName.equals("uri") ) {
+					variable.setUri(value);
+				}
+				else if ( beanAttributeName.equals("isCoordinate") ) {
+					variable.setIsCoordinate(Boolean.valueOf(value));
+				}
+				else if ( beanAttributeName.equals("isTime") ) {
+					variable.setIsTime(Boolean.valueOf(value));
+				}
+				else if ( beanAttributeName.equals("referenceFrame") ) {
+					variable.setReferenceFrame(value);
 				}
 			}
 		}

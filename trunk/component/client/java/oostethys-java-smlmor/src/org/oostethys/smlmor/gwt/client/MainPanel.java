@@ -6,11 +6,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.TabPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,10 +26,12 @@ public class MainPanel {
 	
 	private final CellPanel container = new VerticalPanel();
 	
-//	private Widget thePanel = new Wizard(this).getWidget();
-	
 	private Controller controller;
 	private Widget thePanel;
+	
+	private TextArea textArea = createTextArea();
+	
+	private TabPanel tabPanel = createTabPanel();
 	
 	
 	private final HTML statusLabel = new HTML("");
@@ -37,29 +40,56 @@ public class MainPanel {
 	
 	
 	public MainPanel() {
-		controller = new Controller(Main.oostethysModel);
+		controller = new Controller(Main.basicModels);
 		thePanel = controller.getWidget();
 		
 		widget.setWidth("700px");
-		widget.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		widget.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		
 		container.setSpacing(4);
-		DecoratorPanel decPanel = new DecoratorPanel();
-	    decPanel.setWidget(container);
-	    widget.add(decPanel);
+	    widget.add(container);
 
-	    container.add(thePanel);
+	    container.add(new HTML(
+	    		"<h2>SensorML/TEDS Generator (semantically-enabled ;-))</h2>"));
 	    
-	    statusLabel.setHeight("20px");
-	    
-	    
-	    container.add(new PushButton("Generate SensorML", new ClickListener() {
+	    HorizontalPanel hp = new HorizontalPanel();
+	    hp.setSpacing(5);
+	    container.add(hp);
+	    hp.add(new HTML("Fill out the definitions section and then click: "));
+	    hp.add(new PushButton("Generate SensorML", new ClickListener() {
 			public void onClick(Widget sender) {
 				doGenerate();
 			}
 		}));
+	    hp.add(new PushButton("Generate TEDS", new ClickListener() {
+			public void onClick(Widget sender) {
+				Window.alert("Not implemented");
+			}
+		}));
 
-
+	    tabPanel.add(thePanel, "Definitions");
+		tabPanel.add(textArea, "SensorML");
+		tabPanel.selectTab(0);
+	    container.add(tabPanel);
+	    
+	    statusLabel.setHeight("20px");
+	}
+	
+	
+	TabPanel createTabPanel() {
+		TabPanel tabPanel = new TabPanel();	
+		tabPanel.setWidth("800px");
+		return tabPanel;
+	}
+	
+	TextArea createTextArea() {
+		TextArea textArea = new TextArea();
+		textArea.setSize("700px", "600px");
+		textArea.setVisibleLines(30);
+		textArea.setText("Click 'Generate SensorML'");
+		textArea.setReadOnly(true);
+		
+		return textArea;
 	}
 	
 	private void doGenerate() {
@@ -71,18 +101,24 @@ public class MainPanel {
 			public void onFailure(Throwable caught) {
 				String error = caught.getMessage();
 				statusLabel.setHTML(error);
+				textArea.setText("ERROR: " +error);
+				tabPanel.selectTab(1);
 				Window.alert("ERROR: " +error);
+
 			}
 
 			public void onSuccess(String result) {
 				statusLabel.setHTML("OK");
 				Main.log(result);
-				Window.alert(result);
 				
+				textArea.setText(result);
+				tabPanel.selectTab(1);
 			}
 			
 		};
 		
+		statusLabel.setHTML("Generating...");
+		textArea.setText("Generating...");
 		Main.smlmorService.getSensorML(soostValues, callback);
 	}
 

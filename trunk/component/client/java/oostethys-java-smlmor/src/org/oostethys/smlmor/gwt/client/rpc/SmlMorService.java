@@ -1,7 +1,7 @@
 package org.oostethys.smlmor.gwt.client.rpc;
 
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
-import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,8 +19,7 @@ public interface SmlMorService extends RemoteService {
 	 */
 	AppInfo getAppInfo();
 	
-	
-	OostethysModel getOostethysModel();
+	BasicModels getModels();
 	
 	String getSensorML(OostethysValues soostValues);
 	

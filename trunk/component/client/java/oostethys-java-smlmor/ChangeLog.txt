@@ -5,8 +5,29 @@ $Id$
 
 ChangeLog
 
-2009-10-09  0.0.1pre3
+2009-10-12  0.0.1
 	- Initial scheme to create interface and generate SML.
+	- The following "schema" is processed:
+		oostethys =
+			Web service URL
+			serviceContact
+			system+
+		system =
+			metadata 
+			OutputOrComponents
+		metadata =
+			systemContact
+			systemMetadata
+		OutputOrComponents = 
+			Output | system+
+		Output = 
+			variable+
+
+	- multiplicity of variables and multiplicity and nesting of systems and are handled.
+	  
+	- NOTE: oostethys2describeSensor.xsl focuses on a part of the elements for a DescribeSensor response.
+	        TODO: complement.
+	        			
 	
 2009-10-08  0.0.1pre2
 	- now includes basic generation of SML using oostethys-xmlbeans-0.3.9.jar
