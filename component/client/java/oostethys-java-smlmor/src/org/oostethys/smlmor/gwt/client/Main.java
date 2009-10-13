@@ -10,7 +10,7 @@ import org.mmisw.iserver.gwt.client.rpc.RegisteredOntologyInfo;
 import org.oostethys.smlmor.gwt.client.img.SmlMorImageBundle;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorServiceAsync;
-import org.oostethys.smlmor.gwt.client.rpc.model.OostethysModel;
+import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.util.Util;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -36,17 +36,13 @@ public class Main implements EntryPoint {
 	
 	public String footer;
 	
-	public static final String VERSION_COMMENT = 
-		"sensorml-mmiorr mock-up. ";
-	
-	
 	private static String baseUrl;
 	
 	public static SmlMorImageBundle images = (SmlMorImageBundle) GWT.create(SmlMorImageBundle.class);
 
 	private static AppInfo appInfo;
 	
-	public static OostethysModel oostethysModel;
+	static BasicModels basicModels;
 	
 	private static boolean includeLog;
 	
@@ -119,7 +115,6 @@ public class Main implements EntryPoint {
 	  RootPanel.get().add(hp);
 	  // TODO logo
 //	  hp.add(Main.images.logo().createImage());
-	  hp.add(Util.createHtml("<br/>\n" +VERSION_COMMENT, 11));
 	  RootPanel.get().add(mainPanel.getWidget());
 
       if ( includeLog ) {
@@ -169,10 +164,10 @@ public class Main implements EntryPoint {
 				RootPanel.get().add(new Label(error));
 			}
 
-			public void onSuccess(AppInfo aInfo) {
-				appInfo = aInfo;
+			public void onSuccess(AppInfo result) {
+				appInfo = result;
 				footer = appInfo.toString();
-				getOostethysModel(params);
+				getModels(params);
 			}
 		};
 
@@ -181,8 +176,8 @@ public class Main implements EntryPoint {
 	}
 
   
-	private void getOostethysModel(final Map<String, String> params) {
-		AsyncCallback<OostethysModel> callback = new AsyncCallback<OostethysModel>() {
+	private void getModels(final Map<String, String> params) {
+		AsyncCallback<BasicModels> callback = new AsyncCallback<BasicModels>() {
 			public void onFailure(Throwable thr) {
 				removeLoadingMessage();
 				String error = thr.toString();
@@ -192,25 +187,26 @@ public class Main implements EntryPoint {
 				RootPanel.get().add(new Label(error));
 			}
 
-			public void onSuccess(OostethysModel oost) {
+			public void onSuccess(BasicModels result) {
 				removeLoadingMessage();
-				oostethysModel = oost;
+				basicModels = result;
+				footer = appInfo.toString();
 				startGui(params);
 			}
 		};
 
-		log("Getting oostethys model ...");
-		smlmorService.getOostethysModel(callback);
+		log("Getting models info ...");
+		smlmorService.getModels(callback);
 	}
 
   
-  
-  // always write to this buffer, but show contents if includeLog is true
-  private static final StringBuffer log = new StringBuffer();
-  public static void log(String msg) {
-      log.append(msg+ "\n");
-      GWT.log(msg, null);
-  }
+	// always write to this buffer, but show contents if includeLog is true
+	private static final StringBuffer log = new StringBuffer();
+
+	public static void log(String msg) {
+		log.append(msg + "\n");
+		GWT.log(msg, null);
+	}
 
 	private void removeLoadingMessage() {
     	Element loadingElement = DOM.getElementById("loading");
