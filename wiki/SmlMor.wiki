@@ -22,6 +22,11 @@ The integration with ORR --to help in the specification of system types and vari
 
 = Summary of tool status =
 
+
+2009-10-14 0.0.2pre
+  * interface improved based on tabpanels
+  * http://mmisw.org/smlmor/?_log=y generates a tree dump for testing and comparison. The generated SensorML seems to be missing some settings to properly specify systems and variables.
+
 2009-10-12 first version, 0.0.1
   * generates SensorML (see [http://code.google.com/p/oostethys/source/browse/trunk/component/client/java/oostethys-java-smlmor/ChangeLog.txt ChangeLog]).
   * No yet integration with ORR
