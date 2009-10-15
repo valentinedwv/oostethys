@@ -1,5 +1,6 @@
 package org.oostethys.smlmor.gwt.client;
 
+import org.oostethys.smlmor.gwt.client.rpc.SmlResult;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 
 import com.google.gwt.user.client.Window;
@@ -96,22 +97,29 @@ public class MainPanel {
 
 		OostethysValues soostValues = controller.getOostValues();
 		
-		AsyncCallback<String> callback = new  AsyncCallback<String>() {
+		AsyncCallback<SmlResult> callback = new  AsyncCallback<SmlResult>() {
 
 			public void onFailure(Throwable caught) {
 				String error = caught.getMessage();
 				statusLabel.setHTML(error);
 				textArea.setText("ERROR: " +error);
 				tabPanel.selectTab(1);
-				Window.alert("ERROR: " +error);
-
 			}
 
-			public void onSuccess(String result) {
-				statusLabel.setHTML("OK");
-				Main.log("generation completed.");
-				textArea.setText(result);
-				tabPanel.selectTab(1);
+			public void onSuccess(SmlResult result) {
+				Main.log("---generation completed---");
+				Main.log("Tree dump:\n" +result.getDump());
+				if ( result.getError() != null ) {
+					String error = result.getError();
+					statusLabel.setHTML(error);
+					textArea.setText("ERROR: " +error);
+					tabPanel.selectTab(1);
+				}
+				else {
+					statusLabel.setHTML("OK");
+					textArea.setText(result.getSml());
+					tabPanel.selectTab(1);
+				}
 			}
 			
 		};

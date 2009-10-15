@@ -19,6 +19,6 @@ public interface SmlMorServiceAsync {
 	
 	void getModels(AsyncCallback<BasicModels> callback);
 	
-	void getSensorML(OostethysValues soostValues, AsyncCallback<String> callback);
+	void getSensorML(OostethysValues soostValues, AsyncCallback<SmlResult> callback);
 	
 }
