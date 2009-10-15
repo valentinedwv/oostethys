@@ -12,6 +12,7 @@ import org.mmisw.iserver.core.Server;
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
 import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
+import org.oostethys.smlmor.gwt.client.rpc.SmlResult;
 import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 
@@ -89,23 +90,28 @@ public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorSer
 
 
 	
-	public String getSensorML(OostethysValues soostValues) {
+	public SmlResult getSensorML(OostethysValues soostValues) {
 		if ( basicModels == null ) {
 			throw new IllegalStateException("getModels must be called first");
 		}
 		
-		OostethysDocument doc = SOostethys2Doc.getoostethysDocument(
-				basicModels, soostValues
-		);
+		SmlResult smlResult = new SmlResult();
+		
+		SOostethys2Doc soost2doc = new SOostethys2Doc(basicModels, soostValues);
+		OostethysDocument doc = soost2doc.getOostethysDocument();
+		smlResult.setDump(soost2doc.getDump());
+		
 		Writer os = new StringWriter();
 		try {
 			Doc2Sml.getSensorML(doc, os);
+			smlResult.setSml(os.toString());
 		}
 		catch (Exception e) {
-			return "Error: " +e.getMessage();
+			String error = "Error: " +e.getMessage();
+			smlResult.setError(error);
 		}
 		
-		return os.toString();
+		return smlResult;
 	}
 
 	

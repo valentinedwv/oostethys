@@ -21,6 +21,6 @@ public interface SmlMorService extends RemoteService {
 	
 	BasicModels getModels();
 	
-	String getSensorML(OostethysValues soostValues);
+	SmlResult getSensorML(OostethysValues soostValues);
 	
 }
