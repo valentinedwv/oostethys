@@ -38,8 +38,8 @@ class ModelsCreator {
 	private static AttrGroupModel createSystemMetadataModel(String name, String htmlInfo) {
 		AttrGroupModel contact = new AttrGroupModel(name, htmlInfo);
 		contact.addAttributes(
-				new AttributeModel("systemType", "type", "urn:xxx:sytem:type"),
 				new AttributeModel("systemShortName", "Short name", "seabird-ctd"),
+				new AttributeModel("systemType", "type", "urn:xxx:sytem:type"),
 				new AttributeModel("sytemLongName", "Long name", "Seabird XXX CTD Sensor"),
 				new AttributeModel("systemIdentifier", "Identifier", "id1:idx2")
 		);

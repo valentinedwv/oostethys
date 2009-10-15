@@ -109,8 +109,7 @@ public class MainPanel {
 
 			public void onSuccess(String result) {
 				statusLabel.setHTML("OK");
-				Main.log(result);
-				
+				Main.log("generation completed.");
 				textArea.setText(result);
 				tabPanel.selectTab(1);
 			}

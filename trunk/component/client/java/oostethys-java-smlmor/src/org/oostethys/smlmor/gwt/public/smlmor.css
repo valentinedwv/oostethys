@@ -18,6 +18,10 @@
 
 #my-button-id { font-size: 70%; }
 
+#my-tiny-button-id { 
+	font-size: 10%; 
+}
+
 .SearchResultsTable {
   min-width: 400px;
   _width: 400px;/* IE6 hack */
