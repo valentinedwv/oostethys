@@ -40,7 +40,7 @@ abstract class SvContainer {
 
 	protected static PushButton createButton(String name, ClickListener cl) {
 		PushButton btn = new PushButton(name);
-		DOM.setElementAttribute(btn.getElement(), "id", "my-tiny-button-id");
+		DOM.setElementAttribute(btn.getElement(), "id", "my-button-id");
 		
 		if ( cl != null ) {
 			btn.addClickListener(cl);
