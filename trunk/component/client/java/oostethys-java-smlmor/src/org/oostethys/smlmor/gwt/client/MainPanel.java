@@ -51,7 +51,9 @@ public class MainPanel {
 	    widget.add(container);
 
 	    container.add(new HTML(
-	    		"<h2>SensorML/TEDS Generator (semantically-enabled ;-))</h2>"));
+	    		"<h2>SensorML/TEDS Generator (semantically-enabled ;-))</h2>" +
+	    		"See this <a target=\"_black\" href=\"http://code.google.com/p/oostethys/wiki/SmlMor\">wiki page</a> for current status."
+	    ));
 	    
 	    HorizontalPanel hp = new HorizontalPanel();
 	    hp.setSpacing(5);
