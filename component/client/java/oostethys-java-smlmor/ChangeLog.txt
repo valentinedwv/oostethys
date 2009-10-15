@@ -5,6 +5,9 @@ $Id$
 
 ChangeLog
 
+2009-10-14  0.0.2pre1
+	- interface improved with tabpanels.
+	
 2009-10-12  0.0.1
 	- Initial scheme to create interface and generate SML.
 	- The following "schema" is processed:

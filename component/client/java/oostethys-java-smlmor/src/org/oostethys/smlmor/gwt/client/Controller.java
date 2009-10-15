@@ -3,6 +3,7 @@ package org.oostethys.smlmor.gwt.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.oostethys.smlmor.gwt.client.SvContainer.IElement;
 import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupModel;
 import org.oostethys.smlmor.gwt.client.rpc.model.AttrGroupValues;
 import org.oostethys.smlmor.gwt.client.rpc.model.AttributeModel;
@@ -22,7 +23,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -67,19 +67,20 @@ public class Controller {
 		oostValues = new OostethysValues();
 		widget = new VerticalPanel();
 		
-		
-		ChangeListener cl = new ChangeListener() {
-			public void onChange(Widget sender) {
-				TextBoxBase tb = (TextBoxBase) sender;
-				String value = tb.getText().trim();
-				oostValues.setWebServerUrl(value);
-				Main.log("onChange: setWebServerUrl <- \"" +value+ "\"");
-			}
-		};
+		if ( false ) {  // false= oostethys URL removed.
+			ChangeListener cl = new ChangeListener() {
+				public void onChange(Widget sender) {
+					TextBoxBase tb = (TextBoxBase) sender;
+					String value = tb.getText().trim();
+					oostValues.setWebServerUrl(value);
+					Main.log("onChange: setWebServerUrl <- \"" +value+ "\"");
+				}
+			};
 
-		widget.add(createWidgetForAttributes(null, cl, true,
-				new AttributeModel("webServiceURL", "OOSTethys Web service URL", "http://zzzz"))
-		);
+			widget.add(createWidgetForAttributes(null, cl, true,
+					new AttributeModel("webServiceURL", "OOSTethys Web service URL", "http://zzzz"))
+			);
+		}
 		
 		AttrGroupValues serviceContactValues = new AttrGroupValues();
 		oostValues.setServiceContactValues(serviceContactValues);
@@ -90,92 +91,114 @@ public class Controller {
 				serviceContactValues));
 		
 		List<SystemValues> systemValuesList = oostValues.getSystemValuesList();
-		widget.add(createWidgetForSystems(systemValuesList, false, true));
+		widget.add(createWidgetForSystems(systemValuesList, true));
 	}
 	
 
 	// groups of systems
 	private Widget createWidgetForSystems(
 			final List<SystemValues> systemValuesList,
-			boolean addFirst,
 			boolean createDisclosure
 	) {
+
+		assert systemValuesList.size() == 0;
 		
+		final SvContainer sysContainer = SvContainer.createTabPanel();
 		
-		final VerticalPanel vp0 = new  VerticalPanel();
-		
-		final VerticalPanel sysContainer = new  VerticalPanel();
-		
-		vp0.add(sysContainer);
-		
-		if ( addFirst ) {
-			SystemValues systemValues = new SystemValues();
-			systemValuesList.add(systemValues);
-			sysContainer.add(createWidgetForSystem(
-					systemValuesList, sysContainer, sysContainer.getWidgetCount(), 
-					true, systemValues));
-		}
-		
-		HorizontalPanel hp = new HorizontalPanel();
-		vp0.add(hp);
-		hp.add(new PushButton("Add system", new ClickListener() {
-			public void onClick(Widget sender) {
-				SystemValues systemValues = new  SystemValues();
-				systemValuesList.add(systemValues);
-				sysContainer.add(createWidgetForSystem(
-						systemValuesList, sysContainer, sysContainer.getWidgetCount(), 
-						true, systemValues));
+		sysContainer.setListener(new SvContainer.Listener() {
+			public void addElement() {
+				createSystem(systemValuesList, sysContainer);
 			}
-		}));
+
+			public void elementRemoved(int idx) {
+				assert systemValuesList.size() == sysContainer.getWidgetCount();
+				systemValuesList.remove(idx);
+				sysContainer.remove(idx);
+				assert systemValuesList.size() == sysContainer.getWidgetCount();
+			}
+		});
+
+		
+		// add first element:
+		createSystem(systemValuesList, sysContainer);
 		
 		if ( createDisclosure ) {
 			DisclosurePanel dp = new DisclosurePanel("Systems", true);
-			dp.add(vp0);
+			dp.add(sysContainer.getPanel());
 			return dp;
 		}
 		else {
-			return vp0;
+			return sysContainer.getPanel();
 		}
 	}
 	
+	// temporary way to name systems to facilitate testing
+	private int sysId = 1;
+	
+	private void createSystem(final List<SystemValues> systemValuesList, final SvContainer sysContainer) {
+		assert systemValuesList.size() == sysContainer.getWidgetCount();
+		
+		SystemValues systemValues = new SystemValues();
+		systemValuesList.add(systemValues);
+		
+		MyChangeListener mcl = new MyChangeListener() {
+			void valueChanged(String name, String value) {
+				if ( name.equals("systemShortName") ) {
+					element.setName(prefix + value);
+				}				
+			}
+		};
+		
+		String name = "System " +(sysId++);
+		
+		Widget sysWidget = createWidgetForSystem(name, true, systemValues, mcl);
+		
+		mcl.prefix = "System: ";
+		mcl.element = sysContainer.add(sysWidget, name);
+		
+		assert systemValuesList.size() == sysContainer.getWidgetCount();
+	}
+	
+	
+	static abstract class MyChangeListener implements ChangeListener {
+		String prefix = "";
+		IElement element;
+		public void onChange(Widget sender) {
+			if ( element == null ) {
+				return;
+			}
+			TextBoxBase tb = (TextBoxBase) sender;
+			String name = tb.getName();
+			String value = tb.getText().trim();
+
+			Main.log("onChange: attribute name: " +name+ " <- \"" +value+ "\"");
+			if ( value.length() == 0 ) {
+				value = "?";
+			}
+			valueChanged(name, value);
+		}
+		
+		abstract void valueChanged(String name, String value);
+	}
+	
+	
+	
 	/**
 	 * 
-	 * @param idx Index in system container
 	 * @param open
 	 * @param systemValues
 	 * @return
 	 */
 	private Widget createWidgetForSystem(
-			final List<SystemValues> systemValuesList,
-			final VerticalPanel sysContainer, final int idx, 
-			boolean open, SystemValues systemValues
+			String name,
+			boolean open, SystemValues systemValues,
+			ChangeListener clSysMd
 	) {
 		
-		String name = "System: " +"TODO:intial value here";
-		final DisclosurePanel dp = new DisclosurePanel(name, true);
-		
 		VerticalPanel vp = new VerticalPanel();
-//		vp.setBorderWidth(1);
-		dp.add(vp);
 		
 		MetadataValues metadataValues = new MetadataValues();
 		systemValues.setMetadataValues(metadataValues);
-		
-		
-		ChangeListener clSysMd = new ChangeListener() {
-			public void onChange(Widget sender) {
-				TextBoxBase tb = (TextBoxBase) sender;
-				String name = tb.getName();
-				String value = tb.getText().trim();
-				
-				Main.log("onChange: attribute name: " +name+ " <- \"" +value+ "\"");
-				
-				if ( name.equals("systemIdentifier") ) {
-					dp.getHeaderTextAccessor().setText("System: " +value);
-				}				
-				
-			}
-		};
 		
 		vp.add(createWidgetForMetadata(clSysMd, open, metadataValues));
 		
@@ -185,58 +208,44 @@ public class Controller {
 		vp.add(selectionPanel);
 		
 		
-		HorizontalPanel hpr = new HorizontalPanel();
-		vp.add(hpr);
-		hpr.add(new PushButton("Remove this system", new ClickListener() {
-			public void onClick(Widget sender) {
-				systemValuesList.remove(idx);
-				sysContainer.remove(idx);
-			}
-		}));
-		
-		if ( true ) {
+		if ( false ) {
 			DecoratorPanel decPanel = new DecoratorPanel();
-			decPanel.add(dp);
+			decPanel.add(vp);
 			return decPanel;
 		}
 		else {
-			return dp;
+			return vp;
 		}
 	}
 
 	
-	// groups of systems
+	// group of variables
 	private Widget createWidgetForVariables(
 			final List<AttrGroupValues> outputValuesList,
-			boolean addFirst,
 			boolean createDisclosure
 	) {
 		final VerticalPanel vp0 = new  VerticalPanel();
 		
-		final VerticalPanel vp1 = new  VerticalPanel();
+		final SvContainer varContainer = SvContainer.createTabPanel();
 		
-		vp0.add(vp1);
+		vp0.add(varContainer.getPanel());
 		
-		if ( addFirst ) {
-			AttrGroupValues outputValues = new AttrGroupValues();
-			outputValuesList.add(outputValues);
-			vp1.add(createWidgetForVariable(
-					outputValuesList, vp1, vp1.getWidgetCount(),
-					true, outputValues));
-		}
-		
-		HorizontalPanel hp = new HorizontalPanel();
-		vp0.add(hp);
-		hp.add(new PushButton("Add variable", new ClickListener() {
-			public void onClick(Widget sender) {
-				AttrGroupValues outputValues = new AttrGroupValues();
-				outputValuesList.add(outputValues);
-				vp1.add(createWidgetForVariable(
-						outputValuesList, vp1, vp1.getWidgetCount(),
-						true, outputValues));
+		varContainer.setListener(new SvContainer.Listener() {
+			public void addElement() {
+				createVariable(outputValuesList, varContainer);
 			}
-		}));
+
+			public void elementRemoved(int idx) {
+				assert outputValuesList.size() == varContainer.getWidgetCount();
+				outputValuesList.remove(idx);
+				varContainer.remove(idx);
+				assert outputValuesList.size() == varContainer.getWidgetCount();
+			}
+		});
+
 		
+//		add first element:
+		createVariable(outputValuesList, varContainer);
 		
 		if ( createDisclosure ) {
 			DisclosurePanel dp = new DisclosurePanel("Variables", true);
@@ -248,33 +257,42 @@ public class Controller {
 		}
 	}
 	
+	
+	// temporary way to name systems to facilitate testing
+	private int varId = 1;
+	
+	private void createVariable(final List<AttrGroupValues> outputValuesList, final SvContainer varContainer) {
+		assert outputValuesList.size() == varContainer.getWidgetCount();
+		
+		AttrGroupValues outputValues = new AttrGroupValues();
+		outputValuesList.add(outputValues);
+		
+		MyChangeListener mcl = new MyChangeListener() {
+			void valueChanged(String name, String value) {
+				if ( name.equals("name") ) {
+					element.setName(prefix + value);
+				}				
+			}
+		};
+		
+		String name = "variable " +(varId++);
+		
+		Widget varWidget = createWidgetForVariable(
+				true, outputValues, mcl);
+		
+		mcl.prefix = "Variable: ";
+		mcl.element = varContainer.add(varWidget, name);
+		
+		assert outputValuesList.size() == varContainer.getWidgetCount();
+	}
+	
+
 	private Widget createWidgetForVariable(
-			final List<AttrGroupValues> outputValuesList,
-			final VerticalPanel varContainer, final int idx, 
-			boolean open, AttrGroupValues outputValues
+			boolean open, AttrGroupValues outputValues,
+			ChangeListener clSysMd
 	) {
 		
-		String name = "Variable ";
-		DisclosurePanel dp = new DisclosurePanel(name, true);
-		
-		
-		VerticalPanel vp = new VerticalPanel();
-		dp.add(vp);
-		
-		vp.add(createWidgetForAttrGroup(null, open, basicModels.getOutput(), outputValues));
-		
-		
-		HorizontalPanel hpr = new HorizontalPanel();
-		vp.add(hpr);
-		hpr.add(new PushButton("Remove this variable", new ClickListener() {
-			public void onClick(Widget sender) {
-				outputValuesList.remove(idx);
-				varContainer.remove(idx);
-			}
-		}));
-		
-		
-		return dp;
+		return createWidgetForAttrGroup(clSysMd, open, basicModels.getOutput(), outputValues);
 	}
 
 
@@ -286,7 +304,6 @@ public class Controller {
 			final VerticalPanel selectionPanel, 
 			final SystemValues systemValues
 	) {
-		HorizontalPanel hp = new HorizontalPanel();
 		
 		final RadioButton outputRb = new RadioButton("oc", "Output");
 		final RadioButton compsRb = new RadioButton("oc", "Components");
@@ -297,20 +314,22 @@ public class Controller {
 					selectionPanel.clear();
 					systemValues.setSystemValuesList(null);
 					List<AttrGroupValues> outputValuesList = systemValues.getOutputValuesList();
-					selectionPanel.add(createWidgetForVariables(outputValuesList, false, false));
+					selectionPanel.add(createWidgetForVariables(outputValuesList, true));
 				}
 				else if ( sender == compsRb ) {
 					selectionPanel.clear();
 					systemValues.setOutputValuesList(null);
 					List<SystemValues> systemValuesList = systemValues.getSystemValuesList();
-					selectionPanel.add(createWidgetForSystems(systemValuesList, false, false));
+					selectionPanel.add(createWidgetForSystems(systemValuesList, true));
 				}
 			}
 		};
 		outputRb.addClickListener(cl);
-		hp.add(outputRb);
-		
 		compsRb.addClickListener(cl);
+		
+		HorizontalPanel hp = new HorizontalPanel();
+		hp.add(new HTML("This system has: "));
+		hp.add(outputRb);
 		hp.add(compsRb);
 		
 		return hp;
@@ -420,10 +439,7 @@ public class Controller {
 			Widget widget = elem.widget;
 			
 			String label = attrDef.getLabel();
-			String tooltip = null; 
-//				"<b>" +label+ "</b>:<br/>" + 
-//					attrDef.getTooltip() +
-//					"<br/>";
+			String tooltip = null; // null = no tooltip for now 
 			flexTable.setWidget(row, 0, new TLabel(label, false, tooltip ));
 			
 			flexTable.setWidget(row, 1, widget);
