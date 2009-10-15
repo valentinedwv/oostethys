@@ -5,12 +5,16 @@ Test: http://mmisw.org/smlmor/
 = Status =
 
 2009-10-14 version 0.0.2pre
-  * interface improved based on tabpanels
-  * http://mmisw.org/smlmor/?_log=y generates a tree dump for testing and comparison. The generated SensorML seems to be missing some settings to properly specify systems and variables.
+  * Preliminary basic set of fields for contacts, system, and variables.
+  * Any number of variables and systems, and unbounded system nesting
+  * Generation of SensorML via oostethys model instantiation.
+  * No TEDS generation
+  * No integration of ORR services yet
+  * Generates of a tree dump for testing and comparison. This is enable with the _log=y parameter (http://mmisw.org/smlmor/?_log=y ). The generated SensorML seems to be missing some settings to properly specify systems and variables.
 
 = Introduction =
 
-This page documents the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator. The tool is currently codenamed 'sml-mor' (a combination of SensorML and MMI Ontology Registry and repository).
+This page documents the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator (codenamed 'sml-mor,' a combination of SensorML and MMI Ontology Registry and repository).
 
 
 = Goal =
