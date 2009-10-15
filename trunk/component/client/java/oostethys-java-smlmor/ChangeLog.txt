@@ -5,6 +5,9 @@ $Id$
 
 ChangeLog
 
+2009-10-15  0.0.2pre2
+	- statusLabel included 
+	
 2009-10-14  0.0.2pre1
 	- interface improved with tabpanels.
 	- SOostethys2Doc: reflection used to assign values to beans; tree dump also generated

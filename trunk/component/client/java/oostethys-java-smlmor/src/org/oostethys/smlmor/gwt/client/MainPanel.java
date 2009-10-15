@@ -51,7 +51,7 @@ public class MainPanel {
 	    widget.add(container);
 
 	    container.add(new HTML(
-	    		"<h2>SensorML/TEDS Generator (semantically-enabled ;-))</h2>" +
+	    		"<h2>SensorML/TEDS Generator</h2>" +
 	    		"See this <a target=\"_black\" href=\"http://code.google.com/p/oostethys/wiki/SmlMor\">wiki page</a> for current status."
 	    ));
 	    
@@ -69,6 +69,8 @@ public class MainPanel {
 				Window.alert("Not implemented");
 			}
 		}));
+	    
+	    hp.add(statusLabel);
 
 	    tabPanel.add(thePanel, "Definitions");
 		tabPanel.add(textArea, "SensorML");
@@ -118,7 +120,7 @@ public class MainPanel {
 					tabPanel.selectTab(1);
 				}
 				else {
-					statusLabel.setHTML("OK");
+					statusLabel.setHTML("");
 					textArea.setText(result.getSml());
 					tabPanel.selectTab(1);
 				}
@@ -126,6 +128,7 @@ public class MainPanel {
 			
 		};
 		
+		tabPanel.selectTab(1);
 		statusLabel.setHTML("Generating...");
 		textArea.setText("Generating...");
 		Main.smlmorService.getSensorML(soostValues, callback);
