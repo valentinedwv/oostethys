@@ -1,31 +1,44 @@
 #summary development of the ORR-enabled SensorML/TEDS generator
 
-Test: http://mmisw.org/smlmor/  (for current status, see below)
+Test: http://mmisw.org/smlmor/
+
+= Status =
+
+2009-10-14 version 0.0.2pre
+  * interface improved based on tabpanels
+  * http://mmisw.org/smlmor/?_log=y generates a tree dump for testing and comparison. The generated SensorML seems to be missing some settings to properly specify systems and variables.
 
 = Introduction =
 
-This page documents the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator. For lack of a better name, the tool is currently codenamed 'sml-mor' (a combination of SensorML and MMI Ontology Registry and repository).
+This page documents the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator. The tool is currently codenamed 'sml-mor' (a combination of SensorML and MMI Ontology Registry and repository).
 
 
 = Goal =
 
-The overall goal of this tool is to facilitate the creation of formal documents (SensorML or TEDS, in principle) describing an observing system (system type, variables, ..) out from a set of definitions provided by the user in a web-based graphical user interface.
+The overall goal of this tool is to facilitate the creation of formal documents (SensorML or TEDS) describing a sensor system (system type, variables, subsystems..) out from a set of definitions provided by the user in a web-based graphical user interface and with integration of vocabulary terms and definitions from the [http://mmisw.org/orr/ MMI Ontology Registry and repository], ORR.
 
 = Description =
 
-The initial version captures the specification of systems and variables (with unbounded nesting of systems) and generates the corresponding SensorML document based on an intermediate OOSTethys model instantiation of the spec given by the user.
+The user defines systems, variables, and subsystems and the tool generates the corresponding SensorML or TEDS document. While filling out the fields, the user can access the ORR to help in the specification of system types and variables.  
 
-The integration with http://mmisw.org/orr/ ORR] --to help in the specification of system types and variables-- is not yet addressed but here are possible general approaches:
+The actual integration with the ORR is not yet implemented but here are possible general approaches:
 
   * Include a drop-down list for each field. This may not be as simple; in general, the user would actually do some form of search in order to identify the term, definition, or URI that is appropriate for the field.  
 
-  * A more sophisticated approach would be some kind of wizard (sequence of step) involving the look-up of terms and relationships in the MMI ORR for a complete section is the GUI.
+  * A more sophisticated approach would be some kind of wizard (sequence of steps) involving the look-up of terms and relationships in the MMI ORR for a complete section is the GUI.
+
+= Generation mechanism =
+
+== SensorML ==
+The generation of SensorML is based on an intermediate OOSTethys model instantiation of the spec given by the user. The OOSTethys model instantiation is then translated into a SensorML format via an XSLT file available in the OOSTehys codebase.
+
+== TEDS ==
+Not implemented yet.
 
 
-= Summary of tool status =
+= Noteworthy changes =
 
-
-2009-10-14 0.0.2pre
+2009-10-14 version 0.0.2pre
   * interface improved based on tabpanels
   * http://mmisw.org/smlmor/?_log=y generates a tree dump for testing and comparison. The generated SensorML seems to be missing some settings to properly specify systems and variables.
 
