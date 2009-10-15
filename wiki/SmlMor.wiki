@@ -10,7 +10,7 @@ Test: http://mmisw.org/smlmor/
   * Generation of SensorML via oostethys model instantiation.
   * No TEDS generation
   * No integration of ORR services yet
-  * Generates of a tree dump for testing and comparison. This is enable with the _log=y parameter (http://mmisw.org/smlmor/?_log=y ). The generated SensorML seems to be missing some settings to properly specify systems and variables.
+  * Generates of a tree dump for testing and comparison. This is enabled with the _log=y parameter (http://mmisw.org/smlmor/?_log=y). Once the SensorML is generated, click the 'refresh log' button at the bottom. Preliminary tests seems to show that there are missing elements in the generated sensorml document.
 
 = Introduction =
 
