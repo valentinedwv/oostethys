@@ -21,6 +21,8 @@ This page documents the specification, requirements, and development of the [htt
 
 The overall goal of this tool is to facilitate the creation of formal documents (SensorML or TEDS) describing a sensor system (system type, variables, subsystems..) out from a set of definitions provided by the user in a web-based graphical user interface and with integration of vocabulary terms and definitions from the [http://mmisw.org/orr/ MMI Ontology Registry and repository], ORR.
 
+<font color="red">*NOTE*</font>: It is not an immediate goal to provide round-trip conversion/editing of the document (ie., eg., being able to load a SensorML doc to initialize the interface).
+
 = Description =
 
 The user defines systems, variables, and subsystems and the tool generates the corresponding SensorML or TEDS document. While filling out the fields, the user can access the ORR to help in the specification of system types and variables.  
