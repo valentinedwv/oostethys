@@ -7,6 +7,9 @@ ChangeLog
 
 2009-10-14  0.0.2pre1
 	- interface improved with tabpanels.
+	- SOostethys2Doc: reflection used to assign values to beans; tree dump also generated
+	  for testing and comparison purposes: in particular, the generated SensorML seems
+	  to be missing some settings to properly specify systems and variables
 	
 2009-10-12  0.0.1
 	- Initial scheme to create interface and generate SML.
