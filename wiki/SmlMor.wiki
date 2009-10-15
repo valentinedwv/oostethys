@@ -14,7 +14,9 @@ Test: http://mmisw.org/smlmor/
 
 = Introduction =
 
-This page documents the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator (codenamed 'sml-mor,' a combination of SensorML and MMI Ontology Registry and repository).
+This page *is intended to document* the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator (codenamed 'sml-mor,' a combination of SensorML and MMI Ontology Registry and repository). 
+
+<font color="blue">This is work in progress; please add your comments in this page or send them to the oostethys list. Thanks!</font>
 
 
 = Goal =
