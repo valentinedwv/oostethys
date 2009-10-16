@@ -53,3 +53,12 @@ Not implemented yet.
 2009-10-12 first version, 0.0.1
   * generates SensorML (see [http://code.google.com/p/oostethys/source/browse/trunk/component/client/java/oostethys-java-smlmor/ChangeLog.txt ChangeLog]).
   * No yet integration with ORR
+
+----
+=== Some related stuff ===
+  * SensorML PrettyView: http://vast.uah.edu/SensorMLforms/upload.jsp
+  * SensorML editor: http://vast.uah.edu/index.php?option=com_content&view=article&id=149&Itemid=103
+
+Interesting:
+  * xsd2rng: http://code.google.com/p/xsdtorngconverter/
+  * rng2xhtml:http://debeissat.nicolas.free.fr/RNGtoHTMLform.php
