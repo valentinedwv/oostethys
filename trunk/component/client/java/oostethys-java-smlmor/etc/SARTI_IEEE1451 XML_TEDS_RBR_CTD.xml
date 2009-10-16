@@ -1,0 +1,377 @@
+﻿<?xml version="1.0"?>
+<p1:TIM xmlns:p1="http://localhost/1451HTTPAPI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost/1451HTTPAPI http://grouper.ieee.org/groups/1451/0/1451HTTPAPI/TIM.xsd">
+    <p1:timId>1451</p1:timId>
+    <p1:timName>urn:ogc:object:sensor:SARTI:CTP:v1:1451</p1:timName>
+    <p1:metaTEDS>
+        <p1:TEDSLength>1000</p1:TEDSLength>
+        <p1:MetaTEDSDataBlock>
+            <p1:TEDSID>
+                <p1:Type>3</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:Value>1</p1:Value>
+            </p1:TEDSID>
+            <p1:UUID>
+                <p1:Type>4</p1:Type>
+                <p1:Length>10</p1:Length>
+                <p1:Value>1451</p1:Value>
+            </p1:UUID>
+            <p1:OHoldOff>
+                <p1:Type>10</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value>1000</p1:Value>
+            </p1:OHoldOff>
+            <p1:SHoldOff>
+                <p1:Type>11</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value>1000</p1:Value>
+            </p1:SHoldOff>
+            <p1:TestTime>
+                <p1:Type>12</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value>1000</p1:Value>
+            </p1:TestTime>
+            <p1:MaxChan>
+                <p1:Type>3</p1:Type>
+                <p1:Length>13</p1:Length>
+                <p1:Value>3</p1:Value>
+            </p1:MaxChan>
+            <p1:CGroup>
+                <p1:Type>14</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:GrpType>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:GrpType>
+                <p1:MemList>
+                    <p1:Type>3</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value/>
+                </p1:MemList>
+            </p1:CGroup>
+            <p1:VGroup>
+                <p1:Type>15</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:GrpType>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:GrpType>
+                <p1:MemList>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value/>
+                </p1:MemList>
+            </p1:VGroup>
+            <p1:GeoLoc>
+                <p1:Type>16</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:LocEnum>
+                    <p1:Type>24</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:LocEnum>
+                <p1:GrpType>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:GrpType>
+                <p1:MemList>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value/>
+                </p1:MemList>
+            </p1:GeoLoc>
+            <p1:Proxies>
+                <p1:Type>17</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:ChanNum>
+                    <p1:Type>22</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>3</p1:Value>
+                </p1:ChanNum>
+                <p1:Organiz>
+                    <p1:Type>23</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>4</p1:Value>
+                </p1:Organiz>
+                <p1:MemList>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value/>
+                </p1:MemList>
+            </p1:Proxies>
+        </p1:MetaTEDSDataBlock>
+        <p1:CheckSum>1000</p1:CheckSum>
+    </p1:metaTEDS>
+    
+    
+    
+    <p1:manufacturerDefinedTEDS>
+        <p1:TEDSLength>1000</p1:TEDSLength>
+        <p1:ManufDefTEDSDataBlock>
+            <p1:TEDSID>
+                <p1:Type>3</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value/>
+            </p1:TEDSID>
+        </p1:ManufDefTEDSDataBlock>
+        <p1:CheckSum>100</p1:CheckSum>
+		<p1:XMLText>
+            <!--Element p1:ManufacturerId is optional, maxOccurs=255-->
+					<p1:individualName>None</p1:individualName>
+                    <p1:organizationName>RBR Ltd</p1:organizationName>
+                    <p1:contactInfo>
+                        <p1:phone>
+                            <p1:voice>+44 1865890979</p1:voice>
+                            <p1:facsimile>+44 1865890979</p1:facsimile>
+                        </p1:phone>
+                        <p1:address>
+                            <p1:deliveryPoint>17 Cratlands Close </p1:deliveryPoint>
+                            <p1:city>Standhampton</p1:city>
+							<p1:administrativeArea>Oxfordshire</p1:administrativeArea>
+                            <p1:postalCode>OX44 7TU</p1:postalCode>
+                            <p1:country>UK</p1:country>
+							<p1:electronicMailAddress>info@rbr-europe.com</p1:electronicMailAddress>
+                        </p1:address>
+                        <p1:onlineResource>http://www.rbr-europe.com"</p1:onlineResource>
+						<p1:hoursOfService>M-F 8:00-5:00 PST</p1:hoursOfService>
+						<p1:contactInstructions>None</p1:contactInstructions>
+                    </p1:contactInfo>
+					<p1:responsePeriod>
+                            <p1:uom code="ms"/>
+                            <p1:Value>43</p1:Value>
+					</p1:responsePeriod>
+            
+			</p1:XMLText>
+        <p1:XMLSum>100</p1:XMLSum>
+    </p1:manufacturerDefinedTEDS>
+    
+    <p1:meta-IdentificationTEDS>
+        <p1:TEDSLength>1000</p1:TEDSLength>
+        <p1:TextTEDSDataBlock>
+            <p1:TEDSID>
+                <p1:Type>3</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value/>
+            </p1:TEDSID>
+            <p1:NumLang>
+                <p1:Type>10</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:Value>255</p1:Value>
+            </p1:NumLang>
+            <p1:DirBlock>
+                <p1:Type>11</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:LangCode>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>2</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:LangCode>
+                <p1:LangOffset>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangOffset>
+                <p1:LangLength>
+                    <p1:Type>22</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangLength>
+                <p1:Compress>
+                    <p1:Type>23</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:Compress>
+            </p1:DirBlock>
+            <p1:SubSum>
+                <p1:Type>12</p1:Type>
+                <p1:Length>2</p1:Length>
+                <p1:Value>100</p1:Value>
+            </p1:SubSum>
+        </p1:TextTEDSDataBlock>
+        <p1:Checksum>100</p1:Checksum>
+        <p1:XMLText>
+            <!--Element p1:ManufacturerId is optional, maxOccurs=255-->
+            
+            
+            <p1:ManufacturerId>RBR Ltd</p1:ManufacturerId>
+            <!--Element p1:ModelNo is optional, maxOccurs=255-->
+            
+            
+            <p1:ModelNo>XR-420</p1:ModelNo>
+            <!--Element p1:VersionCode is optional, maxOccurs=255-->
+            
+            
+            <p1:VersionCode>None</p1:VersionCode>
+            <!--Element p1:SerialNo is optional, maxOccurs=255-->
+            
+            
+            <p1:SerialNo>17254</p1:SerialNo>
+            <!--Element p1:DateCode is optional, maxOccurs=255-->
+            
+            
+            <p1:DateCode>2009-09-01</p1:DateCode>
+
+            <p1:NumOfChannelGrouping>3</p1:NumOfChannelGrouping>
+            <!--Element p1:GroupName is optional, maxOccurs=255-->
+            
+            
+            <p1:GroupName>RBR CTD</p1:GroupName>
+            <!--Element p1:ProductDescription is optional, maxOccurs=65535-->
+            
+            
+            <p1:ProductDescription>C1 deployment of CTD (Model RBR XR Data Logger) with serial communication, and internal memory</p1:ProductDescription>
+        </p1:XMLText>
+        <p1:XMLSum>100</p1:XMLSum>
+    </p1:meta-IdentificationTEDS>
+    
+    <p1:commandTEDS>
+        <p1:TEDSLength>100</p1:TEDSLength>
+        <p1:TextTEDSDataBlock>
+            <p1:TEDSID>
+                <p1:Type>3</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value/>
+            </p1:TEDSID>
+            <p1:NumLang>
+                <p1:Type>10</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:Value>255</p1:Value>
+            </p1:NumLang>
+            <p1:DirBlock>
+                <p1:Type>11</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:LangCode>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>2</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:LangCode>
+                <p1:LangOffset>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangOffset>
+                <p1:LangLength>
+                    <p1:Type>22</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangLength>
+                <p1:Compress>
+                    <p1:Type>23</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:Compress>
+            </p1:DirBlock>
+            <p1:SubSum>
+                <p1:Type>12</p1:Type>
+                <p1:Length>2</p1:Length>
+                <p1:Value>100</p1:Value>
+            </p1:SubSum>
+        </p1:TextTEDSDataBlock>
+        <p1:Checksum>100</p1:Checksum>
+        <p1:XMLText>
+            <p1:Name>F00</p1:Name>
+            <p1:CmdClass>128</p1:CmdClass>
+            <p1:CmdFunction>1</p1:CmdFunction>
+            <p1:Scope>pull command to get data from TIM</p1:Scope>
+			<p1:reply replyArgName="Conductivity" replyArgOffset="16">
+				
+			 <p1:floatValue>0.0</p1:floatValue></p1:reply>
+              
+			<p1:reply replyArgName="Temperature" replyArgOffset="24">
+				
+			 <p1:floatValue>0.0</p1:floatValue></p1:reply>
+              
+			<p1:reply replyArgName="Pressure" replyArgOffset="32">
+				
+			<p1:floatValue>0.0</p1:floatValue></p1:reply>
+
+		</p1:XMLText>
+        
+    <p1:XMLSum>100</p1:XMLSum></p1:commandTEDS>
+<p1:geographicLocationTEDS>
+        <p1:TEDSLength>1000</p1:TEDSLength>
+        <p1:TextTEDSDataBlock>
+            <p1:TEDSID>
+                <p1:Type>3</p1:Type>
+                <p1:Length>4</p1:Length>
+                <p1:Value/>
+            </p1:TEDSID>
+            <p1:NumLang>
+                <p1:Type>10</p1:Type>
+                <p1:Length>1</p1:Length>
+                <p1:Value>255</p1:Value>
+            </p1:NumLang>
+            <p1:DirBlock>
+                <p1:Type>11</p1:Type>
+                <p1:Length>-32768</p1:Length>
+                <p1:LangCode>
+                    <p1:Type>20</p1:Type>
+                    <p1:Length>2</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:LangCode>
+                <p1:LangOffset>
+                    <p1:Type>21</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangOffset>
+                <p1:LangLength>
+                    <p1:Type>22</p1:Type>
+                    <p1:Length>4</p1:Length>
+                    <p1:Value>1000</p1:Value>
+                </p1:LangLength>
+                <p1:Compress>
+                    <p1:Type>23</p1:Type>
+                    <p1:Length>1</p1:Length>
+                    <p1:Value>255</p1:Value>
+                </p1:Compress>
+            </p1:DirBlock>
+            <p1:SubSum>
+                <p1:Type>12</p1:Type>
+                <p1:Length>2</p1:Length>
+                <p1:Value>100</p1:Value>
+            </p1:SubSum>
+        </p1:TextTEDSDataBlock>
+        <p1:Checksum>100</p1:Checksum>
+        <p1:XMLText>
+            <p1:Longtitude>1.7523417</p1:Longtitude>
+            <p1:Latitude>41.1819083</p1:Latitude>
+            <p1:Altitude>-20</p1:Altitude>
+            <p1:Position>None</p1:Position>
+            <p1:Orientation>None</p1:Orientation>
+        </p1:XMLText>
+        <p1:XMLSum>100</p1:XMLSum>
+    </p1:geographicLocationTEDS>
+    <p1:TransducerChannelList TransducerChannelNumber="3">
+        <!--Attribute TransducerChannelNumber is optional-->
+        <!--Element p1:TransducerChannel is optional, maxOccurs=16383-->
+        <p1:TransducerChannel>
+            <p1:channelId>1</p1:channelId>
+            <p1:channelName>http://mmisw.org/ont/oidemo2008/channelLabel/conductivityInSiemensPerMeter</p1:channelName>
+            <p1:channelType>conductivity mS/cm</p1:channelType>
+            <p1:channelNumber>1</p1:channelNumber>
+            
+            
+ </p1:TransducerChannel>
+        <p1:TransducerChannel>
+            <p1:channelId>2</p1:channelId>
+            <p1:channelName>http://mmisw.org/ont/oidemo2008/channelLabel/temperatureInDegreesCelsius</p1:channelName>
+            <p1:channelType>water temperature degrees Celsius</p1:channelType>
+            <p1:channelNumber>2</p1:channelNumber>
+            
+            
+ </p1:TransducerChannel>
+        <p1:TransducerChannel>
+            <p1:channelId>3</p1:channelId>
+            <p1:channelName>http://mmisw.org/ont/oidemo2008/channelLabel/pressureInDecibars</p1:channelName>
+            <p1:channelType>water pressure dbars</p1:channelType>
+            <p1:channelNumber>3</p1:channelNumber>
+            
+               
+        </p1:TransducerChannel>
+    </p1:TransducerChannelList>
+    
+    
+    
+</p1:TIM>

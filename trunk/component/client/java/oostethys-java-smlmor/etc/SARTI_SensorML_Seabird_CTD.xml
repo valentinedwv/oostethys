@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) by Danny Toma (UPC) -->
+<sml:SensorML xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://schemas.opengis.net/sensorML/1.0.1/sensorML.xsd" version="1.0.1">
+	<!--  
+  -->
+	<sml:member>
+		<sml:System gml:id="CTD1454">
+			<!--  ================================================= 
+  -->
+			<!--                   System Descrition                
+  -->
+			<!--  ================================================= 
+  -->
+			<gml:description>M1 deployment of 10m CTD (Model SBE 37-SMP) with serial communication, internal memory and pump. The SBE 37-SMP MicroCAT is a high-accuracy conductivity and temperature (pressure optional) recorder with internal battery and memory. Designed for moorings or other long duration, fixed-site deployments, the MicroCAT includes a standard serial interface and nonvolatile FLASH memory. Construction is of titanium and other non-corroding materials to ensure long life with minimum maintenance, and depth capability is 7000 meters (23,000 feet).</gml:description>
+			<!--  ================================================= 
+  -->
+			<!--               System Search Keywords               
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:keywords>
+				<sml:KeywordList codeSpace="http://gcmd.nasa.gov/Resources/valids/keyword_list.html">
+					<sml:keyword>SARTI</sml:keyword>
+					<sml:keyword>OCEANOGRAPHY</sml:keyword>
+					<sml:keyword>MARINE SENSORS</sml:keyword>
+					<sml:keyword>PRESSURE TRANSDUCERS</sml:keyword>
+					<sml:keyword>SALINOMETERS</sml:keyword>
+					<sml:keyword>THERMOMETERS</sml:keyword>
+					<sml:keyword>CONDUCTIVITY METERS</sml:keyword>
+					<sml:keyword>CTD</sml:keyword>
+				</sml:KeywordList>
+			</sml:keywords>
+			<!--  ================================================= 
+  -->
+			<!--                   System Identifiers               
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:identification>
+				<sml:IdentifierList>
+					<sml:identifier name="UID">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:uuid">
+							<sml:value>urn:ogc:object:sensor:MBARI:CTP:v1:1454</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Short Name">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:shortName">
+							<sml:value>SBE 37-SMP</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Long Name">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:longName">
+							<sml:value>SBE 37-SMP MicroCAT CTP Recorder</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Manufacturer Name">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:manufacturerName">
+							<sml:value>Seabird Electronics</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Model Number">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:modelNumber">
+							<sml:codeSpace xlink:href="urn:ogc:def:identifier:SBE:modelNumber"/>
+							<sml:value>SBE37SMP</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Serial Number">
+						<sml:Term definition="urn:ogc:def:identifier:OGC:serialNumber">
+							<sml:codeSpace xlink:href="urn:ogc:def:identifier:SBE:serialNumber"/>
+							<sml:value>37SMP40327-3936</sml:value>
+						</sml:Term>
+					</sml:identifier>
+					<sml:identifier name="Device ID">
+						<sml:Term definition="urn:ogc:def:identifier:MBARI:deviceID">
+							<sml:codeSpace xlink:href="urn:ogc:def:identifier:MBARI:experimentXXX"/>
+							<sml:value>1454</sml:value>
+						</sml:Term>
+					</sml:identifier>
+				</sml:IdentifierList>
+			</sml:identification>
+			<!--  ================================================= 
+  -->
+			<!--                   System Classifiers               
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:classification>
+				<sml:ClassifierList>
+					<sml:classifier name="Sensor Type">
+						<sml:Term definition="urn:ogc:def:classifier:OGC:sensorType">
+							<sml:codeSpace xlink:href="urn:ogc:dictionary:MBARI:sensorTypes"/>
+							<sml:value>Serial CTD</sml:value>
+						</sml:Term>
+					</sml:classifier>
+					<sml:classifier name="Deployment Role">
+						<sml:Term definition="urn:ogc:def:classifier:MBARI:deploymentRole">
+							<sml:value>Instrument</sml:value>
+						</sml:Term>
+					</sml:classifier>
+				</sml:ClassifierList>
+			</sml:classification>
+			<!--  ================================================= 
+  -->
+			<!--        Temporal Validity of this description       
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:validTime>
+				<gml:TimePeriod gml:id="DOC_TIME">
+					<gml:beginPosition>2005-10-20T20:00:00Z</gml:beginPosition>
+					<gml:endPosition indeterminatePosition="now"/>
+				</gml:TimePeriod>
+			</sml:validTime>
+			<!--  ================================================= 
+  -->
+			<!--                 System Characteristics             
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:characteristics name="Physical Properties">
+				<swe:DataRecord definition="urn:ogc:def:property:physicalProperties">
+					<swe:field name="weight">
+						<swe:Quantity definition="urn:ogc:def:property:weight">
+							<swe:uom code="kg"/>
+							<swe:value>3.8</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="length">
+						<swe:Quantity definition="urn:ogc:def:property:length">
+							<swe:uom code="mm"/>
+							<swe:value>139.7</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="width">
+						<swe:Quantity definition="urn:ogc:def:property:width">
+							<swe:uom code="mm"/>
+							<swe:value>67.3</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="height">
+						<swe:Quantity definition="urn:ogc:def:property:height">
+							<swe:uom code="mm"/>
+							<swe:value>563.9</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="material">
+						<swe:Category definition="urn:ogc:dictionary:OGC:material">
+							<swe:value>Titanium</swe:value>
+						</swe:Category>
+					</swe:field>
+				</swe:DataRecord>
+			</sml:characteristics>
+			<!--  ================================================= 
+  -->
+			<!--                  System Capabilities               
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:capabilities name="Operational Capabilities">
+				<swe:DataRecord>
+					<swe:field name="Depth Capability" xlink:role="urn:ogc:def:property:operationalLimit">
+						<swe:Quantity definition="urn:ogc:def:classifier:SBE:depthCapability">
+							<swe:uom code="m"/>
+							<swe:value>7000</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="Storage Type" xlink:role="urn:ogc:def:property:dataStorage">
+						<swe:Category definition="urn:ogc:def:classifier:SBE:storageType">
+							<swe:value>EEPROM</swe:value>
+						</swe:Category>
+					</swe:field>
+					<swe:field name="Memory Capacity" xlink:role="urn:ogc:def:property:dataStorage">
+						<swe:Quantity definition="urn:ogc:def:classifier:SBE:memoryCapacity">
+							<swe:uom code="By"/>
+							<swe:value>2960000</swe:value>
+						</swe:Quantity>
+					</swe:field>
+					<swe:field name="Battery Current" xlink:role="urn:ogc:def:property:powerSupply">
+						<swe:Quantity definition="urn:ogc:def:phenomenon:SBE:batteryCurrent">
+							<swe:uom code="A.h"/>
+							<swe:value>7.2</swe:value>
+						</swe:Quantity>
+					</swe:field>
+				</swe:DataRecord>
+			</sml:capabilities>
+			<!--  ================================================= 
+  -->
+			<!--                   Relevant Contacts                
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:manufacturer">
+				<sml:ResponsibleParty>
+					<sml:organizationName>Sea-Bird Electronics, Inc.</sml:organizationName>
+					<sml:contactInfo>
+						<sml:phone>
+							<sml:voice>+1 (425) 643-9866</sml:voice>
+							<sml:facsimile>+1 (425) 643-9954</sml:facsimile>
+						</sml:phone>
+						<sml:address>
+							<sml:deliveryPoint>1808 136th Place NE</sml:deliveryPoint>
+							<sml:city>Bellevue</sml:city>
+							<sml:administrativeArea>Washington</sml:administrativeArea>
+							<sml:postalCode>98005</sml:postalCode>
+							<sml:country>USA</sml:country>
+						</sml:address>
+						<sml:onlineResource xlink:href="http://www.seabird.com"/>
+					</sml:contactInfo>
+				</sml:ResponsibleParty>
+			</sml:contact>
+			<sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:owner">
+				<sml:ResponsibleParty>
+					<sml:organizationName>Monterey Bay Aquarium Research Institute (MBARI)</sml:organizationName>
+					<sml:contactInfo>
+						<sml:phone>
+							<sml:voice>+1 (831) 775-1700</sml:voice>
+						</sml:phone>
+						<sml:address>
+							<sml:deliveryPoint>7700 Sandholdt Road</sml:deliveryPoint>
+							<sml:city>Moss Landing</sml:city>
+							<sml:administrativeArea>CA</sml:administrativeArea>
+							<sml:postalCode>95039-9644</sml:postalCode>
+							<sml:country>USA</sml:country>
+						</sml:address>
+					</sml:contactInfo>
+				</sml:ResponsibleParty>
+			</sml:contact>
+			<sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:operator">
+				<sml:ResponsibleParty>
+					<sml:individualName>Paul Coenen</sml:individualName>
+					<sml:organizationName>MBARI</sml:organizationName>
+					<sml:contactInfo>
+						<sml:phone>
+							<sml:voice>+1 (831) 775-2099</sml:voice>
+						</sml:phone>
+						<sml:address>
+							<sml:electronicMailAddress>coenen@mbari.org</sml:electronicMailAddress>
+						</sml:address>
+					</sml:contactInfo>
+				</sml:ResponsibleParty>
+			</sml:contact>
+			<!--  ================================================= 
+  -->
+			<!--                 System Documentation               
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:documentation xlink:arcrole="urn:ogc:def:classifiers:OGC:documentType:datasheet">
+				<sml:Document>
+					<gml:description>MicroCAT C-T Recorder datasheet</gml:description>
+					<sml:date>2006-05-01</sml:date>
+					<sml:format>application/pdf</sml:format>
+					<sml:onlineResource xlink:href="http://www.seabird.com/pdf_documents/datasheets/37SMbrochureMay06.pdf"/>
+				</sml:Document>
+			</sml:documentation>
+			<!--  ================================================= 
+  -->
+			<!--        System Location (Fixed in this case)        
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:location>
+				<gml:Point gml:id="SYSTEM_LOCATION" srsName="urn:ogc:def:crs:EPSG:6.1:4329">
+					<gml:coordinates>-122.0460 36.7640 -10</gml:coordinates>
+				</gml:Point>
+			</sml:location>
+			<!--  ================================================= 
+  -->
+			<!--                   System Interfaces                
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:interfaces>
+				<sml:InterfaceList>
+					<sml:interface name="RS-232">
+						<sml:InterfaceDefinition>
+							<sml:presentationLayer>
+								<!--  Definition of stream data record (struct + ASCII encoding) 
+  -->
+								<!--  Can also be defined in a Common Observation along with the data 
+  -->
+								<swe:DataBlockDefinition>
+									<swe:components name="CDTData" xlink:href="CDT_DATA"/>
+									<swe:encoding>
+										<swe:TextBlock tokenSeparator="," blockSeparator="" decimalSeparator="."/>
+									</swe:encoding>
+								</swe:DataBlockDefinition>
+							</sml:presentationLayer>
+							<sml:physicalLayer>
+								<swe:Category>
+									<swe:codeSpace xlink:href="urn:ogc:def:classifiers:SBE:protocols"/>
+									<swe:value>RS-232</swe:value>
+								</swe:Category>
+							</sml:physicalLayer>
+							<sml:mechanicalLayer>
+								<swe:Category>
+									<swe:codeSpace xlink:href="urn:ogc:def:classifiers:SBE:connectors"/>
+									<swe:value>XSG-3-BCL-HP-SS</swe:value>
+								</swe:Category>
+							</sml:mechanicalLayer>
+						</sml:InterfaceDefinition>
+					</sml:interface>
+					<sml:interface name="RS-485">
+						<sml:InterfaceDefinition>
+							<sml:physicalLayer>
+								<swe:Category>
+									<gml:description>RS-485 interface allows multiple MicroCATs to share a common 2-wire cable</gml:description>
+									<swe:codeSpace xlink:href="urn:ogc:def:classifiers:SBE:protocols"/>
+									<swe:value>RS-485</swe:value>
+								</swe:Category>
+							</sml:physicalLayer>
+						</sml:InterfaceDefinition>
+					</sml:interface>
+				</sml:InterfaceList>
+			</sml:interfaces>
+			<!--  ================================================= 
+  -->
+			<!--                     System Inputs                  
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:inputs>
+				<sml:InputList>
+					<sml:input name="temperature">
+						<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:temperature">
+							<gml:description>Sea Water Temperature</gml:description>
+						</swe:ObservableProperty>
+					</sml:input>
+					<sml:input name="conductivity">
+						<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:conductivity">
+							<gml:description>Sea Water Conductivity</gml:description>
+						</swe:ObservableProperty>
+					</sml:input>
+					<sml:input name="pressure">
+						<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:pressure">
+							<gml:description>Sea Water Pressure</gml:description>
+						</swe:ObservableProperty>
+					</sml:input>
+				</sml:InputList>
+			</sml:inputs>
+			<!--  ================================================= 
+  -->
+			<!--                     System Output                  
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:outputs>
+				<sml:OutputList>
+					<sml:output name="output data">
+						<swe:DataRecord gml:id="CDT_DATA">
+							<swe:field name="temperature">
+								<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:temperature">
+									<gml:description>Sea Water Temperature</gml:description>
+									<swe:uom code="Cel"/>
+									<!--  UCUM code for degC 
+  -->
+									<swe:constraint>
+										<swe:AllowedValues>
+											<swe:interval>-10.0 100.0</swe:interval>
+										</swe:AllowedValues>
+									</swe:constraint>
+									<swe:quality xlink:role="urn:ogc:def:phenomenon:OGC:accuracy">
+										<swe:Quantity definition="urn:ogc:def:sensor:OGC:absoluteAccuracy">
+											<swe:uom code="Cel"/>
+											<swe:value>0.002</swe:value>
+										</swe:Quantity>
+									</swe:quality>
+								</swe:Quantity>
+							</swe:field>
+							<swe:field name="conductivity">
+								<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:conductivity">
+									<gml:description>Sea Water Conductivity</gml:description>
+									<swe:uom code="S/m"/>
+									<swe:constraint>
+										<swe:AllowedValues>
+											<swe:interval>0 10.0</swe:interval>
+										</swe:AllowedValues>
+									</swe:constraint>
+									<swe:quality xlink:role="urn:ogc:def:sensor:OGC:accuracy">
+										<swe:Quantity>
+											<swe:uom code="S/m"/>
+											<swe:value>0.0003</swe:value>
+										</swe:Quantity>
+									</swe:quality>
+								</swe:Quantity>
+							</swe:field>
+							<swe:field name="pressure">
+								<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:pressure">
+									<gml:description>Sea Water Pressure</gml:description>
+									<swe:uom code="dBar"/>
+									<swe:constraint>
+										<swe:AllowedValues>
+											<swe:interval>0 20.0</swe:interval>
+										</swe:AllowedValues>
+									</swe:constraint>
+									<swe:quality xlink:role="urn:ogc:def:sensor:OGC:accuracy">
+										<swe:Quantity definition="urn:ogc:def:sensor:OGC:absoluteAccuracy">
+											<swe:uom code="dBar"/>
+											<swe:value>0.02</swe:value>
+										</swe:Quantity>
+									</swe:quality>
+								</swe:Quantity>
+							</swe:field>
+							<swe:field name="date">
+								<swe:Time definition="urn:ogc:def:phenomenon:OGC:date">
+									<gml:description>Measurement Date</gml:description>
+									<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601:date"/>
+								</swe:Time>
+							</swe:field>
+							<swe:field name="time">
+								<swe:Time definition="urn:ogc:def:phenomenon:OGC:time">
+									<gml:description>Measurement Time of Day</gml:description>
+									<swe:uom xlink:href="urn:ogc:def:unit:ISO:8601:time"/>
+								</swe:Time>
+							</swe:field>
+						</swe:DataRecord>
+					</sml:output>
+				</sml:OutputList>
+			</sml:outputs>
+			<!--  ================================================= 
+  -->
+			<!--                   System Components                
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:components>
+				<sml:ComponentList>
+					<!--  
+  -->
+					<sml:component name="Conductivity Detector">
+						<sml:Component gml:id="CONDUCTIVITY_DETECTOR">
+							<gml:description>Conductivity detector connected to the SBE37SMP Recorder</gml:description>
+							<sml:inputs>
+								<sml:InputList>
+									<sml:input name="conductivityPhenom">
+										<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:conductivity"/>
+									</sml:input>
+								</sml:InputList>
+							</sml:inputs>
+							<sml:outputs>
+								<sml:OutputList>
+									<sml:output name="measuredConductivity">
+										<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:conductivity">
+											<swe:uom code="S/m"/>
+										</swe:Quantity>
+									</sml:output>
+								</sml:OutputList>
+							</sml:outputs>
+							<sml:parameters>
+								<sml:ParameterList>
+									<sml:parameter name="steadyState" xlink:role="urn:ogc:def:sensor:OGC:calibration">
+										<swe:DataRecord definition="urn:ogc:def:sensor:OGC:LinearCalibration">
+											<swe:field name="measurementRange">
+												<swe:QuantityRange definition="urn:ogc:def:sensor:OGC:measurementRange">
+													<swe:uom code="S/m"/>
+													<swe:value>0.0 7.0</swe:value>
+												</swe:QuantityRange>
+											</swe:field>
+											<swe:field name="gain">
+												<swe:Quantity definition="urn:ogc:def:sensor:OGC:gain">
+													<swe:value>1.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+											<swe:field name="offset">
+												<swe:Quantity definition="urn:ogc:def:sensor:OGC:offset">
+													<swe:value>0.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+										</swe:DataRecord>
+									</sml:parameter>
+									<sml:parameter name="accuracy" xlink:role="urn:ogc:def:sensor:OGC:accuracy">
+										<swe:Quantity definition="urn:ogc:def:sensor:OGC:absoluteAccuracy">
+											<swe:uom code="S/m"/>
+											<swe:value>0.0003</swe:value>
+										</swe:Quantity>
+									</sml:parameter>
+								</sml:ParameterList>
+							</sml:parameters>
+							<sml:method xlink:href="urn:ogc:def:process:1.0:detector"/>
+						</sml:Component>
+					</sml:component>
+					<!--  
+  -->
+					<sml:component name="Temperature Detector">
+						<sml:Component gml:id="TEMP_DETECTOR">
+							<gml:description>Temperature detector connected to the SBE37SMP Recorder</gml:description>
+							<sml:inputs>
+								<sml:InputList>
+									<sml:input name="realTemp">
+										<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:temperature"/>
+									</sml:input>
+								</sml:InputList>
+							</sml:inputs>
+							<sml:outputs>
+								<sml:OutputList>
+									<sml:output name="measuredTemp">
+										<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:temperature">
+											<swe:uom code="Cel"/>
+										</swe:Quantity>
+									</sml:output>
+								</sml:OutputList>
+							</sml:outputs>
+							<sml:parameters>
+								<sml:ParameterList>
+									<sml:parameter name="calibration" xlink:role="urn:ogc:def:sensor:steadyState">
+										<swe:DataRecord definition="urn:ogc:def:sensor:linearCalibration">
+											<swe:field name="dynamicRange">
+												<swe:QuantityRange definition="urn:ogc:def:sensor:dynamicRange">
+													<swe:uom code="Cel"/>
+													<swe:value>-5.0 35.0</swe:value>
+												</swe:QuantityRange>
+											</swe:field>
+											<swe:field name="gain">
+												<swe:Quantity definition="urn:ogc:def:sensor:gain">
+													<swe:value>1.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+											<swe:field name="offset">
+												<swe:Quantity definition="urn:ogc:def:sensor:offset">
+													<swe:value>0.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+										</swe:DataRecord>
+									</sml:parameter>
+									<sml:parameter name="accuracy" xlink:role="urn:ogc:def:sensor:OGC:accuracy">
+										<swe:Quantity definition="urn:ogc:def:sensor:OGC:absoluteAccuracy">
+											<swe:uom code="Cel"/>
+											<swe:value>0.002</swe:value>
+										</swe:Quantity>
+									</sml:parameter>
+								</sml:ParameterList>
+							</sml:parameters>
+							<sml:method xlink:href="urn:ogc:def:process:1.0:detector"/>
+						</sml:Component>
+					</sml:component>
+					<!--  
+  -->
+					<sml:component name="Pressure Detector">
+						<sml:Component gml:id="PRESSURE_DETECTOR">
+							<gml:description>Pressure detector connected to the SBE37SMP Recorder.</gml:description>
+							<sml:inputs>
+								<sml:InputList>
+									<sml:input name="pressure">
+										<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:pressure"/>
+									</sml:input>
+								</sml:InputList>
+							</sml:inputs>
+							<sml:outputs>
+								<sml:OutputList>
+									<sml:output name="pressureMeasurement">
+										<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:pressure">
+											<swe:uom code="dBar"/>
+										</swe:Quantity>
+									</sml:output>
+								</sml:OutputList>
+							</sml:outputs>
+							<sml:parameters>
+								<sml:ParameterList>
+									<sml:parameter name="calibration" xlink:role="urn:ogc:def:sensor:steadyState">
+										<swe:DataRecord definition="urn:ogc:def:sensor:linearCalibration">
+											<swe:field name="dynamicRange">
+												<swe:QuantityRange definition="urn:ogc:def:sensor:dynamicRange">
+													<!--  using 20m calibration mode 
+  -->
+													<swe:uom code="dBar"/>
+													<swe:value>0 20</swe:value>
+												</swe:QuantityRange>
+											</swe:field>
+											<swe:field name="gain">
+												<swe:Quantity definition="urn:ogc:def:sensor:gain">
+													<swe:value>1.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+											<swe:field name="offset">
+												<swe:Quantity definition="urn:ogc:def:sensor:offset">
+													<swe:value>0.0</swe:value>
+												</swe:Quantity>
+											</swe:field>
+										</swe:DataRecord>
+									</sml:parameter>
+									<sml:parameter name="accuracy" xlink:role="urn:ogc:def:sensor:OGC:accuracy">
+										<swe:Quantity definition="urn:ogc:def:sensor:OGC:absoluteAccuracy">
+											<swe:uom code="dBar"/>
+											<swe:value>0.02</swe:value>
+										</swe:Quantity>
+									</sml:parameter>
+								</sml:ParameterList>
+							</sml:parameters>
+							<sml:method xlink:href="urn:ogc:def:process:1.0:detector"/>
+						</sml:Component>
+					</sml:component>
+					<!--  
+  -->
+				</sml:ComponentList>
+			</sml:components>
+		</sml:System>
+	</sml:member>
+</sml:SensorML>

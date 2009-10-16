@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sml:SensorML xmlns:gml="http://www.opengis.net/gml"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
+              xmlns:ism="urn:us:gov:ic:ism:v2"
+              xmlns:swe="http://www.opengis.net/swe/1.0.1"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://schemas.opengis.net/sensorML/1.0.1/sensorML.xsd"
+              version="1.0.1">
+    <sml:member>
+        <sml:System gml:id="OBSEA_Hydrophine02345">
+            <gml:description>H1 deployment of 20m Hydrophone (Model NAXYS Ethernet Hydrophone 02345) with Ethernet communication. The Naxys Ethernet hydrophone is manufactured in the frequency range of 5 Hz to 300 KHz, with selectable sampling rate in steps from 6 KHz and up to 768 KHz and selectable gain in steps; 0-10-20-40 dB. Designed for long duration fixed-site deployment. Construction is of stainless steel housing which is electrically insulated from any electrical potential of the E.Hyd electronics, and no precautions are therefore necessary due to galvanic insulated clamps or fastening materials, and depth capability is 3000 meters.</gml:description>
+            <gml:name>NAXYS Ethernet Hydrophone 02345</gml:name>
+			<!--  ================================================= 
+  -->
+			<!--                   System Keywords                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:keywords>
+                <sml:KeywordList codeSpace="urn:x-nasa:def:gcmd:keywords">
+                    <sml:keyword>water</sml:keyword>
+                    <sml:keyword>insitu</sml:keyword>
+                    <sml:keyword>station</sml:keyword>
+                    <sml:keyword>oceanography</sml:keyword>
+                    <sml:keyword>hydrophone</sml:keyword>
+                </sml:KeywordList>
+            </sml:keywords>
+			<!--  ================================================= 
+  -->
+			<!--                   System Identifiers                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:identification>
+                <sml:IdentifierList>
+				<sml:identifier name="UID">
+					<sml:Term definition="urn:ogc:def:identifier:OGC:uuid">
+						<sml:value>1009</sml:value>
+					</sml:Term>
+				</sml:identifier>
+				<sml:identifier name="shortName">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:shortName">
+                            <sml:value>OBSEA Hydrophone</sml:value>
+                        </sml:Term>
+                    </sml:identifier>
+                    <sml:identifier name="longName">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:longName">
+                            <sml:value>OBSEA NAXYS Ethernet Hydrophone 02345</sml:value>
+                        </sml:Term>
+                    </sml:identifier>    
+                    <sml:identifier name="modelNumber">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:modelNumber">
+                            <sml:value>02345</sml:value>
+                        </sml:Term>
+                    </sml:identifier>
+                    <sml:identifier name="Manufacturer Name">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:manufacturerName">
+                            <sml:value>Bjørge AS</sml:value>
+                        </sml:Term>
+                    </sml:identifier>
+                    <sml:identifier name="serialNumber">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:serialNumber">
+                            <sml:value>0010</sml:value>
+                        </sml:Term>
+                    </sml:identifier>
+                    <sml:identifier name="uniqueId">
+                        <sml:Term definition="urn:ogc:def:identifier:OGC:uniqueID">
+                            <sml:value>OBSEA_HYDROPHONE_1451_0</sml:value>
+                        </sml:Term>
+                    </sml:identifier>
+				</sml:IdentifierList>
+            </sml:identification>
+			<!--  ================================================= 
+  -->
+			<!--                   Clasification                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:classification>
+                <sml:ClassifierList>
+                    <sml:classifier name="sensorType">
+                        <sml:Term definition="urn:ogc:def:classifier:OGC::sensorType">
+                            <sml:value>Ethernet Hydrophone</sml:value>
+                        </sml:Term>
+                    </sml:classifier>
+                    <sml:classifier name="deploymentRole">
+                        <sml:Term definition="urn:ogc:def:classifier:SARTI:deploymentRole">
+                            <sml:value>instrument</sml:value>
+                        </sml:Term>
+                    </sml:classifier>
+                </sml:ClassifierList>
+            </sml:classification>
+			<!--  ================================================= 
+  -->
+			<!--                   System Time                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:validTime>
+                <gml:TimePeriod gml:id="DOC_TIME">
+                    <gml:beginPosition>2009-07-20T00:00:00.0Z</gml:beginPosition>
+                    <gml:endPosition indeterminatePosition="now"></gml:endPosition>
+                </gml:TimePeriod>
+            </sml:validTime>
+			<!--  ================================================= 
+  -->
+			<!--                   System Physical Propreties                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:characteristics name="Physical Properties">
+                <swe:DataRecord definition="urn:ogc:def:property:physicalProperties">
+                    <swe:field name="Weight">
+                        <swe:Quantity definition="urn:ogc:def:property:weight">
+                            <swe:uom xlink:href="" code="kg"/>
+                            <swe:value>2.6</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                    <swe:field name="Length">
+                        <swe:Quantity definition="urn:ogc:def:property:length">
+                            <swe:uom xlink:href="" code="mm"/>
+                            <swe:value>357.0</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                    <swe:field name="Diameter">
+                        <swe:Quantity definition="urn:ogc:def:property:diameter">
+                            <swe:uom xlink:href="" code="mm"/>
+                            <swe:value>64.0</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                    <swe:field name="Material">
+                        <swe:Category definition="urn:ogc:def:property:material">
+                            <swe:value>Stainless Steel</swe:value>
+                        </swe:Category>
+                    </swe:field>
+				</swe:DataRecord>
+            </sml:characteristics>
+			<!--  ================================================= 
+  -->
+			<!--                    System Commands                
+  -->
+			<!--  ================================================= 
+  -->
+			<sml:characteristics name="System Commands">
+                <swe:DataRecord definition="urn:ogc:def:property:SARTI:systemCommands">
+				<swe:field name="Command">
+                        <swe:Category definition="urn:ogc:def:property:SARTI:readData">
+                            <swe:value>F00</swe:value>
+                        </swe:Category>
+                    </swe:field>
+				</swe:DataRecord>
+            </sml:characteristics>
+			<!--  ================================================= 
+  -->
+			<!--                   System Operational Propreties                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:capabilities name="Operational Capabilities">
+                <swe:DataRecord definition="urn:ogc:def:property:OGC:operationalProperties">
+                    <swe:field name="Deaph Capability">
+                        <swe:Quantity definition="urn:ogc:def:classifier:OGS:depthCapability">
+                            <swe:uom xlink:href="" code="m"/>
+                            <swe:value>3000.0</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                    <swe:field name="Digital Resolution">
+                        <swe:Quantity definition="urn:ogc:def:classifier:OGS:digitalResolution">
+                            <swe:uom xlink:href="" code="bit"/>
+                            <swe:value>16.0</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+					<swe:field name="Response Period">
+                        <swe:Quantity definition="urn:ogc:def:classifier:OGS:responsePeriod">
+                            <swe:uom xlink:href="" code="ms"/>
+                            <swe:value>43</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                </swe:DataRecord>
+            </sml:capabilities>
+			<!--  ================================================= 
+  -->
+			<!--                   System Measurement Propreties                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:capabilities name="Measurement Propreties">
+                <swe:DataRecord definition="urn:ogc:def:property:measurementProperties">
+                    <swe:field name="Sensitivity">
+                        <swe:Quantity definition="urn:ogc:def:property:OGC::sensitivity">
+                            <swe:value>-179.0</swe:value>
+                        </swe:Quantity>
+                    </swe:field>
+                    <swe:field name="Accuracy">
+                        <swe:QuantityRange definition="urn:ogc:def:property:OGC::accuracy">
+                            <swe:value>-3 3</swe:value>
+                        </swe:QuantityRange>
+                    </swe:field>
+                    <swe:field name="Sampling Frecuency">
+                        <swe:DataArray definition="urn:ogc:def:property:OGC::samplingFrequency">
+                            <swe:elementCount>
+                                <swe:Count>
+                                    <swe:value>8</swe:value>
+                                </swe:Count>
+                            </swe:elementCount>
+                            <swe:elementType name="frequency">
+                                <swe:SimpleDataRecord>
+                                <swe:field name=" frequency">
+                                    <swe:Quantity definition="urn:ogc:def:property:ogc:1.0:frequency">
+                                        <swe:uom code="kHz"/>
+                                    </swe:Quantity>
+                                </swe:field>
+                                </swe:SimpleDataRecord>
+                            </swe:elementType>
+                            <swe:encoding>
+                                <swe:TextBlock decimalSeparator="." blockSeparator="," tokenSeparator=" "/>
+                            </swe:encoding>
+                            <swe:values>6 12 24 48 96 192 384 768
+                            </swe:values>
+                        </swe:DataArray>
+                    </swe:field>
+                    <swe:field name="Analogue output sensitivity">
+                        <swe:ConditionalData definition="urn:ogc:def:property:OGC::sensitivity">
+                            <swe:case name="Gain level">
+                                <swe:ConditionalValue definition="urn:ogc:def:property:OGC::gain">
+                                    <swe:condition name="Gain levels">
+                                        <swe:DataArray definition="urn:ogc:def:property:OGC::gain">
+                                              <swe:elementCount>
+                                                <swe:Count>
+                                                    <swe:value>4</swe:value>
+                                                </swe:Count>
+                                            </swe:elementCount>
+                                            <swe:elementType name="gain">
+                                                <swe:SimpleDataRecord>
+                                                <swe:field name=" gain">
+                                                    <swe:Quantity definition="urn:ogc:def:property:ogc:1.0:gain">
+                                                        <swe:uom code="dB"/>
+                                                    </swe:Quantity>
+                                                </swe:field>
+                                                </swe:SimpleDataRecord>
+                                            </swe:elementType>
+                                            <swe:encoding>
+                                                <swe:TextBlock decimalSeparator="." blockSeparator="," tokenSeparator=" "/>
+                                            </swe:encoding>
+                                            <swe:values>0 10 20 40</swe:values>
+                                        </swe:DataArray>
+                                    </swe:condition>
+                                    <swe:data xlink:arcrole="" xlink:role="">
+                                        <swe:DataArray definition="urn:ogc:def:property:OGC::sensitivity">
+                                                  <swe:elementCount>
+                                                <swe:Count>
+                                                    <swe:value>4</swe:value>
+                                                </swe:Count>
+                                            </swe:elementCount>
+                                            <swe:elementType name="sensitivity">
+                                                <swe:SimpleDataRecord>
+                                                <swe:field name=" sensitivity">
+                                                    <swe:Quantity definition="urn:ogc:def:property:ogc:1.0:sensitivity">
+                                                        <swe:uom code="dB"/>
+                                                    </swe:Quantity>
+                                                </swe:field>
+                                                </swe:SimpleDataRecord>
+                                            </swe:elementType>
+                                            <swe:encoding>
+                                                <swe:TextBlock decimalSeparator="." blockSeparator="," tokenSeparator=" "/>
+                                            </swe:encoding>
+                                            <swe:values>-199 -189 -179 -159
+                                            </swe:values>
+                                        </swe:DataArray>
+                                    </swe:data>
+                                </swe:ConditionalValue>
+                            </swe:case>
+                        </swe:ConditionalData>
+                    </swe:field>
+                    <swe:field name="Frequency Response">
+                        <swe:Curve definition="urn:ogc:def:property:OGC::frequencyResponse">
+                            <swe:elementCount>
+                                <swe:Count> 
+                                    <swe:value>15</swe:value>
+                                </swe:Count>
+                            </swe:elementCount>
+                            <swe:elementType>
+                                <swe:SimpleDataRecord>
+                                <swe:field name=" frequency">
+                                    <swe:Quantity definition="urn:ogc:def:property:ogc:1.0:frequency">
+                                        <swe:uom code="kHz"/>
+                                    </swe:Quantity>
+                                </swe:field>
+                                <swe:field name=" sensitivity">
+                                    <swe:Quantity definition="urn:ogc:def:property:ogc:1.0:sensitivity">
+                                        <swe:uom code="dB"/>
+                                    </swe:Quantity>
+                                </swe:field>
+                                </swe:SimpleDataRecord>
+                            </swe:elementType>
+                            <swe:encoding>
+                                <swe:TextBlock decimalSeparator="." blockSeparator="," tokenSeparator=" "/>
+                            </swe:encoding>
+                            <swe:values>10,-186 20,-189 30,-189 40,-191 50,-193 60,-192 70,-194 80,-194 90,-193 100,-196 150,-192 200,-192 250,-191 300,-192 350,-193</swe:values>
+                        </swe:Curve>
+                    </swe:field>
+                </swe:DataRecord>
+            </sml:capabilities>
+			<!--  ================================================= 
+  -->
+			<!--                   Manufacturer contact information              
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:manufacturer">
+                <sml:ResponsibleParty>
+				<sml:individualName>NONE</sml:individualName>
+                    <sml:organizationName>Bjørge AS, Inc.</sml:organizationName>
+                    <sml:contactInfo>
+                        <sml:phone>
+                            <sml:voice>+47 55364880</sml:voice>
+                            <sml:facsimile>+47 55364881</sml:facsimile>
+                        </sml:phone>
+                        <sml:address>
+                            <sml:deliveryPoint>Hegrenesveien 42</sml:deliveryPoint>
+                            <sml:city>Bergen</sml:city>
+							<sml:administrativeArea>NONE</sml:administrativeArea>
+                            <sml:postalCode>5042</sml:postalCode>
+                            <sml:country>Norway</sml:country>
+							<sml:electronicMailAddress>naxys-sales@bjorge.no</sml:electronicMailAddress>
+                        </sml:address>
+                        <sml:onlineResource xlink:href="http://www.bjorge.no"/>
+						<sml:hoursOfService>NONE</sml:hoursOfService>
+						<sml:contactInstructions>NONE</sml:contactInstructions>
+                    </sml:contactInfo>
+                </sml:ResponsibleParty>
+            </sml:contact>
+			<!--  ================================================= 
+  -->
+			<!--                   Owner contact information              
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:owner">
+                <sml:ResponsibleParty>
+                    <sml:organizationName>Centre de Desenvolupament Tecnològic de Sistemes d'Adquisició Remota i Tractament de la Informació (SARTI)</sml:organizationName>
+                    <sml:contactInfo>
+                        <sml:phone>
+                            <sml:voice>+34 93 896 72 00</sml:voice>
+                        </sml:phone>
+                        <sml:address>
+                            <sml:deliveryPoint>Rambla Exposició 24</sml:deliveryPoint>
+                            <sml:city>Vilanova i la Geltru</sml:city>
+                            <sml:administrativeArea>Barcelona</sml:administrativeArea>
+                            <sml:postalCode>08800</sml:postalCode>
+                            <sml:country>Spain</sml:country>
+                        </sml:address>
+                    </sml:contactInfo>
+                </sml:ResponsibleParty>
+            </sml:contact>
+			<!--  ================================================= 
+  -->
+			<!--                   Operator contact information              
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:contact xlink:arcrole="urn:ogc:def:classifiers:OGC:contactType:operator">
+                <sml:ResponsibleParty>
+                    <sml:individualName>Joaquin del Rio</sml:individualName>
+                    <sml:organizationName>SARTI</sml:organizationName>
+                    <sml:contactInfo>
+                        <sml:phone>
+                            <sml:voice>+34 93 896 72 03</sml:voice>
+                        </sml:phone>
+                        <sml:address>
+                            <sml:electronicMailAddress>joaquin.del.rio@upc.edu</sml:electronicMailAddress>
+                        </sml:address>
+                    </sml:contactInfo>
+                </sml:ResponsibleParty>
+            </sml:contact>
+			<!--  ================================================= 
+  -->
+			<!--                   Documentation                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:documentation xlink:arcrole="urn:ogc:def:classifiers:OGC:documentType:manual">
+                <sml:Document>
+                    <gml:description>Ethernet Hydrophone 02345 Manual</gml:description>
+                    <sml:format>application/pdf</sml:format>
+                    <sml:onlineResource xlink:href="http://www.bjorge.no/stream_file.asp?iEntityId=3313"/>
+				</sml:Document>
+            </sml:documentation>
+			<!--  ================================================= 
+  -->
+			<!--                   System Location                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:location>
+                <gml:Point srsName="urn:ogc:def:crs:EPSG:6.1:4329" gml:id="SYSTEM_LOCATION">
+                    <gml:coordinates>41.1819083 1.7523417 -20</gml:coordinates>
+                </gml:Point>
+            </sml:location>
+			<!--  ================================================= 
+  -->
+			<!--                   System Interfaces                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:interfaces>
+                <sml:InterfaceList>
+                    <sml:interface name="Ethernet 100BASE-Tx">
+                        <sml:InterfaceDefinition>
+                            <sml:transportLayer>
+								<swe:Category>
+								    <swe:codeSpace xlink:href="urn:ogc:def:classifiers:OGC:protocols"/>
+								    <swe:value>UDP</swe:value>
+								</swe:Category>
+                            </sml:transportLayer>
+                            <sml:mechanicalLayer>
+								<swe:Category>
+								    <swe:codeSpace xlink:href="urn:ogc:def:classifiers:OGC:connectors"/>
+								    <swe:value>5507 1508 BCR Burton</swe:value>
+								</swe:Category>
+                            </sml:mechanicalLayer>
+						</sml:InterfaceDefinition>
+                    </sml:interface>
+                </sml:InterfaceList>
+            </sml:interfaces>
+           
+			<!--  ================================================= 
+  -->
+			<!--                   System Components                
+  -->
+			<!--  ================================================= 
+  -->
+            <sml:components>
+                <sml:ComponentList>
+                    <sml:component name="Pressure Detector">
+						<sml:Component gml:id="PRESSURE_DETECTOR">
+							<gml:description>Pressure detector uPa</gml:description>
+							<sml:inputs>
+								<sml:InputList>
+									<sml:input name="pressure">
+										<swe:ObservableProperty definition="urn:ogc:def:phenomenon:OGC:pressure"/>
+									</sml:input>
+								</sml:InputList>
+							</sml:inputs>
+							<sml:outputs>
+								<sml:OutputList>
+									<sml:output name="pressureMeasurement">
+										<swe:Quantity definition="urn:ogc:def:phenomenon:OGC:pressure">
+											<swe:uom code="uPa"/>
+										</swe:Quantity>
+									</sml:output>
+								</sml:OutputList>
+							</sml:outputs>
+							
+							<sml:method xlink:href="urn:ogc:def:process:1.0:detector"/>
+						</sml:Component>
+					</sml:component>
+					<!--  
+  -->
+                </sml:ComponentList>
+			</sml:components>
+		</sml:System>
+    </sml:member>
+</sml:SensorML>
