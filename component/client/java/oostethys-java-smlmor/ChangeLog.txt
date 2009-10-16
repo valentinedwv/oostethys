@@ -7,6 +7,7 @@ ChangeLog
 
 2009-10-15  0.0.2pre2
 	- statusLabel included 
+	- etc/*.xml with files sent by Joaquin del Rio
 	
 2009-10-14  0.0.2pre1
 	- interface improved with tabpanels.
