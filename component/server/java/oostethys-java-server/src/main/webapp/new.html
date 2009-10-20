@@ -9,14 +9,28 @@
 <body>
 <h1>New and Noteworthy</h1>
 
+
+<h2><br>${project.artifactId}_${project.version}_r${buildNumber}_${timestamp}<br>
+</h2>
+<ul>
+<li>Fixed <a href="http://code.google.com/p/oostethys/issues/detail?id=50">
+issue</a> with not being able to open Opendap queries URLs</i>
+</ul>
+
+
 <h2>${project.version}</h2>
-<br>${project.artifactId}_${project.version}_r${buildNumber}_${timestamp}<br>
+
+
+
+<h2>0.4.0_r299_2009-10-13T1444-0400</h2>
+<ul>
 <li>Added support to provide OpenDAP queries in the configuration file. For example the following URL can be provided in the configuration file <b>http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.dods?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]</b></li>
 <li>In the configuration file the URI of each variable should be provided. The toolkit could not do good guesses all the times since not all the netCDF and OpenDAP servers are CF compliant.  </li>
 <li>All the code is now available as MAVEN modules.</li>
 <li>NETCDF JAVA library was updated to 4.1.</li>
 <li>Check page provides random view of the data.</li>
 <li>Team Engine checks was added to the build. This means that the SOS services created by the toolkit is being tested with OGC test code.</li>
+</ul>
 
 <h2>0.3.11_20091007</h2>
 <ul>
