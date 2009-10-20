@@ -14,9 +14,19 @@ import org.oostethys.sos.Netcdf2sos100;
 import org.oostethys.test.OOSTethysTest;
 import org.oostethys.testutils.LocalResourceServer;
 
+/**
+ * This is a template for fast testing a configuration file.
+ * 1) do copy paste, 2) change the name of this name of the class
+ * 3) change the name of the file to test.
+ * 4) run the test.
+ * 
+ * @author bermudez
+ *
+ */
 public class TestTemplate extends OOSTethysTest {
 	Netcdf2sos100 ns = null;
 	private LocalResourceServer server = new LocalResourceServer();
+	
 	private String fileNameToTest = "oostethys-opendap.xml";
 
 	protected void setUp() throws Exception {
@@ -50,5 +60,11 @@ public class TestTemplate extends OOSTethysTest {
 		assertDoesNotContain(result, "ExceptionReport");
 
 	}
+	
+	 protected void tearDown() throws Exception {
+	     	server.stopServer();
+	        super.tearDown();
+	    }
+ 
 
 }
