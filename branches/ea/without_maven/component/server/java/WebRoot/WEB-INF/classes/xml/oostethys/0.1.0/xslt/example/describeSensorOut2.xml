@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sml:SensorML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:gml="http://www.opengis.net/gml"
+              xmlns:swe="http://www.opengis.net/swe/1.0.1"
+              xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys"
+              xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://schemas.opengis.net/sensorML/1.0.1/sensorML.xsd"
+              version="1.0.1">
+   <sml:member xlink:href="urn:usgs:org:model1">
+      <sml:System>
+         <sml:identification>
+            <sml:IdentifierList>
+               <sml:identifier name="Long Name">
+                  <sml:Term definition="http://mmisw.org/mmi/20080520/obs.owl#longName">
+                     <sml:value>USGS Model</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="ShortName">
+                  <sml:Term definition="http://mmisw.org/mmi/20080520/obs.owl#shortName">
+                     <sml:value>um</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="Identifier">
+                  <sml:Term definition="http://mmisw.org/mmi/20080520/obs.owl#identifier">
+                     <sml:value>
+                    urn:usgs:org:model1
+                </sml:value>
+                  </sml:Term>
+               </sml:identifier>
+            </sml:IdentifierList>
+         </sml:identification>
+         <sml:classification>
+            <sml:ClassifierList>
+               <sml:classifier name="System Type">
+                  <sml:Term definition="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
+                     <sml:value>
+                    http://mmisw.org/mmi/20080520/obs.owl#numericalModel
+                </sml:value>
+                  </sml:Term>
+               </sml:classifier>
+            </sml:ClassifierList>
+         </sml:classification>
+         <sml:validTime>
+            <gml:TimePeriod>
+               <gml:beginPosition>2008-06-05T04:30:00Z</gml:beginPosition>
+               <gml:endPosition>2008-06-05T23:30:00Z</gml:endPosition>
+            </gml:TimePeriod>
+         </sml:validTime>
+         <sml:contact xlink:arcrole="http://mmisw.org/mmi/20080520/obs.owl#dataProvider"
+                      xlink:title="USGS">
+            <sml:ResponsibleParty>
+               <sml:individualName>
+                            Rick Ludich
+                        </sml:individualName>
+               <sml:organizationName>
+                            USGS
+                        </sml:organizationName>
+               <sml:contactInfo>
+                  <sml:address>
+                     <sml:electronicMailAddress>
+                            r@usgs.org
+                        </sml:electronicMailAddress>
+                  </sml:address>
+               </sml:contactInfo>
+            </sml:ResponsibleParty>
+         </sml:contact>
+         <sml:location>
+            <gml:Point>
+               <gml:coordinates cs="urn:ogc:def:crs:EPSG:6.5:4326">
+                    42.20551 -70.72384
+                </gml:coordinates>
+            </gml:Point>
+         </sml:location>
+         <sml:outputs>
+            <sml:OutputList>
+               <sml:output name="pointDataRecord">
+                  <swe:DataArray>
+                     <swe:elementCount/>
+                     <swe:elementType name="SimpleDataArray">
+                        <swe:DataRecord>
+                           <swe:field name="Time">
+                              <swe:Time definition="urn:ogc:phenomenon:time:iso8601"/>
+                           </swe:field>
+                           <swe:field name="latitude">
+                              <swe:Quantity definition="urn:ogc:phenomenon:latitude:wgs84">
+                                 <swe:uom code="degrees_north"/>
+                              </swe:Quantity>
+                           </swe:field>
+                           <swe:field name="longitude">
+                              <swe:Quantity definition="urn:ogc:phenomenon:longitude:wgs84">
+                                 <swe:uom code="degrees_east"/>
+                              </swe:Quantity>
+                           </swe:field>
+                           <swe:field name="sea_surface_height">
+                              <swe:Quantity definition="http://marinemetadata.org/cf#sea_surface_height">
+                                 <swe:uom code="meters"/>
+                              </swe:Quantity>
+                           </swe:field>
+                        </swe:DataRecord>
+                     </swe:elementType>
+                  </swe:DataArray>
+               </sml:output>
+            </sml:OutputList>
+         </sml:outputs>
+      </sml:System>
+   </sml:member>
+</sml:SensorML>

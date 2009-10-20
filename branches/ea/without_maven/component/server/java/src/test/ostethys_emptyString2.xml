@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys
+	http://www.oostethys.org/schemas/0.1.0/oostethys.xsd">
+	
+	<webServerURL>http://localhost:8080</webServerURL>
+	<serviceContact
+		type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider"
+		id="a1">
+		<urlOrganization>http://usgs.gov</urlOrganization>
+		<longNameOrganization>
+			USGS
+		</longNameOrganization>
+		<shortNameOrganization>usgs</shortNameOrganization>
+		<individualName />
+		<individualEmail />
+	</serviceContact>
+	
+	<components>
+		<system>
+			<metadata>
+				<sytemLongName> Model umassb_scituate - GOM</sytemLongName>
+				<systemShortName>um1</systemShortName>
+				<systemIdentifier>urn:usgs:gov:model:um1-gom</systemIdentifier>
+				<systemType>
+					http://mmisw.org/mmi/20080520/obs.owl#numericalModel
+				</systemType>
+				<systemContacts>
+					<systemContact
+						type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider"
+						id="c1">
+						<urlOrganization>
+							org
+						</urlOrganization>
+						<longNameOrganization>
+							a long name
+						</longNameOrganization>
+						<shortNameOrganization>
+							shortName
+						</shortNameOrganization>
+						<individualName>FirstName lastName</individualName>
+						<individualEmail>xxx@xxx.org</individualEmail>
+					</systemContact>
+				</systemContacts>
+			</metadata>
+			
+			
+			<output>
+				
+				<sourceConfiguration>
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL>
+							http://coast-enviro.er.usgs.gov/cgi-bin/nph-dods/models/gom_interop/umassb_scituate.nc
+						</fileURL>
+						
+						<variables>
+							<variable shortName="lat" />
+							<variable shortName="lon" />
+							<variable shortName="time" />
+							<variable shortName="elev" />
+							
+						</variables>
+					</oostethys-netcdf>
+					
+					
+				</sourceConfiguration>
+				
+			</output>
+		</system>
+		<system>
+			<metadata>
+				<sytemLongName> Model FVCOM - USGS - GOM</sytemLongName>
+				<systemShortName>um2</systemShortName>
+				<systemIdentifier>urn:usgs:gov:model:fvcom-gom</systemIdentifier>
+				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
+				<systemContacts>
+					<referencedContact ref="a1"/>
+					
+				</systemContacts>
+			</metadata>
+			
+			
+			
+			<output>
+				
+				<sourceConfiguration>
+					
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL> http://coast-enviro.er.usgs.gov/thredds/dodsC/fvcom/scituate </fileURL>
+						
+						<variables>
+							<variable shortName="lat"/>
+							<variable shortName="lon"/>
+							<variable shortName="time"/>
+							<variable shortName="zeta"/>
+							
+						</variables>
+					</oostethys-netcdf>
+					
+				</sourceConfiguration>
+				
+			</output>
+		</system>
+		
+	</components>
+	
+</oostethys>
+
+ 	  	 

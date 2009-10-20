@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/resolver.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/xbean_xpath.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/xbean.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/xmlbeans-qname.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans230/xmlpublic.jar"/>
+	<classpathentry kind="lib" path="bindings/oostethys010.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

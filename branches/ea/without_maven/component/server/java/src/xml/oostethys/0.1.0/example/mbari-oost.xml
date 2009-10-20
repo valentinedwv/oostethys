@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../oostethys.xsd">
+
+    <webServerURL>http://localhost:8080</webServerURL>
+    <serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1">
+        <urlOrganization>http://www.marinemetadata.org</urlOrganization>
+        <longNameOrganization>Marine Metadata Interoperability Initiative (MMI)</longNameOrganization>
+        <shortNameOrganization>MMI</shortNameOrganization>
+        <individualName/>
+        <individualEmail/>
+    </serviceContact>
+    <components>
+        <system>
+            <metadata>
+                <sytemLongName>Monterey Bay Aquarium Research Institute Observing System</sytemLongName>
+                <systemShortName>MBARI</systemShortName>
+                <systemIdentifier>urn:mbari:org</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
+                <systemContacts>
+                    <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+                        <urlOrganization>http://www.mbari.org</urlOrganization>
+                        <longNameOrganization>Monterey Bay Aquarium Research Institute</longNameOrganization>
+                        <shortNameOrganization>MBARI</shortNameOrganization>
+                        <individualName>Firstname lastName</individualName>
+                        <individualEmail>zzx@xxx.org</individualEmail>
+                    </systemContact>
+                </systemContacts>
+            </metadata>
+            <components>
+                <system>
+                    <metadata>
+                        <sytemLongName>Mooring M2</sytemLongName>
+                        <systemShortName>m2</systemShortName>
+                        <systemIdentifier>uri:mbari:org:mooring:m2</systemIdentifier>
+                        <systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
+                        <systemContacts/>
+                    </metadata>
+                    <components>
+                        <system>
+                            <metadata>
+                                <sytemLongName>Serial CTD</sytemLongName>
+                                <systemShortName>1455</systemShortName>
+                                <systemIdentifier>urn:mbari:org:device:1455</systemIdentifier>
+                                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                                <systemContacts/>
+                            </metadata>
+                            <output>
+                                <sourceConfiguration>
+                                    <oostethys-netcdf
+                                        xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+                                        <fileURL>ctd0010.nc</fileURL>
+                                        <variables>
+                                            <variable shortName="esecs"/>
+                                            <variable shortName="Longitude"/>
+                                            <variable shortName="Latitude"/>
+                                            <variable shortName="NominalDepth"/>
+                                            <variable shortName="Temperature"/>
+                                            <variable shortName="Conductivity"/>
+                                            <variable shortName="Pressure"/>
+                                            <variable shortName="Salinity"/>
+                                        </variables>
+                                    </oostethys-netcdf>
+                                </sourceConfiguration>
+                            </output>
+                        </system>
+                        
+                    </components>
+                </system>
+            </components>
+        </system>
+    </components>
+</oostethys>

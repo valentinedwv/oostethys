@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<%
+# Software written by Bill Howe, OHSU.
+# Copyright 2008, Oregon Health & Science University.
+# All Rights Reserved.
+#
+# Permission to use, copy, modify, and distribute any part of this program for non-profit
+# scientific research or educational use, without fee, and without a written agreement is
+# hereby  granted,  provided  that the above copyright notice, and this license agreement
+# appear  in all copies.  Inquiries regarding use of this software in commercial products
+# or for commercial purposes should be directed to:
+# Technology & Research Collaborations, Oregon Health & Science University,
+# 2525 SW 1st Ave, Suite 120, Portland, OR 97210
+# Ph: 503-494-8200, FAX: 503-494-4729, Email: techmgmt@ohsu.edu.
+#
+# IN  NO EVENT SHALL OREGON HEALTH & SCIENCE UNIVERSITY BE LIABLE TO ANY PARTY FOR DIRECT,
+# INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING
+# OUT  OF THE USE OF THIS SOFTWARE.  THE SOFTWARE IS PROVIDED "AS IS", AND OREGON HEALTH &
+# SCIENCE  UNIVERSITY  HAS  NO  OBLIGATION  TO  PROVIDE  MAINTENANCE, SUPPORT, UPDATES, OR
+# ENHANCEMENTS.  OREGON  HEALTH  & SCIENCE UNIVERSITY MAKES NO REPRESENTATIONS NOR EXTENDS
+# WARRANTIES  OF  ANY  KIND, EITHER IMPLIED OR EXPRESS, INCLUDING, BUT NOT LIMITED TO, THE# IMPLIED  WARRANTIES  OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR THAT THE
+# USE OF THE SOFTWARE WILL NOT INFRINGE ANY PATENT, TRADEMARK OR OTHER RIGHTS.
+%>
+<%
+try:
+  systemid = SystemId
+except NameError: 
+  try:
+    systemid = SystemID
+  except NameError:
+    systemid = SensorId
+
+sql = '''
+  SELECT description, offering, srid, xmin, ymin, xmax, ymax, 
+         %s as starttime, %s as endtime, uri, featureOfInterest, shortname
+    FROM (%s) as o
+   WHERE offering = '%s' 
+''' % (FormatTime('starttime'), FormatTime('endtime'), sensor_query, UnQuote(systemid))
+tuples = DB.getTuples(sql)
+if not tuples: raise ValueError("SystemId '%s' not found." % (SystemId,))
+(description, offering, srid, 
+  xmin, ymin, xmax, ymax, 
+  starttime, endtime, uri, featureOfInterest, shortname) = tuples[0]
+tc = TimeCondition("%s/%s" % (starttime, endtime))
+#qoffering = Quote(offering)
+qoffering = offering
+%>
+<SensorML xmlns="http://www.opengis.net/sensorML/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:swe="http://www.opengis.net/swe/0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.opengis.net/sensorML/0 <%=sensorMLschema%>" version="1.0">
+    <member>
+        <System gml:id="<%=qoffering%>">
+            <gml:description><%=description%></gml:description>
+            <keywords>
+                <KeywordList codeSpace="http://gcmd.nasa.gov/Resources/valids/keyword_list.html">
+                    <keyword>OCEANOGRAPHY</keyword>
+
+                </KeywordList>
+            </keywords>        
+            <identification>
+                <IdentifierList>
+                    <identifier>
+                        <Term definition="urn:x-ogc:def:identifier:OGC:longName">
+                            <value><![CDATA[<%=description%>]]></value>
+                        </Term>
+                    </identifier>
+                    <identifier>
+                        <Term definition="urn:x-ogc:def:identifier:OGC:shortName">
+                            <value><![CDATA[<%=qoffering%>]]></value>
+                        </Term>
+                    </identifier>
+                    <identifier>
+                        <Term definition="http://www.w3.org/1999/02/22-rdf-syntax-ns#ID">
+                            <value><![CDATA[<%=uri%>]]></value>
+                        </Term>
+                    </identifier>
+                </IdentifierList>
+            </identification>
+            <classification>
+                <ClassifierList>
+                    <classifier>
+                        <Term definition="urn:mmi:org:platform">
+                            <value/>
+                        </Term>
+                    </classifier>
+                </ClassifierList>
+            </classification>
+            <validTime>
+                <%=tc.AsGML()%>
+            </validTime>
+            <contact>
+                <ResponsibleParty>
+                    <individualName><%=contactname%></individualName>
+                    <organizationName><%=provider%></organizationName>
+                    <contactInfo>
+                        <address>
+
+                            <electronicMailAddress><%=contactemail%></electronicMailAddress>
+                        </address>
+                        <onlineResource reference="<%=rooturl%>"/>
+                    </contactInfo>
+                </ResponsibleParty>
+            </contact>
+            <location>
+                  <gml:Envelope>
+                      <gml:lowerCorner srsName="urn:ogc:def:crs:EPSG:6.5:<%=srid%>"><%=ymin%> <%=xmin%></gml:lowerCorner>
+                      <gml:upperCorner srsName="urn:ogc:def:crs:EPSG:6.5:<%=srid%>"><%=ymax%> <%=xmax%></gml:upperCorner>
+                      </gml:Envelope>
+            </location>
+            <outputs>
+                <OutputList>
+<%
+
+sql = '''
+   SELECT variable, mmiuri, uom 
+     FROM (%s) as o 
+    WHERE offering = '%s' 
+''' % (observedproperty_query, qoffering)
+
+variables = DB.getTuples(sql)
+for (variable, mmiuri, uom) in variables:
+  # begin block
+%>
+<output xmlns="http://www.opengis.net/sensorML/0" xmlns:swe="http://www.opengis.net/swe/0" xmlns:xlink="http://www.w3.org/1999/xlink" name="<%="%s_from_%s" % (variable,shortname)%>">
+                        <swe:DataRecord>
+                            <swe:field name="time">
+                                <swe:Time definition="urn:ogc:def:phenomenon:time:iso8601"/>
+
+                            </swe:field>
+                            <swe:field name="latitude">
+                                <swe:Quantity definition="urn:ogc:def:phenomenon:latitude:wgs84">
+                                    <swe:uom code="deg"/>
+                                </swe:Quantity>
+                            </swe:field>
+                            <swe:field name="longitude">
+                                <swe:Quantity definition="urn:ogc:def:phenomenon:longitude:wgs84">
+                                    <swe:uom code="deg"/>
+                                </swe:Quantity>
+
+                            </swe:field>
+                            <swe:field name="depth">
+                                <swe:Quantity definition="cf:depth">
+                                    <swe:uom code="urn:ogc:unit:meter"/>
+                                </swe:Quantity>
+                            </swe:field>
+                            <swe:field name="<%=variable%>">
+                                <swe:Quantity definition="<%=mmiuri%>">
+                                    <swe:uom xlink:href="<%=uom%>"/>
+                                </swe:Quantity>
+
+                            </swe:field>
+                        </swe:DataRecord>
+</output>
+<%
+# end block
+%>
+</OutputList>
+
+            </outputs>
+        </System>
+    </member>
+</SensorML>

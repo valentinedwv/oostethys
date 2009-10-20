@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+				"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>OOSTethys JAVA Server </title>
+</head>
+<body>
+<h1>OOSTethys JAVA Server</h1>
+<p><i>This instructions refer to build: ${project.artifactId}_${project.version}_r${buildNumber}_${timestamp}</i></p>
+<h2>Introduction</h2>
+<p>
+This document presents guidelines for setting up an OOSTethys server. The Server will create an Open Geospatial Consortium (OGC) Sensor Observation Service (SOS) that can run as a web application in a Java web server (for example Tomcat and Jetty).
+</p>
+<h2>Instructions</h2>
+
+<ol>
+	<li>If you are seeing this file, is because you have probably download the distribution zip file from <a href="http://code.google.com/p/oostethys/downloads/list">Google Code</a>. The file name looks like this: 
+	oostethys-oostethys-java-server-0.3.9-r276.zip. <br></li>
+	<li>Unzip it. The zip file contains a war file and a set of instructions. The instructions are similar to this file.</li>
+
+	<li>Put the <b>oostethys.war</b> file in your web server. For example for TOMCAT put it under the <b>webapps</b> folder. TOMCAT will unzip the war file. You should see that an <b>oostethys</b> directory was created in the web server and that it contains the structure in Figure 1. <br>
+	<img src="img/wardirexp.png" alt="" width="456" height="376" hspace="10" vspace="10" border="1" />
+<p><i>Figure 1. Directory structure of oostethys.war </i></p>
+	
+	</li>
+	<li>Open a web browser and type the URL of this application. For example: <b>http://localhost:8080/oostethys/ </b>. If you see the a welcome page the OOSTethys server is properly installed. The welcome page presents a check link, so you could test the oostethys server.<br>
+	</li>
+	<li>Now you could edit the configuration file (<b>oostethys.xml</b>) with any text editor, and add required metadata information. Details <a href="#oost-config">here</a> :<br>
+	</li>
+	<li>Every time the configuration file is changed you do not need to refresh your web server. You do need to refresh your browser.</li>
+
+</ol>
+
+
+<h2 id="oost-config"> OOSTethys configuration files </h2>
+<p>
+The OOSTethys configuration file describes the details of a data (or service or stream) source, necessary to publish an SOS service, based on <a href="oostethys.org">OOSTethys</a> conventions. Figure 2 presents the oostethys configuration model. <b>Oostethys</b> has components. A component is a <b>systems</b>, which could represent an observing system, platform or sensor.</p>
+
+<p>
+<img src="img/oostconfigmodel.png" alt="" width="523" height="310" hspace="10" vspace="10" border="1" />
+</p>
+<p><i>Figure 2. OOSTethys configuration model.</i></p>
+
+
+<p>
+A system has metadata ( systemName, identifier, etc..), and could have other components or an output. For example an observing system could have more than one platform. but will have no output. A sensor could have output but no components.
+</p>
+
+<p>
+The output has a sourceConfiguration, which details the properties to parser the sources and publish an SOS service. The following sources	are available:
+</p>
+
+
+<h3 name="oost-config-java-netcdf"> OOSTethys - JAVA - NetCDF</h3>
+<p>
+This configuration file describe the details of a NetCDF file, necessary to publish an SOS service, based on <a href="oostethys.org">OOSTethys</a> conventions. The code bellow is an example of the oostethys-netcdf configuration. 
+
+</p>
+
+<p>
+<code>
+	&lt;output&gt;<br />
+&nbsp;&nbsp; &lt;sourceConfiguration&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;oostethys-netcdf&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;fileURL&gt;<b>myNetCDFURL.nc </b>&lt;/fileURL&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;variables&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>esecs</b>" dimension="time" uri="http://mmisw.org/ont/cf/parameter/iso_19118_time"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Longitude</b>" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Latitude</b>" dimension="latitude" uri="urn:ogc:phenomenon:latitude:wgs84"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>NominalDepth</b>" dimension="depth" uri="http://mmisw.org/ont/cf/parameter/depth"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Temperature</b>" dimension="no" uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Conductivity</b>" dimension="no" uri="http://mmisw.org/ont/cf/parameter/conductivity"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Pressure</b>" dimension="no" uri="http://mmisw.org/ont/cf/parameter/pressure"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;variable shortName="<b>Salinity</b>" dimension="no" uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity"/&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/variables&gt;<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/oostethys-netcdf&gt;<br />
+&nbsp;&nbsp; &lt;/sourceConfiguration&gt;<br />
+&nbsp;&nbsp;&lt;/output&gt;<br />
+
+</code>
+</p>
+<p></p>
+
+<ul>
+	<li><b>fileURL</b>: URL of the NETCDF file or OPeNDAP link. It could also be a relative path to the WEB_INF/classes folder of the oostethys web application. <br>
+	It also allows a simple OPeNDAP url with ranges, where you can specify the minimum and maximum ranges for each variable. For example: <b>http://xxxx-nc.dods?time[0:3],depth[0:3],latitude[0:1],longitude[0:1],echo_intensity_beam1[0:8514][0:59][0:0][0:0]</b><br><br>
+	A more concrete example:
+	<b>http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.dods?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]</b><br><br>
+	</li>
+	<li><b>variable/shortName</b> :   title of the variable that appears after the  data type in the  variables description section of netcdf file header. In the following example <b>Salinity</b> and <b>NominalDepth</b> are the shortNames. These are unique within a file.<br>
+	<code>
+		...<br />
+<br />
+float <b>Salinity</b>(esecs=8265, NominalDepth=1, Latitude=1, Longitude=1);<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :long_name = "Salinity";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :units = "";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :standard_name = "sea_water_salinity";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :missing_value = -99999.0f; // float<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :_FillValue = -99999.0f; // float<br />
+<br />
+ <br />
+ ...<br />
+ <br />
+ <br />
+&nbsp;&nbsp;float <b>NominalDepth</b>(NominalDepth=1);<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :long_name = "Depth";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :units = "m";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :standard_name = "depth";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; :_CoordinateAxisType = "Height";<br />
+&nbsp;&nbsp;&nbsp;&nbsp; <br />
+&nbsp;&nbsp;&nbsp;&nbsp; <br />
+ ...<br />
+	</code>
+    	    </li>
+    	    
+    	    <li><b>Dimension</b>: If it is a dimension in the data set ( e.g. time, lat and lon are often dimensions. There are predefine dimensions. If the variable is not a dimension then the value is <b>no</b>. If the attribute is not provided then it is not a dimension.</li>
+    	    <li><b>uri</b>: Is the URI of this variable. Often time is an OGC URN or a URI that represents the identifier of the variable. We use MMI identifiers created from the CF vocabulary. At the <a href="http://mmisw.org/orr/">MMI registry </a> you can search for more URIs.</li>
+</ul>
+
+</p>
+
+<h2>Checking the Server</h2>
+
+<p>In the welcome page you should see a check link. If you follow it, you will be provided with errors or a success confirmation message. Examples are shown bellow </p>
+<br>
+	
+	<img src="img/errorfeedback.png" alt="" width="716" height="493" hspace="10" vspace="10" border="1" />
+	
+	<br>
+	<img src="img/successmessage.png" alt="" width="483" height="167" hspace="10" vspace="10" border="1"  />
+	<br>
+
+<h2>Upgrading OOSTethys war</h2>
+<ul>
+<li>Copy the current configuration file (<b>oostethys.xml</b>)	in a safe place, outside of web server. </li>
+<li>Follow the installation instructions</li>
+<li>Replace the configuration file with the one you saved in a safe place </li>
+<li>Do not need to restart the web server</li>
+</ul>
+<h3>Other sources will be available soon</h3>
+<p>
+...
+</p>
+
+
+<hr>
+<p font="small"> If you have any problems	will be very happy to help. Send an email to <a href="mailto:oostethys_dev@googlegroups.com">oostethys_dev@googlegroups.com</a>
+
+</body>
+</html>

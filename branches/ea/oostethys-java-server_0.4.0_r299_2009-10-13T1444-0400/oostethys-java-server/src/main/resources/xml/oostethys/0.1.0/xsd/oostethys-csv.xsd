@@ -1,0 +1,29 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.oostethys.org/schemas/0.1.0/oostethys-csv"
+	xmlns:oostcsv="http://www.oostethys.org/schemas/0.1.0/oostethys-csv">
+	<xs:element name="oostethys-csv">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="oostcsv:inline" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="inline">
+		<xs:complexType>
+
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="csv" />
+
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+
+
+</xs:schema>
