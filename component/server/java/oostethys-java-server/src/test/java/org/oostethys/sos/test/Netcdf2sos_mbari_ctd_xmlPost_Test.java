@@ -17,7 +17,7 @@ public class Netcdf2sos_mbari_ctd_xmlPost_Test extends OOSTethysTest {
 	protected void setUp() throws Exception {
 		super.setUp();
 		ns = new Netcdf2sos100();
-		URL file = getURL("mbari-oost.xml");
+		URL file = getURL("oostethys-opendap.xml");
 		URL url = file;
 
 		ns.setUrlOostethys(url);
