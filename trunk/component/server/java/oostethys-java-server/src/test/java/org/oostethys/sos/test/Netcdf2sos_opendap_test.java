@@ -51,9 +51,6 @@ public class Netcdf2sos_opendap_test extends OOSTethysTest {
 	}
 
 	public void testGetCapabilities() throws Exception {
-//		URL urlService = new URL("http://localhost:8080/oostethys/sos");
-//		ns.setServletURL(urlService.toString());
-
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("REQUEST", createArray("GetCapabilities"));
 		map.put("SERVICE", createArray("SOS"));

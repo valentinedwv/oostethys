@@ -153,7 +153,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		try {
 			int index = url.indexOf("?");
 			if (index > 0) {
-				String query = url.substring(url.indexOf("?"));
+				 query = url.substring(url.indexOf("?"));
 			}else{
 				query = null;
 			}
