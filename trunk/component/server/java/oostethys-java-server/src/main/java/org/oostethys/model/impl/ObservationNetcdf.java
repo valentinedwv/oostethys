@@ -424,8 +424,22 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 		// ucar.nc2.Variable varnc = null;
 
 		processReadVar(varsToProcess, arraysVar, Voc.time);
+		if ( varsToProcess.size()==0){
+			throw new Exception("time variable is missing - cannot process");
+			
+		}
 		processReadVar(varsToProcess, arraysVar, Voc.latitude);
+		if ( varsToProcess.size()==1){
+			throw new Exception("latitude variable is missing - cannot process");
+			
+		}
+		
 		processReadVar(varsToProcess, arraysVar, Voc.longitude);
+		if ( varsToProcess.size()==2){
+			throw new Exception("longitude variable is missing - cannot process");
+			
+		}
+		
 
 		VariableQuantity timeVar = variablesConfig.getVariableByURI(Voc.time);
 
