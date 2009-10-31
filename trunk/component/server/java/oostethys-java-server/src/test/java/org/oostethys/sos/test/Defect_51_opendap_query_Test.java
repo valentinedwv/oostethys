@@ -45,7 +45,7 @@ public class Defect_51_opendap_query_Test extends OOSTethysTest {
 		server.startServer();
 
 	}
-
+	
 	public void testGetCapabilities() throws Exception {
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("REQUEST", createArray("GetCapabilities"));
