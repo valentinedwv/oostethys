@@ -146,6 +146,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 	 */
 	private void openNetcdfDataSet() throws ParserException {
 		netcdfdataset = null;
+		String surl = null;
 		if (this.url == null) {
 			throw new ParserException(ParserException.NOT_ABLE_TO_OPEN_FILE,
 					this.url.toString());
@@ -157,7 +158,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			}else{
 				query = null;
 			}
-			String surl = url.toString();
+			 surl = url.toString();
 			if (query != null) {
 				surl = surl.substring(0, surl.indexOf("?"));
 				// remove the 'dods'
@@ -179,7 +180,7 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			e.printStackTrace();
 
 			throw new ParserException(ParserException.NOT_ABLE_TO_OPEN_FILE,
-					this.url.toString());
+					surl);
 
 		}
 
