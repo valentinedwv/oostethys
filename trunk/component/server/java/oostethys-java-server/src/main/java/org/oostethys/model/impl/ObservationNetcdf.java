@@ -162,8 +162,8 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 			if (query != null) {
 				surl = surl.substring(0, surl.indexOf("?"));
 				// remove the 'dods'
-				surl = surl.replace("nc.dods", "nc");
-				surl = surl.replace("nc.ascii", "nc");
+				surl = surl.replace(".dods", "");
+				surl = surl.replace(".ascii", "");
 
 				isOpendapQuery = true;
 				this.query = query;
@@ -172,9 +172,10 @@ public class ObservationNetcdf extends ResourceImpl implements Observation {
 
 			netcdfdataset = NetcdfDataset.openDataset(surl);
 
-			if (logger.isDebugEnabled())
+			if (logger.isDebugEnabled()){
 
 				logger.info(netcdfdataset.toString());
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
