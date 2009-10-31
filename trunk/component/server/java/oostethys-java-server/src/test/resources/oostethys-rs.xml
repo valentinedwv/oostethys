@@ -15,7 +15,7 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongName>xxx Model</sytemLongName>
+				<systemLongName>xxx Model</systemLongName>
 				<systemShortName>um</systemShortName>
 				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
 				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
@@ -56,7 +56,7 @@
 		</system>
 		<system>
 			<metadata>
-				<sytemLongName>xxx Model</sytemLongName>
+				<systemLongName>xxx Model</systemLongName>
 				<systemShortName>um</systemShortName>
 				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
 				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>

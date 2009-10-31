@@ -103,7 +103,7 @@
 	<xs:element name="metadata">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="sytemLongName" type="xs:string" />
+				<xs:element name="systemLongName" type="xs:string" />
 				<xs:element name="systemShortName" type="xs:string" />
 				<xs:element name="systemIdentifier" type="xs:anyURI" />
 				<xs:element name="systemType" type="xs:anyURI" />

@@ -83,7 +83,7 @@
                         
                         <gml:name>
                             <xsl:text>Phenomenon measured by </xsl:text>
-                            <xsl:value-of select="oost:sytemLongName"/>
+                            <xsl:value-of select="oost:systemLongName"/>
                         </gml:name>
                         
                         <xsl:for-each select="oost:output/oost:variables/oost:variable">

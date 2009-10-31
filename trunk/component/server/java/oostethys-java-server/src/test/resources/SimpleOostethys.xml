@@ -15,7 +15,7 @@
     <components>
         <system>
             <metadata>
-                <sytemLongName>USGS Model</sytemLongName>
+                <systemLongName>USGS Model</systemLongName>
                 <systemShortName>um</systemShortName>
                 <systemIdentifier>urn:usgs:org:model1</systemIdentifier>
                 <systemType>http://mmisw.org/mmi/20080520/obs.owl#numericalModel</systemType>
@@ -97,7 +97,7 @@
             <components>
                 <system>
                     <metadata>
-                        <sytemLongName>test level 2</sytemLongName>
+                        <systemLongName>test level 2</systemLongName>
                         <systemShortName>sb1</systemShortName>
                         <systemIdentifier>uri:2</systemIdentifier>
                         <systemType>uri:type:x</systemType>

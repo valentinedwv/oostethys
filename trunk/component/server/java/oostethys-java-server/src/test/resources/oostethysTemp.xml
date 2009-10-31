@@ -14,8 +14,8 @@
 	<oos:components>
 		<oos:system>
 			<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-				<oos:sytemLongName>Monterey Bay Aquarium Research Institute
-					Observing System</oos:sytemLongName>
+				<oos:systemLongName>Monterey Bay Aquarium Research Institute
+					Observing System</oos:systemLongName>
 				<oos:systemShortName>MBARI</oos:systemShortName>
 				<oos:systemIdentifier>urn:mbari:org</oos:systemIdentifier>
 				<oos:systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem
@@ -35,7 +35,7 @@
 			<oos:components>
 				<oos:system>
 					<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<oos:sytemLongName>Mooring M2</oos:sytemLongName>
+						<oos:systemLongName>Mooring M2</oos:systemLongName>
 						<oos:systemShortName>m2</oos:systemShortName>
 						<oos:systemIdentifier>uri:mbari:org:mooring:m2
 						</oos:systemIdentifier>
@@ -46,7 +46,7 @@
 					<oos:components>
 						<oos:system>
 							<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-								<oos:sytemLongName>Serial CTD</oos:sytemLongName>
+								<oos:systemLongName>Serial CTD</oos:systemLongName>
 								<oos:systemShortName>1455</oos:systemShortName>
 								<oos:systemIdentifier>urn:mbari:org:device:1455
 								</oos:systemIdentifier>
@@ -109,8 +109,8 @@
 						</oos:system>
 						<oos:system>
 							<oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-								<oos:sytemLongName>Aanderaa Oxygen Optode (aanderaaoxy)
-								</oos:sytemLongName>
+								<oos:systemLongName>Aanderaa Oxygen Optode (aanderaaoxy)
+								</oos:systemLongName>
 								<oos:systemShortName>1595</oos:systemShortName>
 								<oos:systemIdentifier>urn:mbari:org:device:1595
 								</oos:systemIdentifier>

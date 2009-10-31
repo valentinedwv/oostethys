@@ -15,7 +15,7 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongNam>xxx Model</sytemLongName>
+				<sytemLongNam>xxx Model</systemLongName>
 				<systemShortName>um</systemShortName>
 				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
 				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
