@@ -20,7 +20,7 @@
         <oos:system>
             <oos:metadata
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <oos:sytemLongName>USGS Model</oos:sytemLongName>
+                <oos:systemLongName>USGS Model</oos:systemLongName>
                 <oos:systemShortName>um</oos:systemShortName>
                 <oos:systemIdentifier>
                     urn:usgs:org:model1

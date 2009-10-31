@@ -15,7 +15,7 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongName>NECOFS Model</sytemLongName>
+				<systemLongName>NECOFS Model</systemLongName>
 				<systemShortName>necofs</systemShortName>
 				<systemIdentifier>urn:usgs:org:model:necofs</systemIdentifier>
 				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>

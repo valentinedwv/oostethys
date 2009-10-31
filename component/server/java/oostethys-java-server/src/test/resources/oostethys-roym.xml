@@ -19,7 +19,7 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongName>Coastwatch Monthly SST Blended, Global, Experimental</sytemLongName>
+				<systemLongName>Coastwatch Monthly SST Blended, Global, Experimental</systemLongName>
 				<systemShortName>aggregsatBA_sstamday</systemShortName>
 				<systemIdentifier>urn:usgs:gov:model:um1-gom</systemIdentifier>
 				<systemType>
@@ -73,7 +73,7 @@
 		</system>
 		<system>
 			<metadata>
-				<sytemLongName> Coastwatch 8day Primary Productivity Experimental</sytemLongName>
+				<systemLongName> Coastwatch 8day Primary Productivity Experimental</systemLongName>
 				<systemShortName>aggregsatPN_bfp28day</systemShortName>
 				<systemIdentifier>urn:usgs:gov:model:fvcom-gom</systemIdentifier>
 				<systemType>http://mmisw.org/mmi/platform#Satellite </systemType>

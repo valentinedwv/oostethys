@@ -20,7 +20,7 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongName>xxx Model</sytemLongName>
+				<systemLongName>xxx Model</systemLongName>
 				<systemShortName>um</systemShortName>
 				<systemIdentifier>urn:xxx:org:model1</systemIdentifier>
 				<systemType>

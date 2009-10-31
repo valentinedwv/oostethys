@@ -22,7 +22,7 @@
                         <sml:Term
                             definition="http://mmisw.org/mmi/20080520/obs.owl#longName">
                             <sml:value>
-                                <xsl:value-of select="oost:metadata/oost:sytemLongName"
+                                <xsl:value-of select="oost:metadata/oost:systemLongName"
                                 />
                             </sml:value>
                         </sml:Term>

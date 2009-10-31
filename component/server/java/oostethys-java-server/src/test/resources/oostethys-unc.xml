@@ -46,7 +46,7 @@
     <components>
         <system>
             <metadata>
-                <sytemLongName>TWS Met station observation</sytemLongName>
+                <systemLongName>TWS Met station observation</systemLongName>
                 <systemShortName>jpier</systemShortName>
                 <systemIdentifier>urn:unc:org:jpier</systemIdentifier>
                 <systemType>http://mmisw.org/ont/Platform/metereologicalPlatform</systemType>

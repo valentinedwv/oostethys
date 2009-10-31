@@ -20,7 +20,7 @@
 
 		<system>
 			<metadata>
-				<sytemLongName> Model FVCOM - USGS - GOM</sytemLongName>
+				<systemLongName> Model FVCOM - USGS - GOM</systemLongName>
 				<systemShortName>um2</systemShortName>
 				<systemIdentifier>urn:usgs:gov:model:fvcom-gom</systemIdentifier>
 				<systemType>http://mmisw.org/mmi/20080520/obs.owl#numericalModel</systemType>

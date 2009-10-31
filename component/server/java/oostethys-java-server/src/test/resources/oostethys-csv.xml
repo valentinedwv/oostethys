@@ -23,8 +23,8 @@
 	<components>
 		<system>
 			<metadata>
-				<sytemLongName>Monterey Bay Aquarium Research Institute Observing
-					System</sytemLongName>
+				<systemLongName>Monterey Bay Aquarium Research Institute Observing
+					System</systemLongName>
 				<systemShortName>MBARI</systemShortName>
 				<systemIdentifier>urn:mbari:org</systemIdentifier>
 				<systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
@@ -46,7 +46,7 @@
 			<components>
 				<system>
 					<metadata>
-						<sytemLongName>Mooring M2</sytemLongName>
+						<systemLongName>Mooring M2</systemLongName>
 						<systemShortName>m2</systemShortName>
 						<systemIdentifier>uri:mbari:org:mooring:m2</systemIdentifier>
 						<systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
@@ -58,7 +58,7 @@
 							<!--  This system has outputs and no components -->
 
 							<metadata>
-								<sytemLongName>Serial CTD</sytemLongName>
+								<systemLongName>Serial CTD</systemLongName>
 								<systemShortName>1455</systemShortName>
 								<systemIdentifier>urn:mbari:org:device:1455</systemIdentifier>
 								<systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>

@@ -46,7 +46,7 @@
     <components>
         <system>
             <metadata>
-                <sytemLongName>Monterey Bay Aquarium Research Institute Observing System</sytemLongName>
+                <systemLongName>Monterey Bay Aquarium Research Institute Observing System</systemLongName>
                 <systemShortName>MBARI</systemShortName>
                 <systemIdentifier>urn:mbari:org</systemIdentifier>
                 <systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
@@ -66,7 +66,7 @@
             <components>
                 <system>
                     <metadata>
-                        <sytemLongName>Mooring M2</sytemLongName>
+                        <systemLongName>Mooring M2</systemLongName>
                         <systemShortName>m2</systemShortName>
                         <systemIdentifier>urn:mbari:org:mooring:m2</systemIdentifier>
                         <systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
@@ -78,7 +78,7 @@
                             <!--  This system has outputs and no components -->
 
                             <metadata>
-                                <sytemLongName>Serial CTD</sytemLongName>
+                                <systemLongName>Serial CTD</systemLongName>
                                 <systemShortName>1455</systemShortName>
                                 <systemIdentifier>urn:mbari:org:device:1455</systemIdentifier>
                                 <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
@@ -120,7 +120,7 @@
                 </system>
                 <system>
                     <metadata>
-                        <sytemLongName>Mooring M1</sytemLongName>
+                        <systemLongName>Mooring M1</systemLongName>
                         <systemShortName>m1</systemShortName>
                         <systemIdentifier>urn:mbari:org:mooring:m1</systemIdentifier>
                         <systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
@@ -129,7 +129,7 @@
                     <components>
                         <system>
                             <metadata>
-                                <sytemLongName>Serial CTD (ctd) - 1355</sytemLongName>
+                                <systemLongName>Serial CTD (ctd) - 1355</systemLongName>
                                 <systemShortName>1355</systemShortName>
                                 <systemIdentifier>urn:mbari:org:device:1355</systemIdentifier>
                                 <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
@@ -162,7 +162,7 @@
                         </system>
                         <system>
                             <metadata>
-                                <sytemLongName> MicroCAT Serial CTD (ctd) - 1418</sytemLongName>
+                                <systemLongName> MicroCAT Serial CTD (ctd) - 1418</systemLongName>
                                 <systemShortName>1418</systemShortName>
                                 <systemIdentifier>urn:mbari:org:device:1418</systemIdentifier>
                                 <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
@@ -195,7 +195,7 @@
                 
                 <system>
                     <metadata>
-                        <sytemLongName>Mooring M0</sytemLongName>
+                        <systemLongName>Mooring M0</systemLongName>
                         <systemShortName>m0</systemShortName>
                         <systemIdentifier>urn:mbari:org:mooring:m0</systemIdentifier>
                         <systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
@@ -204,7 +204,7 @@
                     <components>
                         <system>
                             <metadata>
-                                <sytemLongName>Serial CTD (ctd) - 1337</sytemLongName>
+                                <systemLongName>Serial CTD (ctd) - 1337</systemLongName>
                                 <systemShortName>1337</systemShortName>
                                 <systemIdentifier>urn:mbari:org:device:1337</systemIdentifier>
                                 <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
