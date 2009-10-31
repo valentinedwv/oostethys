@@ -7,11 +7,11 @@
 		<version>0.3.9</version>
 	</parent>
 	<artifactId>oostethys-java-server</artifactId>
-	
+
 	<packaging>war</packaging>
 	<name>OOSTethys server</name>
 	<version>0.4.2</version>
-	
+
 	<description>OOSTethys is a community of software developers and marine scientists who develop open source tools to integrate
   observing systems. We are developing applications that support the OGC Sensor Web Enablement. Currently we have reference
   implementations that help you get an OGC Sensor Observation Service installed easily and quickly on a web
@@ -68,24 +68,28 @@
 	</mailingLists>
 	<build>
 		<finalName>oostethys</finalName>
-		
-		<!--<filters>
-			<filter>src/main/filter/filter.properties</filter>
-		</filters>
-		
+
+		<!--
+			<filters> <filter>src/main/filter/filter.properties</filter>
+			</filters>
 		-->
 		
+	
+
 		<plugins>
 			<plugin>
-				
+
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				
+
 				<version>2.1-beta-1</version>
 
 
 				<configuration>
-					<!-- In version 2.1-alpha-1, this was incorrectly named warSourceExcludes -->
+					<!--
+						In version 2.1-alpha-1, this was incorrectly named
+						warSourceExcludes
+					-->
 					<packagingExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
 					</packagingExcludes>
 					<archive>
@@ -97,31 +101,31 @@
 						<manifestEntries>
 							<Implementation-Build>${buildNumber}</Implementation-Build>
 						</manifestEntries>
-						
+
 					</archive>
-					
-					
+
+
 					<!--
-					<filters>
-						<filter>src/main/filter/filter.properties</filter>
-					</filters>
-					
+						<filters> <filter>src/main/filter/filter.properties</filter>
+						</filters>
 					-->
 					<webResources>
 						<resource>
 							<directory>src/main/webapp</directory>
 							<filtering>true</filtering>
-							
+
 						</resource>
-						
+
 					</webResources>
-					
+
 					<finalName>oostethys</finalName>
-					<!--<warSourceExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
-					</warSourceExcludes>-->
+					<!--
+						<warSourceExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
+						</warSourceExcludes>
+					-->
 					<filtering>true</filtering>
-			</configuration>
-				
+				</configuration>
+
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -212,21 +216,23 @@
 					<!--
 						if using this will not work !
 						<buildNumberPropertyName>sources.version</buildNumberPropertyName>
-					
 					-->
 					<timestampPropertyName>timestamp</timestampPropertyName>
 					<timestampFormat>{0,date,yyyy-MM-dd'T'HHmmZ}</timestampFormat>
+
 					
-					<doCheck>${buildnumber.doCheck}</doCheck>
-					
+
 					<doUpdate>false</doUpdate>
 					
+
 					<providerImplementations>
+					<useLastCommittedRevision>true</useLastCommittedRevision>
 						<svn>javasvn</svn>
+						
 					</providerImplementations>
-					
-					
-					
+
+
+
 				</configuration>
 			</plugin>
 			<plugin>
@@ -234,7 +240,7 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2-beta-4</version>
 				<configuration>
-					
+
 					<descriptors>
 						<descriptor>src/main/assembly/src.xml</descriptor>
 					</descriptors>
@@ -246,39 +252,23 @@
 						<resource>
 							<directory>/</directory>
 							<filtering>true</filtering>
-						</resource>	
+						</resource>
 					</resources>
 				</configuration>
-				
-				
+
+
 			</plugin>
 			<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								
-								<tstamp>
-									<format property="last.updated"
-										pattern="yyyyMMddhhmmssZ"/>
-								</tstamp>
-								
-								<echo file="src/main/filter/filter.properties" message="build.time=${last.updated}"/>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
+				<plugin> <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId> <executions>
+				<execution> <phase>generate-resources</phase> <goals>
+				<goal>run</goal> </goals> <configuration> <tasks> <tstamp> <format
+				property="last.updated" pattern="yyyyMMddhhmmssZ"/> </tstamp> <echo
+				file="src/main/filter/filter.properties"
+				message="build.time=${last.updated}"/> </tasks> </configuration>
+				</execution> </executions> </plugin>
 			-->
-			
+
 		</plugins>
 	</build>
 	<dependencies>
@@ -413,5 +403,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	
+
 </project>
