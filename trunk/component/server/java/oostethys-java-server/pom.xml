@@ -10,7 +10,7 @@
 	
 	<packaging>war</packaging>
 	<name>OOSTethys server</name>
-	<version>0.4.0</version>
+	<version>0.4.2</version>
 	
 	<description>OOSTethys is a community of software developers and marine scientists who develop open source tools to integrate
   observing systems. We are developing applications that support the OGC Sensor Web Enablement. Currently we have reference
