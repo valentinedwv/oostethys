@@ -1,0 +1,5 @@
+#summary New and Noteworthy for OOSTethys JAVA server
+
+= Links to reports =
+
+[http://code.google.com/p/oostethys/issues/list?can=1&q=label%3A0.4.2# 0.4.2]
