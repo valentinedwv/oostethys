@@ -5,8 +5,17 @@
 This document presents guidelines for setting up an OOSTethys JAVA server. The Server will create an Open Geospatial Consortium (OGC) Sensor Observation Service (SOS) that can run as a web application in a Java web server, such as Tomcat and Jetty. 
 
 
-= Instructions = 
+= Installation Instructions (5 min) = 
 
   # Download the distribution zip file from Google Code. The file name looks like this: oostethys-oostethys-java-server-0.3.9-r276.zip.
   # Unzip it. The zip file contains a war file.
   # Put the oostethys.war file in your web server. For example for TOMCAT put it under the webapps folder. TOMCAT will unzip the war file. You should see that an oostethys directory was created in the web server and that it contains the structure in Figure 1. 
+  # Open a web browser and type the URL of this application. For example: http://localhost:8080/oostethys/ . If you see the a welcome page the OOSTethys server is properly installed. The welcome page presents a check link, so you could test the oostethys server.
+  # Now you could edit the configuration file (oostethys.xml) with any text editor, and add required metadata information. Details here :
+ 
+ = Editing the configuration file ( 5 min) =
+ 
+The OOSTethys configuration file describes the details of a data (or service or stream) source, necessary to publish an SOS service, based on OOSTethys conventions. 
+Figure 2 presents the oostethys configuration model. Oostethys has components. A component is a systems, which could represent an observing system, platform or sensor.
+ 
+  
