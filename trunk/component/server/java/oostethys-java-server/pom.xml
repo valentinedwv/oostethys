@@ -69,11 +69,6 @@
 	<build>
 		<finalName>oostethys</finalName>
 
-		<!--
-			<filters> <filter>src/main/filter/filter.properties</filter>
-			</filters>
-		-->
-		
 	
 
 		<plugins>
@@ -105,10 +100,6 @@
 					</archive>
 
 
-					<!--
-						<filters> <filter>src/main/filter/filter.properties</filter>
-						</filters>
-					-->
 					<webResources>
 						<resource>
 							<directory>src/main/webapp</directory>
@@ -119,10 +110,7 @@
 					</webResources>
 
 					<finalName>oostethys</finalName>
-					<!--
-						<warSourceExcludes>WEB-INF/lib/servlet-api-2.5-20081211.jar,WEB-INF/lib/jsp-api-2.1.jar,WEB-INF/lib/jetty-util-6.1.18.jar,WEB-INF/lib/jetty-6.1.18.jar,WEB-INF/lib/jetty-embedded-6.1.18.jar
-						</warSourceExcludes>
-					-->
+					
 					<filtering>true</filtering>
 				</configuration>
 
