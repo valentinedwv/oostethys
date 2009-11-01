@@ -27,10 +27,11 @@ The output has a sourceConfiguration, which details the properties to parser the
 
 This configuration file describe the details of a NetCDF file, necessary to publish an SOS service, based on OOSTethys conventions. The code bellow is an example of the oostethys-netcdf configuration.
 
+{{{
 <output>
    <sourceConfiguration>
      <oostethys-netcdf>
-       <fileURL>myNetCDFURL.nc </fileURL>
+       <fileURL>myNetCDFURL.nc</fileURL>
        <variables>
           <variable shortName="esecs" dimension="time" uri="http://mmisw.org/ont/cf/parameter/iso_19118_time"/>
           <variable shortName="Longitude" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/>
@@ -44,6 +45,8 @@ This configuration file describe the details of a NetCDF file, necessary to publ
     </oostethys-netcdf>
    </sourceConfiguration>
   </output>
+
+}}}
 
   *  *fileURL*: URL of the NETCDF file or OPeNDAP link. It could also be a relative path to the WEB_INF/classes folder of the oostethys web application.
       It also allows a simple OPeNDAP url with ranges, where you can specify the minimum and maximum ranges for each variable. For example: http://xxxx-nc.dods?time[0:3],depth[0:3],latitude[0:1],longitude[0:1],echo_intensity_beam1[0:8514][0:59][0:0][0:0]
@@ -77,4 +80,6 @@ This configuration file describe the details of a NetCDF file, necessary to publ
 
 = Checking the Server =
 
-In the welcome page you should see a check link. If you follow it, you will be provided with errors or a success confirmation message. Examples are shown bellow
+In the welcome page you should see a check link. If you follow it, you will be provided with errors or a success confirmation message. Examples are shown bellow.
+
+[http://oostethys.googlecode.com/svn/wiki/JavaServerInstructions.attach/errorfeedback.png]
