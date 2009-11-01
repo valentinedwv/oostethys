@@ -11,7 +11,7 @@ This document presents guidelines for setting up an OOSTethys JAVA server. The S
   # Unzip it. The zip file contains a war file.
   # Put the oostethys.war file in your web server. For example for TOMCAT put it under the webapps folder. TOMCAT will unzip the war file. You should see that an oostethys directory was created in the web server and that it contains the structure in Figure 1. 
   
-  [http://oostethys.googlecode.com/svn/wiki/JavaSourceBuild.attach/wardirexp.png]
+  [http://oostethys.googlecode.com/svn/wiki/JavaServerInstructions.attach/wardirexp.png]
   
   # Open a web browser and type the URL of this application. For example: http://localhost:8080/oostethys/ . If you see the a welcome page the OOSTethys server is properly installed. The welcome page presents a check link, so you could test the oostethys server.
   # Now you could edit the configuration file (oostethys.xml) with any text editor, and add required metadata information. Details here :
@@ -21,4 +21,4 @@ This document presents guidelines for setting up an OOSTethys JAVA server. The S
 The OOSTethys configuration file describes the details of a data (or service or stream) source, necessary to publish an SOS service, based on OOSTethys conventions. 
 Figure 2 presents the oostethys configuration model. Oostethys has components. A component is a systems, which could represent an observing system, platform or sensor.
  
-  [http://oostethys.googlecode.com/svn/wiki/JavaSourceBuild.attach/oostethysconfigmodel.png]
+  [http://oostethys.googlecode.com/svn/wiki/JavaServerInstructions.attach/oostethysconfigmodel.png]
