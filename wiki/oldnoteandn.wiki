@@ -12,7 +12,6 @@ oostethys-oostethys-java-server_0.4.1_r299_2009-10-20T1318-0400.zip
 
     * Fixed issue with not being able to open Opendap queries URLs 
 
-${project.version}
 0.4.0_r299_2009-10-13T1444-0400
 
     * Added support to provide OpenDAP queries in the configuration file. For example the following URL can be provided in the configuration file http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.dods?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]
