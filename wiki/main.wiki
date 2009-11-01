@@ -1,4 +1,5 @@
 #summary main wiki page
+#labels Featured
 
 = Introduction =
 
