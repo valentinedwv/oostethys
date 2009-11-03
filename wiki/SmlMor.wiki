@@ -4,7 +4,8 @@ Test: http://mmisw.org/smlmor/
 
 = Status =
 
-2009-10-14 version 0.0.2pre
+2009-11-02 version 0.0.2pre3
+  * Selection of URIs from the MMI ORR now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
   * Preliminary basic set of fields for contacts, system, and variables.
   * Any number of variables and systems, and unbounded system nesting
   * Generation of SensorML via oostethys model instantiation.
@@ -45,6 +46,9 @@ Not implemented yet.
 
 
 = Noteworthy changes =
+
+2009-11-02 version 0.0.2pre3
+  * Selection of URIs from the MMI ORR now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
 
 2009-10-14 version 0.0.2pre
   * interface improved based on tabpanels
