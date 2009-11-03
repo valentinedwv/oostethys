@@ -28,13 +28,10 @@ The overall goal of this tool is to facilitate the creation of a formal document
 
 = Description =
 
-The user defines systems, variables, and subsystems and the tool generates the corresponding SensorML or TEDS document. While filling out the fields, the user can access the ORR to help in the specification of system types and variables.  
+The user defines systems, variables, and subsystems and the tool generates the corresponding SensorML or TEDS document. While filling out the fields, the user can access the ORR to help in the specification of system types and variables via corresponding definitions (which are captured using URIs). This integration is currently implemented with drop-down lists associated with certain fields that capture URIs for the definition. 
 
-The actual integration with the ORR is not yet implemented but here are possible general approaches:
-
-  * Include a drop-down list for each field. This may not be as simple; in general, the user would actually do some form of search in order to identify the term, definition, or URI that is appropriate for the field.  
-
-  * A more sophisticated approach would be some kind of wizard (sequence of steps) involving the look-up of terms and relationships in the MMI ORR for a complete section is the GUI.
+=== Note ===
+In a more sophisticated UI mechanism the user would actually do some form of interactive search in order to identify the terms, definitions, and URIs that are appropriate for the field. This mechanism may be through some some kind of wizard involving the look-up of terms and relationships in the MMI ORR for a complete section is the GUI.
 
 = Generation mechanism =
 
