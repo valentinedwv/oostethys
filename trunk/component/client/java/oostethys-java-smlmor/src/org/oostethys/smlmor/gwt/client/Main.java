@@ -1,16 +1,13 @@
 package org.oostethys.smlmor.gwt.client;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
-import org.mmisw.iserver.gwt.client.rpc.RegisteredOntologyInfo;
 import org.oostethys.smlmor.gwt.client.img.SmlMorImageBundle;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorServiceAsync;
 import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
+import org.oostethys.smlmor.gwt.client.util.TestSparqlPanel;
 import org.oostethys.smlmor.gwt.client.util.Util;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -49,36 +46,6 @@ public class Main implements EntryPoint {
 	
 	public static SmlMorServiceAsync smlmorService;
 	
-	// cached list of all ontologies
-	private static List<RegisteredOntologyInfo> allUris = new ArrayList<RegisteredOntologyInfo>();
-	
-	// selected ontologies to work on:
-	// Map: code -> RegisteredOntologyInfo
-	private static final Map<String, RegisteredOntologyInfo> workingUris = new LinkedHashMap<String,RegisteredOntologyInfo>();
-	
-	
-	public static List<RegisteredOntologyInfo> getAllUris() {
-		return allUris;
-	}
-
-	public static void setAllUris(List<RegisteredOntologyInfo> allUris) {
-		Main.allUris = allUris;
-	}
-
-	public static Map<String, RegisteredOntologyInfo> getWorkingUris() {
-		return workingUris;
-	}
-
-	public static void addWorkingUri(RegisteredOntologyInfo uri) {
-		char code = (char) ((int) 'A' + Main.workingUris.size());
-		uri.setCode(code);
-		Main.workingUris.put(""+ code, uri);
-	}
-
-	public static boolean containsWorkingUri(RegisteredOntologyInfo uri) {
-		return workingUris.get("" +uri.getCode()) != null;
-	}
-
 
 	/**
 	 * This is the entry point method.
@@ -115,6 +82,12 @@ public class Main implements EntryPoint {
 	  RootPanel.get().add(hp);
 	  // TODO logo
 //	  hp.add(Main.images.logo().createImage());
+	  
+	  if ( true ) {
+		  TestSparqlPanel sparqlPanel = new TestSparqlPanel();
+		  RootPanel.get().add(sparqlPanel.getWidget());
+	  }
+	  
 	  RootPanel.get().add(mainPanel.getWidget());
 
       if ( includeLog ) {
