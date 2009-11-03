@@ -10,6 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import org.mmisw.iserver.core.IServer;
 import org.mmisw.iserver.core.Server;
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryInfo;
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryResult;
 import org.oostethys.schemas.x010.oostethys.OostethysDocument;
 import org.oostethys.smlmor.gwt.client.rpc.SmlMorService;
 import org.oostethys.smlmor.gwt.client.rpc.SmlResult;
@@ -112,6 +114,11 @@ public class SmlMorServiceImpl extends RemoteServiceServlet implements SmlMorSer
 		}
 		
 		return smlResult;
+	}
+
+	
+	public SparqlQueryResult runSparqlQuery(SparqlQueryInfo query) {
+		return iserver.runSparqlQuery(query);
 	}
 
 	

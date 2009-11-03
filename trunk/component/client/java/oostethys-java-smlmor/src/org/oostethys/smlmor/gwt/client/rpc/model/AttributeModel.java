@@ -2,6 +2,10 @@ package org.oostethys.smlmor.gwt.client.rpc.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Carlos Rueda
+ */
 public class AttributeModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -9,6 +13,9 @@ public class AttributeModel implements Serializable {
 	private String label;
 	
 	private String defaultValue;
+	
+	/** Used to retrieve optionsfor this attribute */
+	private String optionsVocabulary;
 	
 	
 	public AttributeModel() {}
@@ -54,6 +61,14 @@ public class AttributeModel implements Serializable {
 
 	public String getDefaultValue() {
 		return defaultValue;
+	}
+
+	public void setOptionsVocabulary(String optionsVocabulary) {
+		this.optionsVocabulary = optionsVocabulary;
+	}
+
+	public String getOptionsVocabulary() {
+		return optionsVocabulary;
 	}
 
 }

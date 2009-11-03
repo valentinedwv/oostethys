@@ -11,6 +11,7 @@ import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.rpc.model.MetadataValues;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 import org.oostethys.smlmor.gwt.client.rpc.model.SystemValues;
+import org.oostethys.smlmor.gwt.client.util.FieldWithChoose;
 import org.oostethys.smlmor.gwt.client.util.TLabel;
 import org.oostethys.smlmor.gwt.client.util.Util;
 
@@ -23,6 +24,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -37,6 +39,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class Controller {
 	
 	
+	private static final String FIELD_WIDTH = "500px";
+
 	private  BasicModels basicModels;
 	
 	private VerticalPanel widget;
@@ -167,9 +171,24 @@ public class Controller {
 			if ( element == null ) {
 				return;
 			}
-			TextBoxBase tb = (TextBoxBase) sender;
-			String name = tb.getName();
-			String value = tb.getText().trim();
+			
+			
+			String name;
+			String value;
+
+			if ( sender instanceof TextBoxBase ) {
+				TextBoxBase tb = (TextBoxBase) sender;
+				name = tb.getName();
+				value = tb.getText().trim();
+			}
+			else if ( sender instanceof ListBox ) {
+				ListBox lb = (ListBox) sender;
+				name = lb.getName();
+				value = lb.getItemText(lb.getSelectedIndex());
+			}
+			else {
+				throw new AssertionError();
+			}
 
 			Main.log("onChange: attribute name: " +name+ " <- \"" +value+ "\"");
 			if ( value.length() == 0 ) {
@@ -373,9 +392,23 @@ public class Controller {
 		
 		ChangeListener mycl = new ChangeListener() {
 			public void onChange(Widget sender) {
-				TextBoxBase tb = (TextBoxBase) sender;
-				String name = tb.getName();
-				String value = tb.getText().trim();
+				String name;
+				String value;
+
+				if ( sender instanceof TextBoxBase ) {
+					TextBoxBase tb = (TextBoxBase) sender;
+					name = tb.getName();
+					value = tb.getText().trim();
+				}
+				else if ( sender instanceof ListBox ) {
+					ListBox lb = (ListBox) sender;
+					name = lb.getName();
+					value = lb.getItemText(lb.getSelectedIndex());
+				}
+				else {
+					throw new AssertionError();
+				}
+				
 				attrGroupValues.getValues().put(name, value);
 				
 				Main.log("onChange: " +attrGroup.getName()+ ": " +name+ " <- \"" +value+ "\"");
@@ -414,22 +447,34 @@ public class Controller {
 		ArrayList<Elem> elems = new ArrayList<Elem>();
 		for (int i = 0; i < attributes.length; i++) {
 			AttributeModel attrDef = attributes[i];
-			TextBoxBase tbb = Util.createTextBoxBase(1, "350px", cl);
-			
-			tbb.setName(attrDef.getBeanAttributeName());
-			
 			String defaultValue = attrDef.getDefaultValue();
-			if ( defaultValue != null ) {
-				tbb.setText(defaultValue);
+			
+			Widget widget;
+			
+			if ( attrDef.getOptionsVocabulary() != null ) {
+				FieldWithChoose fwc = new FieldWithChoose(attrDef, cl, FIELD_WIDTH);
+				if ( defaultValue != null ) {
+					fwc.getTextBox().setText(defaultValue);
+					fwc.getTextBox().setName(attrDef.getBeanAttributeName());
+				}
+				widget = fwc;
+			}
+			else {
+				TextBoxBase tbb = Util.createTextBoxBase(1, FIELD_WIDTH, cl);
+				tbb.setName(attrDef.getBeanAttributeName());
+				if ( defaultValue != null ) {
+					tbb.setText(defaultValue);
+				}
+				widget = tbb;
 			}
 			
-			Elem elem = new Elem(attrDef, tbb);
+			Elem elem = new Elem(attrDef, widget);
 
 			elems.add(elem);
 		}
 
 		
-		// crdeate form
+		// create form
 		FlexTable flexTable = new FlexTable();
 //		flexTable.setBorderWidth(1);
 		int row = 0;

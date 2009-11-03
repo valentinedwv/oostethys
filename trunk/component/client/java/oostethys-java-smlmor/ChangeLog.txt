@@ -6,7 +6,8 @@ $Id$
 ChangeLog
 
 2009-11-02  0.0.2pre3
-	- preparing SPARQL dispatching to populate drop-down lists for selection of URIs
+	- Dispatching some drop-down lists for selection of URIs, which are populated
+	  via SPARQL queries to obtain the instances of corresponding given classes.
 
 2009-10-15  0.0.2pre2
 	- statusLabel included 

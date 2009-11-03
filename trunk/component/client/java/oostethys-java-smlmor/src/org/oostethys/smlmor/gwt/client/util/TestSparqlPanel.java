@@ -2,6 +2,8 @@ package org.oostethys.smlmor.gwt.client.util;
 
 import java.util.Map;
 
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryResult;
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryResult.ParsedResult;
 import org.oostethys.smlmor.gwt.client.Main;
 
 import com.google.gwt.user.client.ui.CellPanel;
@@ -14,7 +16,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -47,9 +48,6 @@ public class TestSparqlPanel {
 	});
 	
 	
-	private TextBox formatTextBox = new TextBox();
-	
-	
 	public TestSparqlPanel() {
 		
 		queryTextArea.setText(
@@ -65,26 +63,21 @@ public class TestSparqlPanel {
 				" ORDER BY ASC(?description) "
 		);
 		
-		formatTextBox.setText("json");
-		
 		widget.setWidth("700px");
 		widget.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		
 		container.setSpacing(4);
 	    widget.add(container);
 
-	    container.add(new HTML(
-	    		"<h2>SPARQL test panel</h2>" 
-	    ));
+	    container.add(new HTML("<h3>SPARQL test panel</h3>"));
 	    
 	    HorizontalPanel hp = new HorizontalPanel();
 	    hp.setSpacing(5);
 	    container.add(hp);
-	    hp.add(new HTML("Fill out the definitions section and then click: "));
+	    hp.add(new HTML("Fill in the SPARQL section and then click: "));
 	    hp.add(searchButton);
 	    
 	    hp.add(new HTML("Format:"));
-	    hp.add(formatTextBox);
 	    
 	    hp.add(statusLabel);
 
@@ -145,17 +138,15 @@ public class TestSparqlPanel {
 				onError(error);
 			}
 
-			public void responseObtained(SparqlUtil.Result result) {
+			public void responseObtained(SparqlQueryResult sparqlQueryResult) {
 				Main.log("responseObtained");
 				enable(true);
 				statusLabel.setHTML("");
-				String text = result.sqResult.getResult();
+				String text = sparqlQueryResult.getResult();
 				outputTextArea.setText(text);
 				tabPanel.selectTab(1);
 				
-				if ( result.values != null ) { 
-					dispatchResponse(result);
-				}
+				dispatchResponse(sparqlQueryResult);
 			}
 			
 		});
@@ -163,24 +154,34 @@ public class TestSparqlPanel {
 	}
 
 	
-	protected void dispatchResponse(SparqlUtil.Result result) {
+	protected void dispatchResponse(SparqlQueryResult sparqlQueryResult) {
 		FlexTable flexTable = new FlexTable();
 		flexTable.setBorderWidth(1);
-		int row = 0;
 		
-		for ( int i = 0, cnt = result.keys.size(); i < cnt; i++ ) {
-			String key = result.keys.get(i);
-			flexTable.setWidget(row, i, new Label(key));
+		ParsedResult parsedResult = sparqlQueryResult.getParsedResult();
+		if ( parsedResult == null ) {
+			flexTable.setWidget(0, 0, new Label("No parsed results obtained"));
 		}
-		row++;
-		
-		for ( int i = 0, cnt = result.values.size(); i < cnt; i++, row++ ) {
-			Map<String, String> record = result.values.get(i);
-			int col = 0;
-			for ( String key : result.keys ) {
-				String value = record.get(key);
-				flexTable.setWidget(row, col++, new Label(value));
+		else if ( parsedResult.getError() != null ) {
+			flexTable.setWidget(0, 0, new Label(parsedResult.getError()));
+		}
+		else {
+			int row = 0;
+			for ( int i = 0, cnt = parsedResult.keys.size(); i < cnt; i++ ) {
+				String key = parsedResult.keys.get(i);
+				flexTable.setWidget(row, i, new Label(key));
 			}
+			row++;
+
+			for ( int i = 0, cnt = parsedResult.values.size(); i < cnt; i++, row++ ) {
+				Map<String, String> record = parsedResult.values.get(i);
+				int col = 0;
+				for ( String key : parsedResult.keys ) {
+					String value = record.get(key);
+					flexTable.setWidget(row, col++, new Label(value));
+				}
+			}
+
 		}
 		
 		formattedOutput.clear();
