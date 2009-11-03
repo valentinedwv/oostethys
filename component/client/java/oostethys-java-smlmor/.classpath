@@ -24,5 +24,7 @@
 	<classpathentry kind="lib" path="base_war/WEB-INF/lib/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="base_war/WEB-INF/lib/saxon-8.7.jar"/>
 	<classpathentry kind="lib" path="base_war/WEB-INF/classes"/>
+	<classpathentry kind="lib" path="base_war/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="base_war/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

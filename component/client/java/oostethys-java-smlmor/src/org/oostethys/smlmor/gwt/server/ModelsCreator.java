@@ -37,9 +37,11 @@ class ModelsCreator {
 	
 	private static AttrGroupModel createSystemMetadataModel(String name, String htmlInfo) {
 		AttrGroupModel contact = new AttrGroupModel(name, htmlInfo);
+		AttributeModel systemType = new AttributeModel("systemType", "type", "http://mmisw.org/ont/mmi/systemtype/ctd");
+		systemType.setOptionsVocabulary("http://mmisw.org/ont/mmi/systemtype/SystemType");
 		contact.addAttributes(
+				systemType,
 				new AttributeModel("systemShortName", "Short name", "seabird-ctd"),
-				new AttributeModel("systemType", "type", "urn:xxx:sytem:type"),
 				new AttributeModel("sytemLongName", "Long name", "Seabird XXX CTD Sensor"),
 				new AttributeModel("systemIdentifier", "Identifier", "id1:idx2")
 		);
@@ -48,13 +50,15 @@ class ModelsCreator {
 
 	private static AttrGroupModel createOutputModel() {
 		AttrGroupModel contact = new AttrGroupModel("Output", null);
+		AttributeModel variableUri = new AttributeModel("uri", "URI", "http://mmisw.org/ont/cf/parameter/air_temperature");
+		variableUri.setOptionsVocabulary("http://mmisw.org/ont/cf/parameter/Parameter");
 		contact.addAttributes(
+				variableUri,
 				new AttributeModel("name", "Name", "Temperature"),
-				new AttributeModel("uri", "URI", "urn:xyz:temp"),
-				new AttributeModel("uom", "UOM", "F"),
-				new AttributeModel("isCoordinate", "Is coordinate", "false"),
-				new AttributeModel("isTime", "Is time", "false"),
-				new AttributeModel("referenceFrame", "Reference frame", "")
+				new AttributeModel("uom", "UOM", "F")
+//				new AttributeModel("isCoordinate", "Is coordinate", "false"),
+//				new AttributeModel("isTime", "Is time", "false"),
+//				new AttributeModel("referenceFrame", "Reference frame", "")
 		);
 		return contact;
 	}

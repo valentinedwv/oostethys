@@ -1,6 +1,8 @@
 package org.oostethys.smlmor.gwt.client.rpc;
 
 import org.mmisw.iserver.gwt.client.rpc.AppInfo;
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryInfo;
+import org.mmisw.iserver.gwt.client.rpc.SparqlQueryResult;
 import org.oostethys.smlmor.gwt.client.rpc.model.BasicModels;
 import org.oostethys.smlmor.gwt.client.rpc.model.OostethysValues;
 
@@ -18,6 +20,9 @@ public interface SmlMorServiceAsync {
 	
 	
 	void getModels(AsyncCallback<BasicModels> callback);
+	
+	void runSparqlQuery(SparqlQueryInfo query, AsyncCallback<SparqlQueryResult> callback);
+	
 	
 	void getSensorML(OostethysValues soostValues, AsyncCallback<SmlResult> callback);
 	

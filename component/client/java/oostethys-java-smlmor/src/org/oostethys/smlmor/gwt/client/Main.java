@@ -83,7 +83,7 @@ public class Main implements EntryPoint {
 	  // TODO logo
 //	  hp.add(Main.images.logo().createImage());
 	  
-	  if ( true ) {
+	  if ( false ) {
 		  TestSparqlPanel sparqlPanel = new TestSparqlPanel();
 		  RootPanel.get().add(sparqlPanel.getWidget());
 	  }
