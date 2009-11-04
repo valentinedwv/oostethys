@@ -1,0 +1,9 @@
+# Example rule file
+@prefix om: <http://mmisw.org/ont/ooi-ci/om#>.
+@prefix fui: <http://mmisw.org/ont/ooi-ci/fui#>.
+@prefix cdm: <http://mmisw.org/ont/ooi-ci/cdm#>.
+
+[ MBARI: (?dataset rdf:type om:Observation) -> (?dataset rdf:type fui:MBARI) ]
+[ DatasetsAreObservations: (?dataset rdf:type cdm:Dataset) -> (?dataset rdf:type om:Observation) ]
+[varsArePropertiesWithMMIURI: (?dataset cdm:variable ?var) strConcat("http://mmisw.org/ont/cf/parameter/",?var,?prop) -> (?dataset om:property ?prop)  ]
+ 
