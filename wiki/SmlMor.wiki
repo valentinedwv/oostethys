@@ -1,4 +1,4 @@
-#summary development of the ORR-enabled SensorML/TEDS generator
+#summary development of the ORR-enabled SensorML/TEDS generator -- Carlos Rueda
 
 Test: http://mmisw.org/smlmor/
 
