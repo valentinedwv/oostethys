@@ -11,23 +11,43 @@
     >Created with TopBraid Composer</owl:versionInfo>
   </owl:Ontology>
   <owl:Class rdf:ID="Dataset"/>
-  <rdf:Property rdf:ID="abstract"/>
-  <rdf:Property rdf:ID="organization"/>
-  <rdf:Property rdf:ID="variable"/>
-  <rdf:Property rdf:ID="title"/>
-  <Dataset rdf:ID="Dataset_1">
+  <owl:DatatypeProperty rdf:ID="source">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="variable">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="institution">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="history">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="title">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="comment">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:DatatypeProperty>
+  <Dataset rdf:ID="test_Dataset_1">
+    <institution rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Monterey Bay Aquarium Research Institute</institution>
+    <comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is data from a mooring located in the Monterey Bay. The mooring has instruments, etc..</comment>
     <variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >sea_water_temperature</variable>
+    >sea_water_electrical_conductivity</variable>
+    <variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sea_water_salinity</variable>
     <title rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >latest data from MBARI Mooring M2 </title>
     <variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >sea_water_salinity</variable>
-    <variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >sea_water_electrical_conductivity</variable>
-    <organization rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Monterey Bay Aquarium Research Institute</organization>
-    <abstract rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >This is data from a mooring located in the Monterey Bay. The mooring has instruments, etc..</abstract>
+    >sea_water_temperature</variable>
   </Dataset>
 </rdf:RDF>
 

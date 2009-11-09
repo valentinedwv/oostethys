@@ -10,7 +10,13 @@
     <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Created with TopBraid Composer</owl:versionInfo>
   </owl:Ontology>
+  <owl:Class rdf:ID="Source">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
   <owl:Class rdf:ID="ResultType">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Variable">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
   <owl:Class rdf:ID="MBARI">
@@ -18,14 +24,11 @@
       <owl:Class rdf:ID="Organization"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:ID="Variable">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-  </owl:Class>
   <owl:Class rdf:about="#Organization">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:Class rdf:ID="Source">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:Class rdf:ID="Atmospheric_Wind">
+    <rdfs:subClassOf rdf:resource="#Variable"/>
   </owl:Class>
 </rdf:RDF>
 
