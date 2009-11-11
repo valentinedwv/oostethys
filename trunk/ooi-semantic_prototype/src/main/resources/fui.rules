@@ -7,9 +7,10 @@
 [ DatasetsAreObservations: (?dataset rdf:type cdm:Dataset) -> (?dataset rdf:type om:Observation) ]
 [ CDMVariablesAreOMObservedProperties: (?var rdf:type cdm:variable) -> (?var rdf:type om:observedProperty) ]
 [ CDMTitleIsOMTitle: (?x cdm:title ?title) -> (?x om:title ?title) ]
+[ CDMTitleIsOMTitle: (?x cdm:institution ?institution) -> (?x om:pointOfContactOrganization ?institution) ]
 
 # creating uris for CFs to use the extingin mappings at MMI
-[ VarsArePropertiesWithMMIURI: (?dataset cdm:variable ?var) strConcat("http://mmisw.org/ont/cf/parameter/",?var,?prop) -> (?dataset om:property ?prop)]
+[ VarsArePropertiesWithMMIURI: (?dataset cdm:variable ?var) strConcat("http://mmisw.org/ont/cf/parameter/",?var,?prop) -> (?dataset om:observedProperty ?prop)]
 
 # concrete rules about an institution MBARI
-[ MBARI: (?dataset rdf:type om:Observation) (?dataset cdm:organization "Monterey Bay Aquarium Research Institute") -> (?dataset rdf:type fui:MBARI) ]
+[ MBARI:  (?x om:pointOfContactOrganization "Monterey Bay Aquarium Research Institute") -> (?x om:pointOfContactOrganization "MBARI") ]
