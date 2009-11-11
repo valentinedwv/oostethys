@@ -19,17 +19,11 @@
   <owl:Class rdf:ID="Variable">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:Class rdf:ID="MBARI">
-    <rdfs:subClassOf>
-      <owl:Class rdf:ID="Organization"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="#Organization">
+  <owl:Class rdf:ID="Organization">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:Class rdf:ID="Atmospheric_Wind">
-    <rdfs:subClassOf rdf:resource="#Variable"/>
-  </owl:Class>
+  <Organization rdf:ID="MBARI"/>
+  <Variable rdf:ID="Atmospheric_Wind"/>
 </rdf:RDF>
 
 <!-- Created with TopBraid Composer -->

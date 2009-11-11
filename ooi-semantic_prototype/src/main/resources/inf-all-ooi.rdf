@@ -7,8 +7,8 @@
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:omv="http://omv.ontoware.org/2005/05/ontology#"
     xmlns:wot="http://xmlns.com/wot/0.1/"
+    xmlns="http://mmisw.org/ont/ooi-ci/all/"
     xmlns:dcam="http://purl.org/dc/dcam/"
-    xmlns="http://mmisw.org/ont/ooi-ci/all#"
     xmlns:cdm="http://mmisw.org/ont/ooi-ci/cdm#"
     xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -598,9 +598,9 @@ above the local reference ellipsoid).</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/cdm#Dataset">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:subClassOf rdf:resource="http://mmisw.org/ont/ooi-ci/cdm#Dataset"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://mmisw.org/ont/ooi-ci/cdm#Dataset"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/mapping-cf-ioosvar">
@@ -631,20 +631,6 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/birthday">
-    <rdfs:subPropertyOf rdf:resource="http://xmlns.com/foaf/0.1/birthday"/>
-    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:comment>The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.</rdfs:comment>
-    <rdfs:label>birthday</rdfs:label>
-    <vs:term_status>unstable</vs:term_status>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/om#OnlineResult">
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:subClassOf rdf:resource="http://mmisw.org/ont/ooi-ci/om#Result"/>
@@ -660,10 +646,12 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/cdm#test_Dataset_1">
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_salinity</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_salinity</j.2:observedProperty>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/om#Observation"/>
+    <j.2:pointOfContactOrganization>MBARI</j.2:pointOfContactOrganization>
+    <j.2:pointOfContactOrganization rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Monterey Bay Aquarium Research Institute</j.2:pointOfContactOrganization>
     <j.2:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">latest data from MBARI Mooring M2 </j.2:title>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sea_water_temperature</cdm:variable>
     <cdm:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">latest data from MBARI Mooring M2 </cdm:title>
@@ -672,6 +660,20 @@ above the local reference ellipsoid).</rdfs:comment>
     <cdm:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This is data from a mooring located in the Monterey Bay. The mooring has instruments, etc..</cdm:comment>
     <cdm:institution rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Monterey Bay Aquarium Research Institute</cdm:institution>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/cdm#Dataset"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/birthday">
+    <rdfs:subPropertyOf rdf:resource="http://xmlns.com/foaf/0.1/birthday"/>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:comment>The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.</rdfs:comment>
+    <rdfs:label>birthday</rdfs:label>
+    <vs:term_status>unstable</vs:term_status>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/om#pointOfContactName">
@@ -885,13 +887,13 @@ above the local reference ellipsoid).</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Image">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Image"/>
     <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:comment>An image.</rdfs:comment>
     <rdfs:label>Image</rdfs:label>
     <vs:term_status>testing</vs:term_status>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Image"/>
     <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
@@ -986,8 +988,8 @@ above the local reference ellipsoid).</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#string">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/dnaChecksum">
@@ -1236,37 +1238,37 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://motherlode.ucar.edu:8080/thredds/fileServer/station/metar/Surface_METAR_20091106_0000.nc">
-    <j.2:property>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/latitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/weather</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/longitude</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/pressure</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/parent_index</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/numChildren</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/weather</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/longitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/latitude</j.2:observedProperty>
     <j.2:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">METAR Data from NWS</j.2:title>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/xfields</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/region</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/pressure</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/number_stations</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_length</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/prevChild</j.2:observedProperty>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/om#Observation"/>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_length</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/station_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/prevChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/lastChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/numChildren</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/parent_index</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/number_stations</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/xfields</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/station_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/lastChild</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/region</j.2:observedProperty>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">longitude</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">prevChild</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cloud_base_altitude</cdm:variable>
@@ -1339,37 +1341,37 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://motherlode.ucar.edu:8080/thredds/fileServer/station/metar/Surface_METAR_20091105_0000.nc">
-    <j.2:property>http://mmisw.org/ont/cf/parameter/latitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/weather</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/parent_index</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/lastChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/station_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/longitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/lastChild</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/prevChild</j.2:observedProperty>
     <j.2:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">METAR Data from NWS</j.2:title>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/xfields</j.2:property>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/om#Observation"/>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_length</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/pressure</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/number_stations</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/prevChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/longitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/numChildren</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/region</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/station_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/xfields</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/numChildren</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/weather</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/latitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/number_stations</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/pressure</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/region</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_length</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/parent_index</j.2:observedProperty>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">prevChild</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">air_pressure_at_sea_level</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cloud_area_fraction</cdm:variable>
@@ -1424,37 +1426,37 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://motherlode.ucar.edu:8080/thredds/fileServer/station/metar/Surface_METAR_20091104_0000.nc">
-    <j.2:property>http://mmisw.org/ont/cf/parameter/number_stations</j.2:property>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/om#Observation"/>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/prevChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/region</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/parent_index</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/weather</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_length</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/xfields</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/numChildren</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/time</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/lastChild</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/latitude</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/station_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/forecast_reference_time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/visibility_in_air</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wmo_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/time</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_id</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/longitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/region</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_pressure_at_sea_level</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/latitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/numChildren</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report_length</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/weather</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/surface_altitude</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/pressure</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/lastChild</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/xfields</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/parent_index</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/report</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_speed</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/precipitation_amount</j.2:observedProperty>
     <j.2:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">METAR Data from NWS</j.2:title>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/report_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/dew_point_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/pressure</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/station_id</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/longitude</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/prevChild</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_area_fraction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/snowfall_amount</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/air_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/wind_from_direction</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/number_stations</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/cloud_base_altitude</j.2:observedProperty>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">station_id</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cloud_base_altitude</cdm:variable>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">report_length</cdm:variable>
@@ -1639,8 +1641,8 @@ above the local reference ellipsoid).</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#dateTime">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt">
@@ -1784,6 +1786,7 @@ above the local reference ellipsoid).</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Project">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Project"/>
     <owl:disjointWith rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
     <owl:disjointWith rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
     <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
@@ -1792,7 +1795,6 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdfs:label>Project</rdfs:label>
     <vs:term_status>unstable</vs:term_status>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Project"/>
     <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
@@ -1866,10 +1868,9 @@ above the local reference ellipsoid).</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/cdm#Dataset_1">
-    <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/fui#MBARI"/>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_temperature</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_salinity</j.2:property>
-    <j.2:property>http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity</j.2:property>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_temperature</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_salinity</j.2:observedProperty>
+    <j.2:observedProperty>http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity</j.2:observedProperty>
     <rdf:type rdf:resource="http://mmisw.org/ont/ooi-ci/om#Observation"/>
     <j.2:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">latest data from MBARI Mooring M2 </j.2:title>
     <cdm:variable rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sea_water_temperature</cdm:variable>
@@ -2003,6 +2004,7 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://mmisw.org/ont/ooi-ci/om#Observation_1">
+    <j.2:pointOfContactOrganization>MBARI</j.2:pointOfContactOrganization>
     <j.2:upperCornerLong rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-121.3</j.2:upperCornerLong>
     <j.2:abstract rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This is data from a mooring located in the Monterey Bay. The mooring has instruments, etc..</j.2:abstract>
     <j.2:observedProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sea_water_temperature</j.2:observedProperty>
@@ -2026,8 +2028,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
     <geo:long rdf:datatype="http://www.w3.org/2001/XMLSchema#string">-122.4</geo:long>
     <geo:lat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35.1</geo:lat>
     <rdf:type rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Ontology">
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
