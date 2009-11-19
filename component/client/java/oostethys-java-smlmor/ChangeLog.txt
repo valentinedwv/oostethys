@@ -5,6 +5,10 @@ $Id$
 
 ChangeLog
 
+2009-11-18  0.0.2pre4
+	- FieldWithChoose: make sure no item is selected so we get an change event on the 
+	  first item (needed for firefox at least).
+	
 2009-11-02  0.0.2pre3
 	- Dispatching some drop-down lists for selection of URIs, which are populated
 	  via SPARQL queries to obtain the instances of corresponding given classes.
