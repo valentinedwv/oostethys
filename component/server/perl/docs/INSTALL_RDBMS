@@ -1,5 +1,5 @@
 SOS Server CGI Cookbook (RDBMS)
-by Eric Bridger Ñ last modified Nov 25, 2008 02:33 PM
+by Eric Bridger last modified Nov 25, 2008 02:33 PM
 
 Modifying the oostethys_sos.cgi script to handle observations and configurations from a local relational database system.
 File List
@@ -10,6 +10,9 @@ File List
     * sosGetCapabilities.xml - 1.0 template
     * sosGetObservation.xml - 1.0 template
     * sosDescribeSystem.xml - 1.0 template
+    * difGetCapabilities.xml - DIF template
+    * difGetObservation.xml - DIF template
+    * difDescribeSystem.xml - DIF template
 
 System Requirements
 
@@ -22,10 +25,13 @@ System Requirements
 Installation Steps
 
    1. Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
-   2. Put the three XML template files in the same directory
+   2. Put the six XML template files in the same directory
          1. sosGetCapabilities.xml
          2. sosGetObservation.xml
          3. sosDescribeSystem.xml
+         4. difGetCapabilities.xml
+         5. difGetObservation.xml
+         6. difDescribeSystem.xml
 
 Editing the oostethys_sos.cgi script
 Overview
