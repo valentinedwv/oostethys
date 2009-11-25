@@ -8,10 +8,11 @@ File List
     * sosGetObservation.xml - 1.0 template
     * sosDescribeSystem.xml - 1.0 template
 	* README - This file
-	* INSTALL - Basic install instructions
-	* INSTALL_ASCII - Setting up to serve observations stored in ASCII text files
-	* INSTALL_RDBMS - Setting up to serve observations stored in a relational database via DBI
-	* INSTALL_MODULES - How to install some required PERL modules
+	* docs/INSTALL - Basic install instructions
+	* docs/INSTALL_ASCII - Setting up to serve observations stored in ASCII text files
+	* docs/INSTALL_RDBMS - Setting up to serve observations stored in a relational database via DBI
+	* docs/INSTALL_MODULES - How to install some required PERL modules
+	* docs/SOS_with_Perl_MS_Windows - Notes on installing on a Windows server using ActiveState PERL.
 
 OOSTethys Project code repository: http://code.google.com/p/oostethys/
 

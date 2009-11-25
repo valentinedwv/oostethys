@@ -21,4 +21,4 @@ Installation Steps
 
 GetCapbilties is the default response and should return XML. Not very interesting response since the sos_config.xml has null values.
 
-See INSTALL_ASCII or INSTALL_RDBS for addtional instructions.
+See INSTALL_MODULES and INSTALL_ASCII or INSTALL_RDBS in the docs/ subdirectory for addtional instructions.
