@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SensorML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://schemas.opengis.net/sensorML/1.0.1 http://schemas.opengis.net/sensorML/1.0.1/sensorML.xsd"
- xmlns="http://schemas.opengis.net/sensorML/1.0.1"
- xmlns:sml="http://schemas.opengis.net/sensorML/1.0.1"
+ xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://schemas.opengis.net/sensorML/1.0.1/sensorML.xsd"
+ xmlns="http://www.opengis.net/sensorML/1.0.1"
+ xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
  xmlns:xlink="http://www.w3.org/1999/xlink"
- xmlns:gml="http://schemas.opengis.net/gml"
- xmlns:swe="http://schemas.opengis.net/swe/1.0.1"
+ xmlns:gml="http://www.opengis.net/gml"
+ xmlns:swe="http://www.opengis.net/swe/1.0.1"
  version="1.0.1">
     <member>
         <System gml:id="Buoy">
@@ -33,8 +33,8 @@
                             <value></value>
                         </Term>
                     </identifier>
-                    <identifier name="RDF ID">
-                        <Term definition="http://www.w3.org/1999/02/22-rdf-syntax-ns#ID" >
+                    <identifier name="URN">
+                        <Term definition="urn:ogc:def:identifierType:OGC:uniqueID">
                             <value></value>
                         </Term>
                     </identifier>

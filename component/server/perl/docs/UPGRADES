@@ -1,0 +1,22 @@
+CGI PERL Toolkit Upgrade Notes
+by Eric Bridger last modified Nov. 25, 2009
+
+This version of the Toolkit includes major upgrades from previous versions but all attempts have been made to make it backward compatible with
+existing installations.
+The script now supports IOOS PO DIF output schemas as an option.
+Major changes have been made as well to make sure it passes the OGC's CITE testing suite at:
+http://cite.opengeospatial.org/ and http://cite.opengeospatial.org/betaTesting
+
+But and existing installation which uses the sos_config.xml and has observations in ASCII files should continue to work.
+
+You must make sure to save you existing sos_config.xml file.
+Also any Globals which were set in the older version of the script must be saved.
+
+For those who were using a Relational Database for both Metadata and observations you must save all the Global variables set your previous version of 
+the script in the sections marked as LOCAL EDITS
+In particular the two sub routines, which have local edits.
+getMetaDB() and getDataDB() should be saved and should replace the existing routines in the oostethys_sos.cgi script.
+
+There is one change in both those routines.  The SQL query which previously required or allowed for the use of DB field called "program" is now called "provider" to refer to the data provider.
+
+
