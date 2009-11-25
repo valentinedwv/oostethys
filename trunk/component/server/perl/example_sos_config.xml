@@ -24,7 +24,7 @@
 		<Observation>
 			<dataProviderShortName>GoMOOS</dataProviderShortName>
 			<localPlatformName>A01</localPlatformName>
-			<platformURI>urn:gomoos.org:source.mooring#A01</platformURI>
+			<platformURI>urn:ogc:gomoos.org:source.mooring::A01</platformURI>
 			<platformLongName>Mooring A01 GoMOOS</platformLongName>
 			<latitude>42.5232</latitude>
 			<longitude>-70.5655</longitude>
@@ -38,7 +38,7 @@
 		<Observation>
 			<dataProviderShortName>GoMOOS</dataProviderShortName>
 			<localPlatformName>A01</localPlatformName>
-			<platformURI>urn:gomoos.org:source.mooring#A01</platformURI>
+			<platformURI>urn:ogc:gomoos.org:source:mooring::A01</platformURI>
 			<platformLongName>Mooring A01 GoMOOS</platformLongName>
 			<latitude>42.5232</latitude>
 			<longitude>-70.5655</longitude>
@@ -52,7 +52,7 @@
 		<Observation>
 			<dataProviderShortName>GoMOOS</dataProviderShortName>
 			<localPlatformName>B01</localPlatformName>
-			<platformURI>urn:gomoos.org:source.mooring#B01</platformURI>
+			<platformURI>urn:ogc:gomoos.org:source.mooring::B01</platformURI>
 			<platformLongName>Mooring B01 GoMOOS</platformLongName>
 			<latitude>42.5232</latitude>
 			<longitude>-70.5655</longitude>
