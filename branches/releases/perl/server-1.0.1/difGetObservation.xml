@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<om:CompositeObservation
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:gml="http://schemas.opengis.net/gml/3.2"
+xmlns:om="http://schemas.opengis.net/om/1.0"
+xmlns:swe="http://schemas.opengis.net/swe/1.0.2"
+xmlns:ioos="http://www.noaa.gov/ioos/0.6.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://schemas.opengis.net/om/1.0 http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/schemas/ioosObservationSpecializations.xsd"
+>
+  <gml:description></gml:description>
+  <gml:name></gml:name>
+  <gml:boundedBy>
+    <gml:Envelope srsName="urn:ogc:def:crs:epsg::4326">
+      <gml:lowerCorner></gml:lowerCorner>
+      <gml:upperCorner></gml:upperCorner>
+    </gml:Envelope>
+  </gml:boundedBy>
+  <om:samplingTime />
+  <om:procedure>
+    <om:Process>
+      <ioos:CompositeContext gml:id="SensorMetadata" recDef="http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/recordDefinitions/PointSensorMetadataRecordDefinition.xml">
+        <gml:valueComponents>
+          <ioos:Count name="NumberOfStations"></ioos:Count>
+          <ioos:ContextArray gml:id="StationArray">
+            <gml:valueComponents>
+              <ioos:CompositeContext gml:id="Station1Info">
+                <gml:valueComponents>
+                  <ioos:StationName></ioos:StationName>
+                  <ioos:Organization></ioos:Organization>
+                  <ioos:StationId></ioos:StationId>
+                  <gml:Point gml:id="Station1LatLon">
+                    <gml:pos></gml:pos>
+                  </gml:Point>
+                  <ioos:VerticalDatum>urn:ogc:def:datum:epsg::5113</ioos:VerticalDatum>
+                  <ioos:VerticalPosition xsi:nil="true" nilReason="missing"/>
+                  <ioos:Context name="TotalWaterDepth" uom="m" />
+                  <ioos:Count name="Station1NumberOfSensors"></ioos:Count>
+                  <ioos:ContextArray gml:id="Station1SensorArray">
+                    <gml:valueComponents>
+                      <ioos:CompositeContext gml:id="Station1Sensor1Info">
+                        <gml:valueComponents>
+                          <ioos:SensorId />
+                          <ioos:Context name="SensorDepth" uom="m" />
+                          <ioos:SamplingRate uom="Hz" xsi:nil="true" nilReason="missing"/>
+                          <ioos:ReportingInterval uom="s" xsi:nil="true" nilReason="missing"/>
+                          <ioos:ProcessingLevel xsi:nil="true" nilReason="missing"/>
+                        </gml:valueComponents>
+                      </ioos:CompositeContext>
+                    </gml:valueComponents>
+                  </ioos:ContextArray>
+                </gml:valueComponents>
+              </ioos:CompositeContext>
+            </gml:valueComponents>
+          </ioos:ContextArray>
+        </gml:valueComponents>
+      </ioos:CompositeContext>
+    </om:Process>
+  </om:procedure>
+  <om:observedProperty />
+  <om:featureOfInterest xlink:href="urn:cgi:Feature:CGI:EarthOcean" />
+  <om:result>
+    <ioos:Composite >
+      <gml:valueComponents>
+        <ioos:Count name="NumberOfObservationsPoints"></ioos:Count>
+        <ioos:Array>
+          <gml:valueComponents>
+            <ioos:Composite gml:id="Station1TimeSeriesRecord">
+              <gml:valueComponents>
+                <ioos:Count name="Station1NumberOfObservationsTimes"></ioos:Count>
+                <ioos:Array gml:id="Station1TimeSeries">
+                  <gml:valueComponents>
+                  </gml:valueComponents>
+                </ioos:Array>
+              </gml:valueComponents>
+            </ioos:Composite>
+          </gml:valueComponents>
+        </ioos:Array>
+      </gml:valueComponents>
+    </ioos:Composite>
+  </om:result>
+</om:CompositeObservation>
