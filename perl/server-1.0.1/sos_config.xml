@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataProvider>
+	<Publisher>
+		<OrganizationName></OrganizationName>
+		<shortOrganizationName></shortOrganizationName>
+		<OrganizationAcronym></OrganizationAcronym>
+		<ContactPersonName></ContactPersonName>
+		<ContactPersonEmail></ContactPersonEmail>
+		<OrganizationURL></OrganizationURL>
+		<SOSURL></SOSURL>
+		<Keywords>
+			<Keyword>Ocean Observations</Keyword>
+		</Keywords>
+	</Publisher>
+	<RegionalAssociation>
+		<OrganizationName></OrganizationName>
+		<shortOrganizationName></shortOrganizationName>
+		<OrganizationURL></OrganizationURL>
+	</RegionalAssociation>
+	<ObservationList>
+		<Observation>
+			<dataProviderShortName></dataProviderShortName>
+			<localPlatformName></localPlatformName>
+			<platformURI></platformURI>
+			<platformLongName></platformLongName>
+			<latitude></latitude>
+			<longitude></longitude>
+			<startTime></startTime>
+			<endTime></endTime>
+			<observedProperty></observedProperty>
+			<uom></uom>
+			<SOSDataFile></SOSDataFile>
+			<comments></comments>
+		</Observation>
+	</ObservationList>
+</DataProvider>
