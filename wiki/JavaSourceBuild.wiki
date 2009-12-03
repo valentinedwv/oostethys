@@ -53,6 +53,7 @@ To create a war file:
      * select *war* from *org.apache.maven.plugins:maven-war-plugin*
 
      [http://content.screencast.com/users/lbermudez/folders/Jing/media/2e997508-0890-4d0f-96e8-e4e6065d7c16/00000013.png]
+   *  run 
 
 
 
