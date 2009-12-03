@@ -18,8 +18,7 @@
   server.</description>
 	<url>http://code.google.com/p/oostethys/</url>
 	<scm>
-	
-		<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/oostethys-java-server/</developerConnection>
+	<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/oostethys-java-server/</developerConnection>
 		<url>http://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server/</url>
 
 	</scm>
