@@ -69,9 +69,6 @@
 	</mailingLists>
 	<build>
 		<finalName>oostethys</finalName>
-
-	
-
 		<plugins>
 			<plugin>
 
@@ -364,7 +361,7 @@
 			</releases>
 			<id>oostethys repository</id>
 			<name>oostethys repository</name>
-			<url>https://oostethys.googlecode.com/svn/trunk/maven-repository</url>
+			<url>http://oostethys.googlecode.com/svn/trunk/maven-repository</url>
 			<layout>default</layout>
 		</repository>
 
