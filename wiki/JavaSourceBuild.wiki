@@ -23,8 +23,10 @@ To build the source of the  OOSTethys JAVA toolkit you need the following:
   * Checkout SVN project
     [http://content.screencast.com/users/lbermudez/folders/Default/media/9d45a813-8f92-4675-a46b-6f63748ee515/2009-09-11_1316_checkout_svn.png]
     * Go to: File > New > Other > Maven >  Checkout Maven projects from SCM
-    * SCM URL -> Select SVN and type the URL : [http://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server]
-       As follows:
+    * SCM URL -> Select SVN and type the URL : [https://oostethys.googlecode.com/svn/trunk/component/server/java/oostethys-java-server]
+    * note that it is http:// for read only and https:// for writing.
+    * you are going to be asked a password - use this page: http://code.google.com/p/oostethys/source/checkout
+       
        [http://oostethys.googlecode.com/svn/wiki/JavaSourceBuild.attach/svn-selection.png]
        <wiki:comment>
       [http://content.screencast.com/users/lbermudez/folders/Default/media/0f7551b3-672f-4ebf-9f77-68bce6d163d9/2009-09-11_1324_svn_path.png]
