@@ -5,6 +5,10 @@ $Id$
 
 ChangeLog
 
+2009-12-06  0.0.2pre5
+	- Newer version of CF does not define/use the class Parameter. Now using
+	  http://mmisw.org/ont/cf/parameter/Standard_Name
+	  
 2009-11-18  0.0.2pre4
 	- FieldWithChoose: make sure no item is selected so we get an change event on the 
 	  first item (needed for firefox at least).
