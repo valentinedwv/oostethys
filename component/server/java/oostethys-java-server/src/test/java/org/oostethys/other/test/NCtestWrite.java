@@ -1,5 +1,6 @@
 package org.oostethys.other.test;
 
+import ucar.nc2.Attribute;
 import ucar.nc2.NCdump;
 import ucar.nc2.NetcdfFile;
 import ucar.nc2.NetcdfFileWriteable;
@@ -21,8 +22,35 @@ import java.io.IOException;
 import org.oostethys.netcdf.util.TimeUtil;
 
 public class NCtestWrite {
-
+	
 	public static void main(String[] args) {
+		String url = "http://dods.ndbc.noaa.gov/thredds/fileServer/data/adcp2/42377/42377a9999nc/i1b020.nc";
+		
+		try {
+
+			NetcdfDataset nc = NetcdfDataset.openDataset(url);
+			NetcdfDataset.debugDump(System.out, nc);
+			Attribute titleAtt = nc.findGlobalAttribute("notes");
+			String title  = titleAtt.getStringValue();
+			System.out.println("att value "+title);
+		
+//
+//			List<Variable> vars = nc.getVariables();
+//			for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
+//				ucar.nc2.Variable var = (ucar.nc2.Variable) iterator.next();
+//				
+//				System.out.println(var.getName());
+//				
+//			}
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void mainA(String[] args) {
 
 		// when dods using no ending
 		// NetcdfFile doesnt work
@@ -40,6 +68,7 @@ public class NCtestWrite {
 			for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
 				ucar.nc2.Variable var = (ucar.nc2.Variable) iterator.next();
 				System.out.println(var.getName());
+				
 			}
 
 			// doVar(netcdfdataset, "BAssta", "1:73,0,1000:1010,2400");
