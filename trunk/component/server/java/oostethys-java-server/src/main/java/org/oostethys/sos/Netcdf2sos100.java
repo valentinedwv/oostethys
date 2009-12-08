@@ -121,6 +121,9 @@ public class Netcdf2sos100 {
 
 	private int numberOfRecordsToProcess = 100;
 
+	private boolean systemProcessed = false;
+	private boolean errorHasBeenReported = false;
+
 	/**
 	 * Constructor. Instantiates the logger, and xslt path and temporary
 	 * directories.
@@ -356,6 +359,13 @@ public class Netcdf2sos100 {
 		}
 
 		// check result model
+		if (systemProcessed == false) {
+			report(ExceptionReporter.InvalidParameterValue, PROCEDURE,
+					"the procedure " + requestSensorID
+							+ " is unknown by this SOS server", outputStream);
+			return;
+
+		}
 
 		Oostethys oost = getOOSTethysObservationFilter(outputStream);
 		if (oost != null) {
@@ -363,6 +373,10 @@ public class Netcdf2sos100 {
 			File xsltGetCapabilitiesFile = getXSLTFile(getObservationXSLT);
 			getXML(outputStream, xsltGetCapabilitiesFile, new StringReader(
 					oostDocTemp.xmlText()));
+		} else {
+			report(ExceptionReporter.MissingParameterValue, null,
+					"a parameter maybe missing or has not been found",
+					outputStream);
 		}
 
 	}
@@ -386,7 +400,7 @@ public class Netcdf2sos100 {
 			oostDoc = OostethysDocument.Factory.parse(urlOostethys);
 
 			// now validated !
-		XmlOptions validationOptions = new XmlOptions();
+			XmlOptions validationOptions = new XmlOptions();
 			ArrayList<?> validationErrors = new ArrayList<Object>();
 			validationOptions.setErrorListener(validationErrors);
 			boolean isValid = oostDoc.validate(validationOptions);
@@ -397,7 +411,7 @@ public class Netcdf2sos100 {
 				while (iter.hasNext()) {
 					buffy.append(iter.next().toString() + ".\n");
 				}
-			throw new Exception(buffy.toString());
+				throw new Exception(buffy.toString());
 			}
 
 			Oostethys oost = oostDoc.getOostethys();
@@ -458,22 +472,23 @@ public class Netcdf2sos100 {
 	// public void resetValues() {
 	// value_PROCEDURE = value_OBSERVED_PROPERTY = null;
 	// }
-	
-	
+
 	/**
-	 * Processes a system declared in the OOST model based on a netcdf configuration 
+	 * Processes a system declared in the OOST model based on a netcdf
+	 * configuration
+	 * 
 	 * @param oosn
 	 * @param systemTemp
 	 * @throws Exception
 	 */
-	private void processSystemsNetCDFConfiguration(OostethysNetcdf oosn, System systemTemp) throws Exception{
-		
-		
+	private void processSystemsNetCDFConfiguration(OostethysNetcdf oosn,
+			System systemTemp) throws Exception {
+
 		String fileNCURL = oosn.getFileURL();
-		if (fileNCURL.length()==0){
+		if (fileNCURL.length() == 0) {
 			throw new Exception("NetCDF URL was not provided");
 		}
-		 
+
 		URL url = null;
 		try {
 			url = new URL(fileNCURL);
@@ -485,13 +500,11 @@ public class Netcdf2sos100 {
 			try {
 				// then... try to find the resource locally.. this
 				// is in WEB-INF/classes/
-				url = Thread.currentThread()
-						.getContextClassLoader().getResource(
-								fileNCURL);
+				url = Thread.currentThread().getContextClassLoader()
+						.getResource(fileNCURL);
 				// url.openConnection();
 			} catch (Exception e2) {
-				throw new Exception("Not found netCDF file "
-						+ fileNCURL, e2);
+				throw new Exception("Not found netCDF file " + fileNCURL, e2);
 			}
 
 		}
@@ -518,9 +531,7 @@ public class Netcdf2sos100 {
 
 		// updateTime
 		TimePeriod tp = TimePeriod.Factory.newInstance();
-		tp
-				.setStart(TimeUtil.getISOFromMillisec(obsNC
-						.getMinTime()));
+		tp.setStart(TimeUtil.getISOFromMillisec(obsNC.getMinTime()));
 		tp.setEnd(TimeUtil.getISOFromMillisec(obsNC.getMaxTime()));
 		Extend extend = systemTemp.addNewExtend();
 		extend.setTimePeriod(tp);
@@ -533,8 +544,7 @@ public class Netcdf2sos100 {
 		extend.setBoundingBox(bbox);
 
 		// adds latest known position -true for in-situ sensors
-		LastKnownLocation loc = LastKnownLocation.Factory
-				.newInstance();
+		LastKnownLocation loc = LastKnownLocation.Factory.newInstance();
 		loc.addNewSrsName().setStringValue(default2dsrsName);
 		loc.setStringValue(obsNC.getLastKnownPositionEPSG());
 		systemTemp.getMetadata().setLastKnownLocation(loc);
@@ -554,16 +564,14 @@ public class Netcdf2sos100 {
 
 				// some variables in a nc file may not have units..
 				if (var.getUnits().getLabel() != null
-						&& !var.getUnits().getLabel().trim()
-								.equals("")) {
+						&& !var.getUnits().getLabel().trim().equals("")) {
 					varTemp.setUom(var.getUnits().getLabel());
 				} else {
 				}
 				varTemp.setIsCoordinate(var.isCoordinate());
 
 				if (var.getReferenceFrame() != null) {
-					varTemp.setReferenceFrame(var
-							.getReferenceFrame());
+					varTemp.setReferenceFrame(var.getReferenceFrame());
 				}
 
 				if (var.isTime()) {
@@ -598,49 +606,96 @@ public class Netcdf2sos100 {
 		outputTemp.setValues(obsNC.getAsRecords());
 		systemTemp.setOutput(outputTemp);
 
-	
-		
 	}
+
+	// private String getSystemShortNameFromOffering() {
+	// // check that a system is being requested for a particular observation
+	// // offering request
+	// // concat('observationOffering_',oost:metadata/oost:systemShortName)
+	// String offering_ = offeringID;
+	// if (offering_ != null) {
+	// log.debug("offering: "+ offering_);
+	// int separator = offering_.indexOf("_");
+	// String systemShortName = offering_.substring(separator);
+	// return systemShortName;
+	// }
+	// return null;
+	//
+	// }
 
 	/**
 	 * process a netcdf
 	 * 
 	 * @param system
+	 *            - the original oostethys configuration
 	 * @param systemTemp
+	 *            - where the new ostethys configuration is going to be stored
 	 * @throws Exception
 	 */
 	private void processSystem(System system, System systemTemp)
 			throws Exception {
+		// if the request is get observations - check for the system that is
+		// being requested
+
 		systemTemp.setMetadata(system.getMetadata());
-	
+
+		if (offeringID != null) {
+			String systemIdentifierFromRequest = requestSensorID;
+			if (systemIdentifierFromRequest != null) {
+
+				String systemIdentifierFromConfig = system.getMetadata()
+						.getSystemIdentifier();
+
+				if (!systemIdentifierFromRequest
+						.equals(systemIdentifierFromConfig)) {
+
+					return;
+				}
+			}
+		}
+
 		// check if the system meets the requirements
-	
+
 		Output output = system.getOutput();
 		if (output != null) {
 			SourceConfiguration sourceConfiguration = output
 					.getSourceConfiguration();
 			if (sourceConfiguration != null) {
-				
+
 				OostethysNetcdf oosn = sourceConfiguration.getOostethysNetcdf();
 				if (oosn != null) {
 					// configuration is netcdf file
-					processSystemsNetCDFConfiguration(oosn ,systemTemp);
-				}else{
+					processSystemsNetCDFConfiguration(oosn, systemTemp);
+				} else {
+
+					processDataTurbineConfiguration();
 					// txt configuration
-					//processSystemsCSVConfiguration(null ,systemTemp);
+					// processSystemsCSVConfiguration(null ,systemTemp);
 				}
-					
+				systemProcessed = true;
+
 			}
-	
+
 		}
-	
+
 		// return systemTemp;
-	
+
+	}
+
+	private void processDataTurbineConfiguration() {
+
 	}
 
 	public boolean checkConditionSystem(String uri) {
-		return true;
-		// return value_PROCEDURE == null ? true : value_PROCEDURE.equals(uri);
+		// if not given ... then continue
+		if (value_PROCEDURE == null) {
+			return true;
+		}
+		if (value_PROCEDURE.equals(uri)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean checkConditionVariable(String uri) {
@@ -784,7 +839,7 @@ public class Netcdf2sos100 {
 			}
 
 			config.addVariable(varQ);
-			
+
 		}
 
 		return config;
@@ -1222,6 +1277,7 @@ public class Netcdf2sos100 {
 		}
 		if (procedure != null) {
 			requestSensorID = procedure;
+
 		}
 
 		if (eventType != null) {
@@ -1325,18 +1381,21 @@ public class Netcdf2sos100 {
 
 	private void report(String code, String locator, String text,
 			OutputStream os) {
-		if (os == null)
-			return;
+		if (!errorHasBeenReported) {
+			if (os == null)
+				return;
 
-		ExceptionReporter reporter = new ExceptionReporter();
+			ExceptionReporter reporter = new ExceptionReporter();
 
-		String report = reporter.create(code, locator, text);
-		try {
-			os.write(report.getBytes());
-		} catch (IOException e) {
+			String report = reporter.create(code, locator, text);
+			try {
+				os.write(report.getBytes());
+			} catch (IOException e) {
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
+		errorHasBeenReported = true;
 
 	}
 
@@ -1455,10 +1514,19 @@ public class Netcdf2sos100 {
 			parameterMap.put(VERSION, getObservation.getVersion());
 		if (getObservation.getOffering() != null)
 			parameterMap.put(OFFERING, getObservation.getOffering());
-		if (getObservation.getProcedureArray() != null)
-			parameterMap.put(PROCEDURE,
-					createStringSeparatedCommas(getObservation
-							.getProcedureArray()));
+		// // only one procedure per offering
+		// if (getObservation.getProcedureArray() != null)
+		// parameterMap.put(PROCEDURE,
+		// createStringSeparatedCommas(getObservation
+		// .getProcedureArray()));
+		// put the first one !
+		String[] arrayProcedures = getObservation.getProcedureArray();
+		if (arrayProcedures != null)
+			if (arrayProcedures.length > 0) {
+				parameterMap.put(PROCEDURE,
+						getObservation.getProcedureArray()[0]);
+			}
+
 		if (getObservation.getObservedPropertyArray() != null)
 			parameterMap.put(OBSERVED_PROPERTY,
 					createStringSeparatedCommas(getObservation

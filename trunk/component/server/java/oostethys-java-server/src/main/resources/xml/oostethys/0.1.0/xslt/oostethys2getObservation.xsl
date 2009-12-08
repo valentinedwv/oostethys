@@ -9,7 +9,7 @@
     <xsl:template match="/oost:oostethys">
         <om:ObservationCollection
             xsi:schemaLocation="http://www.opengis.net/om/1.0  http://schemas.opengis.net/om/1.0.0/om.xsd
-    http://www.opengis.net/swe/1.0.1 http://schemas.opengis.net/sweCommon/1.0.1/swe.xsd">
+            http://www.opengis.net/swe/1.0.1 http://schemas.opengis.net/sweCommon/1.0.1/swe.xsd">
      
                     <xsl:for-each-group
                         select="//oost:system"

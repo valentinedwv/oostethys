@@ -48,4 +48,5 @@ public class SOS_100_Test extends OOSTethysTest {
 
         assertTrue(s.contains("<swe:values>"));
     }
+    
 }

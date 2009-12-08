@@ -16,6 +16,9 @@ public interface Observation extends Resource{
 	 */
 		
 	 VariablesConfig variablesConfig = null;
+	 
+	 
+	 Result result = null;
 	
 	/**
 	 * Returns data in ASCII in tabular form, following the order of the declare
@@ -109,5 +112,7 @@ public interface Observation extends Resource{
 	public void setVariablesConfig(VariablesConfig variablesConfig);
 
 	public void process(boolean depthIsGiven);
+	
+	
 
 }

@@ -262,7 +262,7 @@ public class SOS_ServletTest extends OOSTethysTest {
 
         // get the response
         String responseString = response.getContentAsString();
-
+       
         ExceptionReport er =
             ExceptionReportDocument.Factory.parse(responseString)
                                            .getExceptionReport();

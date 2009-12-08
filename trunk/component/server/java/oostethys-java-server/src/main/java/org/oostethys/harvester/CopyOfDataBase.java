@@ -7,7 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DataBase {
+public class CopyOfDataBase {
 
 	Connection conn;
 
@@ -110,7 +110,7 @@ public class DataBase {
 			update("CREATE TABLE tz (id IDENTITY, z DOUBLE)");
 			update("CREATE UNIQUE INDEX iz ON tz(z)");
 
-			update("CREATE TABLE tobs (id IDENTITY, lat INT, lon INT, z INT, val STRING)");
+			update("CREATE TABLE tobs (id IDENTITY, lat INT, lon INT, z INT)");
 
 			update("ALTER TABLE tobs ADD FOREIGN KEY (lat) REFERENCES tlat(id)");
 			update("ALTER TABLE tobs ADD FOREIGN KEY (lon) REFERENCES tlon(id)");
@@ -235,7 +235,7 @@ public class DataBase {
 	}
 
 	public static void main(String[] args) {
-		DataBase h = new DataBase();
+		CopyOfDataBase h = new CopyOfDataBase();
 		h.createDB();
 
 		h.test();

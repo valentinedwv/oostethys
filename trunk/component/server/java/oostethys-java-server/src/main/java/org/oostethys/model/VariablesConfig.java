@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * <p>
  * This class maps a variable and a units label to corresponding URIs.
+ * It contains the configuration of the variables of an observation.
  * </p>
  * <hr>
  *

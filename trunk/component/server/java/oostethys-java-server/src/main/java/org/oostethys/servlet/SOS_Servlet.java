@@ -17,7 +17,24 @@ import org.oostethys.sos.Netcdf2sos100;
 public class SOS_Servlet extends HttpServlet {
 	public String oostethysURL = null;
 	private static final long serialVersionUID = 1L;
+	private String configFile = "config/oostethys.xml";
 
+
+	public String getOostethysURL() {
+		return oostethysURL;
+	}
+
+	public void setOostethysURL(String oostethysURL) {
+		this.oostethysURL = oostethysURL;
+	}
+
+	public String getConfigFile() {
+		return configFile;
+	}
+
+	public void setConfigFile(String configFile) {
+		this.configFile = configFile;
+	}
 
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
 		.getLogger(SOS_Servlet.class.getName());
@@ -104,7 +121,7 @@ public class SOS_Servlet extends HttpServlet {
 
 	private URL getOOSTethysConfigFile() {
 		return Thread.currentThread().getContextClassLoader().getResource(
-				"config/oostethys.xml");
+				configFile);
 
 	}
 	
@@ -128,5 +145,7 @@ public class SOS_Servlet extends HttpServlet {
 	public void init() throws ServletException {
 
 	}
+	
+	
 
 }
