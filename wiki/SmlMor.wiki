@@ -4,7 +4,8 @@ Service deployed at: http://mmisw.org/smlmor/
 
 = Status =
 
-2009-11-18 version 0.0.2pre4
+
+2009-12-06  0.0.2pre5
   * Selection of URIs from the MMI Ontology Registry and Repository (ORR) now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
   * Preliminary basic set of fields for contacts, system, and variables.
   * Any number of variables and systems, and unbounded system nesting
@@ -42,6 +43,9 @@ Not implemented yet.
 
 
 = Noteworthy changes =
+
+2009-12-06  0.0.2pre5
+  * Newer version of CF does not define/use the class Parameter. Now using http://mmisw.org/ont/cf/parameter/Standard_Name
 
 2009-11-18  0.0.2pre4
   * Fix for proper selection in the drop-down lists (needed for firefox at least).
