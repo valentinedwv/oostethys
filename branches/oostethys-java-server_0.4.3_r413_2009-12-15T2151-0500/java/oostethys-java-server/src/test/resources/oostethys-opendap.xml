@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../../main/resources/xml/oostethys/0.1.0/xsd/oostethys.xsd">
+
+	<webServerURL>http://coast-enviro.er.usgs.gov</webServerURL>
+	<serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="contact">
+		<urlOrganization>http://www.usgs.gov</urlOrganization>
+		<longNameOrganization> USGS</longNameOrganization>
+		<shortNameOrganization>usgs</shortNameOrganization>
+		<individualName>Rich Signell</individualName>
+		<individualEmail>rsignll@usgs.gov</individualEmail>
+	</serviceContact>
+
+	<components>
+		<system>
+			<metadata>
+				<systemLongName>NECOFS Model</systemLongName>
+				<systemShortName>necofs</systemShortName>
+				<systemIdentifier>urn:usgs:org:model:necofs</systemIdentifier>
+				<systemType> http://mmisw.org/mmi/20080520/obs.owl#numericalModel </systemType>
+				<systemContacts>
+				<referencedContact ref="contact"/>
+					
+					
+				</systemContacts>
+			</metadata>
+
+
+
+			<output>
+
+				<sourceConfiguration>
+					<oostethys-netcdf
+						xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+						<fileURL>
+							http://www.smast.umassd.edu:8080/thredds/dodsC/FVCOM/NECOFS/Forecasts/NECOFS_FVCOM_OCEAN_MASSBAY_FORECAST.nc.dods?lon[28482],lat[28482],time[1:72],zeta[1:72][28482]
+						</fileURL>
+						<variables>
+							<variable shortName="lat" dimension="latitude" uri="urn:ogc:phenomenon:latitude:wgs84"/>
+							<variable shortName="lon" dimension="longitude" uri="urn:ogc:phenomenon:longitude:wgs84"/>
+							<variable shortName="time" dimension="time" uri="urn:ogc:phenomenon:time:iso8601"/>
+							<variable shortName="zeta" dimension="no" uri="urn:x:d"/>
+
+						</variables>
+					</oostethys-netcdf>
+
+
+				</sourceConfiguration>
+
+			</output>
+		</system>
+		
+	</components>
+
+</oostethys>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <meta>
+        <filters directoryPatterns="" filePatterns=""
+            positiveFilePatterns="" showHiddenFiles="false"/>
+        <options/>
+    </meta>
+    <projectTree name="oostethys-oxygen-project.xpr">
+        <file name="example/getObservationOut.xml"/>
+        <file name="example/getObservationOutComplex.xml"/>
+        <file name="../example/oostethys-complex.xml"/>
+        <file name="oostethys2getObservation.xsl"/>
+        <file name="example/oostethysTempComplex.xml"/>
+    </projectTree>
+</project>

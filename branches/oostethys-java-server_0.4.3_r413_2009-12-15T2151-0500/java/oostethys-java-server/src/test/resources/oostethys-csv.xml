@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csv="http://www.oostethys.org/schemas/0.1.0/oostethys-csv"
+	xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../../main/resources/xml/oostethys/0.1.0/xsd/oostethys.xsd">
+
+
+	<webServerURL></webServerURL>
+
+	<!--  SOS service metadata -->
+	<serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider"
+		id="a1">
+		<urlOrganization>http://www.marinemetadata.org</urlOrganization>
+		<longNameOrganization>Marine Metadata Interoperability Initiative
+			(MMI)</longNameOrganization>
+		<shortNameOrganization>MMI</shortNameOrganization>
+		<individualName></individualName>
+		<individualEmail></individualEmail>
+	</serviceContact>
+
+	<!--
+		Components could be observing systems, platforms, sensors , etc...
+	-->
+	<components>
+		<system>
+			<metadata>
+				<systemLongName>Monterey Bay Aquarium Research Institute Observing
+					System</systemLongName>
+				<systemShortName>MBARI</systemShortName>
+				<systemIdentifier>urn:mbari:org</systemIdentifier>
+				<systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
+				<systemContacts>
+					<systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider"
+						id="c1">
+						<urlOrganization>http://www.mbari.org</urlOrganization>
+						<longNameOrganization>Monterey Bay Aquarium Research Institute
+						</longNameOrganization>
+						<shortNameOrganization>MBARI</shortNameOrganization>
+						<individualName>John G</individualName>
+						<individualEmail>xxx@yyy.org</individualEmail>
+					</systemContact>
+				</systemContacts>
+			</metadata>
+
+			<!--  A System could contain components or output.  -->
+
+			<components>
+				<system>
+					<metadata>
+						<systemLongName>Mooring M2</systemLongName>
+						<systemShortName>m2</systemShortName>
+						<systemIdentifier>uri:mbari:org:mooring:m2</systemIdentifier>
+						<systemType>http://mmisw.org/mmi/20080516/platform#MooredBuoy</systemType>
+						<systemContacts />
+					</metadata>
+					<components>
+						<system>
+
+							<!--  This system has outputs and no components -->
+
+							<metadata>
+								<systemLongName>Serial CTD</systemLongName>
+								<systemShortName>1455</systemShortName>
+								<systemIdentifier>urn:mbari:org:device:1455</systemIdentifier>
+								<systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+								<systemContacts />
+							</metadata>
+
+
+							<output>
+								<sourceConfiguration>
+									<csv:oostethys-csv>
+										<csv:inline type="csv" />
+									</csv:oostethys-csv>
+								</sourceConfiguration>
+
+
+								<variables>
+									<variable name="time" isCoordinate="true" uri="urn:ogc:phenomenon:time:iso8601"/>
+									<variable uri="urn:ogc:phenomenon:latitude:wgs84"
+										name="latitude" uom="degrees_north" isCoordinate="true" />
+									<variable uri="urn:ogc:phenomenon:longitude:wgs84"
+										name="longitude" uom="degrees_east" isCoordinate="true"  />
+										<variable uri="http://marinemetadata.org/cf#Oxygen"
+										name="Oxygen" uom="mmol/l" isCoordinate="false" />
+									<variable
+										uri="http://marinemetadata.org/cf#OxygenAirSaturation" name="OxygenAirSaturation"
+										uom="percent" isCoordinate="false" />
+									<variable uri="http://marinemetadata.org/cf#temperature"
+										name="temperature" uom="deg C" isCoordinate="false" />
+								</variables>
+								
+								
+								<values>
+								2008-06-16T19:56:41Z,36.69623,-122.39965,390,340.02,100.5,11.73
+									2008-06-16T20:05:29Z,36.69623,-122.39965,390,339.51,100.36,11.73
+									2008-06-16T20:16:43Z,36.69623,-122.39965,390,339.83,100.42,11.72
+									2008-06-16T20:25:29Z,36.69623,-122.39965,390,339.44,100.33,11.73
+									2008-06-16T20:36:41Z,36.69623,-122.39965,390,339.7,100.43,11.74
+									2008-06-16T20:45:29Z,36.69623,-122.39965,390,339.5,100.35,11.73
+									2008-06-16T20:56:41Z,36.69623,-122.39965,390,339.82,100.44,11.73
+									2008-06-16T21:05:30Z,36.69623,-122.39965,390,339.54,100.35,11.73
+									2008-06-16T21:16:41Z,36.69623,-122.39965,390,339.98,100.52,11.74
+									2008-06-16T21:25:29Z,36.69623,-122.39965,390,339.8,100.42,11.72
+									2008-06-16T21:36:42Z,36.69623,-122.39965,390,340.96,100.78,11.73
+									2008-06-16T21:45:29Z,36.69623,-122.39965,390,339.46,100.36,11.74
+									2008-06-16T21:56:41Z,36.69623,-122.39965,390,339.62,100.42,11.75
+								
+								</values>
+							</output>
+						</system>
+
+					</components>
+				</system>
+
+			</components>
+		</system>
+	</components>
+</oostethys>

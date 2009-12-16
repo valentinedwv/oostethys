@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oos:oostethys xmlns:oos="http://www.oostethys.org/schemas/0.1.0/oostethys">
+    <oos:serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider" id="a1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <oos:urlOrganization>http://www.marinemetadata.org</oos:urlOrganization>
+        <oos:longNameOrganization>Marine Metadata Interoperability Initiative (MMI)</oos:longNameOrganization>
+        <oos:shortNameOrganization>MMI</oos:shortNameOrganization>
+        <oos:individualName/>
+        <oos:individualEmail/>
+    </oos:serviceContact>
+    <oos:components>
+        <oos:system>
+            <oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <oos:systemLongName>USGS Model</oos:systemLongName>
+                <oos:systemShortName>um</oos:systemShortName>
+                <oos:systemIdentifier>urn:usgs:org:model1</oos:systemIdentifier>
+                <oos:systemType>http://mmisw.org/mmi/20080520/obs.owl#numericalModel</oos:systemType>
+                <oos:systemContacts>
+                    <oos:systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c1">
+                        <oos:urlOrganization>http://www.usgs.org</oos:urlOrganization>
+                        <oos:longNameOrganization>USGS</oos:longNameOrganization>
+                        <oos:shortNameOrganization>USGS</oos:shortNameOrganization>
+                        <oos:individualName>Rick Ludich</oos:individualName>
+                        <oos:individualEmail>r@usgs.org</oos:individualEmail>
+                    </oos:systemContact>
+                </oos:systemContacts>
+            </oos:metadata>
+            <oos:extend>
+                <oos:timePeriod>
+                    <oos:start>2008-06-05T04:30:00Z</oos:start>
+                    <oos:end>2008-06-05T23:30:00Z</oos:end>
+                </oos:timePeriod>
+                <oos:boundingBox>
+                    <oos:envelope>
+                        <oos:lowerCorner>42.20551 -70.72384</oos:lowerCorner>
+                        <oos:upperCorner>42.20551 -70.72384</oos:upperCorner>
+                    </oos:envelope>
+                </oos:boundingBox>
+            </oos:extend>
+            <oos:output>
+                <oos:variables>
+                    <oos:variable uri="urn:ogc:phenomenon:time:iso8601" name="Time" uom="hours since 2006-01-01 00:00 UTC" isCoordinate="true" isTime="true"/>
+                    <oos:variable uri="urn:ogc:phenomenon:latitude:wgs84" name="latitude" uom="degrees_north" isCoordinate="true"/>
+                    <oos:variable uri="urn:ogc:phenomenon:longitude:wgs84" name="longitude" uom="degrees_east" isCoordinate="true"/>
+                    <oos:variable uri="http://marinemetadata.org/cf#sea_surface_height" name="sea_surface_height" uom="meters" isCoordinate="false"/>
+                </oos:variables>
+                <oos:values> </oos:values>
+            </oos:output>
+        </oos:system>
+        <oos:system>
+            <oos:metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <oos:systemLongName>USGS Model2</oos:systemLongName>
+                <oos:systemShortName>um2</oos:systemShortName>
+                <oos:systemIdentifier>urn:usgs:org:model2</oos:systemIdentifier>
+                <oos:systemType>http://mmisw.org/mmi/20080520/obs.owl#numericalModel</oos:systemType>
+                <oos:systemContacts>
+                    <oos:systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="c2">
+                        <oos:urlOrganization>http://www.usgs.org</oos:urlOrganization>
+                        <oos:longNameOrganization>USGS</oos:longNameOrganization>
+                        <oos:shortNameOrganization>USGS</oos:shortNameOrganization>
+                        <oos:individualName>Rick Ludich</oos:individualName>
+                        <oos:individualEmail>r@usgs.org</oos:individualEmail>
+                    </oos:systemContact>
+                </oos:systemContacts>
+            </oos:metadata>
+            <oos:extend>
+                <oos:timePeriod>
+                    <oos:start>2008-06-05T04:30:00Z</oos:start>
+                    <oos:end>2008-06-05T23:30:00Z</oos:end>
+                </oos:timePeriod>
+                <oos:boundingBox>
+                    <oos:envelope>
+                        <oos:lowerCorner>42.20552 -70.72384</oos:lowerCorner>
+                        <oos:upperCorner>42.20552 -70.72384</oos:upperCorner>
+                    </oos:envelope>
+                </oos:boundingBox>
+            </oos:extend>
+            <oos:output>
+                <oos:variables>
+                    <oos:variable uri="urn:ogc:phenomenon:time:iso8601" name="Time" uom="hours since 2006-01-01 00:00 UTC" isCoordinate="true" isTime="true"/>
+                    <oos:variable uri="urn:ogc:phenomenon:latitude:wgs84" name="latitude" uom="degrees_north" isCoordinate="true"/>
+                    <oos:variable uri="urn:ogc:phenomenon:longitude:wgs84" name="longitude" uom="degrees_east" isCoordinate="true"/>
+                    <oos:variable uri="http://marinemetadata.org/cf#sea_surface_height" name="sea_surface_height" uom="meters" isCoordinate="false"/>
+                </oos:variables>
+                <oos:values> </oos:values>
+            </oos:output>
+        </oos:system>
+    </oos:components>
+</oos:oostethys>

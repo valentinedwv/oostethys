@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<om:ObservationCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:om="http://www.opengis.net/om/1.0"
+                          xmlns:gml="http://www.opengis.net/gml"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:swe="http://www.opengis.net/swe/1.0.1"
+                          xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys"
+                          xsi:schemaLocation="http://www.opengis.net/om/1.0  http://schemas.opengis.net/om/1.0.0/om.xsd     http://www.opengis.net/swe/1.0.1 http://schemas.opengis.net/sweCommon/1.0.1/swe.xsd">
+   <om:member xlink:href="urn:usgs:org:model1">
+      <om:Observation gml:id="observationOffering1">
+         <gml:boundedBy>
+            <gml:Envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+               <gml:lowerCorner>42.20551 -70.72384</gml:lowerCorner>
+               <gml:upperCorner>42.20551 -70.72384</gml:upperCorner>
+            </gml:Envelope>
+         </gml:boundedBy>
+         <om:samplingTime>
+            <gml:TimePeriod gml:id="timePeriod1">
+               <gml:beginPosition>2008-06-05T04:30:00Z</gml:beginPosition>
+               <gml:endPosition>2008-06-05T23:30:00Z</gml:endPosition>
+            </gml:TimePeriod>
+         </om:samplingTime>
+         <om:procedure xlink:href="urn:usgs:org:model1"/>
+         <om:observedProperty>
+            <swe:CompositePhenomenon dimension="1" gml:id="compositePhenomena_1">
+               <gml:name>Phenomenon measured by </gml:name>
+               <swe:component xlink:href="http://marinemetadata.org/cf#sea_surface_height"/>
+            </swe:CompositePhenomenon>
+         </om:observedProperty>
+         <om:featureOfInterest xlink:href="http://mmisw.org/mmi/20080516/system#EarthRealm"/>
+         <om:result>
+            <swe:DataArray>
+               <swe:elementCount/>
+               <swe:elementType name="SimpleDataArray">
+                  <swe:DataRecord>
+                     <swe:field name="Time">
+                        <swe:Time definition="urn:ogc:phenomenon:time:iso8601"/>
+                     </swe:field>
+                     <swe:field name="latitude">
+                        <swe:Quantity definition="urn:ogc:phenomenon:latitude:wgs84">
+                           <swe:uom code="degrees_north"/>
+                        </swe:Quantity>
+                     </swe:field>
+                     <swe:field name="longitude">
+                        <swe:Quantity definition="urn:ogc:phenomenon:longitude:wgs84">
+                           <swe:uom code="degrees_east"/>
+                        </swe:Quantity>
+                     </swe:field>
+                     <swe:field name="sea_surface_height">
+                        <swe:Quantity definition="http://marinemetadata.org/cf#sea_surface_height">
+                           <swe:uom code="meters"/>
+                        </swe:Quantity>
+                     </swe:field>
+                  </swe:DataRecord>
+               </swe:elementType>
+               <swe:encoding>
+                  <swe:TextBlock tokenSeparator="," blockSeparator=" " decimalSeparator="."/>
+               </swe:encoding>
+               <swe:values> 2008-06-05T04:30:00Z,42.20551,-70.72384,-1.01651
+                    2008-06-05T05:30:00Z,42.20551,-70.72384,-1.761284
+                    2008-06-05T06:30:00Z,42.20551,-70.72384,-2.052919
+                    2008-06-05T07:30:00Z,42.20551,-70.72384,-1.811579
+                    2008-06-05T08:30:00Z,42.20551,-70.72384,-1.114414
+                    2008-06-05T09:30:00Z,42.20551,-70.72384,-0.151616
+                    2008-06-05T10:30:00Z,42.20551,-70.72384,0.851955
+                    2008-06-05T11:30:00Z,42.20551,-70.72384,1.641896
+                    2008-06-05T12:30:00Z,42.20551,-70.72384,1.994201
+                    2008-06-05T13:30:00Z,42.20551,-70.72384,1.843928
+                    2008-06-05T14:30:00Z,42.20551,-70.72384,1.253456
+                    2008-06-05T15:30:00Z,42.20551,-70.72384,0.370983
+                    2008-06-05T16:30:00Z,42.20551,-70.72384,-0.621113
+                    2008-06-05T17:30:00Z,42.20551,-70.72384,-1.475753
+                    2008-06-05T18:30:00Z,42.20551,-70.72384,-1.951109
+                    2008-06-05T19:30:00Z,42.20551,-70.72384,-1.923398
+                    2008-06-05T20:30:00Z,42.20551,-70.72384,-1.406537
+                    2008-06-05T21:30:00Z,42.20551,-70.72384,-0.548234
+                    2008-06-05T22:30:00Z,42.20551,-70.72384,0.435682
+                    2008-06-05T23:30:00Z,42.20551,-70.72384,1.319742</swe:values>
+            </swe:DataArray>
+         </om:result>
+      </om:Observation>
+   </om:member>
+</om:ObservationCollection>
