@@ -56,6 +56,8 @@ This configuration file describe the details of a NetCDF file, necessary to publ
   * *variable/shortName* : title of the variable that appears after the data type in the variables description section of netcdf file header. In the following example Salinity and NominalDepth are the shortNames. These are unique within a file.
       ...
 
+{{{
+
       float Salinity(esecs=8265, NominalDepth=1, Latitude=1, Longitude=1);
            :long_name = "Salinity";
            :units = "";
@@ -63,17 +65,17 @@ This configuration file describe the details of a NetCDF file, necessary to publ
            :missing_value = -99999.0f; // float
            :_FillValue = -99999.0f; // float
 
-
+}}}
       ...
 
-
+{{{
         float NominalDepth(NominalDepth=1);
            :long_name = "Depth";
            :units = "m";
            :standard_name = "depth";
            :_CoordinateAxisType = "Height";
           
-          
+}}}       
       ...
   * *Dimension*: If it is a dimension in the data set ( e.g. time, lat and lon are often dimensions. There are predefine dimensions. If the variable is not a dimension then the value is no. If the attribute is not provided then it is not a dimension.
   * *uri*: Is the URI of this variable. Often time is an OGC URN or a URI that represents the identifier of the variable. We use MMI identifiers created from the CF vocabulary. At the MMI registry you can search for more URIs.
