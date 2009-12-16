@@ -7,7 +7,7 @@ This document presents guidelines for setting up an OOSTethys JAVA server. The S
 
 = Installing war file (5 min) = 
 
-  # [downloads/list Download] the distribution zip file from Google Code. The file name looks like this: oostethys-oostethys-java-server-0.3.9-r276.zip.
+  # [../downloads/list Download] the distribution zip file from Google Code. The file name looks like this: oostethys-oostethys-java-server-0.3.9-r276.zip.
   # Unzip it. The zip file contains a war file.
   # Put the oostethys.war file in your web server. For example for TOMCAT put it under the webapps folder. TOMCAT will unzip the war file. You should see that an oostethys directory was created in the web server and that it contains the structure in Figure 1. 
   
