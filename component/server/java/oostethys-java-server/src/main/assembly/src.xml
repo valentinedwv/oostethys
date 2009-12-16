@@ -27,8 +27,6 @@
 		<file>
 			<source>src/main/webapp/index.html</source>
 			<outputDirectory>/</outputDirectory>
-
-
 			<filtered>
 				true
 			</filtered>
@@ -38,14 +36,8 @@
 			<source>target/oostethys.war</source>
 			<outputDirectory>/</outputDirectory>
 		</file>
-
-
 	</files>
-
-
-	<includeBaseDirectory>false</includeBaseDirectory>
-
-
+<includeBaseDirectory>false</includeBaseDirectory>
 
 
 
