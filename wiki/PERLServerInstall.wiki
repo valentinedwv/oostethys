@@ -15,7 +15,7 @@
   * difDescribeSystem.xml - DIF template
 
 
-= Installation Steps =
+== Installation Steps ==
 
   # Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
   # Put the six XML template files in the same directory
@@ -27,3 +27,51 @@
      * difDescribeSystem.xml
   # Put the sos_config.xml file in the same directory.
   # Test the server. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0 GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
+
+== Required PERL Modules ==
+Two Perl Modules are required:
+  # XML::LibMXL
+  # XML:::LibXML::XPathContext
+
+=== Perl Module Installation Tips ===
+
+Installing XML::LibXML
+The oostethys_sos CGI script relies on the existence of libxml2 and it's Perl module interface XML::LibXML. It also relies on the CGI.pm perl module, but that is a fairly common module usually included with the basic Perl installation.
+Red Hat Linux
+
+Perl Module on CPAN
+http://search.cpan.org/dist/XML-LibXML/
+
+Libxml2 C libary downloads.
+http://xmlsoft.org/  
+ 
+Typical CPAN install
+   perl -MCPAN -e 'shell'
+That dumps you to a shell prompt like:
+shell> install XML::LibXML
+which should take care of fetching, configuring dependencies, etc.
+
+If this fails, you will probably need to install libxml2 and libxml2-devel. on
+redhat (and I believe also Debian?) there are separate packages for binaries
+and header files. that is, if you want the stuff in /usr/include, which you
+need for building software on top of any given package, then you generally
+need to install the -devel package as well...
+Libxml2 tar balls and RPM's
+
+ftp://xmlsoft.org/libxml2/
+Installing XML::LibXML::XPathContext
+
+Perl Module on CPAN
+Download: http://search.cpan.org/~pajas/XML-LibXML-XPathContext-0.07/
+Documentation: http://search.cpan.org/~pajas/XML-LibXML-XPathContext-0.07/XPathContext.pm
+
+ 
+Typical CPAN install
+
+   perl -MCPAN -e 'shell'
+
+That dumps you to a shell prompt like:
+
+shell> install XML::LibXML::XPathContext
+
+which should take care of fetching, configuring dependencies, etc.
