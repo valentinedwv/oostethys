@@ -3,7 +3,7 @@
 
 = Installing the OOSTethys PERL SOS as an Apache CGI program =
 
-= File List =
+== File List ==
   * oostethys_sos.cgi  -  the CGI script
   * sos_config.xml - empty configuration file.
   * example_sos_config.xml -  An example config file using values from GoMOOS
@@ -15,7 +15,7 @@
   * difDescribeSystem.xml - DIF template
 
 
-== Installation Steps ==
+= Installation Steps =
 
   # Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
   # Put the six XML template files in the same directory
@@ -28,8 +28,11 @@
   # Put the sos_config.xml file in the same directory.
   # Test the server. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0 GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
 
-== Required PERL Modules ==
-Two Perl Modules are required:
+== System Requirements ==
+  # PERL 5
+  # Web Server such as Apache set up to run CGI scripts
+Three Perl Modules are required:
+  # CGI
   # XML::LibMXL
   # XML:::LibXML::XPathContext
 
