@@ -1,4 +1,5 @@
 #summary PERL Server Installation Notes
+#labels Phase-Deploy
 
 = Installing the OOSTethys PERL SOS as an Apache CGI program =
 
@@ -32,5 +33,3 @@
 4. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0
 
 GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
-
--------
