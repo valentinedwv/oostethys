@@ -83,3 +83,9 @@ which should take care of fetching, configuring dependencies, etc.
 
 Robert Leeman from !SmartBay, St. John's NL, Canada contributed notes on installing !ActiveState Perl and required Perl Modules on Microsoft Windows server.
 [http://www.oostethys.org/downloads/sos-cookbook-perl/SOS%20with%20Perl%20-%20MS%20Windows.pdf/view View PDF here]
+
+== Editing the sos_config.xml file ==
+
+See: [PERLServerAsciiConfig] if you are serving observations from ASCII files.
+
+See: [PERLServerRDBMSConfig] if you are serving observations from a relational database.
