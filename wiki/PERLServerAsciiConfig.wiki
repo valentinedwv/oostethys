@@ -1,4 +1,5 @@
 #summary Configuring the PERL SOS with observations in ASCII files.
+#labels Phase-Deploy
 
 
 = Editing the sos_config.xml file =
@@ -32,12 +33,12 @@ If you have more than one platform / sensor the Observation section must be repe
 == Required Fields ==
 Not all of the elements in the sos_config.xml file are required. Here is a list of the required elements.
 
-    * OrganizationName
-    * OrganizationAcronym
-    * ContactPersonName
-    * ContactPersonEmail
-    * OrganizationURL
-    * SOSURL
+    * !OrganizationName
+    * !OrganizationAcronym
+    * !ContactPersonName
+    * !ContactPersonEmail
+    * !OrganizationURL
+    * !SOSURL
     * localPlatformName
     * platformURI
     * platformLongName
@@ -46,7 +47,7 @@ Not all of the elements in the sos_config.xml file are required. Here is a list 
     * startTime
     * observedProperty
     * uom
-    * SOSDataFile
+    * !SOSDataFile
 
 == Creating Data Files ==
 
