@@ -1,9 +1,12 @@
 #summary Configuration the PERL SOS with a Relational Database
+#labels Phase-Deploy
+
+Please read the [PERLSOSInstall] page first.
 
 = Editing the oostethys_sos.cgi script =
 == Overview ==
 
-As downloaded, the oostethys_sos.cgi script is set to use  the sos_config.xml for SOS MetaData and to get observation data from local comma separated ASCII text files.  That is the default configuration. The oostethys_sos.cgi script must be modified for it to work with a local relational database.
+As downloaded, the oostethys_sos.cgi script is set to use  the sos_config.xml for SOS !MetaData and to get observation data from local comma separated ASCII text files.  That is the default configuration. The oostethys_sos.cgi script must be modified for it to work with a local relational database.
 
 All the sections which must be modified are clearly marked and have comments in-line to help you make the correct modifications.  The sections of the file between the LOCAL EDIT and END LOCAL EDIT comments must be edited.
 {{{
@@ -25,17 +28,17 @@ $use_config Variable
 
 In using this script there are two approaches which can be taken.
 
-  * Get your SOS MetaData from the sos_config.xml, which you must also edit, see: Editing the sos_config.xml, but serve observation data from your database system. You will only need to edit the getDataDB() SQL statements.
-  * Get both SOS MetaData and Observation data from your database system.  You will need to edit the SQL statements in the getMetaDB() routine and the getDataDB() routine.
+  * Get your SOS !MetaData from the sos_config.xml, which you must also edit, see: Editing the sos_config.xml, but serve observation data from your database system. You will only need to edit the getDataDB() SQL statements.
+  * Get both SOS !MetaData and Observation data from your database system.  You will need to edit the SQL statements in the getMetaDB() routine and the getDataDB() routine.
 
-This is controlled by a global variable near the top of the file $use_config with the default set to 1.  Change it to $use_config = 0;  to get both Metadata and Observation data from you local Database.  Keep it as $use_config = 1; to get Metadata from the sos_config.xml file while getting observation data from your database.  In that case you should set the <SOSDataFile> element to !DataBase.  E.g.
+This is controlled by a global variable near the top of the file $use_config with the default set to 1.  Change it to $use_config = 0;  to get both Metadata and Observation data from you local Database.  Keep it as $use_config = 1; to get Metadata from the sos_config.xml file while getting observation data from your database.  In that case you should set the `<SOSDataFile>` element to !DataBase.  E.g.
 {{{
 <SOSDataFile>DataBase</SOSDataFile>
 }}}
 
 == Step by Step Instructions ==
-  # DBI.pm The script uses the standard Perl module: DBI.pm so step one is to uncomment the use DBI; at the top of the file.
-  # $use_config If you want the script to get SOS MetaData from your sos_config.xml file leave the my $use_config = 1;  unchanged. In the sos_config.xml  for the SOSDataFile element use DataBase as the value. <SOSDataFile>DataBase</SOSDataFile>  This way MetaData will come from the sos_config.xml file but observation data will come from the getDataDB() routine.  If you do this you can skip Steps 3, 4 and 5. If you want both your !MetaData and Observation data to come from you database you must set the $use_config variable to 0.  In this case you must also edit both the Metadata SQL and the Observation SQL (steps 5 and 6)
+  # DBI.pm The script uses the standard Perl module: DBI.pm so step one is to un-comment the use DBI; at the top of the file.
+  # $use_config If you want the script to get SOS MetaData from your sos_config.xml file leave the my $use_config = 1;  unchanged. In the sos_config.xml  for the SOSDataFile element use DataBase as the value. `<SOSDataFile>DataBase</SOSDataFile>`  This way !MetaData will come from the sos_config.xml file but observation data will come from the getDataDB() routine.  If you do this you can skip Steps 3, 4 and 5. If you want both your !MetaData and Observation data to come from you database you must set the $use_config variable to 0.  In this case you must also edit both the Metadata SQL and the Observation SQL (steps 5 and 6)
   # Units of Measure (UOM)   (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.) You must edit the %uom_lookup table. Foreach observed property you wish to serve you should enter the units of measure you are using E.g. wind_speed or WindSpeed or Winds  could meters per second 'mps' or 'm_s-1 or centimeters per second 'cmps' or 'cm_s-1', etc. The observed properites must match the names you use in your MetaData and Observation SQL.  There are no restrictions on what observedProperty names you use or on what units of measure you return. Both are just treated as strings by the script.
   # Organization !MetaData  (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.) These global variables are used to create the proper Organization MetaData.  Use the GoMOOS examples and enter your values.  Once again any values may be entered.  The most import variable here is the $sos_url.  This must point to the URL of your script as accessible via the Web without the query string appended.  E.g.  http://www.gomoos.org/cgi-bin/sos/oostethys_sos.cgi
   # GetMetaDB() sub-routine  (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.)  This routine returns a hash of platforms with metadata about each platform including a list of all the observed properties obtainable from this platform. There is an example of the data structure returned in the comments before the routine.
