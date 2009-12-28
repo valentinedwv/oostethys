@@ -79,3 +79,4 @@ which should take care of fetching, configuring dependencies, etc.
 === Windows Server Installation Notes  ===
 
 Robert Leeman from !SmartBay, St. John's NL, Canada contributed notes on installing !ActiveState Perl and required Perl Modules on Microsoft Windows server.
+[http://www.oostethys.org/downloads/sos-cookbook-perl/SOS%20with%20Perl%20-%20MS%20Windows.pdf/view View PDF here]
