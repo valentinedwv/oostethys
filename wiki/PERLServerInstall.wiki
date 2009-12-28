@@ -17,9 +17,9 @@
 
 = Installation Steps =
 
-1. Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
+  # Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
 
-2. Put the six XML template files in the same directory
+ # Put the six XML template files in the same directory
 
     * sosGetCapabilities.xml
     * sosGetObservation.xml
@@ -28,8 +28,8 @@
     * difGetObservation.xml
     * difDescribeSystem.xml
 
-3. Put the sos_config.xml file in the same directory.
+ # Put the sos_config.xml file in the same directory.
 
-4. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0
+ # Test the server. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0
 
-GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
+  GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
