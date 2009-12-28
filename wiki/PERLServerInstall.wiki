@@ -78,5 +78,4 @@ which should take care of fetching, configuring dependencies, etc.
 
 === Windows Server Installation Notes  ===
 
-Robert Leeman from SmartBay, St. John's NL, Canada contributed notes on installing ActiveState Perl and required Perl Modules on Microsoft Windows server.
-
+Robert Leeman from !SmartBay, St. John's NL, Canada contributed notes on installing !ActiveState Perl and required Perl Modules on Microsoft Windows server.
