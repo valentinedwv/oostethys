@@ -1,7 +1,7 @@
 #summary Configuring the PERL SOS with observations in ASCII files.
 #labels Phase-Deploy
 
-Please read the PERLServerInstall page first.
+Please read the [PERLServerInstall] page first.
 
 = Editing the sos_config.xml file =
 
