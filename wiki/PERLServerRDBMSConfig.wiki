@@ -52,7 +52,7 @@ Since at GoMOOS each buoy has had mulitple deployments  this required a seperate
 {{{
 SELECT min(time) as start_time, max(end_time) as end_time ....  WHERE platform = '$platform'";
 }}}
-  6. GetDataDB() sub-routine
+  6. !GetDataDB() sub-routine
 
           Even if you used sos_config.xml for Metadata you must edit this routine to return observed Properties.  The inputs to this routine used for constructing the SQL are:
           a) $sensorID (the platform or offering
