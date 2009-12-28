@@ -14,6 +14,13 @@
   * difGetObservation.xml - DIF template
   * difDescribeSystem.xml - DIF template
 
+== System Requirements ==
+  # PERL 5
+  # Web Server such as Apache set up to run CGI scripts
+  # CGI
+  # XML::LibMXL
+  # XML:::LibXML::XPathContext
+  # Observations in a database or ASCII text files.
 
 = Installation Steps =
 
@@ -28,13 +35,6 @@
   # Put the sos_config.xml file in the same directory.
   # Test the server. See if your GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0 GetCapbilties should return XML. Not a very interesting response since the sos_config.xml has null values.
 
-== System Requirements ==
-  # PERL 5
-  # Web Server such as Apache set up to run CGI scripts
-Three Perl Modules are required:
-  # CGI
-  # XML::LibMXL
-  # XML:::LibXML::XPathContext
 
 === Perl Module Installation Tips ===
 
