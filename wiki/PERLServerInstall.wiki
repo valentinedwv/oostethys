@@ -1,4 +1,4 @@
-# PERL Server Installation Notes
+#summary PERL Server Installation Notes
 
 = Installing the OOSTethys PERL SOS as an Apache CGI program =
 
