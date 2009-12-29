@@ -42,7 +42,7 @@ This is controlled by a global variable near the top of the file $use_config wit
   # Units of Measure (UOM)   (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.) You must edit the %uom_lookup table. Foreach observed property you wish to serve you should enter the units of measure you are using E.g. wind_speed or WindSpeed or Winds  could meters per second 'mps' or 'm_s-1 or centimeters per second 'cmps' or 'cm_s-1', etc. The observed properites must match the names you use in your MetaData and Observation SQL.  There are no restrictions on what observedProperty names you use or on what units of measure you return. Both are just treated as strings by the script.
   # Organization !MetaData  (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.) These global variables are used to create the proper Organization MetaData.  Use the GoMOOS examples and enter your values.  Once again any values may be entered.  The most import variable here is the $sos_url.  This must point to the URL of your script as accessible via the Web without the query string appended.  E.g.  http://www.gomoos.org/cgi-bin/sos/oostethys_sos.cgi
   # _GetMetaDB()_ sub-routine  (Note: if you are using the sos_config.xml file for your Metadata you can skip this step.)  This routine returns a hash of platforms with metadata about each platform including a list of all the observed properties obtainable from this platform. There is an example of the data structure returned in the comments before the routine.
-          * The script use standard DBI.pm methods
+          * The script uses standard DBI.pm methods
           * You need to edit the script to construct the proper DBI->connect call for you system.
           *  You must edit the $sql_statement variable to return the following list of fields with these names:        platform,longitude,latitude,start_time,end_time,description,observed_property  
 
@@ -55,15 +55,16 @@ SELECT min(time) as start_time, max(end_time) as end_time ....  WHERE platform =
   6. _GetDataDB()_ sub-routine
 
           Even if you used sos_config.xml for Metadata you must edit this routine to return observed Properties.  The inputs to this routine used for constructing the SQL are:
-         * $sensorID (the platform or offering
+{{{
+         $sensorID (the platform or offering
 
-         * $in_time the SOS request included either a single time or start and end time separated by a forward slash.  E.g. 2008-10-09T00:00/2008-10-09T12:00
+         $in_time the SOS request included either a single time or start and end time separated by a forward slash.  E.g. 2008-10-09T00:00/2008-10-09T12:00
 
-         * $params, a reference to an array of observedProperties @params.
+         $params, a reference to an array of observedProperties @params.
              This is because SOS 1.0 allows GetObservation requests to include comma separated lists of observedProperties so the SQL must be able to handle this.
 
-          * $sensor_list is not currently used.
-
+          $sensor_list is not currently used.
+}}}
         The default response is to return the most recent readings when the $in_time is the null string:  ''
 
         At GoMOOS we have a special table view which holds only recent readings so a different join_table is set for those cases.
