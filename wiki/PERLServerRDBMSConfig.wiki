@@ -55,14 +55,14 @@ SELECT min(time) as start_time, max(end_time) as end_time ....  WHERE platform =
   6. _GetDataDB()_ sub-routine
 
           Even if you used sos_config.xml for Metadata you must edit this routine to return observed Properties.  The inputs to this routine used for constructing the SQL are:
-          a) $sensorID (the platform or offering
+         * $sensorID (the platform or offering
 
-         b) $in_time the SOS request included either a single time or start and end time separated by a forward slash.  E.g. 2008-10-09T00:00/2008-10-09T12:00
+         * $in_time the SOS request included either a single time or start and end time separated by a forward slash.  E.g. 2008-10-09T00:00/2008-10-09T12:00
 
-         c) $params, a reference to an array of observedProperties @params.
+         * $params, a reference to an array of observedProperties @params.
              This is because SOS 1.0 allows GetObservation requests to include comma separated lists of observedProperties so the SQL must be able to handle this.
 
-          d) $sensor_list is not currently used.
+          * $sensor_list is not currently used.
 
         The default response is to return the most recent readings when the $in_time is the null string:  ''
 
