@@ -1,13 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <version>1.0</version>
   <parent>
     <groupId>oostethys</groupId>
     <artifactId>oostethys-java</artifactId>
     <version>0.3.9</version>
   </parent>
+  <groupId>oostethys</groupId>
+
   <artifactId>oostethys-xmlbeans</artifactId>
   <packaging>jar</packaging>
+  
+
+	
+  
   <build>
     <plugins>
       <plugin>
@@ -45,4 +51,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <version>2.4.0</version>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>oostethys-sf</id>
+      <name>OOSTethys SF repository</name>
+      <url>luisbermudez,oostethys@web.sourceforge.net:htdocs/maven</url>
+    </repository>
+  </distributionManagement>
+  
+
+  <scm>
+ 	<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/</developerConnection>
+ 	
+	
+  </scm>
 </project>
