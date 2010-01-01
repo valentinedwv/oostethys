@@ -61,7 +61,7 @@
   
 
   <scm>
- 	<developerConnection>scm:svn:http://oostethys.googlecode.com/svn/trunk/java/oostethys-xmlbeans</developerConnection>
+ 	<developerConnection>scm:svn:https://oostethys.googlecode.com/svn/trunk/java/oostethys-xmlbeans</developerConnection>
  	
 	
   </scm>
