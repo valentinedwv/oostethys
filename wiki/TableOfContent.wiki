@@ -2,6 +2,7 @@
   * [main Home]
   * [PerlServerMain PERL SOS toolkit]
     * [PERLServerInstall PERL installation]
+    * [PERLServerNewAndNoteworthy PERL SOS New and Noteworthy]
     * [PERLServerRDBMSConfig  Configure PERL RDBMS]
     * [PERLServerAsciiConfig Configure PERL ASCII]
     * [PERLServerUpgrades Upgrade PERL Toolkit]
