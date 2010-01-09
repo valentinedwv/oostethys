@@ -1,4 +1,4 @@
-#summary main wiki page
+#summary Welcome Page
 #labels Featured
 
 = Introduction =
