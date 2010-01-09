@@ -1,10 +1,10 @@
 #summary One-sentence summary of this page.
   * [main Home]
   * [PerlServerMain PERL SOS toolkit]
-    * [PERLServerUpgrades Upgrade PERL Toolkit]
     * [PERLServerInstall PERL installation]
     * [PERLServerRDBMSConfig  Configure PERL RDBMS]
     * [PERLServerAsciiConfig Configure PERL ASCII]
+    * [PERLServerUpgrades Upgrade PERL Toolkit]
   * [JavaServerMain JAVA SOS Toolkit]
     * [JavaServerInstructions JAVA installation]
     * [JavaServerNewAndNoteworthy JAVA SOS New and Noteworthy]  
