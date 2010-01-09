@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oostethys      xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:nc="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf"
+             xsi:schemaLocation="http://www.oostethys.org/schemas/0.1.0/oostethys ../xml/oostethys/0.1.0/xsd/oostethys.xsd http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf ../xml/oostethys/0.1.0/xsd/oostethys-netcdf.xsd">
+
+  <webServerURL>http://hioos.org</webServerURL>
+
+<!-- Define upper-level stuff; note the hirearchy is as follows:
+     - HIOOS
+       - UH
+         - near-shore
+         - wqb
+         - etc.
+       - State
+         - stream
+       - Other as needed
+-->
+
+  <serviceContact type="http://mmisw.org/mmi/20080520/obs.owl#serviceProvider"
+                    id="contact" >
+    <urlOrganization>http://www.hioos.org</urlOrganization>
+    <longNameOrganization>Hawaii Integrated Ocean Observing System (HIOOS)</longNameOrganization>
+    <shortNameOrganization>HIOOS</shortNameOrganization>
+    <individualName>Jim Potemra</individualName>
+    <individualEmail>jimp@hawaii.edu</individualEmail>
+  </serviceContact>
+
+<!-- 1. UH observing system -->
+
+  <components>
+    <system>
+      <metadata>
+        <systemLongName>University of Hawaii assests</systemLongName>
+        <systemShortName>UH/SOEST</systemShortName>
+        <systemIdentifier>urn:hioos:org:uh</systemIdentifier>
+        <systemType>http://mmisw.org/mmi/20080520/obs.owl#observationSystem</systemType>
+        
+        <systemContacts>
+          <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="uh">
+            <urlOrganization>http://www.hioos.org</urlOrganization>
+            <longNameOrganization>University of Hawaii</longNameOrganization>
+            <shortNameOrganization>UH</shortNameOrganization>
+            <individualName>Jim Potemra</individualName>
+            <individualEmail>jimp@hawaii.edu</individualEmail>
+          </systemContact>
+        </systemContacts>
+      </metadata>
+
+<!-- 1a. UH observing system, near-shore sensors  -->
+
+      <components>
+        <system>
+          <metadata>
+            <systemLongName>Near-shore Sensors</systemLongName>
+            <systemShortName>NSS</systemShortName>
+            <systemIdentifier>urn:hioos:org:uh:nss</systemIdentifier>
+            <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+            <systemContacts>
+              <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="nss">
+                <urlOrganization>http://www.hioos.org</urlOrganization>
+                <longNameOrganization>University of Hawaii</longNameOrganization>
+                <shortNameOrganization>UH</shortNameOrganization>
+                <individualName>Jim Potemra</individualName>
+                <individualEmail>jimp@hawaii.edu</individualEmail>
+              </systemContact>
+            </systemContacts>
+          </metadata>
+
+<!-- 1a1. UH observing system, near-shore sensors, ns01  -->
+
+          <components>
+            <system>
+              <metadata>
+                <systemLongName>Near-shore Sensor 01</systemLongName>
+                <systemShortName>NS-01</systemShortName>
+                <systemIdentifier>urn:hioos:org:uh:nss:nss01</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                <systemContacts>
+                  <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="ns01">
+                    <urlOrganization>http://www.hioos.org</urlOrganization>
+                    <longNameOrganization>University of Hawaii</longNameOrganization>
+                    <shortNameOrganization>UH</shortNameOrganization>
+                    <individualName>Jim Potemra</individualName>
+                    <individualEmail>jimp@hawaii.edu</individualEmail>
+                  </systemContact>
+                </systemContacts>
+              </metadata>
+              <output>
+                <sourceConfiguration>
+                  <nc:oostethys-netcdf>
+                    <nc:fileURL>/export/lawelawe1/nss/ns01/ns01_agg_2008-2010.nc</nc:fileURL>
+                    <nc:variables>
+                      <nc:variable shortName="time"
+                                   dimension="time"
+                                         uri="http://mmisw.org/ont/cf/parameter/iso_1861_time" />
+                      <nc:variable shortName="z"
+                                   dimension="depth"
+                                         uri="http://mmisw.org/ont/cf/parameter/depth" />
+                      <nc:variable shortName="lat"
+                                   dimension="latitude"
+                                         uri="urn:ogc:phenomenon:latitude:wgs84" />
+                      <nc:variable shortName="lon"
+                                   dimension="longitude"
+                                         uri="urn:ogc:phenomenon:longitude:wgs84" />
+                      <nc:variable shortName="temp"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" />
+                      <nc:variable shortName="cond"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/conductivity" />
+                      <nc:variable shortName="turb"
+                                   dimension="no"
+                                         uri="uri:x:turb" />
+                      <nc:variable shortName="flor"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/chlorophyll_concentration_in_sea_water" />
+                      <nc:variable shortName="salt"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" />
+                      <nc:variable shortName="pres"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_pressure" />
+                    </nc:variables>
+                  </nc:oostethys-netcdf>
+                </sourceConfiguration>
+              </output>
+            </system>
+
+<!-- 1a2. UH observing system, near-shore sensors, ns02  -->
+
+            <system>
+              <metadata>
+                <systemLongName>Near-shore Sensor 02</systemLongName>
+                <systemShortName>NS-02</systemShortName>
+                <systemIdentifier>urn:hioos:org:uh:nss:nss02</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                <systemContacts>
+                  <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="ns02">
+                    <urlOrganization>http://www.hioos.org</urlOrganization>
+                    <longNameOrganization>University of Hawaii</longNameOrganization>
+                    <shortNameOrganization>UH</shortNameOrganization>
+                    <individualName>Jim Potemra</individualName>
+                    <individualEmail>jimp@hawaii.edu</individualEmail>
+                  </systemContact>
+                </systemContacts>
+              </metadata>
+              <output>
+                <sourceConfiguration>
+                  <oostethys-netcdf xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+                    <fileURL>/export/lawelawe1/nss/ns02/ns02_agg_2008-2010.nc</fileURL>
+                    <variables>
+                      <variable shortName="time"
+                                   dimension="time"
+                                         uri="http://mmisw.org/ont/cf/parameter/iso_1861_time" />
+                      <variable shortName="z"
+                                   dimension="depth"
+                                         uri="http://mmisw.org/ont/cf/parameter/depth" />
+                      <variable shortName="lat"
+                                   dimension="latitude"
+                                         uri="urn:ogc:phenomenon:latitude:wgs84" />
+                      <variable shortName="lon"
+                                   dimension="longitude"
+                                         uri="urn:ogc:phenomenon:longitude:wgs84" />
+                      <variable shortName="temp"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" />
+                      <variable shortName="cond"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/conductivity" />
+                      <variable shortName="turb"
+                                   dimension="no"
+                                         uri="uri:x:turb" />
+                      <variable shortName="flor"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/chlorophyll_concentration_in_sea_water" />
+                      <variable shortName="salt"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" />
+                      <variable shortName="pres"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_pressure" />
+                    </variables>
+                  </oostethys-netcdf>
+                </sourceConfiguration>
+              </output>
+            </system>
+
+<!-- 1a3. UH observing system, near-shore sensors, ns03  -->
+
+            <system>
+              <metadata>
+                <systemLongName>Near-shore Sensor 03</systemLongName>
+                <systemShortName>NS-03</systemShortName>
+                <systemIdentifier>urn:hioos:org:uh:nss:nss03</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                <systemContacts>
+                  <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="ns03">
+                    <urlOrganization>http://www.hioos.org</urlOrganization>
+                    <longNameOrganization>University of Hawaii</longNameOrganization>
+                    <shortNameOrganization>UH</shortNameOrganization>
+                    <individualName>Jim Potemra</individualName>
+                    <individualEmail>jimp@hawaii.edu</individualEmail>
+                  </systemContact>
+                </systemContacts>
+              </metadata>
+              <output>
+                <sourceConfiguration>
+                  <oostethys-netcdf xmlns="http://www.oostethys.org/schemas/0.1.0/oostethys-netcdf">
+                    <fileURL>/export/lawelawe1/nss/ns03/ns03_agg_2008-2010.nc</fileURL>
+                    <variables>
+                      <variable shortName="time"
+                                   dimension="time"
+                                         uri="http://mmisw.org/ont/cf/parameter/iso_1861_time" />
+                      <variable shortName="z"
+                                   dimension="depth"
+                                         uri="http://mmisw.org/ont/cf/parameter/depth" />
+                      <variable shortName="lat"
+                                   dimension="latitude"
+                                         uri="urn:ogc:phenomenon:latitude:wgs84" />
+                      <variable shortName="lon"
+                                   dimension="longitude"
+                                         uri="urn:ogc:phenomenon:longitude:wgs84" />
+                      <variable shortName="temp"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" />
+                      <variable shortName="cond"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/conductivity" />
+                      <variable shortName="turb"
+                                   dimension="no"
+                                         uri="uri:x:turb" />
+                      <variable shortName="flor"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/chlorophyll_concentration_in_sea_water" />
+                      <variable shortName="salt"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" />
+                      <variable shortName="pres"
+                                   dimension="no"
+                                         uri="http://mmisw.org/ont/cf/parameter/sea_water_pressure" />
+                    </variables>
+                  </oostethys-netcdf>
+                </sourceConfiguration>
+              </output>
+            </system>
+          </components>
+        </system>
+        
+        
+        <!-- 1b. UH observing system, water quality buoys -->
+        
+        <system>
+          <metadata>
+            <systemLongName>Water Quality Buoys</systemLongName>
+            <systemShortName>WQB</systemShortName>
+            <systemIdentifier>urn:hioos:org:uh:wqb</systemIdentifier>
+            <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+            <systemContacts>
+              <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="wqb">
+                <urlOrganization>http://www.hioos.org</urlOrganization>
+                <longNameOrganization>University of Hawaii</longNameOrganization>
+                <shortNameOrganization>UH</shortNameOrganization>
+                <individualName>Jim Potemra</individualName>
+                <individualEmail>jimp@hawaii.edu</individualEmail>
+              </systemContact>
+            </systemContacts>
+          </metadata>
+          
+          <!-- 1b1. UH observing system, water quality buoy, Ala Wai -->
+          
+          <components>
+            <system>
+              <metadata>
+                <systemLongName>Water Quality Buoy - Ala Wai</systemLongName>
+                <systemShortName>WQBAW</systemShortName>
+                <systemIdentifier>urn:hioos:org:uh:nss:wqbaw</systemIdentifier>
+                <systemType>http://mmisw.org/mmi/20080529/sensor.owl#CTD</systemType>
+                <systemContacts>
+                  <systemContact type="http://mmisw.org/mmi/20080520/obs.owl#dataProvider" id="wqbaw">
+                    <urlOrganization>http://www.hioos.org</urlOrganization>
+                    <longNameOrganization>University of Hawaii</longNameOrganization>
+                    <shortNameOrganization>UH</shortNameOrganization>
+                    <individualName>Jim Potemra</individualName>
+                    <individualEmail>jimp@hawaii.edu</individualEmail>
+                  </systemContact>
+                </systemContacts>
+              </metadata>
+              <output>
+                <sourceConfiguration>
+                  <nc:oostethys-netcdf>
+                    <nc:fileURL>/export/lawelawe1/wqb/wqbaw/wqbaw_agg_2008-2010.nc</nc:fileURL>
+                    <nc:variables>
+                      <nc:variable shortName="time"
+                        dimension="time"
+                        uri="http://mmisw.org/ont/cf/parameter/iso_1861_time" />
+                      <nc:variable shortName="z"
+                        dimension="depth"
+                        uri="http://mmisw.org/ont/cf/parameter/depth" />
+                      <nc:variable shortName="lat"
+                        dimension="latitude"
+                        uri="urn:ogc:phenomenon:latitude:wgs84" />
+                      <nc:variable shortName="lon"
+                        dimension="longitude"
+                        uri="urn:ogc:phenomenon:longitude:wgs84" />
+                      <nc:variable shortName="temp"
+                        dimension="no"
+                        uri="http://mmisw.org/ont/cf/parameter/sea_water_temperature" />
+                      <nc:variable shortName="cond"
+                        dimension="no"
+                        uri="http://mmisw.org/ont/cf/parameter/conductivity" />
+                      <nc:variable shortName="salt"
+                        dimension="no"
+                        uri="http://mmisw.org/ont/cf/parameter/sea_water_salinity" />
+                      <nc:variable shortName="oxy"
+                        dimension="no"
+                        uri="http://mmisw.org/ont/cf/parameter/mass_concentration_of_oxygen_in_sea_water" />
+                      <nc:variable shortName="flor"
+                        dimension="no"
+                        uri="http://mmisw.org/ont/cf/parameter/chlorophyll_concentration_in_sea_water" />
+                      <nc:variable shortName="turb"
+                        dimension="no"
+                        uri="uri:x:turb" />
+                    </nc:variables>
+                  </nc:oostethys-netcdf>
+                </sourceConfiguration>
+              </output>
+            </system>
+          </components>
+        </system>
+      </components>
+      
+      
+      </system>
+        
+        
+      
+        
+  </components>
+</oostethys>
