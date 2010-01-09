@@ -1,5 +1,14 @@
 #summary One-sentence summary of this page.
-  * PERL toolkit
+  * [main Home]
+  * PERL SOS toolkit
     * [PERLServerUpgrades Upgrade PERL Toolkit]
-    * [PERLServerRDBMSConfig  Configure PERL RDBMS]
     * [PERLServerInstall PERL installation]
+    * [PERLServerRDBMSConfig  Configure PERL RDBMS]
+    * [PERLServerAsciiConfig Configure PERL ASCII]
+  * [JavaServerMain JAVA SOS Toolkit]
+    * [JavaServerInstructions JAVA installation]
+    * [JavaServerNewAndNoteworthy JAVA SOS New and Noteworthy]  
+    * [JavaSourceBuild  JAVA Source Build]  
+  * [SmlMor SensorML generator]
+  * [Development Discussions]
+    * [OostethysVocabs vocabularies and URLs]   
