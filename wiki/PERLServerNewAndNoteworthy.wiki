@@ -2,6 +2,6 @@
 
 = Latest Release =
 
-http://code.google.com/p/oostethys/downloads/list
+   * [http://code.google.com/p/oostethys/downloads/list Version 1.0.1] Major release 2009-12-01
 
 = Issue Links =
