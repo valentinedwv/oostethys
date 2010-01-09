@@ -10,5 +10,5 @@
     * [JavaServerNewAndNoteworthy JAVA SOS New and Noteworthy]  
     * [JavaSourceBuild  JAVA Source Build]  
   * [SmlMor SensorML generator]
-  * [Development Discussions]
+  * Development Discussions
     * [OostethysVocabs vocabularies and URLs]   
