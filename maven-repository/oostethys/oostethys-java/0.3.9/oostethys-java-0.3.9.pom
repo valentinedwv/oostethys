@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>oostethys</groupId>
+  <artifactId>oostethys-java</artifactId>
+  <version>0.3.9</version>
+  <packaging>pom</packaging>
+  <name>OOSTethys server</name>
+  <description>OOSTethys is a community of software developers and marine scientists who develop open source tools to integrate
+  observing systems. We are developing applications that support the OGC Sensor Web Enablement. Currently we have reference
+  implementations that help you get an OGC Sensor Observation Service installed easily and quickly on a web
+  server.</description>
+  <url>http://code.google.com/p/oostethys/</url>
+  <scm>
+    <connection>scm:svn:http://oostethys.googlecode.com/svn/trunk/</connection>
+    <url>http://oostethys.googlecode.com/svn/trunk/</url>
+  </scm>
+  <licenses>
+    <license>
+      <name>The GNU General Public License, Version 2</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>bermud</id>
+      <name>Luis Bermudez</name>
+      <email>bermudez@sura.org</email>
+      <organization>SURA</organization>
+      <organizationUrl>http://www.sura.org</organizationUrl>
+    </developer>
+    <developer>
+      <id>rick.bl</id>
+      <name>Rick Blair</name>
+      <email>rick.blair@boeing.com</email>
+      <organization>Boeing</organization>
+    </developer>
+    <developer>
+      <id>carueda</id>
+      <name>Carlos Rueda</name>
+      <email>carueda@mbari.com</email>
+      <organization>MBARI</organization>
+    </developer>
+    <developer>
+      <id>jzedlitz</id>
+      <name>Jesper Zedlitz</name>
+      <email>jze@informatik.uni-kiel.de</email>
+      <organization>CAU Kiel</organization>
+      <organizationUrl>http://www.informatik.uni-kiel.de/comsys/</organizationUrl>
+    </developer>
+  </developers>
+  <build>
+  <plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>2.0.2</version>
+    <configuration>
+        <source>1.5</source>
+        <target>1.5</target>
+    </configuration>
+</plugin>
+  
+  </plugins>
+  </build>
+  
+  <mailingLists>
+    <mailingList>
+      <name>User List</name>
+      <post>oostethys-users@googlegroups.com</post>
+      <archive>http://groups.google.com/group/oostethys-users/topics</archive>
+    </mailingList>
+    <mailingList>
+      <name>User List</name>
+      <post>oostethys_dev@googlegroups.com</post>
+      <archive>http://groups.google.com/group/oostethys_dev/topics</archive>
+    </mailingList>
+  </mailingLists>
+  <!-- 
+  <modules>
+    <module>oostethys-java-server</module>
+    <module>oostethys-xmlbeans</module>
+    <module>oostethys-java-sosReader</module>
+    <module>oostethys-ogc-xmlbeans</module>
+      <module>oostethys-java-hello</module>
+    <module>oostethys-netcdf</module>
+    
+    
+  </modules>
+   -->
+</project>
