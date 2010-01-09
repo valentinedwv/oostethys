@@ -1,7 +1,8 @@
 #summary Upgrading previous installations
 
-This version of the Toolkit includes major upgrades from previous versions but all attempts have been made to make it backward compatible with
-existing installations.
+This version of the Toolkit (1.0.1) includes major upgrades from previous versions but all attempts have been made to make it backward compatible with
+existing installations existing configuration files.
+
 The script now supports IOOS PO DIF output schemas as an option.
 Major changes have been made as well to make sure it passes the OGC's CITE testing suite at:
 http://cite.opengeospatial.org/ and http://cite.opengeospatial.org/betaTesting
