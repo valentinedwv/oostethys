@@ -1,8 +1,9 @@
 #summary PERL Server Installation Notes
 #labels Phase-Deploy
 = Introduction =
+This document presents guidelines for setting up an OOSTethys PERL server. The Server will create an Open Geospatial Consortium (OGC) Sensor Observation Service (SOS) that can run as a PERL based CGI web application under a web server, such as Apache or IIS.
 
-= Installing the OOSTethys PERL SOS as an Apache CGI program =
+= Installing the OOSTethys PERL SOS as a CGI program =
 
 == File List ==
   * oostethys_sos.cgi  -  the CGI script
