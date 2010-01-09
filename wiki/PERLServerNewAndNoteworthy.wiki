@@ -2,4 +2,6 @@
 
 = Latest Release =
 
+http://code.google.com/p/oostethys/downloads/list
+
 = Issue Links =
