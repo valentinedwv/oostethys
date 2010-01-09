@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
   * [main Home]
-  * PERL SOS toolkit
+  * [ PerlServerMain PERL SOS toolkit]
     * [PERLServerUpgrades Upgrade PERL Toolkit]
     * [PERLServerInstall PERL installation]
     * [PERLServerRDBMSConfig  Configure PERL RDBMS]
