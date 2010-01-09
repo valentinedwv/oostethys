@@ -9,6 +9,6 @@
     * [JavaServerInstructions JAVA installation]
     * [JavaServerNewAndNoteworthy JAVA SOS New and Noteworthy]  
     * [JavaSourceBuild  JAVA Source Build]  
-  * [SmlMor SensorML generator]
+  * [SmlMor SensorML Generator]
   * Development Discussions
     * [OostethysVocabs vocabularies and URLs]   
