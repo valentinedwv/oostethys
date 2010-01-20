@@ -2,29 +2,14 @@
 
 Service deployed at: http://mmisw.org/smlmor/
 
-= Status =
-
-
-2009-12-06  0.0.2pre5
-  * Selection of URIs from the MMI Ontology Registry and Repository (ORR) now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
-  * Preliminary basic set of fields for contacts, system, and variables.
-  * Any number of variables and systems, and unbounded system nesting
-  * Generation of SensorML via oostethys model instantiation.
-  * No TEDS generation
-  * Generates of a tree dump for testing and comparison. This is enabled with the `_log=y` parameter (http://mmisw.org/smlmor/?_log=y). Once the SensorML is generated, click the 'refresh log' button at the bottom. Preliminary tests seems to show that there are missing elements in the generated sensorml document.
 
 = Introduction =
 
 This page *is intended to document* the specification, requirements, and development of the [http://mmisw.org/orr/ ORR-enabled] SensorML/TEDS generator (codenamed 'sml-mor,' a combination of SensorML and MMI Ontology Registry and repository). 
 
-<font color="blue">This is work in progress; please add your comments in this page or send them to the oostethys list. Thanks!</font>
-
-
 = Goal =
 
-The overall goal of this tool is to facilitate the creation of a formal document (SensorML or TEDS) with the basic definition of a sensor system (system type, variables, subsystems..) out from a set of fields provided by the user in a web-based graphical user interface and with integration of vocabulary terms and definitions from the [http://mmisw.org/orr/ MMI Ontology Registry and repository], ORR.
-
-<font color="red">*NOTE*</font>: It is not an immediate goal to provide round-trip conversion/editing of the document (ie., eg., being able to load a SensorML doc to initialize the interface).
+The overall goal of this tool is to facilitate the creation of a formal document ([http://vast.uah.edu/index.php?option=com_content&view=article&id=14&Itemid=52/ SensorML] or TEDS) with the basic definition of a sensor system (system type, variables, subsystems..). The set of fields are provided by to the user in a web-based graphical user interface that is integrated with vocabulary terms and definitions from the [http://mmisw.org/orr/ MMI Ontology Registry and repository], ORR.
 
 = Description =
 
@@ -40,6 +25,16 @@ The generation of SensorML is based on an intermediate OOSTethys model instantia
 
 == TEDS ==
 Not implemented yet.
+
+= Status =
+
+2009-12-06  0.0.2pre5
+  * Selection of URIs from the MMI Ontology Registry and Repository (ORR) now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
+  * Preliminary basic set of fields for contacts, system, and variables.
+  * Any number of variables and systems, and unbounded system nesting
+  * Generation of SensorML via oostethys model instantiation.
+  * No TEDS generation
+  * Generates of a tree dump for testing and comparison. This is enabled with the `_log=y` parameter (http://mmisw.org/smlmor/?_log=y). Once the SensorML is generated, click the 'refresh log' button at the bottom. Preliminary tests seems to show that there are missing elements in the generated sensorml document.
 
 
 = Noteworthy changes =
