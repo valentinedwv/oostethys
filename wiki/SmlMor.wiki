@@ -1,4 +1,4 @@
-#summary development of the ORR-enabled SensorML/TEDS generator -- Carlos Rueda
+#SensorML generator driven by OOSTethys and MMI Ontology Registry -- Carlos Rueda
 
 Service deployed at: http://mmisw.org/smlmor/
 
