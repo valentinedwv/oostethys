@@ -11,6 +11,7 @@ File List
     * difGetObservation.xml - DIF template
     * difDescribeSystem.xml - DIF template
 	* README - This file
+	* docs/LICENSE-20.txt - Apache Software license.
 	* docs/INSTALL - Basic install instructions
 	* docs/INSTALL_ASCII - Setting up to serve observations stored in ASCII text files
 	* docs/INSTALL_RDBMS - Setting up to serve observations stored in a relational database via DBI
