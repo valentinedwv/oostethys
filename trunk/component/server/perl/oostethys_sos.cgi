@@ -846,8 +846,8 @@ sub doDescribeSensorSWE
 		$value->appendText($long_name) if ($name eq 'Long Name');
 		$value->appendText($sensorID) if ($name eq 'Short Name');
 		$value->appendText($urn) if ($name eq 'URN');
-		$value->appendText($short_org) if ($name =~ 'Operator Short Name');
-		$value->appendText($short_org) if ($name =~ 'Data Provider Short Name');
+		$value->appendText($provider_name) if ($name =~ 'Operator Short Name');
+		$value->appendText($provider_name) if ($name =~ 'Data Provider Short Name');
 		$value->appendText($ra_name) if ($name =~ 'Regional Association Short Name');
 	}
 
@@ -868,7 +868,7 @@ sub doDescribeSensorSWE
 	$node->appendText($contact);
 
 	$node = ($xc->findnodes("//sml:SensorML/sml:member/sml:System/sml:contact/sml:ResponsibleParty/sml:organizationName"))[0];
-	$node->appendText($org);
+	$node->appendText($provider_name);
 	
 	$node = ($xc->findnodes("//sml:SensorML/sml:member/sml:System/sml:contact/sml:ResponsibleParty/sml:contactInfo/sml:address/sml:electronicMailAddress"))[0];
 	$node->appendText("$email");
@@ -942,6 +942,8 @@ sub doDescribeSensorDIF
 
 	my $node = ($xc->findnodes("//sml:SensorML/sml:member/sml:System"))[0];
 	$node->setAttribute('gml:id', $provider_name . '_' . $sensorID);
+ 	$node = ($xc->findnodes("//sml:SensorML/sml:member/sml:System/sml:contact/sml:ResponsibleParty/sml:organizationName"))[0];
+ 	$node->appendText($provider_name) if ($node);
 
 	#############################
 	# DIF only has Three Identifications.
