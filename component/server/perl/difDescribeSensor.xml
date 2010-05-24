@@ -21,6 +21,11 @@
       </sml:identifier>
     </sml:IdentifierList>
   </sml:identification>
+  <sml:contact xlink:role="urn:ogc:def:classifiers:OGC:contactType:operator">
+    <sml:ResponsibleParty>
+      <sml:organizationName></sml:organizationName>
+    </sml:ResponsibleParty>
+  </sml:contact>
   <sml:inputs>
     <sml:InputList />
   </sml:inputs>
