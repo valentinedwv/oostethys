@@ -28,6 +28,9 @@ Not implemented yet.
 
 = Status =
 
+2010-07-23  0.0.2pre6
+  * (internal) SPARQL query result requested to be in CSV format (previously in JSON) because of [http://code.google.com/p/mmisw/issues/detail?id=261 current limitation] in the MMI ORR service. 
+
 2009-12-06  0.0.2pre5
   * Selection of URIs from the MMI Ontology Registry and Repository (ORR) now included in some of the fields (this is preliminary--the associated vocabularies, in particular [http://mmisw.org/orr/#http://mmisw.org/ont/mmi/systemtype sensor types], are still preliminary).
   * Preliminary basic set of fields for contacts, system, and variables.
