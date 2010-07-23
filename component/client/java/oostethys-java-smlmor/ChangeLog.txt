@@ -5,6 +5,17 @@ $Id$
 
 ChangeLog
 
+2010-07-23  0.0.2pre6
+	- SparqlUtil.runQuery: now requests "csv" output format (instead of "json") because of 
+	  current limitation in the Ont service (see iserver and ont modules).
+	  
+	  The behavior was that the selection of URIs (eg when clicking one of the "choose"
+	  buttons) was not returning because of an unnoticed exception because of the
+	  parsing error (assumed to be "json" but actually being returned in "csv").
+	  
+	- FieldWithChoose: using DISTINCT in query.
+	
+	  
 2009-12-06  0.0.2pre5
 	- Newer version of CF does not define/use the class Parameter. Now using
 	  http://mmisw.org/ont/cf/parameter/Standard_Name
