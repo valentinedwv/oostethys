@@ -38,5 +38,5 @@ Running SmlMor from within Eclipse:
   Edit smlmor.launch to adjust any GWT related library so it points to the correct location
   in your system. (Search for gwt-*.jar to quickly determine which parts require adjusment)
   Then right-click smlmor.launch and select Run As -> smlmor
-  Select Debug As -> smlmor for debugginSimilar procedure to debug.
+  Select Debug As -> smlmor for debugging.
 

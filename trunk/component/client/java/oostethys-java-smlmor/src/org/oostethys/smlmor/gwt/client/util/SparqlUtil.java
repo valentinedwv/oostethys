@@ -1,9 +1,5 @@
 package org.oostethys.smlmor.gwt.client.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.mmisw.iserver.gwt.client.rpc.SparqlQueryInfo;
 import org.mmisw.iserver.gwt.client.rpc.SparqlQueryResult;
 import org.mmisw.iserver.gwt.client.util.QueryUtil;
@@ -27,7 +23,7 @@ public class SparqlUtil {
 		
 		final SparqlQueryInfo sparqlQueryInfo = new SparqlQueryInfo();
 		sparqlQueryInfo.setQuery(queryString);
-		sparqlQueryInfo.setFormat("json");
+		sparqlQueryInfo.setFormat("csv");
 		sparqlQueryInfo.setParseResult(true);
 		sparqlQueryInfo.setAcceptEntries("text/plain");
 		sparqlQueryInfo.setEndPoint("http://mmisw.org/ont/");
