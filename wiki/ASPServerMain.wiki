@@ -1,0 +1,6 @@
+#summary One-sentence summary of this page.
+#labels Featured
+
+= ASP Version of the OOOSTethys SOS Implementation =
+
+OOSTethys ASP Toolkit creates an OGC-compliant Sensor Observation Service (SOS) from ASCII text files stored locally on your disk. Unlike the other versions of OOSTethys SOS, this versioin does not support for utilizing the NOAA IOOS DIF GML schema's. 
