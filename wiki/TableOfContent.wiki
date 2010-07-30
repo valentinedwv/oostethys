@@ -10,6 +10,8 @@
     * [JavaServerInstructions JAVA installation]
     * [JavaServerNewAndNoteworthy JAVA SOS New and Noteworthy]  
     * [JavaSourceBuild  JAVA Source Build]  
+  * [ASPMain ASP SOS toolkit]
+    * [ASPServerInstall ASP version installation]
   * [SmlMor SensorML Generator]
   * Development Discussions
     * [OostethysVocabs vocabularies and URLs]   
