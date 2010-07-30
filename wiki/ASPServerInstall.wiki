@@ -4,15 +4,15 @@
 
 * THE PACKAGE
 
-This package is an ASP version of the OOSTethys SOS implementation. It should contain the following:
+This package is an ASP version of the OOSTethys SOS implementation. Go to the [http://code.google.com/p/oostethys/downloads/list Downloads] page and download the _oostethys_asp_sos.zip_ file. The compressed package should contain the following:
 
 (1) oostethys_server.asp - this is the the main module;
 
-(2) sosDescribeSensor.inc - this is the additional module needed when a DescribeSensor request is made;
+(2) sosDescribeSensor.inc - this is the additional module needed when a _DescribeSensor_ request is made;
 
-(3) sosGetCapabilities.inc - this is the additional module needed when a GetCapabilities request is made;
+(3) sosGetCapabilities.inc - this is the additional module needed when a _GetCapabilities_ request is made;
 
-(4) sosGetObaservation.inc - this is the additional module needed when a GetObservation request is made;
+(4) sosGetObaservation.inc - this is the additional module needed when a _GetObservation_ request is made;
 
 and
 
