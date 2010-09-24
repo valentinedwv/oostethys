@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sos:Capabilities xmlns:oost="http://www.oostethys.org/schemas/0.1.0/oostethys"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:ows="http://www.opengis.net/ows/1.1"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:gml="http://www.opengis.net/gml"
+                  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+                  xmlns:sos="http://www.opengis.net/sos/1.0"
+                  xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosGetCapabilities.xsd"
+                  version="1.0.0">
+    <ows:ServiceIdentification>
+        <ows:Title />
+        <ows:Abstract/>
+        <ows:Keywords>
+            <ows:Keyword />
+        </ows:Keywords>
+        <ows:ServiceType codeSpace="http://opengeospatial.net">OGC:SOS</ows:ServiceType>
+        <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+        <ows:Fees>NONE</ows:Fees>
+        <ows:AccessConstraints>NONE</ows:AccessConstraints>
+    </ows:ServiceIdentification>
+    <ows:ServiceProvider>
+        <ows:ProviderName/>
+        <ows:ProviderSite xlink:href=""/>
+        <ows:ServiceContact>
+            <ows:IndividualName/>
+            <ows:PositionName/>
+            <ows:ContactInfo>
+                <ows:Phone>
+                    <ows:Voice/>
+                </ows:Phone>
+                <ows:Address>
+                    <ows:DeliveryPoint/>
+                    <ows:City/>
+                    <ows:AdministrativeArea/>
+                    <ows:PostalCode/>
+                    <ows:Country/>
+                    <ows:ElectronicMailAddress/>
+                </ows:Address>
+            </ows:ContactInfo>
+        </ows:ServiceContact>
+    </ows:ServiceProvider>
+    <ows:OperationsMetadata>
+        <ows:Operation name="GetCapabilities">
+            <ows:DCP>
+                <ows:HTTP>
+                    <ows:Get />
+                    <ows:Post />
+                </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="Sections">
+                <ows:AllowedValues>
+                     <ows:Value>All</ows:Value>
+                     <ows:Value>Filter_Capabilities</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="service">
+                <ows:AllowedValues>
+                    <ows:Value>SOS</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="version">
+                <ows:AllowedValues>
+                    <ows:Value>1.0.0</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="AcceptVersions">
+                <ows:AllowedValues>
+                   <ows:Value>1.0.0</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+        </ows:Operation>
+        <ows:Operation name="GetObservation">
+            <ows:DCP>
+                <ows:HTTP>
+                    <ows:Get />
+                    <ows:Post />
+                </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="offering">
+                <ows:AllowedValues>
+                    <ows:Value>OFFERING_1</ows:Value>
+                    <ows:Value>offering:2:URI</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="observedProperty">
+                <ows:AllowedValues>
+                    <ows:Value>observedProperty:1:URI</ows:Value>
+                    <ows:Value>observedProperty:2:URI</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="eventTime">
+                <ows:AllowedValues>
+                   <ows:Range>
+                      <ows:MinimumValue></ows:MinimumValue>
+                      <ows:MaximumValue></ows:MaximumValue>
+                   </ows:Range>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="responseFormat">
+                <ows:AllowedValues>
+                   <ows:Value>text/xml; subtype="om/1.0.0"</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+			<ows:Parameter name="resultModel">
+				<ows:AllowedValues>
+					<ows:Value>om:Observation</ows:Value>
+				</ows:AllowedValues>
+			</ows:Parameter>
+        </ows:Operation>
+        <ows:Operation name="DescribeSensor">
+            <ows:DCP>
+                <ows:HTTP>
+                    <ows:Get xlink:href="http://get.service.endpoint/here"/>
+                    <ows:Post xlink:href="http://post.service.endpoint/here"/>
+                </ows:HTTP>
+            </ows:DCP>
+            <ows:Parameter name="procedure">
+                <ows:AllowedValues>
+                    <ows:Value>sensorID:1:URI</ows:Value>
+                    <ows:Value>sensorID:2:URI</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+            <ows:Parameter name="outputFormat">
+                <ows:AllowedValues>
+                    <ows:Value>text/xml; subtype="sensorML/1.0.1"</ows:Value>
+                </ows:AllowedValues>
+            </ows:Parameter>
+        </ows:Operation>
+    </ows:OperationsMetadata>
+    <sos:Filter_Capabilities xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:om="http://www.opengis.net/om/1.0" xmlns:swe="http://www.opengis.net/swe/1.0.1">
+      <ogc:Spatial_Capabilities>
+        <ogc:GeometryOperands>
+          <ogc:GeometryOperand>gml:Envelope</ogc:GeometryOperand>
+        </ogc:GeometryOperands>
+        <ogc:SpatialOperators>
+          <ogc:SpatialOperator name="BBOX"/>
+        </ogc:SpatialOperators>
+      </ogc:Spatial_Capabilities>
+      <ogc:Temporal_Capabilities>
+        <ogc:TemporalOperands>
+          <ogc:TemporalOperand>gml:TimeInstant</ogc:TemporalOperand>
+          <ogc:TemporalOperand>gml:TimePeriod</ogc:TemporalOperand>
+        </ogc:TemporalOperands>
+        <ogc:TemporalOperators>
+          <ogc:TemporalOperator name="TM_During"/>
+          <ogc:TemporalOperator name="TM_Equals"/>
+        </ogc:TemporalOperators>
+      </ogc:Temporal_Capabilities>
+      <ogc:Scalar_Capabilities>
+        <ogc:ComparisonOperators>
+           <ogc:ComparisonOperator>Between</ogc:ComparisonOperator>
+        </ogc:ComparisonOperators>
+      </ogc:Scalar_Capabilities>
+      <ogc:Id_Capabilities>
+         <ogc:EID/>
+         <ogc:FID/>
+      </ogc:Id_Capabilities>
+    </sos:Filter_Capabilities>
+    <sos:Contents>
+        <sos:ObservationOfferingList>
+            <sos:ObservationOffering gml:id="OFFERING_1">
+                <gml:description/>
+                <gml:name/>
+                <gml:boundedBy>
+                    <gml:Envelope srsName="urn:ogc:def:crs:EPSG:6.5:4326">
+                        <gml:lowerCorner></gml:lowerCorner>
+                        <gml:upperCorner></gml:upperCorner>
+                    </gml:Envelope>
+                </gml:boundedBy>
+                <sos:time>
+                    <gml:TimePeriod xsi:type="gml:TimePeriodType"  gml:id="AVAILABLE_OFFERING_TIME">
+                        <gml:beginPosition />
+                        <gml:endPosition />
+                        <gml:timeInterval unit="hour">.5</gml:timeInterval>
+                    </gml:TimePeriod>
+                </sos:time>
+                <sos:procedure xlink:href="sensorID:1:URI"/>
+                <sos:observedProperty xlink:href="observedProperty:1:URI"/>
+                <sos:observedProperty xlink:href="observedProperty:2:URI"/>
+        		<sos:featureOfInterest xlink:href="urn:ogc:def:object:feature:FOI_URI" />
+                <sos:responseFormat>text/xml; subtype="om/1.0.0"</sos:responseFormat>
+                <sos:responseMode>inline</sos:responseMode>
+            </sos:ObservationOffering>
+        </sos:ObservationOfferingList>
+    </sos:Contents>
+</sos:Capabilities>

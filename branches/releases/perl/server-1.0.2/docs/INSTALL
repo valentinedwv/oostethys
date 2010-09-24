@@ -1,0 +1,30 @@
+SOS Server CGI PERL Toolkit
+by Eric Bridger last modified Sept. 20, 2009
+
+File List
+    * oostethys_sos.cgi  -  the CGI script
+    * sos_config.xml - empty configuration file.
+    * example_sos_config.xml -  An example config file using values from GoMOOS
+    * sosGetCapabilities.xml - 1.0 template
+    * sosGetObservation.xml - 1.0 template
+    * sosDescribeSystem.xml - 1.0 template
+    * difGetCapabilities.xml - DIF template
+    * difGetObservation.xml - DIF template
+    * difDescribeSystem.xml - DIF template
+
+Installation Steps
+1. Put the oostethys_sos.cgi script into your cgi-bin directory and make sure it has execute permission.  Typically this in  the /cgi-bin/ directory of you Web server.  At GoMOOS I installed it in a subdirectory  /cgi-bin/sos/  (Note:  If you are ftp'ing from a PC to your server or using a tool such as DreamWeaver to move the files to you Web server make sure that the script is transferred using binary mode)
+2. Put the sic XML template files in the same directory
+    1. sosGetCapabilities.xml
+    2. sosGetObservation.xml
+    3. sosDescribeSystem.xml
+    4. difGetCapabilities.xml
+    5. difGetObservation.xml
+    6. difDescribeSystem.xml
+3. Put the sos_config.xml file in the same directory.
+
+4. See if you GetCapabilities request is working.  http://localhost/cgi-bin/oostethy_sos.cgi?request=GetCapabilities&service=SOS&version=1.0.0
+
+GetCapbilties should return XML. Not very interesting response since the sos_config.xml has null values.
+
+See UPGRADES, INSTALL_MODULES, INSTALL_ASCII or INSTALL_RDBS in the docs/ subdirectory for addtional instructions.
