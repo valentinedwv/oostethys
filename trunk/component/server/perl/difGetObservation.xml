@@ -6,7 +6,7 @@ xmlns:om="http://schemas.opengis.net/om/1.0"
 xmlns:swe="http://schemas.opengis.net/swe/1.0.2"
 xmlns:ioos="http://www.noaa.gov/ioos/0.6.1"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://schemas.opengis.net/om/1.0 http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/schemas/ioosObservationSpecializations.xsd"
+xsi:schemaLocation="http://schemas.opengis.net/om/1.0 http://www.ioos.gov/gml/IOOS/0.6.1/schemas/ioosObservationSpecializations.xsd"
 >
   <gml:description></gml:description>
   <gml:name></gml:name>
@@ -19,7 +19,7 @@ xsi:schemaLocation="http://schemas.opengis.net/om/1.0 http://www.csc.noaa.gov/io
   <om:samplingTime />
   <om:procedure>
     <om:Process>
-      <ioos:CompositeContext gml:id="SensorMetadata" recDef="http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/recordDefinitions/PointSensorMetadataRecordDefinition.xml">
+      <ioos:CompositeContext gml:id="SensorMetadata" recDef="http://www.ioos.gov/gml/IOOS/0.6.1/recordDefinitions/PointSensorMetadataRecordDefinition.xml">
         <gml:valueComponents>
           <ioos:Count name="NumberOfStations"></ioos:Count>
           <ioos:ContextArray gml:id="StationArray">
