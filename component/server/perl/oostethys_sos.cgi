@@ -141,7 +141,7 @@ our $use_DIF_properties = 0;
 # E.g. Winds includes WindSpeed, WindDirection and WindGust.
 # Note: the order is important.
 ############
-our $dif_recDef="http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/recordDefinitions/%sPointDataRecordDefinition.xml";
+our $dif_recDef="http://www.ioos.gov/gml/IOOS/0.6.1/recordDefinitions/%sPointDataRecordDefinition.xml";
 # dif_lookup_map maps DIF ObservedProperties to all the local observedProperties which are needed.
 # For some it's just one to one but for Winds, Waves and Currents DIF expects several observedProperties returned.
 our %dif_lookup_map = (
