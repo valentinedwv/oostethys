@@ -1,0 +1,59 @@
+Eric Bridger eric@gomoos.org  eric.bridger@gmail.com
+Gulf of Maine Ocean Observing System / North East Regional Association of Coastal Ocean Observing Systems.
+File List
+    * oostethys_sos.cgi  -  the CGI script
+    * sos_config.xml - empty configuration file.
+    * example_sos_config.xml -  An example config file using values from GoMOOS
+    * sosGetCapabilities.xml - 1.0 template
+    * sosGetObservation.xml - 1.0 template
+    * sosDescribeSystem.xml - 1.0 template
+    * difGetCapabilities.xml - DIF template
+    * difGetObservation.xml - DIF template
+    * difDescribeSystem.xml - DIF template
+	* README - This file
+	* docs/LICENSE-20.txt - Apache Software license.
+	* docs/INSTALL - Basic install instructions
+	* docs/INSTALL_ASCII - Setting up to serve observations stored in ASCII text files
+	* docs/INSTALL_RDBMS - Setting up to serve observations stored in a relational database via DBI
+	* docs/INSTALL_MODULES - How to install some required PERL modules
+	* docs/UPGRADES - How to upgrade from previous PERL installations while saving local configuration edits
+	* docs/SOS_with_Perl_MS_Windows - Notes on installing on a Windows server using ActiveState PERL.
+
+OOSTethys Project code repository: http://code.google.com/p/oostethys/
+
+More about the OOSTethys Project: http://www.oostethys.org/
+
+PERL documents via HTML: http://www.oostethys.org/downloads/sos-cookbook-perl
+   (Note: code should not be downloaded from www.oostethys.org, use code.google.com)
+
+The PERL SOS toolkit serves observation data from either ASCII text files or a relational database through the SOS interface, and is written entirely in PERL.
+
+see The OOSTethys project page or  docs/INSTALL, docs/UPGRADES, docs/INSTALL_ASCII or docs/INSTALL_RDBMS for further instructions.
+########################################
+Wed Nov 25 09:52:14 EST 2009  Version 1.0.0
+Changes:
+This version includes major changes but should work with existing configuration files and/or customized database query functions.
+*  Support for the NOAA IOOS DIF 0.6.1 GML schema outputs. new dif* templates included.
+*  Support for mapping of IOOS DIF core variables to mulitple atomic observedProperites or not. If not traditional CF observed Properties will be used.
+*  Compliance with the OGC's CITE SOS 1.0.0 Testing suite as described here:  http://cite.opengeospatial.org/betaTesting
+*  That testing resulted in:
+*     Improved support for OGC standard Exceptions.
+*     Greatly improved support for OGC XML POST requests.
+*     Checks for proper: procedure,  featureOfInterest, outputFormat, responseFormat, srsName.
+*     These values are parsed from the sosGetCapabilities.xml template.
+########################################
+Nov. 4 2009 Version 0.5.1
+Changes:
+* Fixed namespaces in xml templates
+* namespaces for XPath are gotten from template root namespaces
+* blockSeparator and tokenSeparator are not retrieved from templates
+* time input parameter is now eventTime (case insensitive)
+
+########################################
+Thu Sep 24 12:23:03 EDT 2009 Version 0.5.0
+* split $tokenSep => split/$tokenSep/
+* www.opengis.net to schemas.opengis.net
+
+########################################
+Tue Sep 29 10:06:58 EDT 2009
+* fixed sml: namespace prefix in sosDescribeSensor.xml which was making DescribeSensor requests fail
