@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>SURA JS SOS Parser</title>
+</head>
+
+<body>
+<h2>Javascript SOS Parser</h2>
+<h3><i>IOOS DIF and SWE SOS versions are supported.</i></h3>
+<i>jQuery.js 1.5 is required</i><br />
+<br />
+There are two separate Javascript modules.
+<br />
+<ul>
+<li>Parses SOS GetCapabilities XML response and returns valid SOS GetObservation requests urls.</li>
+	<ul>
+	<li><b>Source:</b> <a href="jquery.parseSOSGetObs.js">jquery.parseSOSGetCap.js</a></li>
+	<li><a href="getcap_doc.html">Documentation.</a></li>
+	</ul>
+<li>Parses SOS GetObservation XML response and displays results in html table, CSV or JSON string.</li>
+	<ul>
+	<li><b>Source:</b> <a href="jquery.parseSOSGetObs.js">jquery.parseSOSGetObs.js</a></li>
+	<li><a href="getobs_docs.html">Documentation.</a></li>
+	</ul>
+<li><a href="demonstration.html">Examples</a></li>
+	<ul>
+	<li>This pages demonstrates using both modules with locally cached SOS XML responses.</li>
+	</ul>
+</ul>
+<p>
+<b>Note:</b> <i>There are a lot of SOS variations and this is not a completely general SOS parser.  It has been tailored specifically to the Ocean Observing community which has been using both SWE 1.0 and NOAA IOOS DIF based XML formats. It probably does O.K. on the GetCapabilities parsing, where there is much less variablility.</i>
+</p>
+</body>
+</html>

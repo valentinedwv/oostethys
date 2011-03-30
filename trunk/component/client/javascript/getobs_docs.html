@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>SURA JS SOS GetObservation Parser</title>
+
+<script src="http://code.jquery.com/jquery-1.5.min.js"></script> 
+<script src="jquery.parseSOSGetObs.js"></script> 
+
+<script type="text/javascript">
+
+
+// Global objects returned from parseSOSGetObs
+var	sosGetObs = null;
+
+// make an AJAX request for an XML document using jQuery
+function loadXML(url)
+{
+	// clear out prior display results
+	$("#metadata").text('');
+	$("#results").text('');
+
+	$.ajax({
+		type: "GET",
+		url:  url,
+		dataType: "xml",  // returns an XML DOM object
+		success: parseSOSGetObs,
+		error: function () {alert("AJAX ERROR for " + url ); }
+	});
+} // end loadXML
+
+// AJAX success callback function
+function parseSOSGetObs(xml, status)
+{
+
+	if(status !== 'success'){
+		alert("ERROR");
+		return;
+	}
+
+	sosGetObs = new SOSObservation(xml);
+
+	if(sosGetObs.type === 'EXCEPTION'){
+		alert('SOS Exception: ' + sosGetObs.exception_error);
+		return;
+	}else{
+		alert('SOS GetObs Loaded');
+	}
+}
+
+function displayMetadata()
+{
+	$("#results").text('');
+	if(! sosGetObs || sosGetObs.type == 'EXCEPTION'){
+		alert("No SOS GetObs yet");
+		return;
+	}
+	var html = sosGetObs.metadataHTML();
+	$("#results").append(html);
+}
+function displayObs()
+{
+	$("#results").text('');
+	if(! sosGetObs || sosGetObs.type == 'EXCEPTION'){
+		alert("No SOS GetObs yet");
+		return;
+	}
+	var html = sosGetObs.obsHTML();
+	$("#results").append(html);
+}
+function displayCSV()
+{
+	$("#results").text('');
+	if(! sosGetObs || sosGetObs.type == 'EXCEPTION'){
+		alert("No SOS GetObs yet");
+		return;
+	}
+	var csv = '<pre>' +  sosGetObs.CSV() + '</pre>';
+	$("#results").append(csv);
+}
+</script>
+
+</head>
+
+<body>
+<h2>jquery.parseSOSGetObs.js Javascript SOS Parser</h2>
+<h3><i>IOOS DIF and SWE GetObservation responses supported.</i></h3>
+<a href="index.html">Home</a>
+
+<table cellpadding="4">
+<tr><td>Source:</td><td><a href="jquery.parseSOSGetObs.js">jquery.parseSOSGetObs.js</a></td></tr>
+<tr><td>More Examples:</td><td><a href="index_full.html">index_full.html</a></td></tr>
+<tr><td>SOS GetCapabilities Parser:</td><td><a href="getcap_doc.html">getcap_doc.html</a></td></tr>
+</table>
+<br />
+<h4>Usage</h4>
+<pre>
+	&lt;script src="http://code.jquery.com/jquery-1.5.min.js"&gt;&lt;/script&gt; 
+	&lt;script src="jquery.parseSOSGetObs.js"&gt;&lt/script&gt; 
+	...
+	// This is jQuery's AJAX call. use dataType: xml
+	// This is Javascript's XMLHttpRequest.responseXML member, an XML Object
+	// The modules require this.
+	$.ajax({
+		type: "GET",
+		url:  url,
+		dataType: "xml",  // returns an XML DOM object
+		success: parseSOSGetObs,
+		error: function () {alert("AJAX ERROR for " + url ); }
+	});
+	...
+	// AJAX success callback function
+	function parseSOSGetObs(xml)  // xml by JQuery to DOM
+	{
+
+		var sosGetObs = new SOSObservation(xml);
+
+		if(sosGetObs.type === 'EXCEPTION'){
+			alert('SOS Exception: ' + sosGetObs.exception_error);
+			return;
+		}else{
+			alert('SOS GetObs Loaded');
+		}
+	}
+</pre>
+<h4>Members</h4>
+<pre>
+	SOSObservation object.
+		type: DIF | SWE | EXCEPTION
+		eexception_rror: SOS EXCEPTION text
+		metadata:
+			description:
+			name:
+			llat:
+			llon:
+			ulat:
+			ulat:
+			start_time:
+			end_time:
+			number_of_platforms:
+			platforms[]:
+				stationId:
+				shortStationId:
+				stationName:
+				stationDescription:
+				lat:
+				lon:
+				gmlid: (DIF only)
+				organization: (DIF only)
+			observedProperites[]:
+		fields[]:  // array of flield Objects. name: value match names in observations[]
+			name:
+			uom:
+			definition:
+		observations[]:  // array of observation Objects
+			&lt;name&gt; : value  // names are set by the GetObs response
+
+			Example:
+				stationId:
+				Time:
+				WindSpeed:
+				WindGust:
+</pre>
+<h4>Utility Methods (3)</h4>
+<form>
+Must load XML before displaying results. <input type="button" value="Load" onClick="loadXML('xml/wfGetObsTimeSeries110_2.xml');" ><br />
+<pre>
+	// returns string of simple html table of metadata gleaned from SOS GetObservation response
+	var html = sosGetObs.metadataHTML();   <input type="button" value="Display" onClick="displayMetadata();" >
+
+	// returns string of simple html table of observations.
+	var html = sosGetObs.obsHTML();    <input type="button" value="Display" onClick="displayObs();" >
+
+	// returns string of CSV observation values with header row of field names and uom's
+	var text = sosGetObs.CSV();    <input type="button" value="Display" onClick="displayCSV();" > </pre>
+</form>
+<div id="results"></div>
+</body>
+</html>
