@@ -294,7 +294,7 @@ our $observed_property_url =  'urn:ogc:def:phenomenon:mmisw.org:cf:';
 our $foi_urn =  'urn:ogc:def:object:feature:FOI_';
 # urn:ogc:def:phenomenon:OGC:1.0.30:temperature
 if($use_DIF_properties){
-	$observed_property_url = 'http://www.csc.noaa.gov/ioos/schema/IOOS-DIF/IOOS/0.6.1/dictionaries/phenomenaDictionary.xml#';
+    $observed_property_url = 'http://www.ioos.gov/gml/IOOS/0.6.1/dictionaries/phenomenaDictionary.xml#';
 }
 
 # All observed properties units of measure (uom) are preceeded by this urn to ensure uniqueness
