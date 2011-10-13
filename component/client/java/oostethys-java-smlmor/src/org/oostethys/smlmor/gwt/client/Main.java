@@ -177,6 +177,7 @@ public class Main implements EntryPoint {
 	private static final StringBuffer log = new StringBuffer();
 
 	public static void log(String msg) {
+		msg = msg.replaceAll("\\<", "&lt;");
 		log.append(msg + "\n");
 		GWT.log(msg, null);
 	}

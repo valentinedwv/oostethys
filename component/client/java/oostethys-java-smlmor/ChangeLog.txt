@@ -5,6 +5,25 @@ $Id$
 
 ChangeLog
 
+2011-10-12   0.0.2pre7
+	- Minor adjustments mainly to re-enable the selection of a CF standard name:
+	  this ontology does not use rdfs:label anymore in the latest few versions, so the
+	  SPARQL query was adjusted accordingly.
+	- Associated with the above, I added a simple cache in SparqlUtil to store the
+	  result of each query. In particular, this allows for faster display of the options
+	  for the selection of terms from an ontology.
+	  
+	Other adjustments:
+	- Controller: the system is now initially set to have "output" variables (previously
+	  it has no variables nor components). But the user can then click "Components" 
+	  (ie., sub-systems) if desired.
+	   
+	- Made the SensorML text area bigger.
+	
+	- Removed the gui elements associated with "TEDS" (title, button) -- conversion to 
+	  TEDS has not been implemented.
+	  
+	  
 2010-07-23  0.0.2pre6
 	- SparqlUtil.runQuery: now requests "csv" output format (instead of "json") because of 
 	  current limitation in the Ont service (see iserver and ont modules).

@@ -44,14 +44,15 @@ public class MainPanel {
 		controller = new Controller(Main.basicModels);
 		thePanel = controller.getWidget();
 		
-		widget.setWidth("700px");
+		widget.setWidth("1100px");
 		widget.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		
 		container.setSpacing(4);
 	    widget.add(container);
 
 	    container.add(new HTML(
-	    		"<h2>SensorML/TEDS Generator</h2>" +
+//	    		"<h2>SensorML/TEDS Generator</h2>" +
+	    		"<h2>SensorML Generator</h2>" +
 	    		"See this <a target=\"_black\" href=\"http://code.google.com/p/oostethys/wiki/SmlMor\">wiki page</a> for current status."
 	    ));
 	    
@@ -64,11 +65,11 @@ public class MainPanel {
 				doGenerate();
 			}
 		}));
-	    hp.add(new PushButton("Generate TEDS", new ClickListener() {
-			public void onClick(Widget sender) {
-				Window.alert("Not implemented");
-			}
-		}));
+//	    hp.add(new PushButton("Generate TEDS", new ClickListener() {
+//			public void onClick(Widget sender) {
+//				Window.alert("Not implemented");
+//			}
+//		}));
 	    
 	    hp.add(statusLabel);
 
@@ -83,13 +84,13 @@ public class MainPanel {
 	
 	TabPanel createTabPanel() {
 		TabPanel tabPanel = new TabPanel();	
-		tabPanel.setWidth("800px");
+		tabPanel.setWidth("1000px");
 		return tabPanel;
 	}
 	
 	TextArea createTextArea() {
 		TextArea textArea = new TextArea();
-		textArea.setSize("700px", "600px");
+		textArea.setSize("1000px", "800px");
 		textArea.setVisibleLines(30);
 		textArea.setText("Click 'Generate SensorML'");
 		textArea.setReadOnly(true);

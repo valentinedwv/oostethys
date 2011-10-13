@@ -15,6 +15,7 @@ import org.oostethys.smlmor.gwt.client.util.FieldWithChoose;
 import org.oostethys.smlmor.gwt.client.util.TLabel;
 import org.oostethys.smlmor.gwt.client.util.Util;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -327,33 +328,55 @@ public class Controller {
 		final RadioButton outputRb = new RadioButton("oc", "Output");
 		final RadioButton compsRb = new RadioButton("oc", "Components");
 		
+		HorizontalPanel hp = new HorizontalPanel();
+		hp.add(new HTML("This system has: "));
+		hp.add(outputRb);
+		hp.add(compsRb);
+
+		/*
+		 * Initially, the system will have "output" (ie., a set of variables), but the
+		 * user can decide to click "Components" instead. 
+		 */
+		final boolean[] outputSelected = new boolean[] {true};
+		_setOutput(selectionPanel, systemValues);
+		outputRb.setChecked(true);
+		
+		
 		ClickListener cl = new ClickListener() {
 			public void onClick(Widget sender) {
 				if ( sender == outputRb ) {
-					selectionPanel.clear();
-					systemValues.setSystemValuesList(null);
-					List<AttrGroupValues> outputValuesList = systemValues.getOutputValuesList();
-					selectionPanel.add(createWidgetForVariables(outputValuesList, true));
+					if ( !outputSelected[0] ) {
+						outputSelected[0] = true;
+						_setOutput(selectionPanel, systemValues);
+						outputRb.setChecked(true);
+					}
 				}
 				else if ( sender == compsRb ) {
-					selectionPanel.clear();
-					systemValues.setOutputValuesList(null);
-					List<SystemValues> systemValuesList = systemValues.getSystemValuesList();
-					selectionPanel.add(createWidgetForSystems(systemValuesList, true));
+					if ( outputSelected[0] ) {
+						outputSelected[0] = false;
+						selectionPanel.clear();
+						systemValues.setOutputValuesList(null);
+						List<SystemValues> systemValuesList = systemValues.getSystemValuesList();
+						selectionPanel.add(createWidgetForSystems(systemValuesList, true));
+						compsRb.setChecked(true);
+					}
 				}
 			}
 		};
 		outputRb.addClickListener(cl);
 		compsRb.addClickListener(cl);
 		
-		HorizontalPanel hp = new HorizontalPanel();
-		hp.add(new HTML("This system has: "));
-		hp.add(outputRb);
-		hp.add(compsRb);
-		
 		return hp;
 		
 	}
+
+	private void _setOutput(VerticalPanel selectionPanel, SystemValues systemValues) {
+		selectionPanel.clear();
+		systemValues.setSystemValuesList(null);
+		List<AttrGroupValues> outputValuesList = systemValues.getOutputValuesList();
+		selectionPanel.add(createWidgetForVariables(outputValuesList, true));
+	}
+
 
 
 	private Widget createWidgetForMetadata(
