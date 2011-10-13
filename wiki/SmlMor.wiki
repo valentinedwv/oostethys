@@ -28,6 +28,15 @@ Not implemented yet.
 
 = Status =
 
+This is a proof-of-concept prototype. Some functionality is not yet fully implemented. For example, upon selection of an element from a drop-down list, not all related fields in the associated section are updated. Also, not all information is captured in the SensorML representation.
+
+
+= Changes =
+
+2011-10-12  0.0.2pre7
+  * (internal) A fix made to properly populate the drop-down list for CF terms.
+  * Minor adjustments to the UI. 
+
 2010-07-23  0.0.2pre6
   * (internal) SPARQL query result requested to be in CSV format (previously in JSON) because of [http://code.google.com/p/mmisw/issues/detail?id=261 current limitation] in the MMI ORR service. 
 
@@ -39,11 +48,6 @@ Not implemented yet.
   * No TEDS generation
   * Generates of a tree dump for testing and comparison. This is enabled with the `_log=y` parameter (http://mmisw.org/smlmor/?_log=y). Once the SensorML is generated, click the 'refresh log' button at the bottom. Preliminary tests seems to show that there are missing elements in the generated sensorml document.
 
-
-= Noteworthy changes =
-
-2009-12-06  0.0.2pre5
-  * Newer version of CF does not define/use the class Parameter. Now using http://mmisw.org/ont/cf/parameter/Standard_Name
 
 2009-11-18  0.0.2pre4
   * Fix for proper selection in the drop-down lists (needed for firefox at least).
@@ -60,9 +64,11 @@ Not implemented yet.
   * No yet integration with ORR
 
 ----
-=== Some related stuff ===
-  * SensorML PrettyView: http://vast.uah.edu/SensorMLforms/upload.jsp
-  * SensorML editor: http://vast.uah.edu/index.php?option=com_content&view=article&id=149&Itemid=103
+=== Some related work ===
+  * SensorML PrettyView: http://www.sensors.ws/SensorMLforms/upload.jsp
+  * SensorML editor: http://code.google.com/p/sensorml-tools/
+  * Sensor Interface Descriptors: http://52north.org/communities/sensorweb/incubation/sensorInterfaceDescriptors/index.html
+  * Pine's SensorML Editor: http://marinemetadata.org/references/pinesensorml
 
 Interesting:
   * xsd2rng: http://code.google.com/p/xsdtorngconverter/
