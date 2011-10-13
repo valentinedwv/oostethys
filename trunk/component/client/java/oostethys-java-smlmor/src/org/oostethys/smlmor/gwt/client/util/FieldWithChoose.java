@@ -106,6 +106,12 @@ public class FieldWithChoose extends HorizontalPanel implements SourcesChangeEve
 		waitPopup.show();
 
 		
+		/*
+		 * 2011-10-12: removed the rdfs:label part because the CF ontology does no contain such attribute
+		 * in its latest versions.  
+		 * TODO Besides, all of this is just preliminary; a more generic mechanism is still pending to 
+		 * gather information for each possible option.
+		 */
 		String queryString = 				
 			" PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
 			" PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
@@ -113,9 +119,10 @@ public class FieldWithChoose extends HorizontalPanel implements SourcesChangeEve
 			" SELECT DISTINCT ?label ?uri \n" +
 			" WHERE { \n" +
 			"     ?uri rdf:type <" +optionsVocab+ "> . \n" +
-			"     ?uri rdfs:label ?label . \n" +
+//			"     ?uri rdfs:label ?label . \n" +
 			" } \n" +
-			" ORDER BY ASC(?label) "
+//			" ORDER BY ASC(?label) "
+			" ORDER BY ASC(?uri) "
 			;
 		
 		Main.log("queryString:\n" +queryString);
@@ -183,7 +190,7 @@ public class FieldWithChoose extends HorizontalPanel implements SourcesChangeEve
 		final Map<String,Map<String, String>> suggestions = new HashMap<String,Map<String, String>>();
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle("/ :-_"); 
 		for ( Map<String, String> option : options ) {
-			String suggestion = option.get("label")+ " - " +option.get("uri");
+			String suggestion = _getSuggestion(option);
 			suggestions.put(suggestion, option);
 			oracle.add(suggestion);
 
@@ -225,10 +232,36 @@ public class FieldWithChoose extends HorizontalPanel implements SourcesChangeEve
 	
 	
 	
-    public static ListBox createListBox(final List<Map<String,String>> options, ChangeListener cl) {
+    private static String _getSuggestion(Map<String, String> option) {
+		String label = option.get("label");
+		String uri = option.get("uri");
+		
+		/*
+		 * If no label given, use last part of the URI:
+		 */
+		if ( label == null || label.trim().length() == 0 || label.equalsIgnoreCase("null")) {
+			/*
+			 * TODO the comparison to "null" above is because there is some prior code asumming a label
+			 * is included in the SPARQL response.  Revise and adjust that.
+			 */
+			int idx = Math.max(uri.lastIndexOf('/'), uri.lastIndexOf('#'));
+			if ( idx >= 0 ) {
+				label = uri.substring(idx +1);
+			}
+			else {
+				label = null;
+			}
+		}
+		
+		String suggestion = (label == null) ? uri : label+ " - " +uri;
+		return suggestion;
+	}
+
+	public static ListBox createListBox(final List<Map<String,String>> options, ChangeListener cl) {
 		final ListBox lb = new ListBox();
 		for ( Map<String, String> option : options ) {
-			lb.addItem(option.get("label")+ " - " +option.get("uri"), option.get("uri"));
+			String suggestion = _getSuggestion(option);
+			lb.addItem(suggestion, option.get("uri"));
 		}
 		if ( cl != null ) {
 			lb.addChangeListener(cl);

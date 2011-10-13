@@ -51,12 +51,14 @@ class ModelsCreator {
 	private static AttrGroupModel createOutputModel() {
 		AttrGroupModel contact = new AttrGroupModel("Output", null);
 		AttributeModel variableUri = new AttributeModel("uri", "URI", 
-				"http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity");
+				""
+//				"http://mmisw.org/ont/cf/parameter/sea_water_electrical_conductivity"
+		);
 		variableUri.setOptionsVocabulary("http://mmisw.org/ont/cf/parameter/Standard_Name");
 		contact.addAttributes(
 				variableUri,
-				new AttributeModel("name", "Name", "Temperature"),
-				new AttributeModel("uom", "UOM", "F")
+				new AttributeModel("name", "Name", ""), //"Temperature"),
+				new AttributeModel("uom", "UOM", "")    // "F")
 //				new AttributeModel("isCoordinate", "Is coordinate", "false"),
 //				new AttributeModel("isTime", "Is time", "false"),
 //				new AttributeModel("referenceFrame", "Reference frame", "")
