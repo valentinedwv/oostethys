@@ -2,17 +2,17 @@
 <sos:Capabilities 
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xmlns:ows="http://schemas.opengis.net/ows/1.1"
-                  xmlns:ogc="http://schemas.opengis.net/ogc"
-                  xmlns:om="http://schemas.opengis.net/om/1.0"
-                  xmlns:tml="http://schemas.opengis.net/tml"
-                  xmlns:gml="http://schemas.opengis.net/gml"
-                  xmlns:sml="http://schemas.opengis.net/sml/1.0.1"
-                  xmlns:swe="http://schemas.opengis.net/swe/1.0.1"
-                  xmlns:sos="http://schemas.opengis.net/sos/1.0"
-                  xmlns="http://schemas.opengis.net/sos/1.0"
+                  xmlns:ows="http://www.opengis.net/ows/1.1"
+                  xmlns:ogc="http://www.opengis.net/ogc"
+                  xmlns:om="http://www.opengis.net/om/1.0"
+                  xmlns:tml="http://www.opengis.net/tml"
+                  xmlns:gml="http://www.opengis.net/gml"
+                  xmlns:sml="http://www.opengis.net/sml/1.0.1"
+                  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+                  xmlns:sos="http://www.opengis.net/sos/1.0"
+                  xmlns="http://www.opengis.net/sos/1.0"
                   xmlns:myorg="http://www.myorg.org/features"
-                  xsi:schemaLocation="http://schemas.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosAll.xsd"
+                  xsi:schemaLocation="http://www.opengis.net/sos/1.0 http://schemas.opengis.net/sos/1.0.0/sosAll.xsd"
                   version="1.0.0">
     <!--~~~~~~~~~~~~~~~~~~~~~~~~-->
     <!-- Service Identification -->
