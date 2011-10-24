@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>SURA JS SOS GetCapabilities Parser</title>
+</head>
+
+<body>
+<h2>jquery.parseSOSGetCap.js Javascript SOS Parser</h2>
+<h3><i>IOOS DIF and SWE GetCapabilities responses supported.</i></h3>
+<a href="index.html">Home</a>
+
+<table cellpadding="4">
+<tr><td>Source:</td><td><a href="jquery.parseSOSGetCap.js">jquery.parseSOSGetCap.js</a></td></tr>
+<tr><td>Examples:</td><td><a href="getcap.html">getcap.html</a></td></tr>
+<tr><td>SOS GetObservation Parser:</td><td><a href="getobs_docs.html">getobs_docs.html</a></td></tr>
+</table>
+<br />
+<h4>Usage</h4>
+<pre>
+	&lt;script src="http://code.jquery.com/jquery-1.5.min.js"&gt;&lt;/script&gt; 
+	&lt;script src="jquery.parseSOSGetCap.js"&gt;&lt/script&gt; 
+	...
+	// This is jQuery's AJAX call. use dataType: xml
+	// This is Javascript's XMLHttpRequest.responseXML member, an XML Object
+	// The modules require this.
+	$.ajax({
+		type: "GET",
+		url:  url,
+		dataType: "xml",  // returns an XML DOM object
+		success: parseSOSGetCap,
+		error: function () {alert("AJAX ERROR for " + url ); }
+	});
+	...
+	// AJAX success callback function
+	function parseSOSGetCap(xml)  // xml by JQuery to DOM
+	{
+
+		var sosGetCap = new SOSCapabilities(xml);
+
+		if(sosGetCap.namespace === 'EXCEPTION'){
+			alert('SOS Exception: ' + sosGetCap.exception_error);
+			return;
+		}else{
+			alert('SOS GetCapabilities Loaded');
+		}
+	}
+</pre>
+<h4>Members</h4>
+<pre>
+	SOSCapabilities Object.
+		namespace:	NS or DEF_NS or EXCEPTION  <i>Does the GetCapabilities XML use the default namespace sos: or not.</i>
+		exception_error: EXCEPTION text
+		current_offering_idx 
+		keywords[]:	array
+		number_of_offerings:
+		sos_obs_url: base url for GetObservation requests
+		response_formats[]	all supported response formats for GetObservation response
+		xml_response_format: default response format for XML GetObservation response
+		output_formats[]	all supported response formats for DescribeSensor response
+		xml_output_format: default output format for XML DescribeSensor response
+               <i><b>Note:</b> We look for text/xml or application/xml for these default formats. If none are found the first is used.</i>
+		title:
+		svc_type:
+		sos_version:
+		provider:
+		provider_url:
+		contact_name:
+		type:	SWE or DIF
+		next()	Offering iterator function
+		reset()	Offering iterator reset.
+		offerings[]: array  of Offering Objects.
+			gml_id:
+			shortName:
+			name:
+			description:
+			procedure
+			ulat:
+			ulon:
+			llat:
+			llon:
+			begin_time:
+			end_time:
+			properties[]: array of observedProperty strings.
+</pre>
+<h4>Utility Methods</h4>
+<pre>
+	<b>sosGetCap.searchOfferings(value, field)</b>
+		// search for offering Object using regular express match on offering_name. Default is to search for Offering.name, but a different field name can be passed.
+		var offering = sosGetCap.searchOfferings(offering_name);
+		E.g.
+		// search for offering where the Offering.description has "buoy a01" in it.
+		offering = sosGetCap.searchOfferings("Buoy A01', 'description' );
+
+	<b>sosGetCap.next()</b>
+		// iteratre over all the offering Objects
+		while( offfering = sosGetCap.next()){
+			var gml_id = offering.gml_id;
+		}
+	<b>sosGetCap.reset()</b>
+		// reset the offering iterator
+		sosGetCap.reset();
+	<b>offering.getObsUrl(observedProperty)</b>
+		// returns the full GetObservation url for the this offering and observedProperty
+</pre>
+</body>
+</html>
