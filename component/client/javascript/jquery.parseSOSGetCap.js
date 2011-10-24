@@ -4,12 +4,15 @@
 // Describption: Use JQuery to parse OGC Sensor Observation Service GetCapabilities response XML with both default namespace and non.
 // E.g. <Capabilities> and <sos:Capabilities>
 // Requires:  jQuery 1.5 http://code.jquery.com/jquery-1.5.min.js
+// Tested with:  jQuery 1.6.1 http://code.jquery.com/jquery-1.6.1.min.js
 //////////////////////////
 // in all these calls xml refers to a DOM object created by jQuery from the Ajax retrieved XML document.
 function SOSCapabilities(xml)
 {
 	this.checkSOSNS(xml);
 	if(this.namespace === 'EXCEPTION' ){
+		// so both GetObs and GetCap has this member for error checks
+		this.type = 'EXCEPTION';
 		return;
 	}
 	this.current_offering_idx = 0;
@@ -122,6 +125,8 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 	GetCap.offerings = [];
 	GetCap.response_formats = [];
 	GetCap.output_formats = [];
+    GetCap.xml_response_format = '';
+    GetCap.xml_output_format = '';
 
 	// we're counting on only 1 of some of these
 	GetCap.title = $(xml).find("[nodeName='ows:Title']").text();
@@ -136,6 +141,7 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 		GetCap.keywords.push(kw);
 	});
 
+
 	$(xml).find("[nodeName='ows:Operation']").each( function() {
 		var op = $(this);
 		// NOTE: we are skipping DescribeSensor for now
@@ -149,9 +155,6 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 			param.find("[nodeName='ows:Value']").each( function() {
 				var rf = $(this).text();
 				GetCap.response_formats.push(rf);
-				if(rf.match(/^text\/xml/)){
-					GetCap.xml_response_format = rf;
-				}
 			}); // end each responseFormat
 		} // end if GetObservation
 		if(op.attr('name') === 'DescribeSensor'){
@@ -182,6 +185,8 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 	the_nodeName = (namespace === 'NS') ? 'sos:observedProperty' : 'observedProperty';
 	var observedPropertyNodeName = '"[nodeName=\'' + the_nodeName + '\']"';
 
+    //  collect a list of unique responseFormats in case 
+    var unique_response_formats = {};
 
 	$(xml).find(offeringNodeName).each( function() {
 		var off_node = $(this);
@@ -212,15 +217,13 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 
 		// There is a problem with the NDBC DIF SOS (and the software many installed)
 		// No Parameter list for responseFormat AllowedValues
-		if(! GetCap.xml_response_format){
+		if( GetCap.response_formats.length == 0){
+            // if we didn't get response formats from GetCap Operations section try and get list from OfferingList
 			off_node.find(responseFormatNodeName).each( function() {
 				var rf = $(this).text();
-				GetCap.response_formats.push(rf);
-				if(rf.match(/^text\/xml/)){
-					GetCap.xml_response_format = rf;
-				}
+                unique_response_formats[rf] = 1;
 			}); // end foreach responseFormat
-		} // end if xml_response_format
+		} // end if response_formats.lenght == 0
 
 		var pos = off_node.find("[nodeName='gml:upperCorner']").text().split(' ');
 		OfferingObj.ulat = pos.shift();
@@ -250,7 +253,26 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 		GetCap.offerings.push(OfferingObj);
 	}); // end foreach ObservationOffering
 
-	if (GetCap.xml_response_format.match(/ioos/i)){
+    // if no response_formats from the GetCap Operations section, fill it from the unique_formats gathered from OfferingList
+	if( GetCap.response_formats.length == 0){
+        for( var this_rf in unique_response_formats){
+            GetCap.response_formats.push(this_rf);
+        }
+    }
+    // now check  for an xml response format to use as the default href when formulating GetObs requests
+	for(var i = 0; i < GetCap.response_formats.length; i++){
+        var rf = GetCap.response_formats[i];
+        if(rf.match(/\/xml$/)){   // this get text/xml and application/xml
+        	GetCap.xml_response_format = rf;
+            break;
+        }
+    }
+    // if still no xml response format just use the first in the list
+    if( ! GetCap.xml_response_format){
+        GetCap.xml_response_format = GetCap.response_formats[0];
+    }
+
+    if (GetCap.xml_response_format.match(/ioos/i)){
 		GetCap.type = 'DIF';
 	}else{
 		GetCap.type = 'SWE';
@@ -293,7 +315,7 @@ SOSCapabilities.prototype.checkSOSNS = function(xml){
 		var locator = $(xml).find("ows\\:Exception").attr('locator');
 		var error = code + ' ' + locator + ' ' + $(xml).find("ows\\:ExceptionText").text();
 		this.namespace = 'EXCEPTION';
-		this.expception_error = error;
+		this.exception_error = error;
 		return;
 	}
 	// no sos:Capabilities, which SWE uses, DIF does not.
@@ -302,11 +324,11 @@ SOSCapabilities.prototype.checkSOSNS = function(xml){
 	// As I get into the parsing perhaps I'll find a more significant marker.
 	if(tag.match(/^Capabilities$/)){
 		this.namespace = 'DEF_NS';
-		this.expception_error = '';
+		this.exception_error = '';
 		return;
 	}else{
 		this.namespace = 'NS';
-		this.expception_error = '';
+		this.exception_error = '';
 		return;
 	}
 	// if we got here some unknown expception_error
