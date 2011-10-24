@@ -53,8 +53,11 @@
 		keywords[]:	array
 		number_of_offerings:
 		sos_obs_url: base url for GetObservation requests
-		response_formats[]	all supported response formats
+		response_formats[]	all supported response formats for GetObservation response
 		xml_response_format: default response format for XML GetObservation response
+		output_formats[]	all supported response formats for DescribeSensor response
+		xml_output_format: default output format for XML DescribeSensor response
+               <i><b>Note:</b> We look for text/xml or application/xml for these default formats. If none are found the first is used.</i>
 		title:
 		svc_type:
 		sos_version:
