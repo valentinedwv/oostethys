@@ -271,6 +271,11 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
     if( ! GetCap.xml_response_format){
         GetCap.xml_response_format = GetCap.response_formats[0];
     }
+    // if still none it's not a GetCap XML file
+    // HERE need a sanity check
+    if( ! GetCap.xml_response_format){
+        GetCap.xml_response_format = 'NONE_FOUND';
+    }
 
     if (GetCap.xml_response_format.match(/ioos/i)){
 		GetCap.type = 'DIF';
@@ -326,13 +331,15 @@ SOSCapabilities.prototype.checkSOSNS = function(xml){
 		this.namespace = 'DEF_NS';
 		this.exception_error = '';
 		return;
-	}else{
+	}else if(tag.match(/^sos:Capabilities$/)){
 		this.namespace = 'NS';
-		this.exception_error = '';
-		return;
-	}
-	// if we got here some unknown expception_error
-	this.namespace = 'EXCEPTION';
-	this.expception_error = 'Unknown';
+    	this.exception_error = '';
+    	return;
+    }else{
+    	// if we got here some unknown expception_error
+		this.namespace = 'EXCEPTION';
+		this.exception_error = 'Unknown. Not an SOS GetCapabilities XML';
+        return;
+    }
 }
 

@@ -49,6 +49,11 @@ SOSObservation.prototype.checkSOSType = function(xml){
 		this.exception_error = error;
 		return;
 	}
+    // Sanity check for some type of Observation XML
+	if(!tag.match(/Observation/i)){
+		this.type = 'EXCEPTION';
+		this.exception_error = "Unknown.  Not an SOS OM XML response."
+    }
 	// Search for the IOOS DIF namespace in the root element
 	if( root_node.attr('xmlns:ioos') ){
 		this.type = 'DIF';
