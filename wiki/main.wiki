@@ -8,4 +8,4 @@ OOSTethys is an open source collaborative project that seeks to create and adapt
   * Dramatically reduce the time service providers spend installing, adopting and keeping up to date new technologies and standard services.
   * Increase interoperability since the toolkits are standard reference implementation and rely on the best practices of the community.
 
-[TableOfContent Table of Contents]
+[TableOfContent Wiki Table of Contents]
