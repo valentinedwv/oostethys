@@ -8,4 +8,4 @@ PERL's DBI API module is used and SQL examples are included.
 
 There is optional easily configurable support for utilizing the NOAA IOOS DIF GML schema's.
 
-PerlServerMain
+PerlServerInstall
