@@ -135,6 +135,13 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 	GetCap.provider = $(xml).find("[nodeName='ows:ProviderName']").text();
 	GetCap.provider_url = $(xml).find("[nodeName='ows:ProviderSite']").attr('xlink:href');
 	GetCap.contact_name = $(xml).find("[nodeName='ows:IndividualName']").text();
+	GetCap.contact_phone = $(xml).find("[nodeName='ows:Voice']").text();
+	GetCap.contact_email = $(xml).find("[nodeName='ows:ElectronicMailAddress']").text();
+	GetCap.address = $(xml).find("[nodeName='ows:DeliveryPoint']").text();
+	GetCap.city = $(xml).find("[nodeName='ows:City']").text();
+	GetCap.state_or_area = $(xml).find("[nodeName='ows:AdministrativeArea']").text();
+	GetCap.postal_code = $(xml).find("[nodeName='ows:PostalCode']").text();
+	GetCap.country = $(xml).find("[nodeName='ows:Country']").text();
 	// Could be mulitple Keywords
 	$(xml).find("[nodeName='ows:Keyword']").each( function() {
 		var kw = $(this).text();
