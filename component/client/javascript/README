@@ -1,0 +1,31 @@
+Author: Eric Bridger ebridger@gmri.org  eric.bridger@gmail.com
+Date:   Feb. 2011
+===========
+Describption:
+A javascript only OGC SOS GetCapabilities and GetObservation XML response parsers.
+There are two modules: jquery.parseSOSGetCap.js and jquery.parseSOSGetObs.js both of which require
+JQuery to parse OGC Sensor Observation Service GetCapabilities response XML with both default namespace and non.
+E.g. <Capabilities> and <sos:Capabilities>
+Both modules can be used together.
+
+===========
+These are aimed at the SOS servers being developed by the NOAA / IOOS program  http://www.ioos.gov/.
+There is support for both IOOS DIF and OOSTethys SWE1.0 type responses.
+===========
+
+Documenentation files and examples are included.
+Open index.html in browser to get started.
+There are example html files which exercise both modules and are included here. Some example SOS xml files are also included.
+
+Requirements:  jQuery 1.5 http://code.jquery.com/jquery-1.5.min.js
+Tested with:  jQuery 1.6 http://code.jquery.com/jquery-1.6.min.js
+Updated Fed. 2012 and tested with jQuery 1.7.1 http://code.jquery.com/jquery-1.7.1.min.js
+jQuery 1.7 dropped support for find("[nodeName='xxx:element_name']") so a new plugin function was defined.
+filterNode('xxx:element_name')
+Backward compatibility was maintained.  XML processing performance was greatly enhanced.
+For more details see:
+http://www.steveworkman.com/html5-2/javascript/2011/improving-javascript-xml-node-finding-performance-by-2000/
+
+Note: a server proxy is required to access cross domain SOS servers.
+
+

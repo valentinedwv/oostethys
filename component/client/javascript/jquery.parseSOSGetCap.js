@@ -5,6 +5,22 @@
 // E.g. <Capabilities> and <sos:Capabilities>
 // Requires:  jQuery 1.5 http://code.jquery.com/jquery-1.5.min.js
 // Tested with:  jQuery 1.6.1 http://code.jquery.com/jquery-1.6.1.min.js
+// Tested with:  jQuery 1.7.1 http://code.jquery.com/jquery-1.7.1.min.js
+// 
+// Wed Feb 15 12:34:15 EST 2012
+// Updated to jQuery 1.7.x via the following plugin function filterNode() which replaces [nodeName...] syntax
+// for finding node names with namespace prefixes.  This also supposedly improves performance greatly and is backward compatible.
+// $(xml).find("[nodeName='ows:Title']").text(); now
+// $(xml).filterNode('ows:Title').text();
+// For more details see:
+// http://www.steveworkman.com/html5-2/javascript/2011/improving-javascript-xml-node-finding-performance-by-2000/
+//
+//////////////////////////
+jQuery.fn.filterNode = function(name) {
+    return this.find('*').filter(function() {
+        return this.nodeName === name;
+     });
+};
 //////////////////////////
 // in all these calls xml refers to a DOM object created by jQuery from the Ajax retrieved XML document.
 function SOSCapabilities(xml)
@@ -129,49 +145,49 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
     GetCap.xml_output_format = '';
 
 	// we're counting on only 1 of some of these
-	GetCap.title = $(xml).find("[nodeName='ows:Title']").text();
-	GetCap.svc_type = $(xml).find("[nodeName='ows:ServiceType']").text();
-	GetCap.sos_version = $(xml).find("[nodeName='ows:ServiceTypeVersion']").text();
-	GetCap.provider = $(xml).find("[nodeName='ows:ProviderName']").text();
-	GetCap.provider_url = $(xml).find("[nodeName='ows:ProviderSite']").attr('xlink:href');
-	GetCap.contact_name = $(xml).find("[nodeName='ows:IndividualName']").text();
-	GetCap.contact_phone = $(xml).find("[nodeName='ows:Voice']").text();
-	GetCap.contact_email = $(xml).find("[nodeName='ows:ElectronicMailAddress']").text();
-	GetCap.address = $(xml).find("[nodeName='ows:DeliveryPoint']").text();
-	GetCap.city = $(xml).find("[nodeName='ows:City']").text();
-	GetCap.state_or_area = $(xml).find("[nodeName='ows:AdministrativeArea']").text();
-	GetCap.postal_code = $(xml).find("[nodeName='ows:PostalCode']").text();
-	GetCap.country = $(xml).find("[nodeName='ows:Country']").text();
+	GetCap.title = $(xml).filterNode('ows:Title').text();
+	GetCap.svc_type = $(xml).filterNode('ows:ServiceType').text();
+	GetCap.sos_version = $(xml).filterNode('ows:ServiceTypeVersion').text();
+	GetCap.provider = $(xml).filterNode('ows:ProviderName').text();
+	GetCap.provider_url = $(xml).filterNode('ows:ProviderSite').attr('xlink:href');
+	GetCap.contact_name = $(xml).filterNode('ows:IndividualName').text();
+	GetCap.contact_phone = $(xml).filterNode('ows:Voice').text();
+	GetCap.contact_email = $(xml).filterNode('ows:ElectronicMailAddress').text();
+	GetCap.address = $(xml).filterNode('ows:DeliveryPoint').text();
+	GetCap.city = $(xml).filterNode('ows:City').text();
+	GetCap.state_or_area = $(xml).filterNode('ows:AdministrativeArea').text();
+	GetCap.postal_code = $(xml).filterNode('ows:PostalCode').text();
+	GetCap.country = $(xml).filterNode('ows:Country').text();
 	// Could be mulitple Keywords
-	$(xml).find("[nodeName='ows:Keyword']").each( function() {
+	$(xml).filterNode('ows:Keyword').each( function() {
 		var kw = $(this).text();
 		GetCap.keywords.push(kw);
 	});
 
 
-	$(xml).find("[nodeName='ows:Operation']").each( function() {
+	$(xml).filterNode('ows:Operation').each( function() {
 		var op = $(this);
 		// NOTE: we are skipping DescribeSensor for now
 		if(op.attr('name') === 'GetObservation'){
 			// Could be a Post version of this url
-			var get = op.find("[nodeName='ows:Get']");
+			var get = op.filterNode('ows:Get');
 			GetCap.sos_obs_url = get.attr('xlink:href');
 			// Try and get responseFormat here to save time
 			// But the NDBC DIF is missing this section which is an error.
-			var param = op.find("[name='responseFormat']");
-			param.find("[nodeName='ows:Value']").each( function() {
+			var param = op.filterNode('responseFormat');
+			param.filterNode('ows:Value').each( function() {
 				var rf = $(this).text();
 				GetCap.response_formats.push(rf);
 			}); // end each responseFormat
 		} // end if GetObservation
 		if(op.attr('name') === 'DescribeSensor'){
 			// Could be a Post version of this url
-			var get = op.find("[nodeName='ows:Get']");
+			var get = op.filterNode('ows:Get');
 			GetCap.sos_describe_url = get.attr('xlink:href');
 			// Unlike responseFormat outputFormat only appears in the Operations Section and not in the OfferingList
 			// Not sure what the spec is
 			var param = op.find("[name='outputFormat']");
-			param.find("[nodeName='ows:Value']").each( function() {
+			param.filterNode('ows:Value').each( function() {
 				var rf = $(this).text();
 				GetCap.output_formats.push(rf);
 				if(rf.match(/^text\/xml/)){
@@ -183,19 +199,15 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 
 	// NS vs. DEF_NS namespace differences (sos:ObservationOffering vs ObservationOffering)
 	// so we set up find() strings for both cases
-	var the_nodeName = (namespace === 'NS') ? 'sos:ObservationOffering' : 'ObservationOffering';
-	var offeringNodeName = '"[nodeName=\'' + the_nodeName + '\']"';
-	the_nodeName = (namespace === 'NS') ? 'sos:procedure' : 'procedure';
-	var procedureNodeName = '"[nodeName=\'' + the_nodeName + '\']"';
-	the_nodeName = (namespace === 'NS') ? 'sos:responseFormat' : 'responseFormat';
-	var responseFormatNodeName = '"[nodeName=\'' + the_nodeName + '\']"';
-	the_nodeName = (namespace === 'NS') ? 'sos:observedProperty' : 'observedProperty';
-	var observedPropertyNodeName = '"[nodeName=\'' + the_nodeName + '\']"';
+	var offeringNodeName = (namespace === 'NS') ? 'sos:ObservationOffering' : 'ObservationOffering';
+	var procedureNodeName = (namespace === 'NS') ? 'sos:procedure' : 'procedure';
+	var responseFormatNodeName = (namespace === 'NS') ? 'sos:responseFormat' : 'responseFormat';
+	var observedPropertyNodeName = (namespace === 'NS') ? 'sos:observedProperty' : 'observedProperty';
 
     //  collect a list of unique responseFormats in case 
     var unique_response_formats = {};
 
-	$(xml).find(offeringNodeName).each( function() {
+	$(xml).filterNode(offeringNodeName).each( function() {
 		var off_node = $(this);
 
 		var OfferingObj = new Offering();
@@ -206,7 +218,7 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 			return true;
 		}
 		OfferingObj.gml_id = gml_id;
-		var gml_name = off_node.find("[nodeName='gml:name']").text();
+		var gml_name = off_node.filterNode('gml:name').text();
 		// Java OOSTethys does not set gml_name
 		if(!gml_name){
 			gml_name = gml_id;
@@ -217,42 +229,42 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 			OfferingObj.shortName = gml_name;
 		}
 		OfferingObj.name = gml_name;
-		OfferingObj.description = off_node.find("[nodeName='gml:description']").text();
+		OfferingObj.description = off_node.filterNode('gml:description').text();
 		// Could there be multiple procedures?? Need to check this
 		// ALL offerings can have many
-		OfferingObj.procedure = off_node.find(procedureNodeName).attr('xlink:href');
+		OfferingObj.procedure = off_node.filterNode(procedureNodeName).attr('xlink:href');
 
 		// There is a problem with the NDBC DIF SOS (and the software many installed)
 		// No Parameter list for responseFormat AllowedValues
 		if( GetCap.response_formats.length == 0){
             // if we didn't get response formats from GetCap Operations section try and get list from OfferingList
-			off_node.find(responseFormatNodeName).each( function() {
+			off_node.filterNode(responseFormatNodeName).each( function() {
 				var rf = $(this).text();
                 unique_response_formats[rf] = 1;
 			}); // end foreach responseFormat
 		} // end if response_formats.lenght == 0
 
-		var pos = off_node.find("[nodeName='gml:upperCorner']").text().split(' ');
+		var pos = off_node.filterNode('gml:upperCorner').text().split(' ');
 		OfferingObj.ulat = pos.shift();
 		OfferingObj.ulon = pos.shift();
-		pos = off_node.find("[nodeName='gml:lowerCorner']").text().split(' ');
+		pos = off_node.filterNode('gml:lowerCorner').text().split(' ');
 		OfferingObj.llat = pos.shift();
 		OfferingObj.llon = pos.shift();
 		// Time positions
 		OfferingObj.begin_time = '';
 		OfferingObj.end_time = '';
-		var time_node = off_node.find("[nodeName='gml:beginPosition']");
+		var time_node = off_node.filterNode('gml:beginPosition');
 		OfferingObj.begin_time = time_node.text();
 		if(!OfferingObj.begin_time){
 			OfferingObj.begin_time = time_node.attr('indeterminatePosition');
 		}
-		time_node = off_node.find("[nodeName='gml:endPosition']");
+		time_node = off_node.filterNode('gml:endPosition');
 		OfferingObj.end_time = time_node.text();
 		if(!OfferingObj.end_time){
 			OfferingObj.end_time = time_node.attr('indeterminatePosition');
 		}
 
-		off_node.find(observedPropertyNodeName).each( function() {
+		off_node.filterNode(observedPropertyNodeName).each( function() {
 			var prop = $(this).attr('xlink:href');
 			OfferingObj.properties.push(prop);
 		}); // end find each observedProperty
