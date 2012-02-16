@@ -3,6 +3,23 @@
 // Date:   Feb. 2011
 // Describption: Use JQuery to parse OGC Sensor Observation Service GetObservation response XML in both SWE and IOOS DIF formats
 // Requires:  jQuery 1.5 http://code.jquery.com/jquery-1.5.min.js
+// Tested with:  jQuery 1.6.1 http://code.jquery.com/jquery-1.6.1.min.js
+// Tested with:  jQuery 1.7.1 http://code.jquery.com/jquery-1.7.1.min.js
+//
+// Wed Feb 15 12:34:15 EST 2012
+// Updated to jQuery 1.7.x via the following plugin function filterNode() which replaces [nodeName...] syntax
+// for finding node names with namespace prefixes.  This also supposedly improves performance greatly and is backward compatible.
+// $(xml).find("[nodeName='ows:Title']").text(); now
+// $(xml).filterNode('ows:Title').text();
+// For more details see:
+// http://www.steveworkman.com/html5-2/javascript/2011/improving-javascript-xml-node-finding-performance-by-2000/
+//
+//////////////////////////
+jQuery.fn.filterNode = function(name) {
+    return this.find('*').filter(function() {
+        return this.nodeName === name;
+     });
+};
 //////////////////////////
 // in all these calls xml refers to a DOM object created by jQuery from the Ajax retrieved XML document.
 function SOSObservation(xml)
@@ -78,11 +95,14 @@ function parseMetadataObs(xml, type)
 	md.observedProperties = [];
 	var arr = [];
 
-	md.description = $(xml).find("[nodeName='gml:description']:first").text();
-	md.name = $(xml).find("[nodeName='gml:name']:first").text();
+	//md.description = $(xml).find('gml:description:first').text();
+    // THIS WORKS
+	md.description = $(xml).filterNode('gml:description').first().text();
 
-	var lower = $(xml).find("[nodeName='gml:lowerCorner']:last").text();
-	var upper = $(xml).find("[nodeName='gml:upperCorner']:last").text();
+	md.name = $(xml).filterNode('gml:name').first().text();
+
+	var lower = $(xml).filterNode('gml:lowerCorner').last().text();
+	var upper = $(xml).filterNode('gml:upperCorner').last().text();
 	arr = lower.split(' ');
 	md.llat = arr.shift();
 	md.llon = arr.shift();
@@ -90,32 +110,31 @@ function parseMetadataObs(xml, type)
 	md.ulat = arr.shift();
 	md.ulon = arr.shift();
 
-	md.start_time = $(xml).find("[nodeName='gml:beginPosition']").text();
-	md.end_time = $(xml).find("[nodeName='gml:endPosition']").text();
+	md.start_time = $(xml).filterNode('gml:beginPosition').text();
+	md.end_time = $(xml).filterNode('gml:endPosition').text();
 	if(! md.start_time){ // SWE latest,i.e. one time uses TimeInstant
-		md.start_time = $(xml).find("[nodeName='gml:TimeInstant']").text();
-		md.end_time = $(xml).find("[nodeName='gml:TimeInstant']").text();
+		md.start_time = $(xml).filterNode('gml:TimeInstant').text();
+		md.end_time = $(xml).filterNode('gml:TimeInstant').text();
 	}
 
 	// observedProperties
 	if(type === 'DIF'){
-		var op = $(xml).find("[nodeName='om:observedProperty']").attr('xlink:href');
+		var op = $(xml).filterNode('om:observedProperty').attr('xlink:href');
 		if(op){
 			md.observedProperties.push(op);
 		}
 	}
 	if(type === 'SWE'){
-		var prop = $(xml).find("[nodeName='om:observedProperty']");
-		prop.find("[nodeName='swe:component']").each(function() {
+		var prop = $(xml).filterNode('om:observedProperty');
+		prop.filterNode('swe:component').each(function() {
 			var op = $(this).attr('xlink:href');
 			if(op){
 				md.observedProperties.push(op);
 			}
 		});
 	}
-
 	// find platform info
-	var proc = $(xml).find("[nodeName='om:procedure']");
+	var proc = $(xml).filterNode('om:procedure');
 	if(type === 'SWE'){
 		var sta = new Object;
 		sta.stationId = proc.attr('xlink:href');
@@ -133,13 +152,13 @@ if(type === 'DIF'){
 	// collect gml:id for each Point Observation returned from om:results, i.e. gml:id's which had observations
 	// This processDef attribute maps back to the om:procedure gml:id's for the station
 	// The WorkFlow All file, had 13 station's in om:procedure, but only 11 on om:results with actual readings
-	$(xml).find("[nodeName='ioos:Composite']").each(function() {
+	$(xml).filterNode('ioos:Composite').each(function() {
 		var comp = $(this);
 		var id = comp.attr('gml:id');
 		if(! id.match(/Point$/i)){
 			return true;
 		}
-		var station_gmlid = comp.find("[nodeName='ioos:CompositeContext']").attr('processDef');
+		var station_gmlid = comp.filterNode('ioos:CompositeContext').attr('processDef');
 		// remove leading #
 		station_gmlid = station_gmlid.substr(1);
 		station_gmlids[station_gmlid] = 1;
@@ -149,8 +168,8 @@ if(type === 'DIF'){
 
 	// O.K. There is an extra CompositeContext surrounding all the station info within om:procedure
 	// so find the first top, then loop with find
-	var ccTop = proc.find("[nodeName='ioos:CompositeContext']");
-	ccTop.find("[nodeName='ioos:CompositeContext']").each(function(i) {
+	var ccTop = proc.filterNode('ioos:CompositeContext');
+	ccTop.filterNode('ioos:CompositeContext').each(function(i) {
 		var CC = $(this);
 		// we only want the first of the pair of CompositeContext's
 		if( ! ( i % 2 == 0) ){
@@ -161,7 +180,7 @@ if(type === 'DIF'){
 		for(gmlid in station_gmlids){
 			// O.K. we've found a station which is also in om:results
 			if(gmlid === station_gml_id){
-				CC.find("[nodeName='ioos:StationName']").each(function() {
+				CC.filterNode('ioos:StationName').each(function() {
 					var sta = new Object;
 					var node = $(this);
 					sta.gmlId = station_gml_id;
@@ -179,7 +198,7 @@ if(type === 'DIF'){
 							return true;
 						}
 						if(tag == 'gml:Point'){
-							arr = $(this).find("[nodeName='gml:pos']").text().split(' ');
+							arr = $(this).filterNode('gml:pos').text().split(' ');
 							sta.lat = arr.shift();
 							sta.lon = arr.shift();
 							return true;
@@ -199,32 +218,33 @@ if(type === 'DIF'){
 	return md;
 }
 
-// parse OOSTethys SWE GetObservation response. Uses jQuerys find("[nodeName='xxxx']).each method.
+// parse OOSTethys SWE GetObservation response. Uses jQuery's filterNode() plugin filterNode('xxxx']).each method.
 // returns SOSGetObs object with two property arrays. fields[] and observations[]
 // fld Object { name: xxx  , uom: xxx, definition: xxx }
 // any of these except name could be null
 // obs Object { fld1: xxx  , fld2: xxx, fld3: xxx } same number of properties as the number of fields
+// HERE
 function parseSWEObs(xml)
 {
 	SOSGetObs = new Object;
 	var flds = [];
 	var obs = [];
 
-	$(xml).find("[nodeName='om:result']").each(function() {
+	$(xml).filterNode('om:result').each(function() {
 	// Bizzare But get(0) makes this work
 		//var jj = $(this).get(0).tagName;
 		var result = $(this);
-		result.find("[nodeName='swe:field']").each(function() {
+		result.filterNode('swe:field').each(function() {
 			var fldObj = new Object;
 			var fld = $(this);
 			var name = fld.attr("name");
-			var uom = fld.find("[nodeName='swe:uom']").attr("code");
+			var uom = fld.filterNode('swe:uom').attr("code");
 			var def = '';
 			// OOSTethys uses swe:Time vs. swe:Quanity for time definition
 			if(name.match(/time/i)){
-				def = fld.find("[nodeName='swe:Time']").attr("definition");
+				def = fld.filterNode('swe:Time').attr("definition");
 			}else{
-				def = fld.find("[nodeName='swe:Quantity']").attr("definition");
+				def = fld.filterNode('swe:Quantity').attr("definition");
 			}
 			if(name.match(/^observedProperty/i)){
 				// OOSTethys SWE uses observerdProperty1, 2, etc.  Need the Quanity definition attribute
@@ -236,8 +256,8 @@ function parseSWEObs(xml)
 			fldObj.definition = def;
 			flds.push(fldObj);
 		}); // end each field
-		var encode = result.find("[nodeName='swe:encoding']");
-		var node = encode.find("[nodeName='swe:TextBlock']");
+		var encode = result.filterNode('swe:encoding');
+		var node = encode.filterNode('swe:TextBlock');
 		var block_sep = '';
 		var token_sep = '';
 		if(node){
@@ -245,7 +265,7 @@ function parseSWEObs(xml)
 			token_sep = node.attr("tokenSeparator");
 		}
 
-		var values = result.find("[nodeName='swe:values']").text();
+		var values = result.filterNode('swe:values').text();
 		var tuples = values.split(block_sep);
 		for(var i = 0; i < tuples.length; i++){
 			var vals = tuples[i].split(token_sep);
@@ -274,12 +294,12 @@ function parseDIFObs(xml, platforms)
 	var fnd_fld_names = false;
 
 	// DIF has one observedProperty where the definition is in the xlink.href
-	var definition = $(xml).find("[nodeName='om:observedProperty']").attr('xlink:href');
+	var definition = $(xml).filterNode('om:observedProperty').attr('xlink:href');
 
 
 	var current_station_info = '';
 	var current_station_idx = -1;
-	$(xml).find("[nodeName='ioos:Composite']").each(function() {
+	$(xml).filterNode('ioos:Composite').each(function() {
 		var comp = $(this);
 		// This is the only real hack.  I.e. The only way I can find to differentiate the significant Composite is via the gml:id.
 		// NEED to find a more programmatic marker
@@ -290,8 +310,8 @@ function parseDIFObs(xml, platforms)
 
 		// DIF does not have a clear station or platform name in the results
 		// Could try using platforms from the metadata parse
-		var time = comp.find("[nodeName='gml:timePosition']").text();
-		var station_info = comp.find("[nodeName='ioos:CompositeContext']").attr('processDef');
+		var time = comp.filterNode('gml:timePosition').text();
+		var station_info = comp.filterNode('ioos:CompositeContext').attr('processDef');
 		if(station_info !== current_station_info){
 			current_station_info = station_info;
 			current_station_idx++;
@@ -310,7 +330,7 @@ function parseDIFObs(xml, platforms)
 			fldObj.uom = null;
 			fldObj.definition = null;
 			flds.push(fldObj);
-			comp.find("[nodeName='ioos:Quantity']").each(function() {
+			comp.filterNode('ioos:Quantity').each(function() {
 				var fldObj = new Object;
 				var quant = $(this);
 				fldObj.name = quant.attr('name');
@@ -330,7 +350,7 @@ function parseDIFObs(xml, platforms)
 		obsObj.Time = time;
 		// we need to re-use var time then use i to access flds[i+1].name
 		// if we added stationId need i+2
-		comp.find("[nodeName='ioos:Quantity']").each(function(i) {
+		comp.filterNode('ioos:Quantity').each(function(i) {
 			var quant = $(this);
 			var val = quant.text();
 			var fld_name = flds[i+2].name;
