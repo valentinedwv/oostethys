@@ -21,6 +21,7 @@ jQuery.fn.filterNode = function(name) {
         return this.nodeName === name;
      });
 };
+
 //////////////////////////
 // in all these calls xml refers to a DOM object created by jQuery from the Ajax retrieved XML document.
 function SOSCapabilities(xml)
@@ -141,6 +142,8 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 	GetCap.offerings = [];
 	GetCap.response_formats = [];
 	GetCap.output_formats = [];
+    // CO-OPS only waterlevel datums via speical parameter result=xxx
+	GetCap.result_datums = [];
     GetCap.xml_response_format = '';
     GetCap.xml_output_format = '';
 
@@ -167,19 +170,33 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 
 	$(xml).filterNode('ows:Operation').each( function() {
 		var op = $(this);
-		// NOTE: we are skipping DescribeSensor for now
 		if(op.attr('name') === 'GetObservation'){
 			// Could be a Post version of this url
 			var get = op.filterNode('ows:Get');
 			GetCap.sos_obs_url = get.attr('xlink:href');
 			// Try and get responseFormat here to save time
 			// But the NDBC DIF is missing this section which is an error.
-			var param = op.filterNode('responseFormat');
-			param.filterNode('ows:Value').each( function() {
-				var rf = $(this).text();
-				GetCap.response_formats.push(rf);
-			}); // end each responseFormat
+            //  Also CO-OPS has some special GetObs parameters, result contain water level datums
+			op.filterNode('ows:Parameter').each(function(){
+			    var param = $(this);
+			    var param_name = param.attr('name');
+
+                if(param_name == 'responseFormat'){
+			        param.filterNode('ows:Value').each( function() {
+				        var param_val = $(this).text();
+        				GetCap.response_formats.push(param_val);
+                    });
+                }
+                if(param_name == 'result'){
+			        param.filterNode('ows:Value').each( function() {
+				        var param_val = $(this).text();
+        				GetCap.result_datums.push(param_val);
+                    });
+                }
+            });
+
 		} // end if GetObservation
+        ////////////////////
 		if(op.attr('name') === 'DescribeSensor'){
 			// Could be a Post version of this url
 			var get = op.filterNode('ows:Get');
@@ -188,6 +205,7 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 			// Not sure what the spec is
 			var param = op.find("[name='outputFormat']");
 			param.filterNode('ows:Value').each( function() {
+                alert("HERE");
 				var rf = $(this).text();
 				GetCap.output_formats.push(rf);
 				if(rf.match(/^text\/xml/)){
@@ -281,7 +299,7 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
     // now check  for an xml response format to use as the default href when formulating GetObs requests
 	for(var i = 0; i < GetCap.response_formats.length; i++){
         var rf = GetCap.response_formats[i];
-        if(rf.match(/\/xml$/)){   // this get text/xml and application/xml
+        if(rf.match(/^text\/xml/)){
         	GetCap.xml_response_format = rf;
             break;
         }
@@ -291,7 +309,7 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
         GetCap.xml_response_format = GetCap.response_formats[0];
     }
     // if still none it's not a GetCap XML file
-    // HERE need a sanity check
+    // need a sanity check
     if( ! GetCap.xml_response_format){
         GetCap.xml_response_format = 'NONE_FOUND';
     }
