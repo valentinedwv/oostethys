@@ -205,7 +205,6 @@ SOSCapabilities.prototype.parseGetCap = function(xml, namespace)
 			// Not sure what the spec is
 			var param = op.find("[name='outputFormat']");
 			param.filterNode('ows:Value').each( function() {
-                alert("HERE");
 				var rf = $(this).text();
 				GetCap.output_formats.push(rf);
 				if(rf.match(/^text\/xml/)){
